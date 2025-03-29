@@ -19,6 +19,8 @@ public class TempPlayerMove : MonoBehaviour
     public float maxSpeed = 5f;                  // 최대 이동 속도
     public float rotationSpeed = 1000f; // 회전 속도 제한 (degrees per second)
 
+    public float RigidbodySpeed = 0f;
+
 
     private Camera mainCamera;
 
@@ -33,7 +35,7 @@ public class TempPlayerMove : MonoBehaviour
     void FixedUpdate()
     {
         HandleMovement();
-        //LimitSpeed();
+        CalculateSpeed();
     }
 
     void Update()
@@ -72,18 +74,6 @@ public class TempPlayerMove : MonoBehaviour
         }
     }
 
-    void LimitSpeed()
-    {
-        Vector3 horizontalVelocity = playerRB.linearVelocity;
-        horizontalVelocity.y = 0f;
-
-        if (horizontalVelocity.magnitude > maxSpeed)
-        {
-            Vector3 limitedVelocity = horizontalVelocity.normalized * maxSpeed;
-            playerRB.linearVelocity = new Vector3(limitedVelocity.x, playerRB.linearVelocity.y, limitedVelocity.z);
-        }
-    }
-
     void HandleDash()
     {
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= lastDashTime + spaceCooltime)
@@ -91,5 +81,10 @@ public class TempPlayerMove : MonoBehaviour
             playerRB.AddForce(playerTransform.forward * dashForce, ForceMode.Impulse);
             lastDashTime = Time.time;
         }
+    }
+
+    private void CalculateSpeed()
+    {
+        RigidbodySpeed = playerRB.linearVelocity.magnitude;
     }
 }
