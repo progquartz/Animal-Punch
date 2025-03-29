@@ -1,7 +1,7 @@
 using Mono.Cecil.Cil;
 using UnityEngine;
 
-public class TempPlayerMove : MonoBehaviour
+public class PlayerPhysics : MonoBehaviour
 {
 
     public LayerMask groundLayer;   // Ground 레이어 지정
@@ -29,6 +29,9 @@ public class TempPlayerMove : MonoBehaviour
 
     public float boosterAcceleration = 2f;
     public float maxBoostForce = 5f;
+
+    [Header("충돌 부분")]
+    private PlayerCollision playerCollision;
     
     
 
@@ -41,6 +44,7 @@ public class TempPlayerMove : MonoBehaviour
     {
         mainCamera = Camera.main;
         playerRB = playerTransform.GetComponent<Rigidbody>();
+        playerCollision = playerTransform.GetComponent<PlayerCollision>();
         stabilityChecker = GetComponent<PlayerStabilityChecker>();
         cameraOffset = cameraTransform.localPosition;
     }

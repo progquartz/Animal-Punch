@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpeedUI : MonoBehaviour
 {
-    [SerializeField] private TempPlayerMove playerMove;
+    [SerializeField] private PlayerPhysics playerMove;
     [SerializeField] private TMP_Text speedText;
 
     private void Update()
