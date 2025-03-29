@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class PlayerStabilityChecker : MonoBehaviour
 {
-    public Rigidbody targetRigidbody;
     public Transform referenceTransform;
 
     // 최대 허용 각도 변화 (Y축만 체크)
@@ -21,7 +20,7 @@ public class PlayerStabilityChecker : MonoBehaviour
 
     void Start()
     {
-        if (targetRigidbody == null || referenceTransform == null)
+        if (referenceTransform == null)
         {
             Debug.LogError("Rigidbody와 Reference Transform을 설정해주세요.");
             enabled = false;
@@ -31,8 +30,12 @@ public class PlayerStabilityChecker : MonoBehaviour
         ResetStability();
     }
 
-    void Update()
+    public bool CheckBoostEnabled(Transform reference)
     {
+        if(referenceTransform == null)
+        {
+            referenceTransform = transform;
+        }
         float currentYAngle = NormalizeAngle(referenceTransform.eulerAngles.y);
         float currentTime = Time.time;
 
@@ -45,6 +48,7 @@ public class PlayerStabilityChecker : MonoBehaviour
         UpdateMinMaxAngles();
 
         boostEnabled = (maxYAngle - minYAngle) <= maxAllowedAngle;
+        return boostEnabled;
         //Debug.Log(boostEnabled);
     }
 

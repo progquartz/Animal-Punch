@@ -3842,10 +3842,12 @@ MonoBehaviour:
   playerTransform: {fileID: 523480152}
   dashForce: 1500
   spaceCooltime: 0.1
-  moveForce: 1500
-  maxSpeed: 8
-  rotationSpeed: 1000
   RigidbodySpeed: 0
+  rotationSpeed: 1000
+  moveForce: 1500
+  currentBoostForce: 0
+  boosterAcceleration: 500
+  maxBoostForce: 1500
 --- !u!4 &852863485
 Transform:
   m_ObjectHideFlags: 0
@@ -3875,7 +3877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763ebc545f0727440a57a7c7884b01f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetRigidbody: {fileID: 523480153}
   referenceTransform: {fileID: 523480152}
   maxAllowedAngle: 30
   checkDuration: 0.3
