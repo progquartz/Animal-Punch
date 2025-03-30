@@ -36,9 +36,9 @@ public class PlayerCollision : MonoBehaviour
                 Vector3 velocityChanged = playerRB.linearVelocity - previousVelocity;
                 float impulseMagnitude = velocityChanged.magnitude;
 
-                Debug.Log($"충격이 일어났으며, 그 충격량은 {impulseMagnitude}입니다.");
+                //Debug.Log($"충격이 일어났으며, 그 충격량은 {impulseMagnitude}입니다.");
                 float impulseDamage = owner.CalculateImpulseDamage(impulseMagnitude);
-                interactable.HandleCollision(playerTransform.gameObject, impulseDamage);
+                interactable.HandleCollision(collision, playerTransform.gameObject, impulseDamage);
             }
         }
     }

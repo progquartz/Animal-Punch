@@ -2691,8 +2691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc263cc5b085aa548b9ab6843066e5e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 523480152}
-  rb: {fileID: 0}
 --- !u!1001 &527314226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3513,6 +3511,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Buffalo_LOD3
       objectReference: {fileID: 0}
+    - target: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4420043944662504168, guid: a717995d747bfb04f9706c954a191cca, type: 3}
     m_RemovedGameObjects: []
@@ -3520,10 +3522,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 773325474}
+      addedObject: {fileID: 773325475}
     - targetCorrespondingSourceObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 773325475}
+      addedObject: {fileID: 773325474}
     - targetCorrespondingSourceObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 773325478}
@@ -3579,15 +3581,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsObjectHasHealth: 1
   stat:
-    ActorName: 
+    ActorName: Buffalo
     ModelData: {fileID: 0}
     IsDead: 0
-    HP: 0
-    MaxHP: 0
+    HP: 10
+    MaxHP: 10
     Speed: 0
-    Mass: 0
-    Drag: 0
-    AngularDrag: 0
+    Mass: 10
+    MassOnDead: 0.3
+    Drag: 5
+    DragOnDead: 0
+    AngularDrag: 1
+    AngularDragOnDead: 0.05
 --- !u!65 &773325478
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4062,6 +4067,11 @@ MonoBehaviour:
     AdditionForceRatio: 300
     AdditionForceMax: 1500
     RotationSpeed: 1000
+    CollisionDamageBase: 5
+    CollisionDamageAdditional: 5
+    CollisionImpulseDamageBase: 10
+    CollisionImpulseStandard: 100
+    CollisionImpulseDamageRatio: 1.2
   playerPhysics: {fileID: 852863487}
 --- !u!1 &854501053 stripped
 GameObject:
@@ -4823,8 +4833,11 @@ MonoBehaviour:
     MaxHP: 0
     Speed: 0
     Mass: 0
+    MassOnDead: 0
     Drag: 0
+    DragOnDead: 0
     AngularDrag: 0
+    AngularDragOnDead: 0
 --- !u!136 &967747981
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8618,8 +8631,11 @@ MonoBehaviour:
     MaxHP: 0
     Speed: 0
     Mass: 0
+    MassOnDead: 0
     Drag: 0
+    DragOnDead: 0
     AngularDrag: 0
+    AngularDragOnDead: 0
 --- !u!136 &1572160727
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12175,8 +12191,11 @@ MonoBehaviour:
     MaxHP: 0
     Speed: 0
     Mass: 0
+    MassOnDead: 0
     Drag: 0
+    DragOnDead: 0
     AngularDrag: 0
+    AngularDragOnDead: 0
 --- !u!136 &2043329399
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12355,8 +12374,11 @@ MonoBehaviour:
     MaxHP: 0
     Speed: 0
     Mass: 0
+    MassOnDead: 0
     Drag: 0
+    DragOnDead: 0
     AngularDrag: 0
+    AngularDragOnDead: 0
 --- !u!136 &2061228534
 CapsuleCollider:
   m_ObjectHideFlags: 0

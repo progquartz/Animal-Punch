@@ -11,7 +11,7 @@ public class PlayerPhysics : MonoBehaviour
     private Vector3 cameraOffset;
 
     [Header("물리 부분")]
-    public Transform playerTransform { get; private set; }
+    public Transform playerTransform;
     public Rigidbody playerRB { get; private set; }
     
     private PlayerStabilityChecker stabilityChecker;
