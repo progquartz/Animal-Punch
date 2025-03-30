@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class InteractableObject : MonoBehaviour
+public class InteractableActor : MonoBehaviour
 {
     public bool IsObjectHasHealth = false;
+    public ActorsStat stat;
 
 
     private Rigidbody rb;
@@ -19,13 +20,13 @@ public class InteractableObject : MonoBehaviour
     {
         if (collisionObject.CompareTag("Player"))
         {
-            if (!IsObjectHasHealth)
+            if (IsObjectHasHealth)
             {
-                HandleCollisionOnNoneHealthCondition(collisionObject, impulseMagnitde);
+                HandleCollisionOnHealthCondition(collisionObject, impulseMagnitde);
             }
             else
             {
-                HandleCollisionOnHealthCondition(collisionObject, impulseMagnitde);
+                HandleCollisionOnNoneHealthCondition(collisionObject, impulseMagnitde);
             }
         }
     }

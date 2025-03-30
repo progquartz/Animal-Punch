@@ -3505,6 +3505,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3314979193619763069, guid: a717995d747bfb04f9706c954a191cca, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0f1f41bdadf4a4440928248c8226004f, type: 2}
     - target: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
       propertyPath: m_Name
       value: Buffalo_LOD3
@@ -3574,6 +3578,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsObjectHasHealth: 1
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 0
+    MaxHP: 0
+    Speed: 0
+    Mass: 0
+    Drag: 0
+    AngularDrag: 0
 --- !u!65 &773325478
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3967,8 +3981,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 852863485}
-  - component: {fileID: 852863486}
+  - component: {fileID: 852863488}
   - component: {fileID: 852863487}
+  - component: {fileID: 852863486}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4025,14 +4040,29 @@ MonoBehaviour:
     m_Bits: 8
   cameraTransform: {fileID: 676020109}
   playerTransform: {fileID: 523480152}
-  dashForce: 1500
-  spaceCooltime: 0.1
-  RigidbodySpeed: 0
-  rotationSpeed: 1000
-  moveForce: 1500
-  currentBoostForce: 0
-  boosterAcceleration: 300
-  maxBoostForce: 1500
+--- !u!114 &852863488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852863483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914f27638702b2f40981e764bc78fccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stat:
+    RigidbodySpeed: 0
+    CurrentAdditionForce: 0
+    LastDashTime: 0
+    MoveForce: 1500
+    BoostForce: 1500
+    BoostCooltime: 0.1
+    AdditionForceRatio: 300
+    AdditionForceMax: 1500
+    RotationSpeed: 1000
+  playerPhysics: {fileID: 852863487}
 --- !u!1 &854501053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4527349828574064711, guid: ed0e965fd34f2b241ae648dfb47eca4a, type: 3}
@@ -4785,6 +4815,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsObjectHasHealth: 0
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 0
+    MaxHP: 0
+    Speed: 0
+    Mass: 0
+    Drag: 0
+    AngularDrag: 0
 --- !u!136 &967747981
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8570,6 +8610,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsObjectHasHealth: 0
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 0
+    MaxHP: 0
+    Speed: 0
+    Mass: 0
+    Drag: 0
+    AngularDrag: 0
 --- !u!136 &1572160727
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12117,6 +12167,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsObjectHasHealth: 0
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 0
+    MaxHP: 0
+    Speed: 0
+    Mass: 0
+    Drag: 0
+    AngularDrag: 0
 --- !u!136 &2043329399
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12287,6 +12347,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsObjectHasHealth: 0
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 0
+    MaxHP: 0
+    Speed: 0
+    Mass: 0
+    Drag: 0
+    AngularDrag: 0
 --- !u!136 &2061228534
 CapsuleCollider:
   m_ObjectHideFlags: 0

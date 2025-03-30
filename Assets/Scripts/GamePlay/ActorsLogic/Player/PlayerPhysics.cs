@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
+    private PlayerStat stat;
 
     public LayerMask groundLayer;   // Ground 레이어 지정
 
@@ -12,36 +13,17 @@ public class PlayerPhysics : MonoBehaviour
     [Header("물리 부분")]
     public Transform playerTransform;
     private Rigidbody playerRB;
-
-    [Header("대쉬 부문")]
-    public float dashForce = 15f;               // 앞으로 튀어나갈 힘
-    public float spaceCooltime = 2f;            // Space 키 쿨타임
-
-    private float lastDashTime;
-
-    [Header("이동 부문")]
-    public float RigidbodySpeed = 0f; // 속도
-    public float rotationSpeed = 1000f;          // 최대 회전 속도.
+    
     private PlayerStabilityChecker stabilityChecker;
-
-    public float moveForce = 10f;                // 이동할 때 가해지는 힘
-    public float currentBoostForce = 0f;       // 현재 가속도
-
-    public float boosterAcceleration = 2f;
-    public float maxBoostForce = 5f;
 
     [Header("충돌 부분")]
     private PlayerCollision playerCollision;
-    
-    
-
-    
-
 
     private Camera mainCamera;
 
-    void Start()
+    public void Init(Player player)
     {
+        stat = player.stat;
         mainCamera = Camera.main;
         playerRB = playerTransform.GetComponent<Rigidbody>();
         playerCollision = playerTransform.GetComponent<PlayerCollision>();
@@ -73,19 +55,19 @@ public class PlayerPhysics : MonoBehaviour
     {
         if(!boostEnabled)
         {
-            currentBoostForce = 0f;
+            stat.CurrentAdditionForce = 0f;
         }
 
-        currentBoostForce += boosterAcceleration * Time.deltaTime;
-        if(currentBoostForce > maxBoostForce)
+        stat.CurrentAdditionForce += stat.AdditionForceRatio * Time.deltaTime;
+        if(stat.CurrentAdditionForce > stat.AdditionForceMax)
         {
-            currentBoostForce = maxBoostForce;
+            stat.CurrentAdditionForce = stat.AdditionForceMax;
         }
-        return currentBoostForce;
+        return stat.CurrentAdditionForce;
     }
     void HandleMovement()
     {
-        playerRB.AddForce(playerTransform.forward * (moveForce + currentBoostForce), ForceMode.Force);
+        playerRB.AddForce(playerTransform.forward * (stat.MoveForce + stat.CurrentAdditionForce), ForceMode.Force);
     }
 
     void HandleRotation()
@@ -103,22 +85,22 @@ public class PlayerPhysics : MonoBehaviour
             if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, targetRotation, stat.RotationSpeed * Time.deltaTime);
             }
         }
     }
 
     void HandleDash()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= lastDashTime + spaceCooltime)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= stat.LastDashTime + stat.BoostCooltime)
         {
-            playerRB.AddForce(playerTransform.forward * dashForce, ForceMode.Impulse);
-            lastDashTime = Time.time;
+            playerRB.AddForce(playerTransform.forward * stat.BoostForce, ForceMode.Impulse);
+            stat.LastDashTime = Time.time;
         }
     }
 
     private void CalculateSpeed()
     {
-        RigidbodySpeed = playerRB.linearVelocity.magnitude;
+        stat.RigidbodySpeed = playerRB.linearVelocity.magnitude;
     }
 }

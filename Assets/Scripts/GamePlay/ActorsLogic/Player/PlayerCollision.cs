@@ -26,7 +26,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Interactable"))
         {
-            InteractableObject interactable = collision.gameObject.GetComponent<InteractableObject>();
+            InteractableActor interactable = collision.gameObject.GetComponent<InteractableActor>();
             if(interactable != null)
             {
                 // 충돌할 경우 속도가 줄어들기 때문에, 이를 기반으로 줄어든 속도 = 충격량으로 데미지 계산을 측정.
