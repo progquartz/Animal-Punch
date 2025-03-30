@@ -16,22 +16,22 @@ public class InteractableActor : MonoBehaviour
         objectCollider = GetComponent<Collider>();
     }
 
-    public void HandleCollision(GameObject collisionObject, float impulseMagnitde)
+    public void HandleCollision(GameObject collisionObject, float impulseDamage)
     {
         if (collisionObject.CompareTag("Player"))
         {
             if (IsObjectHasHealth)
             {
-                HandleCollisionOnHealthCondition(collisionObject, impulseMagnitde);
+                HandleCollisionOnHealthCondition(collisionObject, impulseDamage);
             }
             else
             {
-                HandleCollisionOnNoneHealthCondition(collisionObject, impulseMagnitde);
+                HandleCollisionOnNoneHealthCondition(collisionObject, impulseDamage);
             }
         }
     }
 
-    private void HandleCollisionOnNoneHealthCondition(GameObject collision, float impulseMagnitude)
+    private void HandleCollisionOnNoneHealthCondition(GameObject collision, float impulseDamage)
     {
         // Rigidbody의 모든 Constraints 해제
         rb.constraints = RigidbodyConstraints.None;
@@ -43,7 +43,7 @@ public class InteractableActor : MonoBehaviour
         }
     }
 
-    private void HandleCollisionOnHealthCondition(GameObject collision, float impulseMagnitude)
+    private void HandleCollisionOnHealthCondition(GameObject collision, float impulseDamage)
     {
         // 플레이어에게서 속도 받아오고
 

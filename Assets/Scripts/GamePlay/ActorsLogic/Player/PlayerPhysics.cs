@@ -11,8 +11,8 @@ public class PlayerPhysics : MonoBehaviour
     private Vector3 cameraOffset;
 
     [Header("물리 부분")]
-    public Transform playerTransform;
-    private Rigidbody playerRB;
+    public Transform playerTransform { get; private set; }
+    public Rigidbody playerRB { get; private set; }
     
     private PlayerStabilityChecker stabilityChecker;
 
@@ -27,14 +27,14 @@ public class PlayerPhysics : MonoBehaviour
         mainCamera = Camera.main;
         playerRB = playerTransform.GetComponent<Rigidbody>();
         playerCollision = playerTransform.GetComponent<PlayerCollision>();
+        playerCollision.Init(this);
         stabilityChecker = GetComponent<PlayerStabilityChecker>();
         cameraOffset = cameraTransform.localPosition;
     }
 
-
     void FixedUpdate()
     {
-        CalculateBoosterSpeed(stabilityChecker.CheckBoostEnabled(playerTransform));
+        CalculateAdditionalForce(stabilityChecker.CheckBoostEnabled(playerTransform));
         HandleMovement();
         CalculateSpeed();
     }
@@ -42,16 +42,27 @@ public class PlayerPhysics : MonoBehaviour
     void Update()
     {
         HandleRotation();
-        HandleDash();
+        HandleBoost();
+        UpdateCameraPosition();
+    }
 
-
+    /// <summary>
+    /// 카메라 위치 조정
+    /// </summary>
+    private void UpdateCameraPosition()
+    {
         if (cameraTransform != null)
         {
             cameraTransform.position = playerTransform.position + cameraOffset;
         }
     }
 
-    private float CalculateBoosterSpeed(bool boostEnabled)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="boostEnabled"></param>
+    /// <returns></returns>
+    private float CalculateAdditionalForce(bool boostEnabled)
     {
         if(!boostEnabled)
         {
@@ -90,7 +101,7 @@ public class PlayerPhysics : MonoBehaviour
         }
     }
 
-    void HandleDash()
+    void HandleBoost()
     {
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= stat.LastDashTime + stat.BoostCooltime)
         {
@@ -102,5 +113,13 @@ public class PlayerPhysics : MonoBehaviour
     private void CalculateSpeed()
     {
         stat.RigidbodySpeed = playerRB.linearVelocity.magnitude;
+    }
+
+    public float CalculateImpulseDamage(float impulseMagnitude)
+    {
+        float baseDamage = stat.CollisionDamageBase + stat.CollisionDamageAdditional;
+        float impulseDamage = stat.CollisionImpulseDamageBase * (impulseMagnitude / stat.CollisionImpulseStandard) * stat.CollisionImpulseDamageRatio;
+        Debug.Log($"데미지 = {baseDamage + impulseDamage} / 기본 데미지 = {baseDamage} / 충격량 데미지 = {impulseDamage}");
+        return baseDamage + impulseDamage;
     }
 }

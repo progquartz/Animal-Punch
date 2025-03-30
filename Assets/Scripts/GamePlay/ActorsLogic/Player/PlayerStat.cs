@@ -21,4 +21,11 @@ public class PlayerStat
 
     [Header("회전")]
     public float RotationSpeed = 1000f;             // 최대 회전 속도.
+
+    [Header("충격 데미지")]
+    public float CollisionDamageBase;               // 기본 데미지
+    public float CollisionDamageAdditional;         // 추가 데미지
+    public float CollisionImpulseDamageBase;
+    public float CollisionImpulseStandard;          // 기준 충격량 (1배)
+    public float CollisionImpulseDamageRatio;       // 충격량 비례 추가 데미지
 }
