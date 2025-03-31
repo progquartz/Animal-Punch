@@ -6,15 +6,16 @@ public class InteractableActor : MonoBehaviour
     public bool IsObjectHasHealth = false;
     public ActorsStat stat;
 
-
+    [SerializeField] private Transform ActorTransform;
     private Rigidbody rb;
+
     private Collider objectCollider;
     
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        objectCollider = GetComponent<Collider>();
+        rb = ActorTransform.GetComponent<Rigidbody>();
+        objectCollider = ActorTransform.transform.GetComponent<Collider>();
     }
 
     public void HandleCollision(Collision collision, GameObject collisionObject, float impulseDamage)
@@ -51,11 +52,13 @@ public class InteractableActor : MonoBehaviour
     private void HandleCollisionDamage(Collision collision, GameObject collisionObject, float impulseDamage)
     {
         bool isDead = stat.HandleDamage(impulseDamage);
-        if(isDead)
+        DamageTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
+        if (isDead)
         {
             HandleMassForceChange(collision);
             HandleShootingUp();
             HandleDeadOnRigidBody();
+            Spin();
         }
         else
         {
@@ -66,7 +69,7 @@ public class InteractableActor : MonoBehaviour
     private void HandleMassForceChange(Collision collision)
     {
         // 충돌 시 발생한 impulse. 충돌한 객체로부터 받아낸 impulse이기에 -1을 곱해야 함.
-        Vector3 impulse = collision.impulse / 30;
+        Vector3 impulse = -collision.impulse / 30;
 
         // 현재 운동 상태 초기화
         rb.linearVelocity = Vector3.zero;
@@ -103,5 +106,11 @@ public class InteractableActor : MonoBehaviour
             objectCollider.enabled = false;
         }
         Spin();
+    }
+
+    private void HandleDeath()
+    {
+        // 만약 연결해야 할 부분이 있거나 추가로 처리해야 하는 부분이 있다면 추후 처리.
+        Destroy(this.gameObject, 1f);
     }
 }

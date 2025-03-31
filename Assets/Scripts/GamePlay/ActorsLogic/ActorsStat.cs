@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ActorsStat
+public class ActorsStat : MonoBehaviour
 {
     [Header("¿Ã∏ß")]
     public string ActorName;
