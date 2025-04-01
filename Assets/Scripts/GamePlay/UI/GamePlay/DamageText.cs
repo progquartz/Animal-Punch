@@ -25,8 +25,8 @@ public class DamageText : MonoBehaviour
     {
         damageText.text = ((int)damage).ToString();
 
-        //Vector3 offset = new Vector3(Random.Range(-20f, 20f), Random.Range(20f, 40f), 0f);
-        Vector3 offset = new Vector3(0f,0f, 0f);
+        Vector3 offset = new Vector3(Random.Range(-20f, 20f), Random.Range(20f, 40f), 0f);
+        //Vector3 offset = new Vector3(0f,0f, 0f);
         rectTransform.position = Camera.main.WorldToScreenPoint(worldPosition);
         //rectTransform.position = worldPosition + offset;
 

@@ -3381,8 +3381,8 @@ MonoBehaviour:
   ActorName: 
   ModelData: {fileID: 0}
   IsDead: 0
-  HP: 10
-  MaxHP: 10
+  HP: 100
+  MaxHP: 100
   Speed: 0
   Mass: 10
   MassOnDead: 0.3

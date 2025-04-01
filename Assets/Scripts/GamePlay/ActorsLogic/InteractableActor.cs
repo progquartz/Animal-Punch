@@ -4,6 +4,11 @@ using UnityEngine;
 public class InteractableActor : MonoBehaviour
 {
     public bool IsObjectHasHealth = false;
+    private bool isActorAbleToHit = true;
+
+    public float DamageMinimalCooldown = 0.1f;
+    private float damageCooldown;
+    
     public ActorsStat stat;
 
     [SerializeField] private Transform ActorTransform;
@@ -16,6 +21,12 @@ public class InteractableActor : MonoBehaviour
     {
         rb = ActorTransform.GetComponent<Rigidbody>();
         objectCollider = ActorTransform.transform.GetComponent<Collider>();
+        damageCooldown = DamageMinimalCooldown;
+    }
+
+    private void Update()
+    {
+        UpdateCooldown();
     }
 
     public void HandleCollision(Collision collision, GameObject collisionObject, float impulseDamage)
@@ -51,18 +62,21 @@ public class InteractableActor : MonoBehaviour
 
     private void HandleCollisionDamage(Collision collision, GameObject collisionObject, float impulseDamage)
     {
-        bool isDead = stat.HandleDamage(impulseDamage);
-        DamageTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
-        if (isDead)
+        if(isActorAbleToHit)
         {
-            HandleMassForceChange(collision);
-            HandleShootingUp();
-            HandleDeadOnRigidBody();
-            Spin();
-        }
-        else
-        {
-            
+            bool isDead = stat.HandleDamage(impulseDamage);
+            DamageTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
+            if (isDead)
+            {
+                HandleMassForceChange(collision);
+                HandleShootingUp();
+                HandleDeadOnRigidBody();
+                Spin();
+            }
+            else
+            {
+
+            }
         }
     }
 
@@ -108,6 +122,19 @@ public class InteractableActor : MonoBehaviour
         Spin();
     }
 
+    private void UpdateCooldown()
+    {
+        if(!isActorAbleToHit)
+        {
+            if(damageCooldown < 0)
+            {
+                damageCooldown = DamageMinimalCooldown;
+                isActorAbleToHit = true;
+                return;
+            }
+            damageCooldown -= Time.deltaTime;
+        }
+    }
     private void HandleDeath()
     {
         // 만약 연결해야 할 부분이 있거나 추가로 처리해야 하는 부분이 있다면 추후 처리.

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageText: {fileID: 7139362376491798143}
-  moveUpDistance: 0
+  moveUpDistance: 50
   duration: 1
   scalePunch: 1
   scaleDuration: 0.2
