@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ActorsHpBar : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private ActorsStat targetStat;
+    [SerializeField] private Enemy target;
 
 
     public RectTransform HpBarTransform;
@@ -26,7 +26,7 @@ public class ActorsHpBar : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        float ratio = targetStat.HP / targetStat.MaxHP;
+        float ratio = target.stat.HP / target.stat.MaxHP;
         float newWidth = HpBackground.rect.width * ratio;
         HpBar.sizeDelta = new Vector2(newWidth, HpBar.sizeDelta.y);
     }

@@ -3366,7 +3366,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5997185500542308793, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
   m_PrefabInstance: {fileID: 515582350234665797}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &658352624
+--- !u!114 &658352627 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1177458322462546433, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
+  m_PrefabInstance: {fileID: 515582350234665797}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645418683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e72e45cea80cd14eb69c5ef63eed74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &658352628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3375,21 +3386,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 645418683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc83b830d2edf543b65c9ab06128655, type: 3}
+  m_Script: {fileID: 11500000, guid: ed0f681ce3cd14048b4eddd89dbdbc04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActorName: 
-  ModelData: {fileID: 0}
-  IsDead: 0
-  HP: 100
-  MaxHP: 100
-  Speed: 0
-  Mass: 10
-  MassOnDead: 0.3
-  Drag: 5
-  DragOnDead: 0
-  AngularDrag: 1
-  AngularDragOnDead: 0.05
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 100
+    MaxHP: 100
+    Speed: 0
+    Mass: 10
+    MassOnDead: 0.3
+    Drag: 5
+    DragOnDead: 0
+    AngularDrag: 1
+    AngularDragOnDead: 0.05
+  IsEnemyHasHealth: 1
+  actorPhysics: {fileID: 658352627}
 --- !u!1 &664150897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4707111641839099541, guid: 6d0e3890cc707974fbfe825098050938, type: 3}
@@ -5525,6 +5539,11 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!1 &1129753081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4083926577595866365, guid: 6e0e9790638fcce489916e53a097720a, type: 3}
+  m_PrefabInstance: {fileID: 2332876640724248602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1140370591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9192,7 +9211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  targetStat: {fileID: 658352624}
+  target: {fileID: 658352628}
   HpBarTransform: {fileID: 604010335}
   HpBar: {fileID: 844630006}
   HpBackground: {fileID: 1616819726}
@@ -12448,7 +12467,7 @@ PrefabInstance:
     - target: {fileID: 1177458322462546433, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
       propertyPath: stat
       value: 
-      objectReference: {fileID: 658352624}
+      objectReference: {fileID: 0}
     - target: {fileID: 1177458322462546433, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
       propertyPath: ActorTransform
       value: 
@@ -12528,8 +12547,8 @@ PrefabInstance:
       addedObject: {fileID: 844630006}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5669386935909236446, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 658352624}
+      insertIndex: 1
+      addedObject: {fileID: 658352628}
     - targetCorrespondingSourceObject: {fileID: 3242377555685094847, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1739647643}
@@ -12593,13 +12612,54 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4083926577595866365, guid: 6e0e9790638fcce489916e53a097720a, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2332876640724248607}
   m_SourcePrefab: {fileID: 100100000, guid: 6e0e9790638fcce489916e53a097720a, type: 3}
 --- !u!4 &2332876640724248603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1330672686760671662, guid: 6e0e9790638fcce489916e53a097720a, type: 3}
   m_PrefabInstance: {fileID: 2332876640724248602}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2332876640724248606 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 632103668293248905, guid: 6e0e9790638fcce489916e53a097720a, type: 3}
+  m_PrefabInstance: {fileID: 2332876640724248602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129753081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e72e45cea80cd14eb69c5ef63eed74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2332876640724248607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129753081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0f681ce3cd14048b4eddd89dbdbc04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stat:
+    ActorName: 
+    ModelData: {fileID: 0}
+    IsDead: 0
+    HP: 0
+    MaxHP: 0
+    Speed: 0
+    Mass: 0
+    MassOnDead: 0
+    Drag: 0
+    DragOnDead: 0
+    AngularDrag: 0
+    AngularDragOnDead: 0
+  IsEnemyHasHealth: 0
+  actorPhysics: {fileID: 2332876640724248606}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

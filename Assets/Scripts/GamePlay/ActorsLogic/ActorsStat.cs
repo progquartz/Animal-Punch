@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ActorsStat : MonoBehaviour
+public class ActorsStat
 {
     [Header("¿Ã∏ß")]
     public string ActorName;
@@ -44,6 +44,24 @@ public class ActorsStat : MonoBehaviour
             IsDead = true;
             return true;
         }
+    }
+
+    public void CopyData(ActorsStat target)
+    {
+        ActorName = target.ActorName;
+        ModelData = target.ModelData;
+
+        IsDead=target.IsDead;
+        HP = target.HP;
+        MaxHP = target.MaxHP;
+        Speed = target.Speed;
+        Mass = target.Mass;
+
+        MassOnDead = target.MassOnDead;
+        Drag = target.Drag;
+        DragOnDead = target.DragOnDead;
+        AngularDrag = target.AngularDrag;
+        AngularDragOnDead = target.AngularDragOnDead;
     }
 
 }
