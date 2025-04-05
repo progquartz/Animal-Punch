@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class Player : SingletonBehaviour<Player>
 {
-    public PlayerStat stat;
-
+    public PlayerStat Stat;
+    public Transform PlayerTransform;
     [SerializeField] private PlayerPhysics playerPhysics;
-
 
     private void Awake()
     {

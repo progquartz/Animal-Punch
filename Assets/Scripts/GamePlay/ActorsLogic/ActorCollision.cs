@@ -1,7 +1,7 @@
 using UnityEditorInternal;
 using UnityEngine;
 
-public class InteractableActor : MonoBehaviour
+public class ActorCollision : MonoBehaviour
 {
     private Enemy owner;
     private bool isActorAbleToHit = true;
@@ -9,15 +9,16 @@ public class InteractableActor : MonoBehaviour
     public float DamageMinimalCooldown = 0.1f;
     private float damageCooldown;
 
-    [SerializeField] private Transform ActorTransform;
+    private Transform ActorTransform;
     private Rigidbody rb;
 
     private Collider objectCollider;
     
 
-    public void Init(Enemy enemy)
+    public void Init(Enemy enemy, Transform actorTransform)
     {
         owner = enemy;
+        ActorTransform = actorTransform;
         rb = ActorTransform.GetComponent<Rigidbody>();
         objectCollider = ActorTransform.transform.GetComponent<Collider>();
         damageCooldown = DamageMinimalCooldown;
@@ -32,7 +33,7 @@ public class InteractableActor : MonoBehaviour
     {
         if (collisionObject.CompareTag("Player"))
         {
-            if (owner.IsEnemyHasHealth)
+            if (owner.stat.IsEnemyHasHealth)
             {
                 HandleCollisionOnHealthCondition(collision, collisionObject, impulseDamage);
             }

@@ -7,5 +7,20 @@ public enum ActorBehaviourType
 }
 public abstract class ActorBehaviour
 {
-    public abstract void Act();
+    public abstract void CheckCondition();
+    public abstract void BehaveOnUpdate();
+
+    public abstract void Init(Enemy owner);
+
+    public static ActorBehaviour GetActorBehaviour(ActorBehaviourType type)
+    {
+        switch (type)
+        {
+            case ActorBehaviourType.CowardBehaviour:
+                return new CowardBehaviour();
+            case ActorBehaviourType.AggressiveBehaviour:
+                return new AggressiveBehaviour();
+        }
+        return null;
+    }
 }

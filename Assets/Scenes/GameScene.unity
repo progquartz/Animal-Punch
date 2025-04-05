@@ -3389,11 +3389,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0f681ce3cd14048b4eddd89dbdbc04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetEnemyDataSO: {fileID: 11400000, guid: 5cf620f1b68617b489d02030204e08e0, type: 2}
   stat:
     ActorName: 
+    IsEnemyHasHealth: 0
+    IsEnemyHasCondition: 0
+    BehaviourType: 0
     ModelData: {fileID: 0}
     IsDead: 0
-    HP: 100
+    HP: 10
     MaxHP: 100
     Speed: 0
     Mass: 10
@@ -3402,8 +3406,8 @@ MonoBehaviour:
     DragOnDead: 0
     AngularDrag: 1
     AngularDragOnDead: 0.05
-  IsEnemyHasHealth: 1
   actorPhysics: {fileID: 658352627}
+  enemyTransform: {fileID: 658352620}
 --- !u!1 &664150897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4707111641839099541, guid: 6d0e3890cc707974fbfe825098050938, type: 3}
@@ -4142,7 +4146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914f27638702b2f40981e764bc78fccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat:
+  Stat:
     RigidbodySpeed: 0
     CurrentAdditionForce: 0
     LastDashTime: 0
@@ -4157,6 +4161,7 @@ MonoBehaviour:
     CollisionImpulseDamageBase: 10
     CollisionImpulseStandard: 100
     CollisionImpulseDamageRatio: 1.2
+  PlayerTransform: {fileID: 523480152}
   playerPhysics: {fileID: 852863487}
 --- !u!1 &854501053 stripped
 GameObject:
@@ -12645,8 +12650,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0f681ce3cd14048b4eddd89dbdbc04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetEnemyDataSO: {fileID: 11400000, guid: 3776b8211f9962c468d901b1208b8ad6, type: 2}
   stat:
     ActorName: 
+    IsEnemyHasHealth: 0
+    IsEnemyHasCondition: 0
+    BehaviourType: 0
     ModelData: {fileID: 0}
     IsDead: 0
     HP: 0
@@ -12658,8 +12667,8 @@ MonoBehaviour:
     DragOnDead: 0
     AngularDrag: 0
     AngularDragOnDead: 0
-  IsEnemyHasHealth: 0
   actorPhysics: {fileID: 2332876640724248606}
+  enemyTransform: {fileID: 2332876640724248603}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

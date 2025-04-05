@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
+    private Player owner;
     private PlayerStat stat;
 
     public LayerMask groundLayer;   // Ground 레이어 지정
@@ -10,7 +11,7 @@ public class PlayerPhysics : MonoBehaviour
     public Transform cameraTransform; // 카메라의 Transform
     private Vector3 cameraOffset;
 
-    [Header("물리 부분")]
+    [HideInInspector] 
     public Transform playerTransform;
     public Rigidbody playerRB { get; private set; }
     
@@ -23,8 +24,10 @@ public class PlayerPhysics : MonoBehaviour
 
     public void Init(Player player)
     {
-        stat = player.stat;
         mainCamera = Camera.main;
+        owner = player;
+        stat = player.Stat;
+        playerTransform = owner.PlayerTransform;
         playerRB = playerTransform.GetComponent<Rigidbody>();
         playerCollision = playerTransform.GetComponent<PlayerCollision>();
         playerCollision.Init(this);

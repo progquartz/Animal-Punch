@@ -5,6 +5,16 @@ public class ActorsStat
 {
     [Header("이름")]
     public string ActorName;
+
+    [Header("체력 보유 여부")]
+    public bool IsEnemyHasHealth;
+    [Header("상태 보유 여부")]
+    public bool IsEnemyHasCondition;
+
+    [Header("패턴 유형")]
+    public ActorBehaviourType BehaviourType;
+
+    [Header("모델 데이터")]
     public GameObject ModelData;
 
     [Header("체력")]
@@ -51,12 +61,18 @@ public class ActorsStat
         ActorName = target.ActorName;
         ModelData = target.ModelData;
 
-        IsDead=target.IsDead;
+        IsEnemyHasHealth = target.IsEnemyHasHealth;        
+        IsEnemyHasCondition = target.IsEnemyHasCondition;
+
+        BehaviourType = target.BehaviourType;
+
+        IsDead =target.IsDead;
         HP = target.HP;
         MaxHP = target.MaxHP;
+
+
         Speed = target.Speed;
         Mass = target.Mass;
-
         MassOnDead = target.MassOnDead;
         Drag = target.Drag;
         DragOnDead = target.DragOnDead;
