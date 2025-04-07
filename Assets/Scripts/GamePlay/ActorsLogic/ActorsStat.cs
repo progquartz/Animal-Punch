@@ -1,10 +1,20 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ActorsStat : MonoBehaviour
+public class ActorsStat
 {
     [Header("이름")]
     public string ActorName;
+
+    [Header("체력 보유 여부")]
+    public bool IsEnemyHasHealth;
+    [Header("상태 보유 여부")]
+    public bool IsEnemyHasCondition;
+
+    [Header("패턴 유형")]
+    public ActorBehaviourType BehaviourType;
+
+    [Header("모델 데이터")]
     public GameObject ModelData;
 
     [Header("체력")]
@@ -44,6 +54,30 @@ public class ActorsStat : MonoBehaviour
             IsDead = true;
             return true;
         }
+    }
+
+    public void CopyData(ActorsStat target)
+    {
+        ActorName = target.ActorName;
+        ModelData = target.ModelData;
+
+        IsEnemyHasHealth = target.IsEnemyHasHealth;        
+        IsEnemyHasCondition = target.IsEnemyHasCondition;
+
+        BehaviourType = target.BehaviourType;
+
+        IsDead =target.IsDead;
+        HP = target.HP;
+        MaxHP = target.MaxHP;
+
+
+        Speed = target.Speed;
+        Mass = target.Mass;
+        MassOnDead = target.MassOnDead;
+        Drag = target.Drag;
+        DragOnDead = target.DragOnDead;
+        AngularDrag = target.AngularDrag;
+        AngularDragOnDead = target.AngularDragOnDead;
     }
 
 }

@@ -8,6 +8,6 @@ public class SpeedUI : MonoBehaviour
 
     private void Update()
     {
-        speedText.text = $"Speed : {(int)Player.Instance.stat.RigidbodySpeed} km/h";
+        speedText.text = $"Speed : {(int)Player.Instance.Stat.RigidbodySpeed} km/h";
     }
 }

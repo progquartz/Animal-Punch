@@ -1,24 +1,24 @@
 using UnityEditorInternal;
 using UnityEngine;
 
-public class InteractableActor : MonoBehaviour
+public class ActorCollision : MonoBehaviour
 {
-    public bool IsObjectHasHealth = false;
+    private Enemy owner;
     private bool isActorAbleToHit = true;
 
     public float DamageMinimalCooldown = 0.1f;
     private float damageCooldown;
-    
-    public ActorsStat stat;
 
-    [SerializeField] private Transform ActorTransform;
+    private Transform ActorTransform;
     private Rigidbody rb;
 
     private Collider objectCollider;
     
 
-    void Start()
+    public void Init(Enemy enemy, Transform actorTransform)
     {
+        owner = enemy;
+        ActorTransform = actorTransform;
         rb = ActorTransform.GetComponent<Rigidbody>();
         objectCollider = ActorTransform.transform.GetComponent<Collider>();
         damageCooldown = DamageMinimalCooldown;
@@ -33,7 +33,7 @@ public class InteractableActor : MonoBehaviour
     {
         if (collisionObject.CompareTag("Player"))
         {
-            if (IsObjectHasHealth)
+            if (owner.stat.IsEnemyHasHealth)
             {
                 HandleCollisionOnHealthCondition(collision, collisionObject, impulseDamage);
             }
@@ -64,7 +64,7 @@ public class InteractableActor : MonoBehaviour
     {
         if(isActorAbleToHit)
         {
-            bool isDead = stat.HandleDamage(impulseDamage);
+            bool isDead = owner.stat.HandleDamage(impulseDamage);
             DamageTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
             if (isDead)
             {
@@ -90,9 +90,9 @@ public class InteractableActor : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         // 질량 변경
-        rb.mass = stat.MassOnDead;
-        rb.linearDamping = stat.DragOnDead;
-        rb.angularDamping = stat.AngularDragOnDead;
+        rb.mass = owner.stat.MassOnDead;
+        rb.linearDamping = owner.stat.DragOnDead;
+        rb.angularDamping = owner.stat.AngularDragOnDead;
 
         // 저장한 impulse를 다시 적용하여 충돌 효과 재현
         rb.AddForce(impulse, ForceMode.Impulse);
