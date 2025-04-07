@@ -22,7 +22,7 @@ public class WanderPattern : IActorPattern
 
     private void HandleAnimation()
     {
-         //owner.animationController.ChangeAnimation(AnimalAnimation.Walk);
+        owner.animationController.ChangeAnimation(AnimalAnimation.Walk);
     }
 
     private void MoveFront()
