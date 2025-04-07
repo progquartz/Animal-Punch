@@ -26,7 +26,7 @@ public class FleePattern : IActorPattern
         float dist = Vector3.Distance(owner.transform.position, owner. transform.position);
         if (dist < DetectionRange)
         {
-            //owner.rigidbody.linearVelocity = wanderDirection * owner.stats.MoveSpeed;
+            //owner.rigidbody.linearVelocity = wanderRotation * owner.stats.MoveSpeed;
             // 타이머 경과 체크하여 방향 변경
             changeDirectionTime -= Time.deltaTime;
             if (changeDirectionTime <= 0f)

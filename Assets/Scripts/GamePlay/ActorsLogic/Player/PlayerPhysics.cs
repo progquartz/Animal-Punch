@@ -98,8 +98,8 @@ public class PlayerPhysics : MonoBehaviour
 
             if (direction != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, targetRotation, stat.RotationSpeed * Time.deltaTime);
+                Quaternion wanderRotation = Quaternion.LookRotation(direction);
+                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, wanderRotation, stat.RotationSpeed * Time.deltaTime);
             }
         }
     }

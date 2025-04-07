@@ -3399,7 +3399,7 @@ MonoBehaviour:
     IsDead: 0
     HP: 10
     MaxHP: 100
-    Speed: 0
+    Speed: 1
     Mass: 10
     MassOnDead: 0.3
     Drag: 5
@@ -3407,7 +3407,8 @@ MonoBehaviour:
     AngularDrag: 1
     AngularDragOnDead: 0.05
   actorPhysics: {fileID: 658352627}
-  enemyTransform: {fileID: 658352620}
+  EnemyTransform: {fileID: 658352620}
+  EnemyRB: {fileID: 0}
 --- !u!1 &664150897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4707111641839099541, guid: 6d0e3890cc707974fbfe825098050938, type: 3}
@@ -12497,6 +12498,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4791693255148630870, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 5669386935909236446, guid: 1280e02b03c905d44b756b2409159b4d, type: 3}
       propertyPath: m_Name
       value: InteractableActor
@@ -12668,7 +12673,8 @@ MonoBehaviour:
     AngularDrag: 0
     AngularDragOnDead: 0
   actorPhysics: {fileID: 2332876640724248606}
-  enemyTransform: {fileID: 2332876640724248603}
+  EnemyTransform: {fileID: 2332876640724248603}
+  EnemyRB: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
