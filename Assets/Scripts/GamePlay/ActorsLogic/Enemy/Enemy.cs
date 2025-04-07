@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public EnemyDataSO targetEnemyDataSO;
-    public ActorsStat stat;
+    public EnemyStat stat;
 
     public ActorCollision actorPhysics;
     public Transform EnemyTransform;

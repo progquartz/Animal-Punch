@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ActorsStat
+public class EnemyStat
 {
     [Header("¿Ã∏ß")]
     public string ActorName;
@@ -56,7 +56,7 @@ public class ActorsStat
         }
     }
 
-    public void CopyData(ActorsStat target)
+    public void CopyData(EnemyStat target)
     {
         ActorName = target.ActorName;
         ModelData = target.ModelData;
