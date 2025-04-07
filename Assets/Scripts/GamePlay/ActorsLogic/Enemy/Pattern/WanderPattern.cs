@@ -5,7 +5,6 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class WanderPattern : IActorPattern
 {
-    private float DetectionRange = 2f;
     private float rotationSpeed = 500f;
 
     private Enemy owner;
@@ -18,6 +17,12 @@ public class WanderPattern : IActorPattern
     {
         MoveFront();
         HandleRotation();
+        HandleAnimation();
+    }
+
+    private void HandleAnimation()
+    {
+         //owner.animationController.ChangeAnimation(AnimalAnimation.Walk);
     }
 
     private void MoveFront()
@@ -35,6 +40,7 @@ public class WanderPattern : IActorPattern
         }
         else if (!isRotating)
         {
+            // angle 기반이 아닌 quaternion 과 vector 기반인 이유는, 무조건 한 방향으로만 회전할 가능성이 생겨서.
             wanderRotation = Quaternion.LookRotation(new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized);
             isRotating = true;
         }

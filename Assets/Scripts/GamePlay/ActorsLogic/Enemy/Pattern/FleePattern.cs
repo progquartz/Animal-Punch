@@ -1,47 +1,67 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class FleePattern : IActorPattern
 {
-    private float DetectionRange = 10f;
+    private float rotationSpeed = 400f;
 
     private Enemy owner;
 
-    private Vector3 fleeDirection;
+    private Quaternion fleeRotation;
+    private bool isRotating = false;
     private float changeDirectionTime;
+    
 
     public void ActPattern()
     {
-        Transform playerPos = Player.Instance.transform;
+        MoveFront(); // 사실 도망치기이긴 한데
+        HandleRotation();
+        HandleAnimation();
+    }
 
-        // 무작위 방향 설정
-        fleeDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-        // 일정 시간 후 방향 전환하도록 타이머 설정
-        changeDirectionTime = Random.Range(2f, 5f);
-        // 걷기 애니메이션 재생 (달리기 해제)
+    private void MoveFront()
+    {
+        // 현재 오브젝트의 앞쪽 방향으로 이동
+        Vector3 movement = owner.EnemyTransform.forward * owner.stat.Speed * Time.deltaTime;
+        owner.EnemyRB.MovePosition(owner.EnemyRB.position + movement);
+    }
 
+    private void HandleAnimation()
+    {
         //owner.animationController.ChangeAnimation(AnimalAnimation.Walk);
+    }
 
-        // 반대 방향으로 도망가기!
-        // 플레이어 감지 시 상태 전환
-        float dist = Vector3.Distance(owner.transform.position, owner. transform.position);
-        if (dist < DetectionRange)
+    private void HandleRotation()
+    {
+        if (changeDirectionTime > 0f)
         {
-            //owner.rigidbody.linearVelocity = wanderRotation * owner.stats.MoveSpeed;
-            // 타이머 경과 체크하여 방향 변경
             changeDirectionTime -= Time.deltaTime;
-            if (changeDirectionTime <= 0f)
+        }
+        else if (!isRotating)
+        {
+            // angle 기반이 아닌 quaternion 과 vector 기반인 이유는, 무조건 한 방향으로만 회전할 가능성이 생겨서.
+            Vector3 oppositeDirection = owner.transform.position - Player.Instance.PlayerTransform.position;
+            oppositeDirection.Normalize(); // 단위 벡터로 변환하여 방향만 유지
+
+            // 반대 방향을 향하도록 목표 회전을 구합니다.
+            fleeRotation = Quaternion.LookRotation(oppositeDirection);
+            isRotating = true;
+        }
+
+        if (isRotating)
+        {
+            owner.EnemyTransform.rotation = Quaternion.RotateTowards(
+                owner.EnemyTransform.rotation,
+                fleeRotation,
+                rotationSpeed * Time.deltaTime
+            );
+            // 현재 회전과 목표 회전의 차이가 충분히 작으면 회전 완료로 간주
+            if (Quaternion.Angle(owner.EnemyTransform.rotation, fleeRotation) < 0.1f)
             {
-                fleeDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-                changeDirectionTime = Random.Range(2f, 5f);
+                isRotating = false;
+                changeDirectionTime = Random.Range(1f, 2f); // 다음 회전까지의 대기 시간 설정
             }
         }
-        else
-        {
-            changeDirectionTime = 0f;
-        }
-
-        // 지속적으로 배회 방향으로 이동
-        
 
     }
 
