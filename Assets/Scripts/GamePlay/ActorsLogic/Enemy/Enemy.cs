@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public Transform EnemyTransform;
     public Rigidbody EnemyRB;
     private ActorBehaviour actorBehaviour;
+
+    public AnimalAnimationController animationController;
     
     // start에서 Init으로 추후에 옮기기.
     public void Init(EnemyDataSO enemyData)

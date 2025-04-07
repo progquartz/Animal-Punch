@@ -3,7 +3,7 @@ using UnityEngine;
 public class SmartBehaviour : ActorBehaviour
 {
     private Enemy owner;
-    private float detectionRange = 8f;
+    private float detectionRange = 15f;
 
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;

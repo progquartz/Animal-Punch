@@ -28,7 +28,7 @@ public class FleePattern : IActorPattern
 
     private void HandleAnimation()
     {
-        //owner.animationController.ChangeAnimation(AnimalAnimation.Walk);
+        owner.animationController.ChangeAnimation(AnimalAnimation.Walk);
     }
 
     private void HandleRotation()
