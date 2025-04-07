@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
-  m_Name: TestBuffalo
+  m_Name: TestWandering
   m_EditorClassIdentifier: 
   ActorsStat:
     ActorName: 
@@ -21,7 +21,7 @@ MonoBehaviour:
     IsDead: 0
     HP: 100
     MaxHP: 100
-    Speed: 8
+    Speed: 5
     Mass: 10
     MassOnDead: 0.3
     Drag: 5

@@ -1,24 +1,24 @@
 using UnityEngine;
 
-public class AggressiveBehaviour : ActorBehaviour
+public class SmartBehaviour : ActorBehaviour
 {
     private Enemy owner;
-    private float detectionRange = 15f;
+    private float detectionRange = 8f;
 
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
-    WanderPattern WanderPattern;
+    FleePattern FleePattern;
     AttackPattern AttackPattern;
 
     public override void CheckCondition()
     {
-        if (IsPlayerInDetectionRange())
+        if (IsEnemyHealthGood())
         {
             ChangePattern(AttackPattern);
         }
         else
         {
-            ChangePattern(WanderPattern);
+            ChangePattern(FleePattern);
         }
     }
 
@@ -30,11 +30,11 @@ public class AggressiveBehaviour : ActorBehaviour
     public override void Init(Enemy owner)
     {
         this.owner = owner;
+        FleePattern = new FleePattern();
         AttackPattern = new AttackPattern();
-        WanderPattern = new WanderPattern();
+        FleePattern.Init(owner);
         AttackPattern.Init(owner);
-        WanderPattern.Init(owner);
-        CurrentPattern = WanderPattern;
+        CurrentPattern = AttackPattern;
     }
 
 
@@ -50,13 +50,9 @@ public class AggressiveBehaviour : ActorBehaviour
         }
     }
 
-    private bool IsPlayerInDetectionRange()
+    private bool IsEnemyHealthGood()
     {
-        Transform playerPos = Player.Instance.PlayerTransform;
-
-        float dist = Vector3.Distance(playerPos.position, owner.transform.position);
-        //Debug.Log($"dist = {dist}");
-        if (dist < detectionRange)
+        if (owner.stat.HP >= owner.stat.MaxHP / 2)
         {
             return true;
         }

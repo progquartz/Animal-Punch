@@ -4,6 +4,8 @@ public enum ActorBehaviourType
 {
     CowardBehaviour,
     AggressiveBehaviour,
+    WanderingBehaviour,
+    SmartBehaviour,
 }
 public abstract class ActorBehaviour
 {
@@ -20,6 +22,10 @@ public abstract class ActorBehaviour
                 return new CowardBehaviour();
             case ActorBehaviourType.AggressiveBehaviour:
                 return new AggressiveBehaviour();
+            case ActorBehaviourType.WanderingBehaviour:
+                return new WanderingBehaviour();
+            case ActorBehaviourType.SmartBehaviour:
+                return new SmartBehaviour();
         }
         return null;
     }

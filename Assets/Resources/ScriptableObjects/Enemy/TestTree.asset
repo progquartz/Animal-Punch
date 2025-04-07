@@ -21,7 +21,7 @@ MonoBehaviour:
     IsDead: 0
     HP: 0
     MaxHP: 0
-    Speed: 0
+    Speed: 5
     Mass: 0
     MassOnDead: 0
     Drag: 0
