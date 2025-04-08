@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyNotMoving : Enemy
@@ -17,5 +18,7 @@ public class EnemyNotMoving : Enemy
     {
         // factory 제작 및 initiating 이후에 수정해야 함.
         Init(targetEnemyDataSO);
+        GameObject a;
     }
+    
 }
