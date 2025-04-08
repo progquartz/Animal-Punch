@@ -5,7 +5,7 @@ public class FleePattern : IActorPattern
 {
     private float rotationSpeed = 400f;
 
-    private Enemy owner;
+    private EnemyMoving owner;
 
     private Quaternion fleeRotation;
     private bool isRotating = false;
@@ -75,7 +75,7 @@ public class FleePattern : IActorPattern
         Logger.Log("FleePattern Exit");
     }
 
-    public void Init(Enemy enemy)
+    public void Init(EnemyMoving enemy)
     {
         owner = enemy;
     }

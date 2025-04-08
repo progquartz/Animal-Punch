@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IActorPattern
 {
-    public void Init(Enemy enemy);
+    public void Init(EnemyMoving enemy);
 
     public void EnterPattern();
     public void ExitPattern();

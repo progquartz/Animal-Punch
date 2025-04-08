@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  target: {fileID: 5146206153042869675}
+  target: {fileID: 4581493866412770663}
   HpBarTransform: {fileID: 4473393704901283591}
   HpBar: {fileID: 1514798178458141990}
   HpBackground: {fileID: 5444030522181271893}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5997185500542308793}
-  - component: {fileID: 5146206153042869675}
+  - component: {fileID: 4581493866412770663}
   - component: {fileID: 1177458322462546433}
   - component: {fileID: 4412072237082389540}
   - component: {fileID: 4791693255148630870}
@@ -309,7 +309,7 @@ Transform:
   - {fileID: 2647493105749971435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5146206153042869675
+--- !u!114 &4581493866412770663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,10 +318,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5669386935909236446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed0f681ce3cd14048b4eddd89dbdbc04, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d626227521156644a5379c53999dcbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEnemyDataSO: {fileID: 11400000, guid: 5cf620f1b68617b489d02030204e08e0, type: 2}
+  targetEnemyDataSO: {fileID: 0}
   stat:
     ActorName: 
     IsEnemyHasHealth: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
     AngularDragOnDead: 0.05
   actorPhysics: {fileID: 1177458322462546433}
   EnemyTransform: {fileID: 5997185500542308793}
-  EnemyRB: {fileID: 0}
+  EnemyRB: {fileID: 4791693255148630870}
   animationController: {fileID: 4412072237082389540}
 --- !u!114 &1177458322462546433
 MonoBehaviour:

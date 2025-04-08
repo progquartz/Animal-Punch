@@ -1,17 +1,9 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyNotMoving : Enemy
 {
-    public EnemyDataSO targetEnemyDataSO;
-    public EnemyStat stat;
-
-    public ActorCollision actorPhysics;
-    public Transform EnemyTransform;
-    public Rigidbody EnemyRB;
-
-    
     // start에서 Init으로 추후에 옮기기.
-    public virtual void Init(EnemyDataSO enemyData)
+    public override void Init(EnemyDataSO enemyData)
     {
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         targetEnemyDataSO = enemyData;
@@ -25,9 +17,5 @@ public class Enemy : MonoBehaviour
     {
         // factory 제작 및 initiating 이후에 수정해야 함.
         Init(targetEnemyDataSO);
-    }
-
-    void Update()
-    {
     }
 }

@@ -12,7 +12,7 @@ public abstract class ActorBehaviour
     public abstract void CheckCondition();
     public abstract void BehaveOnUpdate();
 
-    public abstract void Init(Enemy owner);
+    public abstract void Init(EnemyMoving owner);
 
     public static ActorBehaviour GetActorBehaviour(ActorBehaviourType type)
     {
