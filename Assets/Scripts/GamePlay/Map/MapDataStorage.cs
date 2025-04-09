@@ -13,9 +13,16 @@ public class MapDataStorage : MonoBehaviour
     // 프로젝트에서 소환 가능한 맵 청크 목록
     public List<MapChunk> mapChunks = new List<MapChunk>();
 
+    public GameObject GetRandomModelPrefab(string key)
+    {
+        List<GameObject> list = ModelPrefabs.FindAll(prefab => prefab.name == key);
+        int index = Random.Range(0, list.Count);
+        return list[index];
+    }
     public MapGroupObject GetRandomGroupPrefab (string key)
     {
-        List<MapGroupObject> list = groupPrefabs.FindAll(x => x.poolKey == key);
+        Debug.Log(key);
+        List<MapGroupObject> list = groupPrefabs.FindAll(x => x.key == key);
         int index = Random.Range(0, list.Count);
         return list[index];
     }

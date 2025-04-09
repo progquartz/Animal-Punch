@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,38 +9,32 @@ public class MapChunk : MonoBehaviour
     public Vector2Int chunkCoordinate;
 
     private MapDataStorage dataStorage;
-    private MapObjectPool objectPool;
 
     [SerializeField] private Transform PrepperParentTransform;
     // 해당 청크에서 실제로 생성된 그룹 오브젝트들을 추적
     private List<MapGroupObject> spawnedMapGroupObjects = new List<MapGroupObject>();
 
-    private void Start()
+    private void Awake()
     {
         TestChunk();
     }
+
     private void TestChunk()
     {
-        Initialize(Vector2Int.zero, MapManager.Instance.MapDataStorage, MapManager.Instance.MapObjectPool);
+        Initialize(Vector2Int.zero,  MapManager.Instance.MapDataStorage);
     }
     /// <summary>
     /// 청크를 초기화 합니다.
     /// </summary>
-    public void Initialize(Vector2Int coordinate, MapDataStorage data, MapObjectPool pool)
+    public void Initialize(Vector2Int coordinate, MapDataStorage data)
     {
         chunkCoordinate = coordinate;
         dataStorage = data;
-        objectPool = pool;
 
         // 자식으로 있는 Holder의 이름을 기반으로 Transform에 맞게 해당 MapGroupObject를 생성.
         foreach (Transform holder in PrepperParentTransform)
         {
-            MapGroupObject mapGroupObject = holder.GetComponent<MapGroupObject>();
-            if (mapGroupObject != null)
-            {
-                mapGroupObject.Initialize();
-            }
-            string key = holder.gameObject.name.Split('_')[0];
+            string key = holder.gameObject.name.Split(' ')[0];
             if (string.IsNullOrEmpty(key)) continue;
 
             MapGroupObject gp = data.GetRandomGroupPrefab(key);
@@ -68,10 +63,6 @@ public class MapChunk : MonoBehaviour
     {
         foreach (MapGroupObject groupObj in spawnedMapGroupObjects)
         {
-            // 그룹 오브젝트 내부의 프리팹도 모두 반환
-            groupObj.ReturnAllPrefabsToPool(objectPool);
-            // 그룹 오브젝트 자체도 풀에 반환
-            objectPool.ReturnToPool(groupObj.poolKey, groupObj.gameObject);
         }
         spawnedMapGroupObjects.Clear();
 

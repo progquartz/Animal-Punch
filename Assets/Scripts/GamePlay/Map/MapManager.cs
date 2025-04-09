@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class MapManager : SingletonBehaviour<MapManager>
 {
-    // MapDataStorage와 MapObjectPool은 인스펙터에서 할당하거나, 싱글톤/서비스로 관리할 수 있음.
     public MapDataStorage MapDataStorage;
-    public MapObjectPool MapObjectPool;
 
     // 현재 활성화된 청크들을 좌표를 키로 저장
     private Dictionary<Vector2Int, MapChunk> activeChunks = new Dictionary<Vector2Int, MapChunk>();
@@ -36,7 +34,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                     Vector3 spawnPosition = new Vector3(chunkPos.x * MapDataStorage.chunkSize, 0, chunkPos.y * MapDataStorage.chunkSize);
                     GameObject chunkObj = Instantiate(MapDataStorage.chunkPrefab, spawnPosition, Quaternion.identity);
                     MapChunk newChunk = chunkObj.GetComponent<MapChunk>();
-                    newChunk.Initialize(chunkPos, MapDataStorage, MapObjectPool);
+                    newChunk.Initialize(chunkPos, MapDataStorage);
                     activeChunks.Add(chunkPos, newChunk);
                 }
             }
