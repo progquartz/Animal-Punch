@@ -5,13 +5,11 @@ using UnityEngine.UIElements;
 
 public class MapChunk : MonoBehaviour
 {
-    // 이 청크의 좌표 (ex. 그리드상의 위치)
     public Vector2Int chunkCoordinate;
 
     private MapDataStorage dataStorage;
 
     [SerializeField] private Transform PrepperParentTransform;
-    // 해당 청크에서 실제로 생성된 그룹 오브젝트들을 추적
     private List<MapGroupObject> spawnedMapGroupObjects = new List<MapGroupObject>();
 
     private void Awake()

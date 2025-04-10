@@ -4,18 +4,43 @@ using UnityEngine;
 public class MapManager : SingletonBehaviour<MapManager>
 {
     public MapDataStorage MapDataStorage;
-
+    
     // 현재 활성화된 청크들을 좌표를 키로 저장
     private Dictionary<Vector2Int, MapChunk> activeChunks = new Dictionary<Vector2Int, MapChunk>();
 
     // 현재 중앙 청크 좌표 (ex. 플레이어 기준)
     public Vector2Int currentCenterChunk;
+    private bool IsFirstTimeInitializing = true;
+    private const float chunkSize = 90f;
+    private const float halfCellSize = chunkSize * 0.5f; // 45
 
     void Start()
     {
-        // 초기 중앙 청크 설정 (예: (0,0))
-        currentCenterChunk = new Vector2Int(0, 0);
+        InitializeNearbyBlock();
         //LoadChunksAround(currentCenterChunk);
+    }
+
+    private void Update()
+    {
+        Vector2Int playerChunkPos = CalculateCurrentPlayerChunkPos();
+        UpdateCenterChunk(playerChunkPos);
+    }
+
+    private void InitializeNearbyBlock()
+    {
+        currentCenterChunk = Vector2Int.zero;
+        UpdateCenterChunk(currentCenterChunk);
+    }
+
+    private Vector2Int CalculateCurrentPlayerChunkPos()
+    {
+        int gridX = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.x + halfCellSize) / chunkSize);
+        int gridZ = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.z + halfCellSize) / chunkSize);
+
+        Logger.Log($"현재 플레이어의 위치 : {Player.Instance.PlayerTransform.position}");
+        Logger.Log($"현재 좌표 : {new Vector2Int(gridX, gridZ)}");
+
+        return new Vector2Int(gridX, gridZ);
     }
 
     /// <summary>
@@ -32,7 +57,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                 {
                     // 청크 위치 계산 (청크 크기를 고려)
                     Vector3 spawnPosition = new Vector3(chunkPos.x * MapDataStorage.chunkSize, 0, chunkPos.y * MapDataStorage.chunkSize);
-                    GameObject chunkObj = Instantiate(MapDataStorage.chunkPrefab, spawnPosition, Quaternion.identity);
+                    GameObject chunkObj = Instantiate(MapDataStorage.GetRandomMapChunk(chunkPos).gameObject, spawnPosition, Quaternion.identity);
                     MapChunk newChunk = chunkObj.GetComponent<MapChunk>();
                     newChunk.Initialize(chunkPos, MapDataStorage);
                     activeChunks.Add(chunkPos, newChunk);
@@ -46,8 +71,9 @@ public class MapManager : SingletonBehaviour<MapManager>
     /// </summary>
     public void UpdateCenterChunk(Vector2Int newCenter)
     {
-        if (newCenter != currentCenterChunk)
+        if (IsFirstTimeInitializing || newCenter != currentCenterChunk)
         {
+            IsFirstTimeInitializing = false;
             currentCenterChunk = newCenter;
             LoadChunksAround(currentCenterChunk);
             UnloadChunksNotNearCenter(currentCenterChunk);
@@ -63,7 +89,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
         foreach (var kvp in activeChunks)
         {
-            // 기준 거리를 넘어간 청크라면 언로드 (여기서는 임의의 거리 기준 사용)
+            
             if (Vector2Int.Distance(kvp.Key, center) > 1.5f)
             {
                 kvp.Value.UnloadChunk();
