@@ -4,7 +4,7 @@ public class AttackPattern : IActorPattern
 {
     private float rotationSpeed = 400f;
 
-    private Enemy owner;
+    private EnemyMoving owner;
 
     private Quaternion fleeRotation;
     private bool isRotating = false;
@@ -73,7 +73,7 @@ public class AttackPattern : IActorPattern
         Logger.Log("AttackPattern Exit");
     }
 
-    public void Init(Enemy enemy)
+    public void Init(EnemyMoving enemy)
     {
         owner = enemy;
     }

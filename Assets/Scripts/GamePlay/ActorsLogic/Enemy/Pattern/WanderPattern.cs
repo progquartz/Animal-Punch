@@ -7,7 +7,7 @@ public class WanderPattern : IActorPattern
 {
     private float rotationSpeed = 500f;
 
-    private Enemy owner;
+    private EnemyMoving owner;
 
     private Quaternion wanderRotation;
     private float changeDirectionTime;
@@ -71,7 +71,7 @@ public class WanderPattern : IActorPattern
         Logger.Log("WanderPattern Exit");
     }
 
-    public void Init(Enemy enemy)
+    public void Init(EnemyMoving enemy)
     {
         owner = enemy;
     }
