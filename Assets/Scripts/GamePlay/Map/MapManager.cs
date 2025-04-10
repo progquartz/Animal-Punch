@@ -4,7 +4,8 @@ using UnityEngine;
 public class MapManager : SingletonBehaviour<MapManager>
 {
     public MapDataStorage MapDataStorage;
-    
+    public Transform MapModelParent;
+
     // 현재 활성화된 청크들을 좌표를 키로 저장
     private Dictionary<Vector2Int, MapChunk> activeChunks = new Dictionary<Vector2Int, MapChunk>();
 
@@ -57,7 +58,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                 {
                     // 청크 위치 계산 (청크 크기를 고려)
                     Vector3 spawnPosition = new Vector3(chunkPos.x * MapDataStorage.chunkSize, 0, chunkPos.y * MapDataStorage.chunkSize);
-                    GameObject chunkObj = Instantiate(MapDataStorage.GetRandomMapChunk(chunkPos).gameObject, spawnPosition, Quaternion.identity);
+                    GameObject chunkObj = Instantiate(MapDataStorage.GetRandomMapChunk(chunkPos).gameObject, spawnPosition, Quaternion.identity, MapModelParent);
                     MapChunk newChunk = chunkObj.GetComponent<MapChunk>();
                     newChunk.Initialize(chunkPos, MapDataStorage);
                     activeChunks.Add(chunkPos, newChunk);
