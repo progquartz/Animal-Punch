@@ -19,8 +19,8 @@ MonoBehaviour:
     BehaviourType: 1
     ModelData: {fileID: 0}
     IsDead: 0
-    HP: 100
-    MaxHP: 100
+    HP: 30
+    MaxHP: 30
     Speed: 5
     Mass: 10
     MassOnDead: 0.3

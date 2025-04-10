@@ -10,6 +10,7 @@ public class EnemyMoving : Enemy
     public override void Init(EnemyDataSO enemyData)
     {
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
+        
         targetEnemyDataSO = enemyData;
         stat.CopyData(enemyData.ActorsStat);
 
@@ -18,7 +19,9 @@ public class EnemyMoving : Enemy
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
+
     }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

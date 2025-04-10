@@ -22,7 +22,6 @@ public class MapDataStorage : MonoBehaviour
     }
     public MapGroupObject GetRandomGroupPrefab (string key)
     {
-        Debug.Log(key);
         List<MapGroupObject> list = groupPrefabs.FindAll(x => x.key == key);
         int index = Random.Range(0, list.Count);
         return list[index];

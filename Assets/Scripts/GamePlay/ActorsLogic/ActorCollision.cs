@@ -20,7 +20,20 @@ public class ActorCollision : MonoBehaviour
         owner = enemy;
         ActorTransform = actorTransform;
         rb = ActorTransform.GetComponent<Rigidbody>();
+
+        rb.angularVelocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
+
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        rb.mass = owner.stat.Mass;
+        rb.angularDamping = owner.stat.AngularDrag;
+        rb.linearDamping = owner.stat.Drag;
+
         objectCollider = ActorTransform.transform.GetComponent<Collider>();
+
+        objectCollider.enabled = true;
+
         damageCooldown = DamageMinimalCooldown;
     }
 

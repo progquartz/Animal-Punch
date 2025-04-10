@@ -11,7 +11,6 @@ using UnityEngine;
 [Obsolete("현재 parenting 이슈로 사용할 수 없으니 수정 후 사용 필요.")]
 public class MapObjectPool : MonoBehaviour
 {
-    // 키(예: "Rock")별로 풀에 저장된 GameObject 큐
     private Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
     /// <summary>

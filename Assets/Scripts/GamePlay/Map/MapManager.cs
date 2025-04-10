@@ -38,9 +38,6 @@ public class MapManager : SingletonBehaviour<MapManager>
         int gridX = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.x + halfCellSize) / chunkSize);
         int gridZ = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.z + halfCellSize) / chunkSize);
 
-        Logger.Log($"현재 플레이어의 위치 : {Player.Instance.PlayerTransform.position}");
-        Logger.Log($"현재 좌표 : {new Vector2Int(gridX, gridZ)}");
-
         return new Vector2Int(gridX, gridZ);
     }
 
