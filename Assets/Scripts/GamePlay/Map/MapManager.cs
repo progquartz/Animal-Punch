@@ -4,6 +4,7 @@ using UnityEngine;
 public class MapManager : SingletonBehaviour<MapManager>
 {
     public MapDataStorage MapDataStorage;
+    public EnemySpawner EnemySpawner;
     public Transform MapModelParent;
 
     // 현재 활성화된 청크들을 좌표를 키로 저장

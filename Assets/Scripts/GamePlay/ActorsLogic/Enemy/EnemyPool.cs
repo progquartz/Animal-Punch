@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
 {
+    public Transform ActiveEnemyParent;
+    public Transform PoolEnemyParent;
+
     private Dictionary<string, Queue<GameObject>> enemyPool = new Dictionary<string, Queue<GameObject>>();
 
     /// <summary>
@@ -18,6 +21,7 @@ public class EnemyPool : MonoBehaviour
             {
                 GameObject obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyOnKey(key).spawnPrefab);
                 obj.SetActive(false);
+                //obj.transform.parent = PoolEnemyParent;
                 newPool.Enqueue(obj);
             }
             Logger.Log($"{key}의 이름으로 새로운 오브젝트 풀링 성공");
@@ -42,7 +46,8 @@ public class EnemyPool : MonoBehaviour
             {
                 // 풀에 준비된 객체가 없으면 새로 생성
                 // enemydatastorage에서 올바른 데이터 받아오기...
-                return Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyOnKey(key).spawnPrefab);
+                GameObject obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyOnKey(key).spawnPrefab);
+                return obj;
             }
         }
         else
@@ -58,6 +63,7 @@ public class EnemyPool : MonoBehaviour
     /// </summary>
     public void ReturnToPool(string key, GameObject obj)
     {
+        Enemy enemy = obj.GetComponent<Enemy>();    
         obj.SetActive(false);
         if (enemyPool.ContainsKey(key))
         {

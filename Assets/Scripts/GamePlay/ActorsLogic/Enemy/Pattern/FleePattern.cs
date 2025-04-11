@@ -67,12 +67,12 @@ public class FleePattern : IActorPattern
 
     public void EnterPattern()
     {
-        Logger.Log("FleePattern Enter");
+        //Logger.Log("FleePattern Enter");
     }
 
     public void ExitPattern()
     {
-        Logger.Log("FleePattern Exit");
+        //Logger.Log("FleePattern Exit");
     }
 
     public void Init(EnemyMoving enemy)

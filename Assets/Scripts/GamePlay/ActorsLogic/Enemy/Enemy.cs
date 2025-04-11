@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Enemy : MonoBehaviour
 {
@@ -21,11 +23,22 @@ public class Enemy : MonoBehaviour
         actorPhysics.Init(this, EnemyTransform);
     }
 
+    public void HandleDeath()
+    {
+        stat.IsDead = true;
+    }
+
+    protected void ResetStates()
+    {
+        stat.IsDead = false;
+    }
+
     void Start()
     {
         // factory 제작 및 initiating 이후에 수정해야 함.
         Init(targetEnemyDataSO);
     }
+
 
     void Update()
     {

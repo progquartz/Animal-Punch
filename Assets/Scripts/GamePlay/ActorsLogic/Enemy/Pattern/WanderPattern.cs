@@ -63,12 +63,12 @@ public class WanderPattern : IActorPattern
 
     public void EnterPattern()
     {
-        Logger.Log("WanderPattern Enter");
+        //Logger.Log("WanderPattern Enter");
     }
 
     public void ExitPattern()
     {
-        Logger.Log("WanderPattern Exit");
+        //Logger.Log("WanderPattern Exit");
     }
 
     public void Init(EnemyMoving enemy)
