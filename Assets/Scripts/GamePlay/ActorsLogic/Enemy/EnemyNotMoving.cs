@@ -13,6 +13,7 @@ public class EnemyNotMoving : Enemy
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
+        OnInit?.Invoke();
     }
 
     void Start()

@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
     public Transform EnemyTransform;
     public Rigidbody EnemyRB;
 
+    public Action OnDead;
+    public Action OnInit;
+
     
     // start에서 Init으로 추후에 옮기기.
     public virtual void Init(EnemyDataSO enemyData)
@@ -21,11 +24,13 @@ public class Enemy : MonoBehaviour
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
+        OnInit?.Invoke();
     }
 
     public void HandleDeath()
     {
         stat.IsDead = true;
+        OnDead?.Invoke();
     }
 
     protected void ResetStates()

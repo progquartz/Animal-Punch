@@ -20,7 +20,7 @@ public class EnemyMoving : Enemy
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
-
+        OnInit?.Invoke();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
