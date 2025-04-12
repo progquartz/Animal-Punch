@@ -41,7 +41,6 @@ public class MapChunk : MonoBehaviour
                 GameObject groupObj = Instantiate(gp.gameObject);
                 groupObj.transform.SetParent(holder, false);
                 groupObj.transform.localPosition = Vector3.zero;
-                Debug.Log("여기서 제로로 만듬.");
 
                 // MapGroupObject 컴포넌트를 받아 추가 초기화 진행
                 MapGroupObject groupComponent = groupObj.GetComponent<MapGroupObject>();

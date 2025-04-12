@@ -5,6 +5,7 @@ public class ActorCollision : MonoBehaviour
 {
     private Enemy owner;
     private bool isActorAbleToHit = true;
+    private bool isFirstTimeSpawn = false;
 
     public float DamageMinimalCooldown = 0.1f;
     private float damageCooldown;
@@ -17,15 +18,36 @@ public class ActorCollision : MonoBehaviour
 
     public void Init(Enemy enemy, Transform actorTransform)
     {
+        isFirstTimeSpawn = true;
         owner = enemy;
+
+
         ActorTransform = actorTransform;
+
         rb = ActorTransform.GetComponent<Rigidbody>();
+
+        rb.angularVelocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
+
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        rb.mass = owner.stat.Mass;
+        rb.angularDamping = owner.stat.AngularDrag;
+        rb.linearDamping = owner.stat.Drag;
+
         objectCollider = ActorTransform.transform.GetComponent<Collider>();
+
+        objectCollider.enabled = true;
+
         damageCooldown = DamageMinimalCooldown;
     }
 
     private void Update()
     {
+        if(isFirstTimeSpawn)
+        {
+            CheckCollisionOnSpawn();
+        }
         UpdateCooldown();
     }
 
@@ -68,6 +90,7 @@ public class ActorCollision : MonoBehaviour
             DamageTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
             if (isDead)
             {
+                owner.HandleDeath();
                 HandleMassForceChange(collision);
                 HandleShootingUp();
                 HandleDeadOnRigidBody();
@@ -83,7 +106,7 @@ public class ActorCollision : MonoBehaviour
     private void HandleMassForceChange(Collision collision)
     {
         // 충돌 시 발생한 impulse. 충돌한 객체로부터 받아낸 impulse이기에 -1을 곱해야 함.
-        Vector3 impulse = -collision.impulse / 30;
+        Vector3 impulse = -collision.impulse / 10;
 
         // 현재 운동 상태 초기화
         rb.linearVelocity = Vector3.zero;
@@ -134,6 +157,11 @@ public class ActorCollision : MonoBehaviour
             }
             damageCooldown -= Time.deltaTime;
         }
+    }
+
+    private void CheckCollisionOnSpawn()
+    {
+        isFirstTimeSpawn = false;
     }
     private void HandleDeath()
     {

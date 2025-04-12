@@ -40,7 +40,7 @@ public class EnemyStat
     /// </summary>
     public bool HandleDamage(float damage)
     {
-        Debug.Log($"{damage}만큼의 데미지를 {HP}에 가합니다.");
+        //Debug.Log($"{damage}만큼의 데미지를 {HP}에 가합니다.");
         if(IsDead) return false;
         // 안 죽었을 경우
         if(HP - damage > 0)

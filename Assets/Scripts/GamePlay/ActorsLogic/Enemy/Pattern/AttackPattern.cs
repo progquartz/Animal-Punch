@@ -65,12 +65,12 @@ public class AttackPattern : IActorPattern
 
     public void EnterPattern()
     {
-        Logger.Log("AttackPattern Enter");
+        //Logger.Log("AttackPattern Enter");
     }
 
     public void ExitPattern()
     {
-        Logger.Log("AttackPattern Exit");
+        //Logger.Log("AttackPattern Exit");
     }
 
     public void Init(EnemyMoving enemy)

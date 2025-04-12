@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class Enemy : MonoBehaviour
     public ActorCollision actorPhysics;
     public Transform EnemyTransform;
     public Rigidbody EnemyRB;
+
+    public Action OnDead;
+    public Action OnInit;
 
     
     // start에서 Init으로 추후에 옮기기.
@@ -19,6 +24,18 @@ public class Enemy : MonoBehaviour
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
+        OnInit?.Invoke();
+    }
+
+    public void HandleDeath()
+    {
+        stat.IsDead = true;
+        OnDead?.Invoke();
+    }
+
+    protected void ResetStates()
+    {
+        stat.IsDead = false;
     }
 
     void Start()
@@ -26,6 +43,7 @@ public class Enemy : MonoBehaviour
         // factory 제작 및 initiating 이후에 수정해야 함.
         Init(targetEnemyDataSO);
     }
+
 
     void Update()
     {

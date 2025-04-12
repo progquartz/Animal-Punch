@@ -25,7 +25,7 @@ public class MapGroupObject : MonoBehaviour
                 GameObject model = Instantiate(gp.gameObject, child);
                 // 오브젝트 풀에서 해당 키의 단체 오브젝트 반환
                 model.transform.localPosition = Vector3.zero;
-                Debug.Log($"재설정 후 localPosition: {model.transform.localPosition}");
+                //Debug.Log($"재설정 후 localPosition: {model.transform.localPosition}");
             }
         }
     }    
