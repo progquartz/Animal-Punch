@@ -2,12 +2,49 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
-    public float gameTime;
+    // 현재 게임 진행 시간
+    public float GameTime;
+
+    public float GameTimeLeft = 10f;
+    public float MaxGameTime = 10f;
+    public float GameTimeDecreaseRate = 1.0f;
+
+
     public float hpIncreaseRate = 0.1f;
 
     private void Update()
     {
-        gameTime += Time.deltaTime;
+        UpdateGameTime();
+        CheckGameEnd();
+    }
+
+    public void GainGameTime(float amount)
+    {
+        GameTimeLeft += amount;
+        if(GameTimeLeft > MaxGameTime)
+        {
+            GameTimeLeft = MaxGameTime;
+        }
+    }
+
+    private void UpdateGameTime()
+    {
+        GameTime += Time.deltaTime;
+        GameTimeLeft -= Time.deltaTime * GameTimeDecreaseRate;
+    }
+
+    private void CheckGameEnd()
+    {
+        // 게임 오버 정의.
+        if(GameTimeLeft < 0)
+        {
+            OnGameOver();
+        }
+    }
+
+    private void OnGameOver()
+    {
+        Logger.LogError("게임 오버!");
     }
 
     /// <summary>
@@ -15,6 +52,6 @@ public class GameManager : SingletonBehaviour<GameManager>
     /// </summary>
     public float GetHPMultiplier()
     {
-        return 1f + gameTime * hpIncreaseRate;
+        return 1f + GameTime * hpIncreaseRate;
     }
 }
