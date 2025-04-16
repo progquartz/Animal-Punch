@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5548160f23185f4b9a2e2cea6120432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageText: {fileID: 7139362376491798143}
+  Text: {fileID: 7139362376491798143}
   moveUpDistance: 50
   duration: 1
   scalePunch: 1

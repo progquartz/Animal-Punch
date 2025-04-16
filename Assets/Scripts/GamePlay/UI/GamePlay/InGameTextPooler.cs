@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameTextPooler : MonoBehaviour
+public class InGameTextPooler : SingletonBehaviour<InGameTextPooler>
 {
-    public static InGameTextPooler Instance { get; private set; }
 
     public GameText damageTextPrefab; 
     public int initialPoolSize = 10;
@@ -12,15 +11,6 @@ public class InGameTextPooler : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameText dt = Instantiate(damageTextPrefab, transform);
@@ -53,9 +43,9 @@ public class InGameTextPooler : MonoBehaviour
         poolQueue.Enqueue(dt);
     }
 
-    public void SpawnDamageText(float damage, Vector3 worldPosition)
+    public void SpawnText(string text, Color color,  Vector3 worldPosition)
     {
         GameText dt = GetFromPool();
-        dt.ShowDamage(damage, worldPosition);
+        dt.ShowText(text, color, worldPosition);
     }
 }

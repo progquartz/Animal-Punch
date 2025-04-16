@@ -93,6 +93,7 @@ public class DropLoot : MonoBehaviour
     private void LootItem()
     {
         Player.Instance.Stat.GainExp(dropItemData.ExpAmount);
+        InGameTextPooler.Instance.SpawnText($"+{dropItemData.GoldAmount}", Color.yellow, Player.Instance.PlayerTransform.position);
         Player.Instance.Inventory.GainGold(dropItemData.GoldAmount);
         if(dropItemData.IsGainingItem)
         {
