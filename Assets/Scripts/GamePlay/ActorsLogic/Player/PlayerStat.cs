@@ -28,4 +28,35 @@ public class PlayerStat
     public float CollisionImpulseDamageBase;
     public float CollisionImpulseStandard;          // 기준 충격량 (1배)
     public float CollisionImpulseDamageRatio;       // 충격량 비례 추가 데미지
+
+    [Header("경험치 및 레벨")]
+    public int level;
+    public int levelUpExpNeed; // 레벨 업에 필요한 경험치.
+    public int currentExp;
+
+    public void Init()
+    {
+        level = 0;
+        levelUpExpNeed = 100;
+        currentExp = 0;
+    }
+
+    public void GainExp(int amount)
+    {
+        currentExp += amount;
+
+        if (currentExp >= levelUpExpNeed)
+        {
+            OnLevelUp();
+        }
+    }
+
+    public void OnLevelUp()
+    {
+        int expLeft = currentExp - levelUpExpNeed;
+        level++;
+        currentExp = expLeft;
+    }
+
+
 }

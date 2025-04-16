@@ -87,7 +87,7 @@ public class ActorCollision : MonoBehaviour
         if(isActorAbleToHit)
         {
             bool isDead = owner.stat.HandleDamage(impulseDamage);
-            DamageTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
+            InGameTextPooler.Instance.SpawnDamageText(impulseDamage, ActorTransform.position);
             if (isDead)
             {
                 owner.HandleDeath();

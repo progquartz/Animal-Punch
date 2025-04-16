@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DropLoot : MonoBehaviour
 {
-    private DropItemData dropItemData;
+    [SerializeField] private DropItemData dropItemData;
     public Transform Target;
     public Transform Loot;
     [SerializeField] private Animator animator;
@@ -32,6 +32,7 @@ public class DropLoot : MonoBehaviour
         {
             Target = Player.Instance.PlayerTransform;
         }
+        animator.SetTrigger(animatorResetString);
         currentWaitingTime = waitingTimeAfterDrop;
         currentWaiting = true;
         isFollowing = false;
@@ -91,7 +92,12 @@ public class DropLoot : MonoBehaviour
 
     private void LootItem()
     {
-
+        Player.Instance.Stat.GainExp(dropItemData.ExpAmount);
+        Player.Instance.Inventory.GainGold(dropItemData.GoldAmount);
+        if(dropItemData.IsGainingItem)
+        {
+            // 보물상자 열리는 루팅 열기.
+        }
     }
 
     void Update()

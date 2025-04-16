@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class DropItemData
 {
-    public int goldAmount;
-    public float expAmount;
+    public int GoldAmount;
+    public int ExpAmount;
+    public bool IsGainingItem;
 }

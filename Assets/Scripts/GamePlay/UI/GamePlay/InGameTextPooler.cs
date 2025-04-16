@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTextPooler : MonoBehaviour
+public class InGameTextPooler : MonoBehaviour
 {
-    public static DamageTextPooler Instance { get; private set; }
+    public static InGameTextPooler Instance { get; private set; }
 
-    public DamageText damageTextPrefab; 
+    public GameText damageTextPrefab; 
     public int initialPoolSize = 10;
 
-    private Queue<DamageText> poolQueue = new Queue<DamageText>();
+    private Queue<GameText> poolQueue = new Queue<GameText>();
 
     private void Awake()
     {
@@ -23,31 +23,31 @@ public class DamageTextPooler : MonoBehaviour
         }
         for (int i = 0; i < initialPoolSize; i++)
         {
-            DamageText dt = Instantiate(damageTextPrefab, transform);
+            GameText dt = Instantiate(damageTextPrefab, transform);
             dt.gameObject.SetActive(false);
             dt.SetPool(this);
             poolQueue.Enqueue(dt);
         }
     }
 
-    public DamageText GetFromPool()
+    public GameText GetFromPool()
     {
         if (poolQueue.Count > 0)
         {
-            DamageText dt = poolQueue.Dequeue();
+            GameText dt = poolQueue.Dequeue();
             dt.gameObject.SetActive(true);
             return dt;
         }
         else
         {
             // 필요시 풀 확장
-            DamageText dt = Instantiate(damageTextPrefab, transform);
+            GameText dt = Instantiate(damageTextPrefab, transform);
             dt.SetPool(this);
             return dt;
         }
     }
 
-    public void ReturnToPool(DamageText dt)
+    public void ReturnToPool(GameText dt)
     {
         dt.gameObject.SetActive(false);
         poolQueue.Enqueue(dt);
@@ -55,7 +55,7 @@ public class DamageTextPooler : MonoBehaviour
 
     public void SpawnDamageText(float damage, Vector3 worldPosition)
     {
-        DamageText dt = GetFromPool();
+        GameText dt = GetFromPool();
         dt.ShowDamage(damage, worldPosition);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class DamageText : MonoBehaviour
+public class GameText : MonoBehaviour
 {
     public TextMeshProUGUI damageText; // TextMeshProUGUI 컴포넌트
     public float moveUpDistance = 50f;   // 위로 이동할 거리
@@ -11,13 +11,13 @@ public class DamageText : MonoBehaviour
     public float scaleDuration = 1.0f;   // 펀치 효과 지속 시간
 
     private RectTransform rectTransform;
-    private DamageTextPooler pool;
+    private InGameTextPooler pool;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
-    public void SetPool(DamageTextPooler pool)
+    public void SetPool(InGameTextPooler pool)
     {
         this.pool = pool;
     }
