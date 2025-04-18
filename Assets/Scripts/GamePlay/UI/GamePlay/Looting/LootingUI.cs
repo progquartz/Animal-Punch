@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum LootingRankType
@@ -9,27 +10,36 @@ public enum LootingRankType
     Legendary = 4,
 }
 
-public enum LootingTypeType
-{
 
-}
+
 public class LootingUI : BaseUI
 {
     [SerializeField] public Color[] RankColors;
-
     [SerializeField] private LootingCardUI[] lootingCardUIList;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Show();
+        ShowRandomLoots();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ShowRandomLoots()
     {
-        
+        var allTypes = System.Enum.GetValues(typeof(LootingTypeType));
+        List<LootingTypeType> chosenTypes = new();
+
+        while (chosenTypes.Count < 3)
+        {
+            var randomType = (LootingTypeType)allTypes.GetValue(Random.Range(0, allTypes.Length));
+            if (!chosenTypes.Contains(randomType))
+                chosenTypes.Add(randomType);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            var rank = (LootingRankType)Random.Range(0, RankColors.Length);
+            lootingCardUIList[i].SetupCard(chosenTypes[i], rank, RankColors[(int)rank]);
+        }
     }
 }
+
