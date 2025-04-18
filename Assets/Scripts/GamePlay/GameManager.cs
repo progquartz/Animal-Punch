@@ -44,7 +44,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void OnGameOver()
     {
-        Logger.LogError("게임 오버!");
+        //Logger.LogError("게임 오버!");
     }
 
     /// <summary>

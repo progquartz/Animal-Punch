@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Player : SingletonBehaviour<Player>
 {
     public PlayerStat Stat;
     public Transform PlayerTransform;
+    public Inventory Inventory;
     [SerializeField] private PlayerPhysics playerPhysics;
 
     private void Awake()
@@ -15,11 +17,10 @@ public class Player : SingletonBehaviour<Player>
     {
         base.Init();
         playerPhysics = GetComponent<PlayerPhysics>();
+        Inventory = GetComponent<Inventory>();
         playerPhysics.Init(this);
+        Stat.Init();
     }
-
-
-
 
     
 
