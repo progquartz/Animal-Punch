@@ -526,6 +526,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelText: {fileID: 462508469}
+--- !u!1 &58367057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 355039420950399707, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+  m_PrefabInstance: {fileID: 39008284804214683}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &60495601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2896,12 +2901,52 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7888945515072305990, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
   m_PrefabInstance: {fileID: 39008284804214683}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 58367057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43024950034bf65458b608f4f5432078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &271625038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58367057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2311896f8e46094b8636dd6b5517059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelExpList: 
+  LootingEffectImages:
+  - {fileID: 21300000, guid: 84a9ead98297c8042ad6996d4be3c45d, type: 3}
+  - {fileID: 21300000, guid: 053c1aa10efbdcc468e1aedb7a8e6f98, type: 3}
+  - {fileID: 21300000, guid: d1a3bd3c8d1a44c4180ae31249e3fb13, type: 3}
+  - {fileID: 21300000, guid: e503f0b8178f34f428716d43897e6d1b, type: 3}
+  - {fileID: 21300000, guid: deb5c010e286cfd429b01adc1bcad4a4, type: 3}
+  - {fileID: 21300000, guid: 8444186e3504c8640aa700ca899c1988, type: 3}
+  - {fileID: 21300000, guid: 458008dfd51cc784fb017c86405026ce, type: 3}
+  - {fileID: 21300000, guid: 44f6af97ee382e5479da7d5c23d94b8a, type: 3}
+  - {fileID: 21300000, guid: 84a9ead98297c8042ad6996d4be3c45d, type: 3}
+  LootingCardBackgroundImages:
+  - {fileID: 21300000, guid: 964ca1e34af2e2d4a8df96db723ee26d, type: 3}
+  - {fileID: 21300000, guid: 225a14f28fb040c488762dc9de8ebeb8, type: 3}
+  - {fileID: 21300000, guid: e027c8f9a97d43e45b317fc4707acc86, type: 3}
+  - {fileID: 21300000, guid: f0399aa66c03c5d4f9852be8c60d03fb, type: 3}
+  - {fileID: 21300000, guid: 67e176723e2be6349b5b662f5c64fe4a, type: 3}
+  LootingProbabilityList:
+  - Type: 0
+    Probability: 100
+  - Type: 1
+    Probability: 60
+  - Type: 2
+    Probability: 40
+  - Type: 3
+    Probability: 15
+  - Type: 4
+    Probability: 5
 --- !u!1001 &278664265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3718,12 +3763,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimOnOpen: {fileID: 362439602}
-  RankColors:
-  - {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
-  - {r: 0.6114584, g: 1, b: 0.5235849, a: 1}
-  - {r: 0.2971698, g: 0.6293503, b: 1, a: 1}
-  - {r: 0.89713055, g: 0.2783019, b: 1, a: 1}
-  - {r: 1, g: 0.7872556, b: 0.2783019, a: 1}
   lootingCardUIList:
   - {fileID: 145299551}
   - {fileID: 368595667}
@@ -19685,10 +19724,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4158838508545829097, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      propertyPath: LootingStorage
+      value: 
+      objectReference: {fileID: 271625038}
+    - target: {fileID: 4158838508545829097, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      propertyPath: InventoryDataStorage
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5261356174381290621, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 355039420950399707, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 271625038}
   m_SourcePrefab: {fileID: 100100000, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
 --- !u!1001 &2332876640724248602
 PrefabInstance:

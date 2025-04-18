@@ -1,15 +1,19 @@
 
+using Microsoft.Unity.VisualStudio.Editor;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
 public enum LootingTypeType
 {
-    AccelerationLoot,
-    DashForceLoot,
-    MassLoot,
-    SizeLoot,
-    BaseDamageLoot,
-    DashCooltimeLoot,
-    ExpRatioLoot,
-    CriticalChanceLoot,
-    CritiaclDamageLoot,
+    AccelerationLoot = 0,
+    DashForceLoot = 1,
+    MassLoot = 2,
+    SizeLoot = 3,
+    DashCooltimeLoot = 4,
+    ExpRatioLoot = 5,
+    CriticalChanceLoot = 6,
+    CritiaclDamageLoot = 7,
 }
 
 public static class LootEffectFactory
@@ -19,9 +23,25 @@ public static class LootEffectFactory
         return type switch
         {
             LootingTypeType.AccelerationLoot => new AccelerationLoot(rank),
-            // 다음과 같이 다른 클래스들도 추가:
-            // LootingTypeType.MassLoot => new MassLoot(rank),
+            LootingTypeType.DashForceLoot => new DashForceLoot(rank),
+            LootingTypeType.MassLoot => new MassLoot(rank),
+            LootingTypeType.SizeLoot => new SizeLoot(rank),
+            LootingTypeType.DashCooltimeLoot => new DashCooltimeLoot(rank),
+            LootingTypeType.ExpRatioLoot => new ExpRatioLoot(rank),
+            LootingTypeType.CriticalChanceLoot => new CriticalChanceLoot(rank),
+            LootingTypeType.CritiaclDamageLoot => new CriticalDamageLoot(rank),
             _ => null
         };
+    }
+
+
+    public static Sprite GetLootTypeImage(LootingTypeType type)
+    {
+        return DataManager.Instance.LootingStorage.LootingEffectImages[(int)type];
+    }
+
+    public static Sprite GetLootBackgroundImage(LootingRankType rank)
+    {
+        return DataManager.Instance.LootingStorage.LootingCardBackgroundImages[(int)rank];
     }
 }

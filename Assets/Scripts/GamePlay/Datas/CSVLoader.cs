@@ -33,7 +33,7 @@ public class CSVLoader
             // 앞뒤 공백 제거 후 파싱 시도
             if (int.TryParse(line.Trim(), out int exp))
             {
-                owner.InventoryDataStorage.levelExpList.Add(exp);
+                owner.LootingStorage.levelExpList.Add(exp);
             }
             else
             {
@@ -41,6 +41,6 @@ public class CSVLoader
             }
         }
 
-        Debug.Log("성공적으로 " + owner.InventoryDataStorage.levelExpList.Count + "개의 경험치 데이터를 로드했습니다.");
+        Debug.Log("성공적으로 " + owner.LootingStorage.levelExpList.Count + "개의 경험치 데이터를 로드했습니다.");
     }
 }

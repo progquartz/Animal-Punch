@@ -1,16 +1,21 @@
 public class AccelerationLoot : ILootEffect
 {
-    private float accelerationBonus;
+    private float bonus;
 
-    public AccelerationLoot(LootingRankType rank)
+    public AccelerationLoot(LootingRankType lootingRankType)
     {
-        switch (rank)
+        switch (lootingRankType)
         {
-            case LootingRankType.Normal: accelerationBonus = 1f; break;
-            case LootingRankType.Rare: accelerationBonus = 2f; break;
-            case LootingRankType.Unique: accelerationBonus = 3f; break;
-            case LootingRankType.Epic: accelerationBonus = 4f; break;
-            case LootingRankType.Legendary: accelerationBonus = 5f; break;
+            case LootingRankType.Normal:
+                break;
+            case LootingRankType.Rare:
+                break;
+            case LootingRankType.Epic:
+                break;
+            case LootingRankType.Legendary:
+                break;
+            case LootingRankType.Unique:
+                break;
         }
     }
 
@@ -21,7 +26,7 @@ public class AccelerationLoot : ILootEffect
 
     public string[] GetEffectDescriptions()
     {
-        return new string[] { $"플레이어의 가속도가 {accelerationBonus}만큼 증가합니다." };
+        return new[] { $"Player Acceleration Gets {bonus}% faster" };
     }
 
     public string GetEffectName()

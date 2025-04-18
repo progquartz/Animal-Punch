@@ -4,7 +4,7 @@ public class DataManager : SingletonBehaviour<DataManager>
 {
     public MapDataStorage MapDataStorage;
     public EnemyDataStorage EnemyDataStorage;
-    public InventoryDataStorage InventoryDataStorage;
+    public LootingDataStorage LootingStorage;
     public CSVLoader CSVLoader;
 
     private void Start()

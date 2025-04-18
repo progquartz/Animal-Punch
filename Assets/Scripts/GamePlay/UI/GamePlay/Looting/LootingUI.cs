@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public enum LootingRankType
 {
     Normal = 0,
@@ -14,7 +15,6 @@ public enum LootingRankType
 
 public class LootingUI : BaseUI
 {
-    [SerializeField] public Color[] RankColors;
     [SerializeField] private LootingCardUI[] lootingCardUIList;
 
     void Start()
@@ -37,8 +37,10 @@ public class LootingUI : BaseUI
 
         for (int i = 0; i < 3; i++)
         {
-            var rank = (LootingRankType)Random.Range(0, RankColors.Length);
-            lootingCardUIList[i].SetupCard(chosenTypes[i], rank, RankColors[(int)rank]);
+            int randomInt = Random.Range(0, 100);
+
+            var rank = DataManager.Instance.LootingStorage.GetRandomLootingRank();
+            lootingCardUIList[i].SetupCard(chosenTypes[i], rank);
         }
     }
 }

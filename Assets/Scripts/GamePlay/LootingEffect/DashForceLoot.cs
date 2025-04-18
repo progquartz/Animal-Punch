@@ -2,14 +2,33 @@ using UnityEngine;
 
 public class DashForceLoot : ILootEffect
 {
+    private float bonus;
+
+    public DashForceLoot(LootingRankType lootingRankType)
+    {
+        switch (lootingRankType)
+        {
+            case LootingRankType.Normal:
+                break;
+            case LootingRankType.Rare:
+                break;
+            case LootingRankType.Epic:
+                break;
+            case LootingRankType.Legendary:
+                break;
+            case LootingRankType.Unique:
+                break;
+        }
+    }
+
     public void ApplyEffect(Player player)
     {
-        throw new System.NotImplementedException();
+        //player.Stat.acceleration += accelerationBonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        throw new System.NotImplementedException();
+        return new[] { $"Dash Force Gets {bonus}% Stronger" };
     }
 
     public string GetEffectName()
