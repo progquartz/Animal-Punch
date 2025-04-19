@@ -2,21 +2,26 @@ using UnityEngine;
 
 public class CriticalDamageLoot : ILootEffect
 {
-    private float bonus;
+    private int bonus;
 
     public CriticalDamageLoot(LootingRankType lootingRankType)
     {
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
+                bonus = 2;
                 break;
             case LootingRankType.Rare:
+                bonus = 4;
                 break;
             case LootingRankType.Epic:
-                break;
-            case LootingRankType.Legendary:
+                bonus = 8;
                 break;
             case LootingRankType.Unique:
+                bonus = 15;
+                break;
+            case LootingRankType.Legendary:
+                bonus = 30;
                 break;
         }
     }

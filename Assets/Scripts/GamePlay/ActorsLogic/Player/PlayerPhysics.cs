@@ -120,9 +120,8 @@ public class PlayerPhysics : MonoBehaviour
 
     public float CalculateImpulseDamage(float impulseMagnitude)
     {
-        float baseDamage = stat.CollisionDamageBase + stat.CollisionDamageAdditional;
-        float impulseDamage = stat.CollisionImpulseDamageBase * (impulseMagnitude / stat.CollisionImpulseStandard) * stat.CollisionImpulseDamageRatio;
-        //Debug.Log($"데미지 = {baseDamage + impulseDamage} / 기본 데미지 = {baseDamage} / 충격량 데미지 = {impulseDamage}");
-        return baseDamage + impulseDamage;
+        return stat.CalculateDamage(impulseMagnitude);
+
     }
+
 }

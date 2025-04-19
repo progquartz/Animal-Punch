@@ -27,8 +27,8 @@ public static class LootEffectFactory
             LootingTypeType.MassLoot => new MassLoot(rank),
             LootingTypeType.SizeLoot => new SizeLoot(rank),
             LootingTypeType.DashCooltimeLoot => new DashCooltimeLoot(rank),
-            LootingTypeType.ExpRatioLoot => new ExpRatioLoot(rank),
-            LootingTypeType.CriticalChanceLoot => new CriticalChanceLoot(rank),
+            LootingTypeType.ExpRatioLoot =>  new ExpRatioLoot(rank),
+            LootingTypeType.CriticalChanceLoot => (Player.Instance.Stat.CriticalChance <= 100) ? new CriticalChanceLoot(rank) : new CriticalDamageLoot(rank),
             LootingTypeType.CritiaclDamageLoot => new CriticalDamageLoot(rank),
             _ => null
         };

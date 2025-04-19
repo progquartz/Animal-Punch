@@ -7136,13 +7136,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914f27638702b2f40981e764bc78fccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialStat:
+    RigidbodySpeed: 0
+    CurrentAdditionForce: 0
+    LastDashTime: 0
+    MoveForce: 0
+    BoostForce: 0
+    BoostCooltime: 0
+    AdditionForceRatio: 0
+    AdditionForceMax: 0
+    RotationSpeed: 1000
+    CollisionDamageBase: 0
+    CollisionDamageAdditional: 0
+    CollisionImpulseDamageBase: 0
+    CollisionImpulseStandard: 0
+    CollisionImpulseDamageRatio: 0
+    CriticalChance: 0
+    CriticalRatio: 0
+    Level: 0
+    LevelUpExpNeed: 0
+    CurrentExp: 0
   Stat:
     RigidbodySpeed: 0
     CurrentAdditionForce: 0
     LastDashTime: 0
     MoveForce: 3000
     BoostForce: 1500
-    BoostCooltime: 0.1
+    BoostCooltime: 1
     AdditionForceRatio: 300
     AdditionForceMax: 1500
     RotationSpeed: 1000
@@ -7151,9 +7171,11 @@ MonoBehaviour:
     CollisionImpulseDamageBase: 10
     CollisionImpulseStandard: 100
     CollisionImpulseDamageRatio: 1.2
-    level: 0
-    levelUpExpNeed: 0
-    currentExp: 0
+    CriticalChance: 0
+    CriticalRatio: 0
+    Level: 0
+    LevelUpExpNeed: 0
+    CurrentExp: 0
   PlayerTransform: {fileID: 523480152}
   Inventory: {fileID: 0}
   playerPhysics: {fileID: 852863487}
