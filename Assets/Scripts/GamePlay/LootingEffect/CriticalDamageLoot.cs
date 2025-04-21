@@ -28,7 +28,7 @@ public class CriticalDamageLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        //player.Stat.acceleration += accelerationBonus;
+        player.Stat.CriticalBonusDamage += bonus;
     }
 
     public string[] GetEffectDescriptions()
@@ -38,6 +38,6 @@ public class CriticalDamageLoot : ILootEffect
 
     public string GetEffectName()
     {
-        throw new System.NotImplementedException();
+        return "Critical Damage";
     }
 }

@@ -40,8 +40,13 @@ public class LootingUI : BaseUI
             int randomInt = Random.Range(0, 100);
 
             var rank = DataManager.Instance.LootingStorage.GetRandomLootingRank();
-            lootingCardUIList[i].SetupCard(chosenTypes[i], rank);
+            lootingCardUIList[i].SetupCard(this, chosenTypes[i], rank);
         }
+    }
+
+    public void CloseLooting()
+    {
+        Close(true);
     }
 }
 

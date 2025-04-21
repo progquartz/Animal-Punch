@@ -7140,9 +7140,13 @@ MonoBehaviour:
     RigidbodySpeed: 0
     CurrentAdditionForce: 0
     LastDashTime: 0
+    CurrentMass: 1
+    CurrentSize: 1
+    MaximalSize: 3
     MoveForce: 0
     BoostForce: 0
     BoostCooltime: 0
+    BoostMinimalCooltime: 0.1
     AdditionForceRatio: 0
     AdditionForceMax: 0
     RotationSpeed: 1000
@@ -7152,17 +7156,22 @@ MonoBehaviour:
     CollisionImpulseStandard: 0
     CollisionImpulseDamageRatio: 0
     CriticalChance: 0
-    CriticalRatio: 0
+    CriticalBonusDamage: 0
     Level: 0
     LevelUpExpNeed: 0
     CurrentExp: 0
+    AdditionalExpRatio: 0
   Stat:
     RigidbodySpeed: 0
     CurrentAdditionForce: 0
     LastDashTime: 0
+    CurrentMass: 40
+    CurrentSize: 1
+    MaximalSize: 3
     MoveForce: 3000
     BoostForce: 1500
     BoostCooltime: 1
+    BoostMinimalCooltime: 0.1
     AdditionForceRatio: 300
     AdditionForceMax: 1500
     RotationSpeed: 1000
@@ -7172,10 +7181,11 @@ MonoBehaviour:
     CollisionImpulseStandard: 100
     CollisionImpulseDamageRatio: 1.2
     CriticalChance: 0
-    CriticalRatio: 0
+    CriticalBonusDamage: 0
     Level: 0
     LevelUpExpNeed: 0
     CurrentExp: 0
+    AdditionalExpRatio: 0
   PlayerTransform: {fileID: 523480152}
   Inventory: {fileID: 0}
   playerPhysics: {fileID: 852863487}

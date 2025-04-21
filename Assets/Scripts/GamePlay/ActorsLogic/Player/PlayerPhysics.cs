@@ -46,6 +46,7 @@ public class PlayerPhysics : MonoBehaviour
     {
         HandleRotation();
         HandleBoost();
+        HandleStatChange();
         UpdateCameraPosition();
     }
 
@@ -122,6 +123,12 @@ public class PlayerPhysics : MonoBehaviour
     {
         return stat.CalculateDamage(impulseMagnitude);
 
+    }
+
+    private void HandleStatChange()
+    {
+        playerTransform.localScale = new Vector3(owner.Stat.CurrentSize, owner.Stat.CurrentSize, owner.Stat.CurrentSize);
+        playerRB.mass = owner.Stat.CurrentMass;
     }
 
 }

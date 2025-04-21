@@ -38,6 +38,6 @@ public class AccelerationLoot : ILootEffect
 
     public string GetEffectName()
     {
-        throw new System.NotImplementedException();
+        return "Increase Speed";
     }
 }

@@ -29,7 +29,10 @@ public class CriticalChanceLoot : ILootEffect
     public void ApplyEffect(Player player)
     {
         player.Stat.CriticalChance += bonus;
-        //player.Stat.acceleration += accelerationBonus;
+        if(player.Stat.CriticalChance >= 100 )
+        {
+            player.Stat.CriticalChance = 100;
+        }
     }
 
     public string[] GetEffectDescriptions()
@@ -39,6 +42,6 @@ public class CriticalChanceLoot : ILootEffect
 
     public string GetEffectName()
     {
-        throw new System.NotImplementedException();
+        return "Critical Chance";
     }
 }
