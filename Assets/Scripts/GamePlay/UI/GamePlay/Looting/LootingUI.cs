@@ -46,6 +46,7 @@ public class LootingUI : BaseUI
 
     public void CloseLooting()
     {
+        GameManager.Instance.ResumeTime();
         Close();
     }
 }

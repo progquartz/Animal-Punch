@@ -33,6 +33,8 @@ public class EnemyMoving : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.IsTimeStop) return;
+        
         if (stat.IsEnemyHasCondition)
         {
             actorBehaviour.CheckCondition();

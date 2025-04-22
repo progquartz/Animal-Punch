@@ -61,11 +61,13 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void StopTime()
     {
+        IsTimeStop = true;
         OnTimeToggle.Invoke(true);
     }
 
     public void ResumeTime()
     {
+        IsTimeStop = false;
         OnTimeToggle.Invoke(false);
     }
 }
