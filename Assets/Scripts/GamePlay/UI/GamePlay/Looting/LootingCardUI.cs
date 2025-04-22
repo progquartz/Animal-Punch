@@ -36,7 +36,6 @@ public class LootingCardUI : MonoBehaviour
     public void OnClick()
     {
         lootEffect.ApplyEffect(Player.Instance); // Player 싱글톤 사용
-        gameObject.SetActive(false); // 카드 비활성화 or UI 종료 등
         owner.CloseLooting();
     }
 }

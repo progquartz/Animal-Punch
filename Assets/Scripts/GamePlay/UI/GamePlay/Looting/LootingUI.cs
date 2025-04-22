@@ -46,7 +46,7 @@ public class LootingUI : BaseUI
 
     public void CloseLooting()
     {
-        Close(true);
+        Close();
     }
 }
 

@@ -48,18 +48,23 @@ public class PlayerStat
     public void Init()
     {
         Level = 0;
-        LevelUpExpNeed = 100;
+        LevelUpExpNeed = DataManager.Instance.LootingStorage.levelExpList[0];
         CurrentExp = 0;
     }
 
-    public void GainExp(int amount)
+    /// <summary>
+    /// 만약 레벨업 한다면 true 리턴
+    /// </summary>
+    public bool GainExp(int amount)
     {
         CurrentExp += amount;
 
         if (CurrentExp >= LevelUpExpNeed)
         {
             OnLevelUp();
+            return true;
         }
+        return false;
     }
 
     public void OnLevelUp()
