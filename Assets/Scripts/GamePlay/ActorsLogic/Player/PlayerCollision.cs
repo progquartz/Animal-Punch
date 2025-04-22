@@ -7,7 +7,7 @@ public class PlayerCollision : MonoBehaviour
 
     private Transform playerTransform;
     private Rigidbody playerRB;
-    
+
 
     // 충돌 전 속도를 저장할 변수
     private Vector3 previousVelocity;
@@ -21,15 +21,19 @@ public class PlayerCollision : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (owner.IsTimeStopped) return;
+
         previousVelocity = playerRB.linearVelocity;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Interactable"))
+        if (owner.IsTimeStopped) return;
+
+        if (collision.gameObject.CompareTag("Interactable"))
         {
             ActorCollision interactable = collision.gameObject.GetComponent<ActorCollision>();
-            if(interactable != null)
+            if (interactable != null)
             {
                 // 충돌할 경우 속도가 줄어들기 때문에, 이를 기반으로 줄어든 속도 = 충격량으로 데미지 계산을 측정.
                 // 단순 충격량을 하지 않는 이유는, 이를 받아내는 객체의 무게 계산까지 해야 하기 때문.

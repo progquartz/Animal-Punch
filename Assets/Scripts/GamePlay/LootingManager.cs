@@ -28,6 +28,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
 
     public void OpenLootUI()
     {
+        GameManager.Instance.StopTime();
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData());
     }
 }

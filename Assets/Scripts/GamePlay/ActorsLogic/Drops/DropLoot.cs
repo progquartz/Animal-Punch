@@ -106,7 +106,9 @@ public class DropLoot : MonoBehaviour
 
     void Update()
     {
-        if(currentWaiting)
+        if (GameManager.Instance.IsTimeStop) return;
+
+        if (currentWaiting)
         {
             CalculateWaitingTime();
             CalculateDestroyingTime();
