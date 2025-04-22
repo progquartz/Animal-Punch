@@ -2,28 +2,34 @@ using UnityEngine;
 
 public class ExpRatioLoot : ILootEffect
 {
-    private float bonus;
+    private int bonus;
 
     public ExpRatioLoot(LootingRankType lootingRankType)
     {
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
+                bonus = 3;
                 break;
             case LootingRankType.Rare:
+                bonus = 5;
                 break;
             case LootingRankType.Epic:
+                bonus = 10;
+                break;
+            
+            case LootingRankType.Unique:
+                bonus = 15;
                 break;
             case LootingRankType.Legendary:
-                break;
-            case LootingRankType.Unique:
+                bonus = 20;
                 break;
         }
     }
 
     public void ApplyEffect(Player player)
     {
-        //player.Stat.acceleration += accelerationBonus;
+        player.Stat.AdditionalExpRatio += bonus;
     }
 
     public string[] GetEffectDescriptions()

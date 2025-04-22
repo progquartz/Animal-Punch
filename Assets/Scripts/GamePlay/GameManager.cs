@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
@@ -9,6 +10,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float MaxGameTime = 10f;
     public float GameTimeDecreaseRate = 1.0f;
 
+
+    public bool IsTimeStop = false;
+    public Action<bool> OnTimeToggle;
 
     public float hpIncreaseRate = 0.1f;
 
@@ -53,5 +57,15 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float GetHPMultiplier()
     {
         return 1f + GameTime * hpIncreaseRate;
+    }
+
+    public void StopTime()
+    {
+        OnTimeToggle.Invoke(true);
+    }
+
+    public void ResumeTime()
+    {
+        OnTimeToggle.Invoke(false);
     }
 }

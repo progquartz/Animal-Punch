@@ -1,9 +1,11 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LootingCardUI : MonoBehaviour
 {
+    private LootingUI owner;
     public TMP_Text CardTitleText;
     public TMP_Text CardLoreText;
     public Image CardBackgroundImage;
@@ -11,8 +13,9 @@ public class LootingCardUI : MonoBehaviour
 
     private ILootEffect lootEffect;
 
-    public void SetupCard(LootingTypeType type, LootingRankType rank)
+    public void SetupCard(LootingUI owner, LootingTypeType type, LootingRankType rank)
     {
+        this.owner = owner;
         lootEffect = LootEffectFactory.CreateEffect(type, rank);
         CardTitleText.text = type.ToString();
         CardLoreText.text = string.Join("\n", lootEffect.GetEffectDescriptions());
@@ -33,6 +36,6 @@ public class LootingCardUI : MonoBehaviour
     public void OnClick()
     {
         lootEffect.ApplyEffect(Player.Instance); // Player 싱글톤 사용
-        gameObject.SetActive(false); // 카드 비활성화 or UI 종료 등
+        owner.CloseLooting();
     }
 }

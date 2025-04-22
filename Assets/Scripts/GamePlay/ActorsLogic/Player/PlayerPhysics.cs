@@ -46,6 +46,7 @@ public class PlayerPhysics : MonoBehaviour
     {
         HandleRotation();
         HandleBoost();
+        HandleStatChange();
         UpdateCameraPosition();
     }
 
@@ -120,9 +121,14 @@ public class PlayerPhysics : MonoBehaviour
 
     public float CalculateImpulseDamage(float impulseMagnitude)
     {
-        float baseDamage = stat.CollisionDamageBase + stat.CollisionDamageAdditional;
-        float impulseDamage = stat.CollisionImpulseDamageBase * (impulseMagnitude / stat.CollisionImpulseStandard) * stat.CollisionImpulseDamageRatio;
-        //Debug.Log($"데미지 = {baseDamage + impulseDamage} / 기본 데미지 = {baseDamage} / 충격량 데미지 = {impulseDamage}");
-        return baseDamage + impulseDamage;
+        return stat.CalculateDamage(impulseMagnitude);
+
     }
+
+    private void HandleStatChange()
+    {
+        playerTransform.localScale = new Vector3(owner.Stat.CurrentSize, owner.Stat.CurrentSize, owner.Stat.CurrentSize);
+        playerRB.mass = owner.Stat.CurrentMass;
+    }
+
 }

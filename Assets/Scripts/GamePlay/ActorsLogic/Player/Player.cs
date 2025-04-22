@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player : SingletonBehaviour<Player>
 {
+    public PlayerStat InitialStat;
     public PlayerStat Stat;
     public Transform PlayerTransform;
     public Inventory Inventory;
@@ -20,6 +21,8 @@ public class Player : SingletonBehaviour<Player>
         Inventory = GetComponent<Inventory>();
         playerPhysics.Init(this);
         Stat.Init();
+        InitialStat.Init();
+        InitialStat.CopyData(Stat);
     }
 
     

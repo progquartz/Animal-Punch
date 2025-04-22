@@ -6,6 +6,6 @@ public class ExpUIInitializer : MonoBehaviour
     [SerializeField] private RatioUI ratioUI;
     void Start()
     {
-        ratioUI.GetRatio = () =>  (float)Player.Instance.Stat.currentExp / Player.Instance.Stat.levelUpExpNeed;
+        ratioUI.GetRatio = () =>  (float)Player.Instance.Stat.CurrentExp / Player.Instance.Stat.LevelUpExpNeed;
     }
 }
