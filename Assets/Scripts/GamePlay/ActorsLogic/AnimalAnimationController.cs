@@ -93,7 +93,7 @@ public class AnimalAnimationController : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void ChangeAnimation(AnimalAnimation animationType)
@@ -103,8 +103,19 @@ public class AnimalAnimationController : MonoBehaviour
             // 같은 애니메이션이 호출되지 않았을 경우에만 바뀜.
             if (animationList[(int)animationType] != currentAnimation)
             {
-                animator.CrossFade(animationList[(int)animationType], 0.2f);
+                animator.Play(animationList[(int)animationType]);
+                //animator.CrossFade(animationList[(int)animationType], 0.2f);
             }
         }
+    }
+
+    public void PauseAnimation()
+    {
+        animator.speed = 0f;
+    }
+
+    public void ResumeAnimation()
+    {
+        animator.speed = 1f;
     }
 }

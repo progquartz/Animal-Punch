@@ -2,13 +2,22 @@ using UnityEngine;
 
 public class EnemyMoving : Enemy
 {
+    private bool isFirstTimeInitiated = true;
     private ActorBehaviour actorBehaviour;
 
     public AnimalAnimationController animationController;
 
+    private Vector3 storedLinearVelocity;
+    private Vector3 storedAngularVelocity;
+
     // start에서 Init으로 추후에 옮기기.
     public override void Init(EnemyDataSO enemyData)
     {
+        if(isFirstTimeInitiated)
+        {
+            isFirstTimeInitiated = false;
+            RegisterEvents();
+        }
         ResetStates();
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         
@@ -21,6 +30,16 @@ public class EnemyMoving : Enemy
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
         OnInit?.Invoke();
+    }
+
+    private void RegisterEvents()
+    {
+        GameManager.Instance.OnTimeToggle += OnTimeToggle;
+    }
+
+    private void ReleaseEvents()
+    {
+        GameManager.Instance.OnTimeToggle -= OnTimeToggle;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,4 +60,20 @@ public class EnemyMoving : Enemy
             actorBehaviour.BehaveOnUpdate();
         }
     }
+
+    private void OnTimeToggle(bool isTimeStop)
+    {
+        if(isTimeStop)
+        {
+            EnemyRB.isKinematic = true;
+            animationController.PauseAnimation();
+        }
+        else
+        {
+            EnemyRB.isKinematic = false;
+            animationController.ResumeAnimation();
+        }
+    }
+
+
 }

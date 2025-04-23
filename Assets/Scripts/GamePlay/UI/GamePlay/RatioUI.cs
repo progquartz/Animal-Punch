@@ -28,6 +28,8 @@ public class RatioUI : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsTimeStop) return;
+
         if (GetRatio != null)
         {
             float ratio = GetRatio();
