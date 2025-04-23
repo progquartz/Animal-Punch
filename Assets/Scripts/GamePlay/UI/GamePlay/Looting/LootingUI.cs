@@ -17,12 +17,11 @@ public class LootingUI : BaseUI
 {
     [SerializeField] private LootingCardUI[] lootingCardUIList;
 
-    void Start()
+    public override void Show()
     {
-        Show();
+        base.Show();
         ShowRandomLoots();
     }
-
     private void ShowRandomLoots()
     {
         var allTypes = System.Enum.GetValues(typeof(LootingTypeType));
