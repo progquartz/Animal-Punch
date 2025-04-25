@@ -10,13 +10,22 @@ public class Player : SingletonBehaviour<Player>
     [SerializeField] private PlayerPhysics playerPhysics;
     [SerializeField] private AnimalAnimationController animationController;
 
-    private void Awake()
+    protected override void Awake()
+    {
+        IsDestroyOnLoad = true;
+        base.Awake();
+        Init();
+    }
+
+    public void StartGameState()
     {
         Init();
     }
 
     protected void Init()
     {
+        IsDestroyOnLoad = true;
+
         base.Init();
         playerPhysics = GetComponent<PlayerPhysics>();
         Inventory = GetComponent<Inventory>();
@@ -31,11 +40,13 @@ public class Player : SingletonBehaviour<Player>
     private void RegisterEvents()
     {
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene += ReleaseEvents;
     }
 
     private void ReleaseEvents()
     {
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
     }
 
     private void OnTimeToggle(bool isTimeStop)

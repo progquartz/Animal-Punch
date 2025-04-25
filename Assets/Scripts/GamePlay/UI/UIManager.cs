@@ -9,17 +9,31 @@ public class UIManager : SingletonBehaviour<UIManager>
 {
     public static GraphicRaycaster graphicRayCaster;
     public Transform CanvasTransform;
-    public Transform ClosedUITrasnform;
+    public Transform ClosedUITransform;
 
     private BaseUI _frontUI;
     private Dictionary<Type, BaseUI> _openUIPool = new();
     private Dictionary<Type, BaseUI> _closeUIPool = new();
 
 
+    public void StartGameState()
+    {
+        Init();
+    }
+
     protected override void Init()
     {
+        IsDestroyOnLoad = true;
         base.Init();
-        graphicRayCaster = CanvasTransform.GetComponent<GraphicRaycaster>();
+        
+        if(CanvasTransform == null)
+        {
+            CanvasTransform = GameObject.Find("MainCanvas").transform;
+            ClosedUITransform = CanvasTransform.Find("ClosedUITransform");
+            DontDestroyOnLoad(CanvasTransform);
+            DontDestroyOnLoad(CanvasTransform);
+            graphicRayCaster = CanvasTransform.GetComponent<GraphicRaycaster>();
+        }
     }
 
     private BaseUI GetUI<T>(out bool isAlreadyOpen) where T : BaseUI
@@ -85,7 +99,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         ui.gameObject.SetActive(false);
         _openUIPool.Remove(uiType);
         _closeUIPool[uiType] = ui;
-        ui.transform.SetParent(ClosedUITrasnform);
+        ui.transform.SetParent(ClosedUITransform);
 
         _frontUI = null;
         var lastChild = CanvasTransform.GetChild(CanvasTransform.childCount - 1);

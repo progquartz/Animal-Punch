@@ -16,9 +16,16 @@ public class MapManager : SingletonBehaviour<MapManager>
     private const float chunkSize = 90f;
     private const float halfCellSize = chunkSize * 0.5f; // 45
 
+    protected override void Awake()
+    {
+        IsDestroyOnLoad = true;
+        base.Awake();
+    }
+
     void Start()
     {
         InitializeNearbyBlock();
+        MapDataStorage = DataManager.Instance.MapDataStorage;
         //LoadChunksAround(currentCenterChunk);
     }
 

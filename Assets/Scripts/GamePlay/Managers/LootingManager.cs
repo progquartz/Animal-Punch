@@ -8,11 +8,23 @@ public class LootingManager : SingletonBehaviour<LootingManager>
     [SerializeField] private DropItemData lootIncludeingItem;
     [SerializeField] private DropItemData lootExcludingItem;
 
+    protected override void Init()
+    {
+        IsDestroyOnLoad = true;
+
+        base.Init();
+
+    }
     /// <summary>
     /// 해당 월드포지션에 경험치와골드를 주는 드랍을 드랍.
     /// </summary>
     public void DropLoot(bool isIncludingItem, Vector3 worldPosition)
     {
+        if(LootingParent == null)
+        {
+            LootingParent = new GameObject("LootingParent");
+            LootingParent.transform.parent = null;
+        }
         GameObject instance = Instantiate(LootingPrefab, worldPosition, Quaternion.identity, LootingParent.transform);
         DropLoot loot = instance.GetComponent<DropLoot>();
         if(isIncludingItem)
