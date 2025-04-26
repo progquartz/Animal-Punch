@@ -6,6 +6,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     // 현재 게임 진행 시간
     public float GameTime;
 
+    public float InitialGameTimeLeft = 10f;
     public float GameTimeLeft = 10f;
     public float MaxGameTime = 10f;
     public float GameTimeDecreaseRate = 1.0f;
@@ -13,6 +14,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public bool IsTimeStop = false;
     public Action<bool> OnTimeToggle;
+    public Action OnQuitGameScene;
 
     public float hpIncreaseRate = 0.1f;
 
@@ -20,6 +22,21 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         UpdateGameTime();
         CheckGameEnd();
+    }
+
+    public void StartGameState()
+    {
+        IsTimeStop = false;
+        GameTime = 0f;
+        GameTimeLeft = InitialGameTimeLeft;
+        MaxGameTime = InitialGameTimeLeft;
+        //UIManager.Instance.StartGameState();
+        //Player.Instance.StartGameState();
+    }
+
+    public void EndGameState()
+    {
+        OnQuitGameScene.Invoke();
     }
 
     public void GainGameTime(float amount)

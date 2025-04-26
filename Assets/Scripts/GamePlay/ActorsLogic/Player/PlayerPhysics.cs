@@ -11,9 +11,8 @@ public class PlayerPhysics : MonoBehaviour
     public Transform cameraTransform; // 카메라의 Transform
     private Vector3 cameraOffset;
 
-    [HideInInspector]
     public Transform playerTransform;
-    public Rigidbody playerRB { get; private set; }
+    public Rigidbody playerRB;
 
     // 시간 정지 부분
     public bool IsTimeStopped = false;
@@ -30,6 +29,7 @@ public class PlayerPhysics : MonoBehaviour
 
     public void Init(Player player)
     {
+        Debug.Log("PlayerPhysicsInit");
         mainCamera = Camera.main;
         owner = player;
         stat = player.Stat;
@@ -45,11 +45,13 @@ public class PlayerPhysics : MonoBehaviour
     private void RegisterEvent()
     {
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene += ReleaseEvent;
     }
 
     private void ReleaseEvent()
     {
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene -= ReleaseEvent;
     }
 
     void FixedUpdate()
@@ -94,6 +96,7 @@ public class PlayerPhysics : MonoBehaviour
             playerRB.angularVelocity = storedAngularVelocity;
         }
     }
+
 
     /// <summary>
     /// 카메라 위치 조정

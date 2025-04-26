@@ -35,11 +35,13 @@ public class EnemyMoving : Enemy
     private void RegisterEvents()
     {
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene += ReleaseEvents;
     }
 
     private void ReleaseEvents()
     {
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

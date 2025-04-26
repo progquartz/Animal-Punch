@@ -15,6 +15,6 @@ public class PauseUI : BaseUI
 
     public void OnClickQuitButton()
     {
-        // 타이틀 씬으로 나가기
+        Close();
     }
 }
