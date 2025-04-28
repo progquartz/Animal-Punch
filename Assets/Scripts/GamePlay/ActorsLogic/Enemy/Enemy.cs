@@ -14,11 +14,15 @@ public class Enemy : MonoBehaviour
     public Action OnDead;
     public Action OnInit;
 
+    public bool IsInPool = false;
+
     
     // start에서 Init으로 추후에 옮기기.
     public virtual void Init(EnemyDataSO enemyData)
     {
+        IsInPool = false;
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
+        EnemyTransform.parent = MapManager.Instance.EnemySpawner.EnemyParentTransform;
         targetEnemyDataSO = enemyData;
         stat.CopyData(enemyData.ActorsStat);
 

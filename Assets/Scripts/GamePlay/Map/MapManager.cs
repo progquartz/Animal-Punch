@@ -20,6 +20,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     {
         IsDestroyOnLoad = true;
         base.Awake();
+        EnemySpawner.Init();
     }
 
     void Start()
