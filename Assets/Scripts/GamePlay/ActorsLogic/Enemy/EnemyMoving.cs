@@ -13,23 +13,16 @@ public class EnemyMoving : Enemy
     // start에서 Init으로 추후에 옮기기.
     public override void Init(EnemyDataSO enemyData)
     {
+        base.Init(enemyData);
         if(isFirstTimeInitiated)
         {
             isFirstTimeInitiated = false;
             RegisterEvents();
         }
         ResetStates();
-        EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
-        
-        targetEnemyDataSO = enemyData;
-        stat.CopyData(enemyData.ActorsStat);
-
+      
         actorBehaviour = ActorBehaviour.GetActorBehaviour(stat.BehaviourType);
         actorBehaviour.Init(this);
-
-        actorPhysics = GetComponent<ActorCollision>();
-        actorPhysics.Init(this, EnemyTransform);
-        OnInit?.Invoke();
     }
 
     private void RegisterEvents()

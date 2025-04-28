@@ -5,6 +5,8 @@ public class EnemySpawner : MonoBehaviour
 {
 
     public Transform playerTransform;
+    public Transform EnemyParentTransform;
+
     public EnemyPool Pool;
     // 스폰 범위 및 반납 기준 거리
     private float spawnRadius = 10f;
@@ -14,6 +16,14 @@ public class EnemySpawner : MonoBehaviour
 
     public float spawnInterval = 1f;
     private float spawnTimer;
+
+    private float despawnDistanceXZ = 100f;
+    private float despawnDistanceY = 10f;
+
+    public void Init()
+    {
+        EnemyParentTransform = GameObject.Find("EnemyParent").transform;
+    }
 
     void Update()
     {
@@ -26,22 +36,51 @@ public class EnemySpawner : MonoBehaviour
             TrySpawnEnemy();
         }
 
-        // 씬 내에 존재하는 모든 적을 검사해서 멀리 있는 경우 풀로 반납
-        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        foreach(Transform child in EnemyParentTransform)
         {
-            if (Vector3.Distance(enemy.transform.position, playerTransform.position) > despawnDistance)
+            Enemy enemy;
+            if(child.TryGetComponent<Enemy>(out enemy))
             {
-                // enemy의 타입(이름)을 키로 하여 풀로 반납
-                string poolKey = enemy.name.Replace("(Clone)", "").Trim();
-                Pool.ReturnToPool(poolKey, enemy.gameObject);
+                if (!enemy.IsInPool && IsOutOfDespawnDistance(enemy.transform.transform.position, playerTransform.position))
+                {
+                    // enemy의 타입(이름)을 키로 하여 풀로 반납
+                    string poolKey = enemy.name.Replace("(Clone)", "").Trim();
+                    Pool.ReturnToPool(poolKey, enemy.gameObject);
+                }
             }
         }
     }
 
+
+    private bool IsOutOfDespawnDistance(Vector3 enemyPosition, Vector3 playerPosition)
+    {
+        float dx = enemyPosition.x - playerPosition.x;
+        float dy = enemyPosition.y - playerPosition.y;
+        float dz = enemyPosition.z - playerPosition.z;
+
+        float distanceXZ = Mathf.Sqrt(dx * dx + dz * dz);
+        float distanceY = Mathf.Abs(dy);
+
+        if (distanceXZ >= despawnDistanceXZ || distanceY >= despawnDistanceY)
+        {
+            return true;
+        }
+        return false;
+    }
+
     void TrySpawnEnemy()
     {
+        int enemyCount = 0;
+        foreach(Transform child in EnemyParentTransform)
+        {
+            if(child.gameObject.activeInHierarchy)
+            {
+                enemyCount++;
+            }
+        }
+
         // 개체 조절
-        if (FindObjectsOfType<Enemy>().Length < maxEnemyCount)
+        if (enemyCount < maxEnemyCount)
         {
             Vector3 randomPos = playerTransform.position + (Random.insideUnitSphere * spawnRadius);
             randomPos.y = 0f;
