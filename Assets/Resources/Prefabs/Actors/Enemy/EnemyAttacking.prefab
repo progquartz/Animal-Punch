@@ -8,6 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 6045733176675134633}
   - component: {fileID: 1806603910118955298}
   m_Layer: 0
   m_Name: DeadTrail
@@ -174,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 2851644717199167569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17, y: -0.03999999, z: -0.27000004}
+  m_LocalPosition: {x: -0.17, y: 0.023, z: -0.27000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5007,7 +5008,7 @@ Transform:
   m_GameObject: {fileID: 9193082563732348644}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.21, y: -0.04, z: -0.27}
+  m_LocalPosition: {x: 0.21, y: 0.022999965, z: -0.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
