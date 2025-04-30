@@ -29,7 +29,6 @@ public class PlayerPhysics : MonoBehaviour
 
     public void Init(Player player)
     {
-        Debug.Log("PlayerPhysicsInit");
         mainCamera = Camera.main;
         owner = player;
         stat = player.Stat;

@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerParticleController : ParticleController
 {
     protected new float originalSpeed = 10f;
+    public ParticleSystem[] levelUpParticles;
 
     void Update()
     {
@@ -25,4 +26,18 @@ public class PlayerParticleController : ParticleController
     {
         throw new System.NotImplementedException();
     }
+
+    public void OnLevelUp()
+    {
+        foreach (var particle in levelUpParticles)
+        {
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+                break;
+            }
+        }
+    }
+
+
 }

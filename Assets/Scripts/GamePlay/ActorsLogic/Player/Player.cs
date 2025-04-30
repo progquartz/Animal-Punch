@@ -8,8 +8,8 @@ public class Player : SingletonBehaviour<Player>
     public Transform PlayerTransform;
     public Inventory Inventory;
     [SerializeField] private PlayerPhysics playerPhysics;
-    [SerializeField] private AnimalAnimationController animationController;
-    [SerializeField] private PlayerParticleController particleController;
+    public AnimalAnimationController animationController;
+    public PlayerParticleController particleController;
 
     protected override void Awake()
     {
@@ -64,6 +64,14 @@ public class Player : SingletonBehaviour<Player>
         else
         {
             animationController.ResumeAnimation();
+        }
+    }
+
+    public void OnLevelUp(bool isSelectedLooting)
+    {
+        if(isSelectedLooting)
+        {
+            particleController.OnLevelUp();
         }
     }
 
