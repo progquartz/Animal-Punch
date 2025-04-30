@@ -75,11 +75,7 @@ public class ActorCollision : MonoBehaviour
 
     private void HandleCollisionOnHealthCondition(Collision collision, GameObject collisionObject, float impulseDamage)
     {
-        // 플레이어에게서 속도 받아오고
-
-        // 플레이어 속도에 맞게
         HandleCollisionDamage(collision, collisionObject, impulseDamage);
-
     }
 
     private void HandleCollisionDamage(Collision collision, GameObject collisionObject, float impulseDamage)
@@ -162,10 +158,5 @@ public class ActorCollision : MonoBehaviour
     private void CheckCollisionOnSpawn()
     {
         isFirstTimeSpawn = false;
-    }
-    private void HandleDeath()
-    {
-        // 만약 연결해야 할 부분이 있거나 추가로 처리해야 하는 부분이 있다면 추후 처리.
-        Destroy(this.gameObject, 1f);
     }
 }

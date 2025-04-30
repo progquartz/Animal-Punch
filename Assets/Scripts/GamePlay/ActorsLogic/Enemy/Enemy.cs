@@ -31,9 +31,10 @@ public class Enemy : MonoBehaviour
         OnInit?.Invoke();
     }
 
-    public void HandleDeath()
+    public virtual void HandleDeath()
     {
         stat.IsDead = true;
+        
         LootingManager.Instance.DropLoot(false, EnemyTransform.position);
         OnDead?.Invoke();
     }

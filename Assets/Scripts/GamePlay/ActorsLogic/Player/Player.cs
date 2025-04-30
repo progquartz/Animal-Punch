@@ -9,6 +9,7 @@ public class Player : SingletonBehaviour<Player>
     public Inventory Inventory;
     [SerializeField] private PlayerPhysics playerPhysics;
     [SerializeField] private AnimalAnimationController animationController;
+    [SerializeField] private PlayerParticleController particleController;
 
     protected override void Awake()
     {
@@ -30,6 +31,7 @@ public class Player : SingletonBehaviour<Player>
         playerPhysics = GetComponent<PlayerPhysics>();
         Inventory = GetComponent<Inventory>();
         animationController = GetComponent<AnimalAnimationController>();
+        particleController = GetComponent<PlayerParticleController>();
         playerPhysics.Init(this);
         Stat.Init();
         InitialStat.Init();
@@ -40,13 +42,17 @@ public class Player : SingletonBehaviour<Player>
     private void RegisterEvents()
     {
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
+        GameManager.Instance.OnTimeToggle += particleController.OnTimeToggle;
         GameManager.Instance.OnQuitGameScene += ReleaseEvents;
+        
     }
 
     private void ReleaseEvents()
     {
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
+        GameManager.Instance.OnTimeToggle -= particleController.OnTimeToggle;
         GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
+        
     }
 
     private void OnTimeToggle(bool isTimeStop)

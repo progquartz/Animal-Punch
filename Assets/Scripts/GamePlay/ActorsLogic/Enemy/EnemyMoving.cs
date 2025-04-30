@@ -6,6 +6,7 @@ public class EnemyMoving : Enemy
     private ActorBehaviour actorBehaviour;
 
     public AnimalAnimationController animationController;
+    public EnemyParticleController particleController;
 
     private Vector3 storedLinearVelocity;
     private Vector3 storedAngularVelocity;
@@ -23,28 +24,39 @@ public class EnemyMoving : Enemy
       
         actorBehaviour = ActorBehaviour.GetActorBehaviour(stat.BehaviourType);
         actorBehaviour.Init(this);
+        particleController.Init(this);
+    }
+
+    public override void HandleDeath()
+    {
+        stat.IsDead = true;
+        particleController.OnDead();
+        LootingManager.Instance.DropLoot(false, EnemyTransform.position);
+        OnDead?.Invoke();
     }
 
     private void RegisterEvents()
     {
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
+        GameManager.Instance.OnTimeToggle += particleController.OnTimeToggle;
         GameManager.Instance.OnQuitGameScene += ReleaseEvents;
+        
     }
 
     private void ReleaseEvents()
     {
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
-        GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
+        GameManager.Instance.OnTimeToggle -= particleController.OnTimeToggle;   
+        GameManager.Instance.OnQuitGameScene -= ReleaseEvents; // 가장 마지막에 적용되어야 함.
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // factory 제작 및 initiating 이후에 수정해야 함.
         Init(targetEnemyDataSO);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (GameManager.Instance.IsTimeStop) return;
