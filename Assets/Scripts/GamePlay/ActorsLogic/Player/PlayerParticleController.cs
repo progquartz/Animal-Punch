@@ -4,11 +4,16 @@ public class PlayerParticleController : ParticleController
 {
     protected new float originalSpeed = 10f;
     public ParticleSystem[] levelUpParticles;
+    public TrailRenderer BoostParticle;
+    private bool isBoostParticlesActivated = false;
+    private float currentBoostTime = 0f;
+    private float boostTime = 0.4f;
 
     void Update()
     {
         if(GameManager.Instance.IsTimeStop) return;
         CheckTrailParticles();
+        CheckBoostParticles();
 
     }
 
@@ -19,6 +24,19 @@ public class PlayerParticleController : ParticleController
         {
             var main = particle.main;
             main.startLifetimeMultiplier = (playerSpeed / originalSpeed);
+        }
+    }
+
+    private void CheckBoostParticles()
+    {
+        if(isBoostParticlesActivated)
+        {
+            currentBoostTime -= Time.deltaTime;
+            if(currentBoostTime < 0f )
+            {
+                isBoostParticlesActivated = false;
+                BoostParticle.emitting = false;
+            }
         }
     }
 
@@ -37,6 +55,17 @@ public class PlayerParticleController : ParticleController
                 break;
             }
         }
+    }
+
+    public void OnBoost()
+    {
+        if(!isBoostParticlesActivated)
+        {
+            isBoostParticlesActivated = true;
+        }
+
+        currentBoostTime = boostTime;
+        BoostParticle.emitting = true;
     }
 
 
