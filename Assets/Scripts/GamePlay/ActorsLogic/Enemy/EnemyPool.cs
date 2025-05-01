@@ -39,14 +39,12 @@ public class EnemyPool : MonoBehaviour
         {
             if (enemyPool[key].Count > 0)
             {
-                Debug.Log("호출1");
                 GameObject obj = enemyPool[key].Dequeue();
                 obj.SetActive(true);
                 return obj;
             }
             else
             {
-                Debug.Log("호출2");
                 // 풀에 준비된 객체가 없으면 새로 생성
                 // enemydatastorage에서 올바른 데이터 받아오기...
                 GameObject obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyOnKey(key).spawnPrefab);
@@ -55,7 +53,6 @@ public class EnemyPool : MonoBehaviour
         }
         else
         {
-            Debug.Log("호출3");
             // 키가 없으면 초기화 후 반환
             InitializePool(key, 1);
             return GetFromPool(key);

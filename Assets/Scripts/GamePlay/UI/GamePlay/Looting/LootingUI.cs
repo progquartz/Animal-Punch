@@ -43,9 +43,17 @@ public class LootingUI : BaseUI
         }
     }
 
-    public void CloseLooting()
+    public void CloseLooting(bool isSelectedLooting)
     {
         GameManager.Instance.ResumeTime();
+        if(isSelectedLooting)
+        {
+            Player.Instance.OnLevelUp(isSelectedLooting);
+        }
+        else 
+        {
+            
+        }
         Close();
     }
 }

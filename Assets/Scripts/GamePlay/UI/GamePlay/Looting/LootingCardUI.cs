@@ -36,6 +36,6 @@ public class LootingCardUI : MonoBehaviour
     public void OnClick()
     {
         lootEffect.ApplyEffect(Player.Instance); // Player ½Ì±ÛÅæ »ç¿ë
-        owner.CloseLooting();
+        owner.CloseLooting(true);
     }
 }

@@ -29,7 +29,6 @@ public class PlayerPhysics : MonoBehaviour
 
     public void Init(Player player)
     {
-        Debug.Log("PlayerPhysicsInit");
         mainCamera = Camera.main;
         owner = player;
         stat = player.Stat;
@@ -158,6 +157,7 @@ public class PlayerPhysics : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= stat.LastDashTime + stat.BoostCooltime)
         {
             playerRB.AddForce(playerTransform.forward * stat.BoostForce, ForceMode.Impulse);
+            owner.particleController.OnBoost();
             stat.LastDashTime = Time.time;
         }
     }
