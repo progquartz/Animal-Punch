@@ -9,10 +9,18 @@ public enum ActorBehaviourType
 }
 public abstract class ActorBehaviour
 {
+    protected EnemyMoving owner;
+    protected Transform playerTransform;
     public abstract void CheckCondition();
     public abstract void BehaveOnUpdate();
 
-    public abstract void Init(EnemyMoving owner);
+    public abstract void InitStateList();
+
+    public virtual void Init(EnemyMoving owner)
+    {
+        this.owner = owner;
+        playerTransform = Player.Instance.PlayerTransform;
+    }
 
     public static ActorBehaviour GetActorBehaviour(ActorBehaviourType type)
     {

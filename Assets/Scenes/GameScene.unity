@@ -18765,6 +18765,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataStorage
       objectReference: {fileID: 0}
+    - target: {fileID: 446095511135074319, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      propertyPath: enemyData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 446095511135074319, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      propertyPath: enemyData.Array.data[1].enemyKey
+      value: EnemyAttacking2
+      objectReference: {fileID: 0}
+    - target: {fileID: 446095511135074319, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      propertyPath: enemyData.Array.data[1].spawnPrefab
+      value: 
+      objectReference: {fileID: 5133525888614085507, guid: de6f407bd4e0523428b0376316bcf1ee, type: 3}
+    - target: {fileID: 446095511135074319, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
+      propertyPath: enemyData.Array.data[1].maxSpawnTime
+      value: 100000000
+      objectReference: {fileID: 0}
     - target: {fileID: 3707104448521672600, guid: 96a4ff7d3d118ee40a42426196673ad9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

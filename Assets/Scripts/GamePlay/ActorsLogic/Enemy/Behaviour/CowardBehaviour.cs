@@ -3,16 +3,29 @@ using UnityEngine;
 
 public class CowardBehaviour : ActorBehaviour
 {
-    private EnemyMoving owner;
     private float detectionRange = 15f;
 
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
     WanderPattern WanderPattern;
     FleePattern FleePattern;
-    
 
-    
+    public override void Init(EnemyMoving owner)
+    {
+        base.Init(owner);
+        InitStateList();
+    }
+
+    public override void InitStateList()
+    {
+        FleePattern = new FleePattern();
+        WanderPattern = new WanderPattern();
+        FleePattern.Init(owner);
+        WanderPattern.Init(owner);
+        CurrentPattern = WanderPattern;
+    }
+
+
     public override void CheckCondition()
     {
         if (IsPlayerInDetectionRange())
@@ -44,9 +57,8 @@ public class CowardBehaviour : ActorBehaviour
 
     private bool IsPlayerInDetectionRange()
     {
-        Transform playerPos = Player.Instance.PlayerTransform;
 
-        float dist = Vector3.Distance(playerPos.position , owner.transform.position);
+        float dist = Vector3.Distance(playerTransform.position , owner.transform.position);
         //Debug.Log($"dist = {dist}");
         if(dist < detectionRange)
         {
@@ -55,15 +67,7 @@ public class CowardBehaviour : ActorBehaviour
         return false;
     }
 
-    public override void Init(EnemyMoving owner)
-    {
-        this.owner = owner;
-        FleePattern = new FleePattern();
-        WanderPattern = new WanderPattern();
-        FleePattern.Init(owner);
-        WanderPattern.Init(owner);
-        CurrentPattern = WanderPattern;
-    }
+
 
 
 }
