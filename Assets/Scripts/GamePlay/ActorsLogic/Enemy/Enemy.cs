@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     {
         stat.IsDead = true;
         
-        LootingManager.Instance.DropLoot(false, EnemyTransform.position);
+        LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         OnDead?.Invoke();
     }
 

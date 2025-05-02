@@ -41,6 +41,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void GainGameTime(float amount)
     {
+        if (GameTime <= 0f) return;
         GameTimeLeft += amount;
         if(GameTimeLeft > MaxGameTime)
         {

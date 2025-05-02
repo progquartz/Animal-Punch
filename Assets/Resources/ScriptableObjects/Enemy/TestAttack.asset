@@ -28,3 +28,8 @@ MonoBehaviour:
     DragOnDead: 0
     AngularDrag: 1
     AngularDragOnDead: 0.05
+  DropItemData:
+    GoldAmount: 10
+    ExpAmount: 1
+    TimeAmount: 5
+    IsGainingItem: 0
