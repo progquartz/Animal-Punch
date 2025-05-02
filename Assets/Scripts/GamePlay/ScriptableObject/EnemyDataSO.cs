@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyDataSO : ScriptableObject
 {
     public EnemyStat ActorsStat;
+    public DropItemData DropItemData;
     // public AnimalAnimationController AnimationController; // 넣어야 할까?
 
 }

@@ -31,7 +31,7 @@ public class EnemyMoving : Enemy
     {
         stat.IsDead = true;
         particleController.OnDead();
-        LootingManager.Instance.DropLoot(false, EnemyTransform.position);
+        LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         OnDead?.Invoke();
     }
 

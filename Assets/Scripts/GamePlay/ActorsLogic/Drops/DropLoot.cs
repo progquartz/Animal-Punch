@@ -37,12 +37,6 @@ public class DropLoot : MonoBehaviour
         currentWaiting = true;
         isFollowing = false;
     }
-    void Start()
-    {
-        // 추후에 초기화 필요.
-        Init(dropItemData);
-    }
-
 
     public void StartFollowing()
     {
@@ -92,6 +86,7 @@ public class DropLoot : MonoBehaviour
 
     private void LootItem()
     {
+        GameManager.Instance.GainGameTime(dropItemData.TimeAmount);
         if(Player.Instance.Stat.GainExp(dropItemData.ExpAmount))
         {
             LootingManager.Instance.OpenLootUI();
