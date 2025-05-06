@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class ParticleController : MonoBehaviour
 {
     [SerializeField] protected ParticleSystem[] trailParticles;
-    protected float originalSpeed = 10f;
 
     protected abstract void CheckTrailParticles();
 

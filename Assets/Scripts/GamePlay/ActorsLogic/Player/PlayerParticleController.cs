@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerParticleController : ParticleController
 {
-    protected new float originalSpeed = 10f;
+    protected float originalSpeed = 10f;
     public ParticleSystem[] levelUpParticles;
     public TrailRenderer BoostParticle;
     private bool isBoostParticlesActivated = false;

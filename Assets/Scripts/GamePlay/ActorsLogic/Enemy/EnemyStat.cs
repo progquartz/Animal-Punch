@@ -3,20 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyStat
 {
-    [Header("이름")]
-    public string ActorName;
-
-    [Header("체력 보유 여부")]
-    public bool IsEnemyHasHealth;
-    [Header("상태 보유 여부")]
-    public bool IsEnemyHasCondition;
-
-    [Header("패턴 유형")]
-    public ActorBehaviourType BehaviourType;
-
-    [Header("모델 데이터")]
-    public GameObject ModelData;
-
     [Header("체력")]
     public bool IsDead = false;
     public float HP;
@@ -58,14 +44,6 @@ public class EnemyStat
 
     public void CopyData(EnemyStat target)
     {
-        ActorName = target.ActorName;
-        ModelData = target.ModelData;
-
-        IsEnemyHasHealth = target.IsEnemyHasHealth;        
-        IsEnemyHasCondition = target.IsEnemyHasCondition;
-
-        BehaviourType = target.BehaviourType;
-
         IsDead =target.IsDead;
         HP = target.HP;
         MaxHP = target.MaxHP;

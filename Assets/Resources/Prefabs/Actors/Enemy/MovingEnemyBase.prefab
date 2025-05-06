@@ -9868,7 +9868,7 @@ PrefabInstance:
       objectReference: {fileID: 9003025855111469311}
     - target: {fileID: 8794263610429051468, guid: 006b940298b48574a8f9aba6ba9d1df5, type: 3}
       propertyPath: m_Name
-      value: EnemyAttacking
+      value: EnemyAttacking 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9913,4 +9913,15 @@ MonoBehaviour:
   - {fileID: 2621193267145812477}
   - {fileID: 3370498262160649899}
   DeadTrail: {fileID: 1806603910118955298}
-  owner: {fileID: 0}
+  owner: {fileID: 7223636196403113529}
+--- !u!114 &7223636196403113529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6415923478424932342, guid: 006b940298b48574a8f9aba6ba9d1df5, type: 3}
+  m_PrefabInstance: {fileID: 4410838986316685775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133525888614085507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d626227521156644a5379c53999dcbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

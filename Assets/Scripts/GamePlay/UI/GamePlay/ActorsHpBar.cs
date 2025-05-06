@@ -7,6 +7,7 @@ public class ActorsHpBar : MonoBehaviour
     [SerializeField] private Enemy owner;
 
 
+    private Vector3 hpBarOffset = new Vector3(0f, 1.7f, 0f);
     public RectTransform HpBarTransform;
     public RectTransform HpBar;
     public RectTransform HpBackground;
@@ -32,8 +33,14 @@ public class ActorsHpBar : MonoBehaviour
 
     private void Update()
     {
+        UpdateHealthBarPosition();
         UpdateHealthBar();
         UpdateHealthBarRotation();
+    }
+
+    private void UpdateHealthBarPosition()
+    {
+        transform.position = owner.EnemyTransform.position + hpBarOffset;
     }
 
     private void UpdateHealthBar()

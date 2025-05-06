@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     public EnemyDataSO targetEnemyDataSO;
     public EnemyStat stat;
 
+    public GameObject ModelGameObject;
+
     public ActorCollision actorPhysics;
     public Transform EnemyTransform;
     public Rigidbody EnemyRB;
@@ -28,7 +30,18 @@ public class Enemy : MonoBehaviour
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
+        
         OnInit?.Invoke();
+    }
+
+
+    public Animator InitializeModel()
+    {
+        if (ModelGameObject == null)
+        {
+            ModelGameObject = Instantiate(targetEnemyDataSO.ModelObject, transform);
+        }
+        return ModelGameObject.GetComponent<Animator>();
     }
 
     public virtual void HandleDeath()

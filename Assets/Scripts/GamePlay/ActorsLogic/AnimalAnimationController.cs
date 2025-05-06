@@ -93,7 +93,15 @@ public class AnimalAnimationController : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        if(animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
+    }
+
+    public void SetAnimator(Animator animator)
+    {
+        this.animator = animator;
     }
 
     public void ChangeAnimation(AnimalAnimation animationType)

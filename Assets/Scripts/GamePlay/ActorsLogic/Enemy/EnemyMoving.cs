@@ -22,8 +22,9 @@ public class EnemyMoving : Enemy
         }
         ResetStates();
       
-        actorBehaviour = ActorBehaviour.GetActorBehaviour(stat.BehaviourType);
+        actorBehaviour = ActorBehaviour.GetActorBehaviour(targetEnemyDataSO.BehaviourType);
         actorBehaviour.Init(this);
+        animationController.SetAnimator(InitializeModel());
         particleController.Init(this);
     }
 
@@ -61,7 +62,7 @@ public class EnemyMoving : Enemy
     {
         if (GameManager.Instance.IsTimeStop) return;
         
-        if (stat.IsEnemyHasCondition)
+        if (targetEnemyDataSO.IsEnemyHasCondition)
         {
             actorBehaviour.CheckCondition();
             actorBehaviour.BehaveOnUpdate();
