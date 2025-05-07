@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     // start에서 Init으로 추후에 옮기기.
     public virtual void Init(EnemyDataSO enemyData)
     {
-        IsInPool = false;
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         EnemyTransform.parent = MapManager.Instance.EnemySpawner.EnemyParentTransform;
         targetEnemyDataSO = enemyData;

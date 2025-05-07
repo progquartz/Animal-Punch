@@ -15,6 +15,12 @@ public class EnemyDataSO : ScriptableObject
     [Header("최대 스폰 가능 개수")]
     public int MaxSpawnCount;
 
+    [Header("스폰 주기 및 개수")]
+    public float SpawnInterval;
+    public int SpawnCount;
+    public bool NeedSpawnRightNow;
+
+
     [Header("최소 스폰 시간")]
     public float MinSpawnTime;
     [Header("최대 스폰 시간")]

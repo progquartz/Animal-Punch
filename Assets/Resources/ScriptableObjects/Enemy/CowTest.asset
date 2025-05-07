@@ -17,8 +17,11 @@ MonoBehaviour:
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 10
-  MinSpawnTime: 0
-  MaxSpawnTime: 0
+  SpawnInterval: 10
+  SpawnCount: 3
+  NeedSpawnRightNow: 0
+  MinSpawnTime: -1
+  MaxSpawnTime: -1
   ModelObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
   BehaviourType: 1
   ActorsStat:
