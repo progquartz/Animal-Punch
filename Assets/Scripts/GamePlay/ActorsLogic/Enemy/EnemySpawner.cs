@@ -19,8 +19,9 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 1f;
     private float spawnTimer;
 
-    private float despawnDistanceXZ = 100f;
+    private float despawnDistanceXZ = 50f;
     private float despawnDistanceY = 10f;
+    private float despawnDistanceXYZ = 50f;
 
     public void Init()
     {
@@ -51,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
                 if (!enemy.IsInPool && IsOutOfDespawnDistance(enemy.transform.transform.position, playerTransform.position))
                 {
                     // enemy의 타입(이름)을 키로 하여 풀로 반납
-                    string poolKey = enemy.name.Replace("(Clone)", "").Trim();
+                    string poolKey = enemy.targetEnemyDataSO.ActorKey;
                     Pool.ReturnToPool(poolKey, enemy.gameObject);
                 }
             }
@@ -68,7 +69,9 @@ public class EnemySpawner : MonoBehaviour
         float distanceXZ = Mathf.Sqrt(dx * dx + dz * dz);
         float distanceY = Mathf.Abs(dy);
 
-        if (distanceXZ >= despawnDistanceXZ || distanceY >= despawnDistanceY)
+        float distance = (enemyPosition - playerPosition).magnitude;
+
+        if (distanceXZ >= despawnDistanceXZ || distanceY >= despawnDistanceY || distance >= despawnDistance)
         {
             return true;
         }
@@ -131,7 +134,7 @@ public class EnemySpawner : MonoBehaviour
             Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
             if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
             {
-                enemyComponent.Init(enemyComponent.targetEnemyDataSO);
+                enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
             }
         }
     }

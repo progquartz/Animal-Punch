@@ -48,18 +48,18 @@ public class EnemyPool : MonoBehaviour
         if (enemyPool.ContainsKey(key))
         {
             usingEnemyCount[key]++;
-            Debug.Log($"{key}이름의 적을 Pooling하여 {usingEnemyCount[key]}개 있습니다.");
+            
             if (enemyPool[key].Count > 0)
             {
+                Debug.Log($"{key}이름의 적을 Pooling하여 {usingEnemyCount[key]}개 있습니다.");
                 GameObject obj = enemyPool[key].Dequeue();
-                obj.GetComponent<Enemy>().Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
                 obj.SetActive(true);
                 return obj;
             }
             else
             {
+                Debug.Log($"{key}이름의 적이 Pool에 없어 소환해 현재 {usingEnemyCount[key]}개 있습니다.");
                 GameObject obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyBasePrefab(key));
-                obj.GetComponent<Enemy>().Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
                 return obj;
             }
         }
@@ -85,6 +85,7 @@ public class EnemyPool : MonoBehaviour
         obj.SetActive(false);
         if (enemyPool.ContainsKey(key))
         {
+            Logger.Log($"EnemyPool에 [{key}]를 key값으로 가지는 {obj.name}오브젝트가 풀로 돌아왔습니다.");
             enemy.IsInPool = true;
             usingEnemyCount[key]--;
             enemyPool[key].Enqueue(obj);
