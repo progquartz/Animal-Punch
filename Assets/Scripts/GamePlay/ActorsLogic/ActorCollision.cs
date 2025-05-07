@@ -55,7 +55,7 @@ public class ActorCollision : MonoBehaviour
     {
         if (collisionObject.CompareTag("Player"))
         {
-            if (owner.stat.IsEnemyHasHealth)
+            if (owner.targetEnemyDataSO.IsEnemyHasHealth)
             {
                 HandleCollisionOnHealthCondition(collision, collisionObject, impulseDamage);
             }

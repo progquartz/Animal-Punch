@@ -2,11 +2,22 @@ using UnityEngine;
 
 public class WanderingBehaviour : ActorBehaviour
 {
-    private EnemyMoving owner;
-
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
     WanderPattern WanderPattern;
+
+    public override void Init(EnemyMoving owner)
+    {
+        base.Init(owner);
+        InitStateList();
+    }
+
+    public override void InitStateList()
+    {
+        WanderPattern = new WanderPattern();
+        WanderPattern.Init(owner);
+        CurrentPattern = WanderPattern;
+    }
 
     public override void CheckCondition()
     {
@@ -17,16 +28,6 @@ public class WanderingBehaviour : ActorBehaviour
     {
         CurrentPattern.ActPattern();
     }
-
-    public override void Init(EnemyMoving owner)
-    {
-        this.owner = owner;
-        WanderPattern = new WanderPattern();
-        WanderPattern.Init(owner);
-        CurrentPattern = WanderPattern;
-    }
-
-
 
     private void ChangePattern(IActorPattern target)
     {

@@ -2,42 +2,75 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EnemySpawnData
-{
-    public string enemyKey;
-    public float minSpawnTime;
-    public float maxSpawnTime;
-    public GameObject spawnPrefab;
-}
 public class EnemyDataStorage : MonoBehaviour
 {
-    public List<EnemySpawnData> enemyData;
+    public GameObject MovingPrefab;
+    public GameObject NotMovingPrefab;
+    public List<EnemyDataSO> _enemyData;
+    public Dictionary<string, EnemyDataSO> enemyDataList;
+    
 
-    public EnemySpawnData GetRandomEnemy(float currentGameTime)
+    private void Awake()
     {
-        List<EnemySpawnData> validEnemies = enemyData.FindAll(e => currentGameTime >= e.minSpawnTime && currentGameTime <= e.maxSpawnTime);
-        if (validEnemies.Count == 0)
-        {
-            return null;
-        }
-        return validEnemies[Random.Range(0, validEnemies.Count)];
+        Init();
     }
 
-    public EnemySpawnData GetEnemyOnKey(string enemyKey)
+    private void Init()
     {
-        List<EnemySpawnData> validEnemies = enemyData.FindAll (e=> e.enemyKey == enemyKey);
-
-        if(validEnemies.Count == 0)
+        enemyDataList = new Dictionary<string, EnemyDataSO>();
+        foreach(EnemyDataSO data in _enemyData)
         {
-            return null; 
+            enemyDataList.Add(data.ActorKey, data);
         }
+    }
 
-        if(validEnemies.Count == 1)
+    public GameObject GetEnemyBasePrefab(string enemyKey)
+    {
+        if(enemyDataList.ContainsKey(enemyKey))
         {
-            return validEnemies[0];
+            // enemymoving을 리턴
+            if (enemyDataList[enemyKey].IsEnemyHasCondition)
+            {
+                return MovingPrefab;
+            }
+            // enemyNotMoving을 리턴
+            else
+            {
+                return NotMovingPrefab;
+            }
         }
+        Logger.LogError($"{enemyKey}값을 기반으로 한 데이터가 존재하고 있지 않습니다.");
+        return null;
+    }
 
-        return validEnemies[Random.Range(0, validEnemies.Count)];
+    public EnemyDataSO GetEnemyData(string enemyKey)
+    {
+        if (enemyDataList.ContainsKey(enemyKey))
+        {
+            return enemyDataList[enemyKey];
+        }
+        else
+        {
+            Init();
+            if (!enemyDataList.ContainsKey(enemyKey))
+            {
+                // 초기화를 했음에도 정상적으로 데이터가 로드되지 않았습니다.
+                Logger.LogError($"key : {enemyKey}로 정상적으로 데이터가 로드되지 않습니다.");
+                return null;
+            }
+            else
+            {
+                return enemyDataList[enemyKey];
+            }
+        }
+    }
+
+    public bool IsEnemyMoving(string enemyKey)
+    {
+        if(enemyDataList.ContainsKey(enemyKey))
+        {
+            return enemyDataList[enemyKey].IsEnemyHasCondition;
+        }
+        return false;
     }
 }

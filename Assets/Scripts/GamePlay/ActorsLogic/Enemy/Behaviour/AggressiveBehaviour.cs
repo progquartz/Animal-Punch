@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class AggressiveBehaviour : ActorBehaviour
 {
-    private EnemyMoving owner;
-    private float detectionRange = 15f;
+    private float detectionRange = 45f;
 
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
@@ -29,14 +28,19 @@ public class AggressiveBehaviour : ActorBehaviour
 
     public override void Init(EnemyMoving owner)
     {
-        this.owner = owner;
+        base.Init(owner);
+        InitStateList();
+    }
+
+
+    public override void InitStateList()
+    {
         AttackPattern = new AttackPattern();
         WanderPattern = new WanderPattern();
         AttackPattern.Init(owner);
         WanderPattern.Init(owner);
         CurrentPattern = WanderPattern;
     }
-
 
 
     private void ChangePattern(IActorPattern target)
@@ -52,9 +56,9 @@ public class AggressiveBehaviour : ActorBehaviour
 
     private bool IsPlayerInDetectionRange()
     {
-        Transform playerPos = Player.Instance.PlayerTransform;
 
-        float dist = Vector3.Distance(playerPos.position, owner.transform.position);
+
+        float dist = Vector3.Distance(playerTransform.position, owner.transform.position);
         //Debug.Log($"dist = {dist}");
         if (dist < detectionRange)
         {

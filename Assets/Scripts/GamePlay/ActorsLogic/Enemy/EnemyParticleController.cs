@@ -4,7 +4,8 @@ public class EnemyParticleController : ParticleController
 {
     public TrailRenderer DeadTrail;
     public EnemyMoving owner;
-    protected new float originalSpeed = 5f;
+    protected float originalSpeed = 5f;
+
 
     public void Init(EnemyMoving owner)
     {

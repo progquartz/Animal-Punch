@@ -2,13 +2,28 @@ using UnityEngine;
 
 public class SmartBehaviour : ActorBehaviour
 {
-    private EnemyMoving owner;
     private float detectionRange = 15f;
 
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
     FleePattern FleePattern;
     AttackPattern AttackPattern;
+
+    public override void Init(EnemyMoving owner)
+    {
+        base.Init(owner);
+        InitStateList();
+    }
+
+    public override void InitStateList()
+    {
+        FleePattern = new FleePattern();
+        AttackPattern = new AttackPattern();
+        FleePattern.Init(owner);
+        AttackPattern.Init(owner);
+        CurrentPattern = AttackPattern;
+    }
+
 
     public override void CheckCondition()
     {
@@ -26,18 +41,6 @@ public class SmartBehaviour : ActorBehaviour
     {
         CurrentPattern.ActPattern();
     }
-
-    public override void Init(EnemyMoving owner)
-    {
-        this.owner = owner;
-        FleePattern = new FleePattern();
-        AttackPattern = new AttackPattern();
-        FleePattern.Init(owner);
-        AttackPattern.Init(owner);
-        CurrentPattern = AttackPattern;
-    }
-
-
 
     private void ChangePattern(IActorPattern target)
     {
@@ -58,5 +61,6 @@ public class SmartBehaviour : ActorBehaviour
         }
         return false;
     }
+
 
 }
