@@ -13,11 +13,12 @@ public class EnemySpawner : MonoBehaviour
     public EnemyPool Pool;
     
     // 스폰 범위 및 반납 기준 거리
-    private float spawnRadius = 10f;
+    private float maxSpawnRadius = 30f;
+    private float minSpawnRadius = 10f;
 
-    private float despawnDistanceXZ = 50f;
+    private float despawnDistanceXZ = 80f;
     private float despawnDistanceY = 10f;
-    private float despawnDistance = 50f;
+    private float despawnDistance = 80f;
 
 
     // 유지하고 싶은 적의 최대 수 (종류별로 관리할 수도 있음)
@@ -151,7 +152,9 @@ public class EnemySpawner : MonoBehaviour
         {
             if (!IsKeyValidToSpawn(key)) break;
 
-            Vector3 randomPos = playerTransform.position + (Random.insideUnitSphere * spawnRadius);
+            float randomRadius = Random.Range(minSpawnRadius, maxSpawnRadius);
+            Vector3 direction = Random.onUnitSphere; // 방향만 랜덤, 길이는 1
+            Vector3 randomPos = playerTransform.position + direction * randomRadius;
             randomPos.y = 0f;
 
             GameObject enemyObj = Pool.GetFromPool(key);
@@ -159,6 +162,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 enemyObj.transform.position = randomPos;
                 enemyObj.transform.rotation = Quaternion.identity;
+                Logger.Log($"{key}의 적을 받아와서 {randomPos}에 배치합니다.");
 
                 Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
                 if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
