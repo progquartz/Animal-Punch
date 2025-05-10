@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyNotMoving : Enemy
 {
     // start에서 Init으로 추후에 옮기기.
-    public override void Init(EnemyDataSO enemyData)
+    public override void Init(EnemyDataSO enemyData, Vector3 randomPos)
     {
         ResetStates();
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
@@ -18,11 +18,10 @@ public class EnemyNotMoving : Enemy
         OnInit?.Invoke();
     }
 
-    void Start()
+    private void Update()
     {
-        // factory 제작 및 initiating 이후에 수정해야 함.
-        Init(targetEnemyDataSO);
-        GameObject a;
+        if (GameManager.Instance.IsTimeStop) return;
+
     }
-    
+
 }

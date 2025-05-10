@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
-  m_Name: Cow
+  m_Name: Penguin
   m_EditorClassIdentifier: 
-  ActorName: Cow
-  ActorKey: Cow
+  ActorName: Penguin
+  ActorKey: Penguin
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 10
-  SpawnInterval: 5
+  MaxSpawnCount: 15
+  SpawnInterval: 3
   SpawnCount: 4
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
-  ModelObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
-  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.4763174}
-  ModelType: 1
-  BehaviourType: 1
+  ModelObject: {fileID: 4680175973705454238, guid: 28bbbf6958e852c48887071956e3afb0, type: 3}
+  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 0.7}
+  ModelType: 0
+  BehaviourType: 0
   ActorsStat:
     IsDead: 0
-    HP: 30
-    MaxHP: 30
-    Speed: 5
+    HP: 25
+    MaxHP: 25
+    Speed: 2
     Mass: 10
     MassOnDead: 0.3
     Drag: 5

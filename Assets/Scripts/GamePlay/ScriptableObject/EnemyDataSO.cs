@@ -1,5 +1,10 @@
 using UnityEngine;
 
+public enum EnemyModelType
+{
+    TWOLEGS,
+    FOURLEGS
+}
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "Scriptable Object/Enemy/EnemyDataSO", order = int.MaxValue)]
 public class EnemyDataSO : ScriptableObject
 {
@@ -28,6 +33,8 @@ public class EnemyDataSO : ScriptableObject
 
     [Header("모델 오브젝트")]
     public GameObject ModelObject;
+    public EnemyModelType ModelType;
+    public Vector3 ModelColliderScale;
 
 
     [Header("패턴 유형")]

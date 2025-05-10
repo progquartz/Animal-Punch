@@ -23,6 +23,8 @@ MonoBehaviour:
   MinSpawnTime: -1
   MaxSpawnTime: -1
   ModelObject: {fileID: 6518617049059736926, guid: 121ba6ac6a548004d878893d49ad63cd, type: 3}
+  ModelColliderScale: {x: 0.49, y: 1.0728713, z: 0.75}
+  ModelType: 1
   BehaviourType: 2
   ActorsStat:
     IsDead: 0

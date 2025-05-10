@@ -5,9 +5,6 @@ using UnityEngine.Rendering;
 
 public class EnemyPool : MonoBehaviour
 {
-    public Transform ActiveEnemyParent;
-    public Transform PoolEnemyParent;
-
     private Dictionary<string, Queue<GameObject>> enemyPool = new Dictionary<string, Queue<GameObject>>();
     private Dictionary<string, int> usingEnemyCount = new Dictionary<string, int>();
     
@@ -25,9 +22,7 @@ public class EnemyPool : MonoBehaviour
             for (int i = 0; i < initialSize; i++)
             {
                 GameObject obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyBasePrefab(key));
-                obj.GetComponent<Enemy>().Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
                 obj.SetActive(false);
-                //obj.transform.parent = PoolEnemyParent;
                 newPool.Enqueue(obj);
             }
             Logger.Log($"{key}의 이름으로 새로운 오브젝트 풀링 성공");
@@ -85,12 +80,6 @@ public class EnemyPool : MonoBehaviour
         }
 
         obj.SetActive(false);
-        if(PoolEnemyParent == null)
-        {
-            PoolEnemyParent = GameObject.Find("PoolEnemyParent").transform;
-        }
-        obj.transform.position = PoolEnemyParent.position;
-        obj.transform.SetParent(PoolEnemyParent);
 
 
         if (enemyPool.ContainsKey(key))

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyMoving : Enemy
@@ -8,13 +9,10 @@ public class EnemyMoving : Enemy
     public AnimalAnimationController animationController;
     public EnemyParticleController particleController;
 
-    private Vector3 storedLinearVelocity;
-    private Vector3 storedAngularVelocity;
-
     // start에서 Init으로 추후에 옮기기.
-    public override void Init(EnemyDataSO enemyData)
+    public override void Init(EnemyDataSO enemyData ,Vector3 randomPos)
     {
-        base.Init(enemyData);
+        base.Init(enemyData, randomPos);
         if(isFirstTimeInitiated)
         {
             isFirstTimeInitiated = false;
@@ -26,7 +24,18 @@ public class EnemyMoving : Enemy
         actorBehaviour.Init(this);
         animationController.SetAnimator(InitializeModel());
         particleController.Init(this);
+        StartCoroutine(LatePositionFix(randomPos));
     }
+
+    protected IEnumerator LatePositionFix(Vector3 randomPos)
+    {
+        yield return null;
+        transform.parent = MapManager.Instance.EnemySpawner.EnemyParentTransform;
+        transform.position = randomPos;
+        EnemyTransform.position = randomPos;
+    }
+
+
 
     public override void HandleDeath()
     {
@@ -50,13 +59,6 @@ public class EnemyMoving : Enemy
         GameManager.Instance.OnTimeToggle -= particleController.OnTimeToggle;   
         GameManager.Instance.OnQuitGameScene -= ReleaseEvents; // 가장 마지막에 적용되어야 함.
     }
-
-    void Start()
-    {
-        // factory 제작 및 initiating 이후에 수정해야 함.
-        Init(targetEnemyDataSO);
-    }
-
     
     void Update()
     {

@@ -13,7 +13,7 @@ public class ActorCollision : MonoBehaviour
     private Transform ActorTransform;
     private Rigidbody rb;
 
-    private Collider objectCollider;
+    private BoxCollider objectCollider;
     
 
     public void Init(Enemy enemy, Transform actorTransform)
@@ -24,6 +24,13 @@ public class ActorCollision : MonoBehaviour
 
         ActorTransform = actorTransform;
 
+        InitializeRigidBody();
+        InitializeCollider();
+        damageCooldown = DamageMinimalCooldown;
+    }
+
+    private void InitializeRigidBody()
+    {
         rb = ActorTransform.GetComponent<Rigidbody>();
 
         rb.angularVelocity = Vector3.zero;
@@ -34,13 +41,15 @@ public class ActorCollision : MonoBehaviour
         rb.mass = owner.stat.Mass;
         rb.angularDamping = owner.stat.AngularDrag;
         rb.linearDamping = owner.stat.Drag;
-
-        objectCollider = ActorTransform.transform.GetComponent<Collider>();
-
-        objectCollider.enabled = true;
-
-        damageCooldown = DamageMinimalCooldown;
     }
+
+    private void InitializeCollider()
+    {
+        objectCollider = ActorTransform.transform.GetComponent<BoxCollider>();
+        objectCollider.enabled = true;
+        objectCollider.size = new Vector3(owner.targetEnemyDataSO.ModelColliderScale.x, owner.targetEnemyDataSO.ModelColliderScale.y ,owner.targetEnemyDataSO.ModelColliderScale.z);
+    }
+
 
     private void Update()
     {

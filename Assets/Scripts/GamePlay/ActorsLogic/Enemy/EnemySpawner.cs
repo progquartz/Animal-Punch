@@ -120,14 +120,16 @@ public class EnemySpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// 현재 코드 실험 중. 효율성이 떨어지나, 사용에는 문제 없음.
+    /// 현재 풀 상에 존재하는 적의 개수 반환
     /// </summary>
     /// <returns></returns>
     private int GetEnemyCount()
     {
-        int enemyCountOnHierarchy = 0;
+        
         int enemyCountOnPool = Pool.GetAllEnemyCount();
 
+        /*
+        int enemyCountOnHierarchy = 0;
         foreach (Transform child in EnemyParentTransform)
         {
             if (child.gameObject.activeInHierarchy)
@@ -141,6 +143,7 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogWarning($"Pool에서 counting되는 enemyCount인 {enemyCountOnPool}개와, Hierarchy에서 Counting되는 enemyCount인 {enemyCountOnHierarchy}개가 서로 다릅니다. ");
             return enemyCountOnHierarchy;
         }
+        */
         return enemyCountOnPool;    
     }
 
@@ -157,6 +160,8 @@ public class EnemySpawner : MonoBehaviour
             Vector3 randomPos = playerTransform.position + direction * randomRadius;
             randomPos.y = 0f;
 
+            // 임시로 비 풀 객체 이용.
+            //GameObject enemyObj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyBasePrefab(key));
             GameObject enemyObj = Pool.GetFromPool(key);
             if (enemyObj != null)
             {
@@ -165,9 +170,10 @@ public class EnemySpawner : MonoBehaviour
                 Logger.Log($"{key}의 적을 받아와서 {randomPos}에 배치합니다.");
 
                 Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
+                enemyComponent.EnemyTransform.position = randomPos;
                 if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
                 {
-                    enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
+                    enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key), randomPos);
                 }
             }
         }
