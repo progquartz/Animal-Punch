@@ -10,7 +10,6 @@ public class MapManager : SingletonBehaviour<MapManager>
     // 현재 활성화된 청크들을 좌표를 키로 저장
     private Dictionary<Vector2Int, MapChunk> activeChunks = new Dictionary<Vector2Int, MapChunk>();
 
-    // 현재 중앙 청크 좌표 (ex. 플레이어 기준)
     public Vector2Int currentCenterChunk;
     private bool IsFirstTimeInitializing = true;
     private const float chunkSize = 90f;
