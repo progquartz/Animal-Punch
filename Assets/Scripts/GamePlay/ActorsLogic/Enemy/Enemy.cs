@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
         IsInitialized = true;
         targetEnemyDataSO = enemyData;
         stat.CopyData(enemyData.ActorsStat);
+        stat.InitializeGameTimeScale();
 
         actorPhysics = GetComponent<ActorCollision>();
         actorPhysics.Init(this, EnemyTransform);
