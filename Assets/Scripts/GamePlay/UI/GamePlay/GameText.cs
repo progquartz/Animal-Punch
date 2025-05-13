@@ -32,7 +32,7 @@ public class GameText : MonoBehaviour
 
         // 투명도 초기화
         rectTransform.localScale = Vector3.one;
-        Text.color = new Color(Text.color.r, Text.color.g, Text.color.b, 1f);
+        Text.color = new Color(color.r, color.g, color.b, 1f);
 
         // Dotween으로 위로 이동.
         rectTransform.DOMoveY(rectTransform.position.y + moveUpDistance, duration).SetEase(Ease.OutQuad);

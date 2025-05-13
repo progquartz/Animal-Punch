@@ -85,5 +85,18 @@ public class EnemyMoving : Enemy
         }
     }
 
+    public override void OnDamage(bool IsCritical)
+    {
+        if(IsCritical)
+        {
+            particleController.OnCriticalHit();
+        }
+        else
+        {
+            particleController.OnHit();
+        }
+        
+    }
+
 
 }

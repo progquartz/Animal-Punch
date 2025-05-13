@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyParticleController : ParticleController
 {
     public TrailRenderer DeadTrail;
+    public ParticleSystem[] HitParticles;
+    public ParticleSystem[] CriticalHitParticles;
 
     public GameObject TwoLegTrail;
     public GameObject FourLegTrail;
@@ -50,6 +52,25 @@ public class EnemyParticleController : ParticleController
             main.startLifetimeMultiplier = (enemySpeed / originalSpeed);
         }
     }
+
+    public void OnHit()
+    {
+        foreach(var particle in HitParticles)
+        {
+            particle.Pause();
+            particle.Play();
+        }
+    }
+
+    public void OnCriticalHit()
+    {
+        foreach(var particle in CriticalHitParticles)
+        {
+            particle.Pause();
+            particle.Play();
+        }
+    }
+    
 
     public override void OnDead()
     {

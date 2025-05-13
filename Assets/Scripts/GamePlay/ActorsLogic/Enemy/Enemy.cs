@@ -60,4 +60,9 @@ public class Enemy : MonoBehaviour
     {
         stat.IsDead = false;
     }
+
+    public virtual void OnDamage(bool IsCritical)
+    {
+        
+    }
 }

@@ -60,13 +60,14 @@ public class ActorCollision : MonoBehaviour
         UpdateCooldown();
     }
 
-    public void HandleCollision(Collision collision, GameObject collisionObject, float impulseDamage)
+    public void HandleCollision(Collision collision, GameObject collisionObject, float impulseDamage, bool isCritical)
     {
         if (collisionObject.CompareTag("Player"))
         {
             if (owner.targetEnemyDataSO.IsEnemyHasHealth)
             {
-                HandleCollisionOnHealthCondition(collision, collisionObject, impulseDamage);
+                HandleCollisionOnHealthCondition(collision, collisionObject, impulseDamage, isCritical);
+                owner.OnDamage(isCritical);
             }
             else
             {
@@ -82,17 +83,25 @@ public class ActorCollision : MonoBehaviour
 
 
 
-    private void HandleCollisionOnHealthCondition(Collision collision, GameObject collisionObject, float impulseDamage)
+    private void HandleCollisionOnHealthCondition(Collision collision, GameObject collisionObject, float impulseDamage, bool isCritical)
     {
-        HandleCollisionDamage(collision, collisionObject, impulseDamage);
+        HandleCollisionDamage(collision, collisionObject, impulseDamage, isCritical);
     }
 
-    private void HandleCollisionDamage(Collision collision, GameObject collisionObject, float impulseDamage)
+    private void HandleCollisionDamage(Collision collision, GameObject collisionObject, float impulseDamage, bool isCritical)
     {
         if(isActorAbleToHit)
         {
             bool isDead = owner.stat.HandleDamage(impulseDamage);
-            InGameTextPooler.Instance.SpawnText(((int)impulseDamage).ToString() , Color.white, ActorTransform.position);
+
+            Color textColor;
+            if (isCritical)
+                textColor = Color.red;
+            else
+                textColor = Color.white;
+            
+            InGameTextPooler.Instance.SpawnText(((int)impulseDamage).ToString(), textColor, ActorTransform.position);
+
             if (isDead)
             {
                 owner.HandleDeath();
