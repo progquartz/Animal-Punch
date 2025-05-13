@@ -58,4 +58,10 @@ public class EnemyStat
         AngularDragOnDead = target.AngularDragOnDead;
     }
 
+    public void InitializeGameTimeScale()
+    {
+        MaxHP = MaxHP * GameManager.Instance.EnemyHealthRatio;
+        HP = MaxHP;
+    }
+
 }

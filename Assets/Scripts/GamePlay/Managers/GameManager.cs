@@ -5,6 +5,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 {
     // 현재 게임 진행 시간
     public float GameTime;
+    public float EnemyHealthRatio;
 
     public float InitialGameTimeLeft = 10f;
     public float GameTimeLeft = 10f;
@@ -52,6 +53,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     private void UpdateGameTime()
     {
         GameTime += Time.deltaTime;
+        EnemyHealthRatio = GameTimeEnemyRatio.GetHealthRatio(GameTime);
         GameTimeLeft -= Time.deltaTime * GameTimeDecreaseRate;
     }
 
@@ -88,4 +90,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         IsTimeStop = false;
         OnTimeToggle.Invoke(false);
     }
+
+
 }

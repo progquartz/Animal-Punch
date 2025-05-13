@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SmartBehaviour : ActorBehaviour
 {
-    private float detectionRange = 15f;
+    private float limitRange = 25f;
 
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
@@ -27,6 +27,12 @@ public class SmartBehaviour : ActorBehaviour
 
     public override void CheckCondition()
     {
+        if(IsPlayerOverLimitRange())
+        {
+            ChangePattern(AttackPattern);
+            return;
+        }
+
         if (IsEnemyHealthGood())
         {
             ChangePattern(AttackPattern);
@@ -56,6 +62,16 @@ public class SmartBehaviour : ActorBehaviour
     private bool IsEnemyHealthGood()
     {
         if (owner.stat.HP >= owner.stat.MaxHP / 2)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsPlayerOverLimitRange()
+    {
+        float dist = Vector3.Distance(playerTransform.position, owner.transform.position);
+        if (dist > limitRange)
         {
             return true;
         }
