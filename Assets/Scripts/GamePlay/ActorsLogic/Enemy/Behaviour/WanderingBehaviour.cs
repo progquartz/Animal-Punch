@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class WanderingBehaviour : ActorBehaviour
 {
+    private float limitRange = 25f;
+
     // Coward Behaviour의 기본 상태는 Wander
     IActorPattern CurrentPattern;
     WanderPattern WanderPattern;
+    AttackPattern AttackPattern;
 
     public override void Init(EnemyMoving owner)
     {
@@ -15,12 +18,19 @@ public class WanderingBehaviour : ActorBehaviour
     public override void InitStateList()
     {
         WanderPattern = new WanderPattern();
+        AttackPattern = new AttackPattern();
         WanderPattern.Init(owner);
+        AttackPattern.Init(owner);
         CurrentPattern = WanderPattern;
     }
 
     public override void CheckCondition()
     {
+        if(IsPlayerOverLimitRange())
+        {
+            ChangePattern(AttackPattern);
+            return;
+        }
         ChangePattern(WanderPattern);
     }
 
@@ -39,5 +49,16 @@ public class WanderingBehaviour : ActorBehaviour
             CurrentPattern.EnterPattern();
         }
     }
+
+    private bool IsPlayerOverLimitRange()
+    {
+        float dist = Vector3.Distance(playerTransform.position, owner.transform.position);
+        if (dist > limitRange)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
 }

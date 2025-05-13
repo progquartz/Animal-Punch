@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     // 유지하고 싶은 적의 최대 수 (종류별로 관리할 수도 있음)
-    private int maxEnemyCount = 30;
+    private int maxEnemyCount = 100;
     
     private Dictionary<string, float> enemySpawnTimers = new Dictionary<string, float>();
 
