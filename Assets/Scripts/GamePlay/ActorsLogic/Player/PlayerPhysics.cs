@@ -61,6 +61,7 @@ public class PlayerPhysics : MonoBehaviour
         CalculateAdditionalForce(stabilityChecker.CheckBoostEnabled(playerTransform));
         HandleMovement();
         CalculateSpeed();
+        owner.animationController.ChangeAnimationDependOnSpeed();
     }
 
     void Update()

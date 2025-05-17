@@ -18875,10 +18875,6 @@ PrefabInstance:
       propertyPath: variableJoystick
       value: 
       objectReference: {fileID: 793165285}
-    - target: {fileID: 3435646922036713859, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6497362215264192810, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.3
@@ -18922,10 +18918,6 @@ PrefabInstance:
     - target: {fileID: 7657874897173347960, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
-      propertyPath: Stat.RotationSpeed
-      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -102,7 +102,7 @@ public class AnimalAnimationController : MonoBehaviour
 
     public void Init()
     {
-        ChangeAnimation(AnimalAnimation.Walk);
+        ChangeAnimation(AnimalAnimation.Run);
         ChangeShapeKey(AnimalShapeKey.Eyes_Blink);
     }
 
@@ -121,6 +121,14 @@ public class AnimalAnimationController : MonoBehaviour
                 animator.Play(animationList[(int)animationType]);
                 //animator.CrossFade(animationList[(int)animationType], 0.2f);
             }
+        }
+    }
+
+    public void ChangeAnimationSpeed(float speed)
+    {
+        if (animator != null)
+        {
+            animator.speed = speed;
         }
     }
 

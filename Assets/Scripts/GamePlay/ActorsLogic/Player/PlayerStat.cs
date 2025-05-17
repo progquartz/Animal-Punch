@@ -15,6 +15,7 @@ public class PlayerStat
 
     [Header("이동 기본 추력")]
     public float MoveForce;                         // 이동할 때 가해지는 힘
+    
 
     [Header("부스터")]
     public float BoostForce;                        // 앞으로 튀어나갈 힘
@@ -44,6 +45,10 @@ public class PlayerStat
     public int LevelUpExpNeed; // 레벨 업에 필요한 경험치.
     public int CurrentExp;
     public int AdditionalExpRatio;
+
+
+    [Header("애니메이션 관련 속성")]
+    public float StandardAnimationSpeed = 6f;
 
     public void Init()
     {

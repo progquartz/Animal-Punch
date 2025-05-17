@@ -5053,7 +5053,7 @@ Transform:
   m_GameObject: {fileID: 4931773179756434942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.37, z: 0}
+  m_LocalPosition: {x: 0, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14886,7 +14886,7 @@ GameObject:
   - component: {fileID: 127321581675513862}
   - component: {fileID: 2287348178988655444}
   - component: {fileID: 7319532398676461027}
-  - component: {fileID: 5483445797642014194}
+  - component: {fileID: 1820800324597957923}
   - component: {fileID: 4990231823495345649}
   m_Layer: 0
   m_Name: Player
@@ -14929,41 +14929,16 @@ MonoBehaviour:
     RigidbodySpeed: 0
     CurrentAdditionForce: 0
     LastDashTime: 0
-    CurrentMass: 1
+    CurrentMass: 60
     CurrentSize: 1
     MaximalSize: 3
-    MoveForce: 0
-    BoostForce: 0
-    BoostCooltime: 0
-    BoostMinimalCooltime: 0.1
-    AdditionForceRatio: 0
-    AdditionForceMax: 0
-    RotationSpeed: 1000
-    CollisionDamageBase: 0
-    CollisionDamageAdditional: 0
-    CollisionImpulseDamageBase: 0
-    CollisionImpulseStandard: 0
-    CollisionImpulseDamageRatio: 0
-    CriticalChance: 0
-    CriticalBonusDamage: 0
-    Level: 0
-    LevelUpExpNeed: 0
-    CurrentExp: 0
-    AdditionalExpRatio: 0
-  Stat:
-    RigidbodySpeed: 0
-    CurrentAdditionForce: 0
-    LastDashTime: 0
-    CurrentMass: 40
-    CurrentSize: 1
-    MaximalSize: 3
-    MoveForce: 3000
+    MoveForce: 5000
     BoostForce: 1500
     BoostCooltime: 1
     BoostMinimalCooltime: 0.1
-    AdditionForceRatio: 300
-    AdditionForceMax: 1500
-    RotationSpeed: 1000
+    AdditionForceRatio: 600
+    AdditionForceMax: 3000
+    RotationSpeed: 2000
     CollisionDamageBase: 5
     CollisionDamageAdditional: 5
     CollisionImpulseDamageBase: 10
@@ -14975,10 +14950,37 @@ MonoBehaviour:
     LevelUpExpNeed: 0
     CurrentExp: 0
     AdditionalExpRatio: 0
+    StandardAnimationSpeed: 0
+  Stat:
+    RigidbodySpeed: 0
+    CurrentAdditionForce: 0
+    LastDashTime: 0
+    CurrentMass: 60
+    CurrentSize: 1
+    MaximalSize: 3
+    MoveForce: 5000
+    BoostForce: 1500
+    BoostCooltime: 1
+    BoostMinimalCooltime: 0.1
+    AdditionForceRatio: 600
+    AdditionForceMax: 3000
+    RotationSpeed: 2000
+    CollisionDamageBase: 5
+    CollisionDamageAdditional: 5
+    CollisionImpulseDamageBase: 10
+    CollisionImpulseStandard: 100
+    CollisionImpulseDamageRatio: 1.2
+    CriticalChance: 0
+    CriticalBonusDamage: 0
+    Level: 0
+    LevelUpExpNeed: 0
+    CurrentExp: 0
+    AdditionalExpRatio: 0
+    StandardAnimationSpeed: 0
   PlayerTransform: {fileID: 5243674016694342888}
   Inventory: {fileID: 0}
   playerPhysics: {fileID: 127321581675513862}
-  animationController: {fileID: 0}
+  animationController: {fileID: 1820800324597957923}
   particleController: {fileID: 4990231823495345649}
 --- !u!114 &127321581675513862
 MonoBehaviour:
@@ -14992,6 +14994,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73badd320a455bc49aa7b9a9deeb146b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat:
+    RigidbodySpeed: 0
+    CurrentAdditionForce: 0
+    LastDashTime: 0
+    CurrentMass: 40
+    CurrentSize: 1
+    MaximalSize: 3
+    MoveForce: 0
+    BoostForce: 0
+    BoostCooltime: 0
+    BoostMinimalCooltime: 0.1
+    AdditionForceRatio: 0
+    AdditionForceMax: 0
+    RotationSpeed: 2000
+    CollisionDamageBase: 0
+    CollisionDamageAdditional: 0
+    CollisionImpulseDamageBase: 0
+    CollisionImpulseStandard: 0
+    CollisionImpulseDamageRatio: 0
+    CriticalChance: 0
+    CriticalBonusDamage: 0
+    Level: 0
+    LevelUpExpNeed: 0
+    CurrentExp: 0
+    AdditionalExpRatio: 0
+    StandardAnimationSpeed: 0
+  variableJoystick: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -15027,7 +15056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
---- !u!114 &5483445797642014194
+--- !u!114 &1820800324597957923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15036,10 +15065,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7657874897173347960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f994d5026d11e4eb0b90bd68edc325, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e219db8d86b04341a27ecfd6cb5ee29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 447530155482139478}
   currentAnimation: 
 --- !u!114 &4990231823495345649
 MonoBehaviour:
@@ -15092,7 +15121,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6474199302219644854}
+  - {fileID: 4901305131344191124}
   - {fileID: 6334122322520892557}
   - {fileID: 5347696490103886109}
   - {fileID: 1353194409217557791}
@@ -20085,7 +20114,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1001 &6259853453216579848
+--- !u!1001 &5405271138895519786
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -20147,11 +20176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4557071579950186939, guid: 95a2882dc4cd43e44a43cedc3d185890, type: 3}
       propertyPath: m_Name
-      value: Cheetah_LOD3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557071579950186939, guid: 95a2882dc4cd43e44a43cedc3d185890, type: 3}
-      propertyPath: m_TagString
-      value: Player
+      value: Cheetah_LOD3 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8072430961737212992, guid: 95a2882dc4cd43e44a43cedc3d185890, type: 3}
@@ -20159,8 +20184,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95a2882dc4cd43e44a43cedc3d185890, type: 3}
---- !u!4 &6474199302219644854 stripped
+--- !u!95 &447530155482139478 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5563796259518557052, guid: 95a2882dc4cd43e44a43cedc3d185890, type: 3}
+  m_PrefabInstance: {fileID: 5405271138895519786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4901305131344191124 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1082990890531176126, guid: 95a2882dc4cd43e44a43cedc3d185890, type: 3}
-  m_PrefabInstance: {fileID: 6259853453216579848}
+  m_PrefabInstance: {fileID: 5405271138895519786}
   m_PrefabAsset: {fileID: 0}
