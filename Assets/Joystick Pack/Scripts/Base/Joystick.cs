@@ -8,6 +8,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
+    public float Strength { get; private set; }  // 추가된 힘의 세기
 
     public float HandleRange
     {
@@ -82,9 +83,13 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         {
             if (magnitude > 1)
                 input = normalised;
+            Strength = Mathf.Clamp01(magnitude);  // 힘 계산
         }
         else
+        {
             input = Vector2.zero;
+            Strength = 0f;
+        }
     }
 
     private void FormatInput()
@@ -133,6 +138,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     {
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
+        Strength = 0f;  // 터치를 떼면 힘 초기화
     }
 
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)

@@ -26,7 +26,7 @@ public class PlayerStat
     public float AdditionForceMax;                  // 최대 추가 가속도
 
     [Header("회전")]
-    public float RotationSpeed = 1000f;             // 최대 회전 속도.
+    public float RotationSpeed = 2000f;             // 최대 회전 속도.
 
     [Header("충격 데미지")]
     public float CollisionDamageBase;               // 기본 데미지
