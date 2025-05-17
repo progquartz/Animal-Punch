@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerPhysics : MonoBehaviour
 {
     private Player owner;
-    private PlayerStat stat;
+    public PlayerStat stat;
 
     public LayerMask groundLayer;   // Ground 레이어 지정
 
@@ -167,9 +167,9 @@ public class PlayerPhysics : MonoBehaviour
         stat.RigidbodySpeed = playerRB.linearVelocity.magnitude;
     }
 
-    public float CalculateImpulseDamage(float impulseMagnitude)
+    public float CalculateImpulseDamage(float impulseMagnitude, bool isCritical)
     {
-        return stat.CalculateDamage(impulseMagnitude);
+        return stat.CalculateDamage(impulseMagnitude, isCritical);
 
     }
 

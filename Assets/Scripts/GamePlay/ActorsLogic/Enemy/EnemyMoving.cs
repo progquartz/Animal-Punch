@@ -23,6 +23,7 @@ public class EnemyMoving : Enemy
         actorBehaviour = ActorBehaviour.GetActorBehaviour(targetEnemyDataSO.BehaviourType);
         actorBehaviour.Init(this);
         animationController.SetAnimator(InitializeModel());
+        animationController.Init();
         particleController.Init(this);
         StartCoroutine(LatePositionFix(randomPos));
     }
@@ -41,6 +42,7 @@ public class EnemyMoving : Enemy
     {
         stat.IsDead = true;
         particleController.OnDead();
+        animationController.OnDead();
         LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         OnDead?.Invoke();
     }
@@ -84,6 +86,21 @@ public class EnemyMoving : Enemy
             animationController.ResumeAnimation();
         }
     }
+
+    public override void OnDamage(bool IsCritical)
+    {
+        if(IsCritical)
+        {
+            particleController.OnCriticalHit();
+        }
+        else
+        {
+            particleController.OnHit();
+        }
+        
+    }
+
+
 
 
 }

@@ -17,14 +17,14 @@ MonoBehaviour:
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 15
-  SpawnInterval: 3
-  SpawnCount: 4
+  SpawnInterval: 1
+  SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
   ModelObject: {fileID: 4680175973705454238, guid: 28bbbf6958e852c48887071956e3afb0, type: 3}
-  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 0.7}
   ModelType: 0
+  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 0.7}
   BehaviourType: 0
   ActorsStat:
     IsDead: 0

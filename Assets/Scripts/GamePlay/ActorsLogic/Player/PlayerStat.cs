@@ -74,12 +74,12 @@ public class PlayerStat
         CurrentExp = expLeft;
     }
 
-    private bool IsCritical()
+    public bool IsCritical()
     {
         return Random.value < CriticalChance;
     }
 
-    public float CalculateDamage(float impulseMagnitude)
+    public float CalculateDamage(float impulseMagnitude, bool IsCritical)
     {
 
         float baseDamage = CollisionDamageBase + CollisionDamageAdditional;
@@ -87,7 +87,7 @@ public class PlayerStat
 
         float totalDamage = baseDamage + impulseDamage;
 
-        if (IsCritical())
+        if (IsCritical)
         {
             totalDamage *= 2f + (0.01f * CriticalBonusDamage);
         }

@@ -41,8 +41,9 @@ public class PlayerCollision : MonoBehaviour
                 float impulseMagnitude = velocityChanged.magnitude;
 
                 //Debug.Log($"충격이 일어났으며, 그 충격량은 {impulseMagnitude}입니다.");
-                float impulseDamage = owner.CalculateImpulseDamage(impulseMagnitude);
-                interactable.HandleCollision(collision, playerTransform.gameObject, impulseDamage);
+                bool isCritical = owner.stat.IsCritical();
+                float impulseDamage = owner.CalculateImpulseDamage(impulseMagnitude, isCritical);
+                interactable.HandleCollision(collision, playerTransform.gameObject, impulseDamage, isCritical);
             }
         }
     }

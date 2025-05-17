@@ -97,6 +97,13 @@ public class AnimalAnimationController : MonoBehaviour
         {
             animator = GetComponentInChildren<Animator>();
         }
+        Init();
+    }
+
+    public void Init()
+    {
+        ChangeAnimation(AnimalAnimation.Walk);
+        ChangeShapeKey(AnimalShapeKey.Eyes_Blink);
     }
 
     public void SetAnimator(Animator animator)
@@ -115,6 +122,20 @@ public class AnimalAnimationController : MonoBehaviour
                 //animator.CrossFade(animationList[(int)animationType], 0.2f);
             }
         }
+    }
+
+    public void ChangeShapeKey(AnimalShapeKey shapeKeyType)
+    {
+        if(animator!= null)
+        {
+            animator.Play(shapekeyList[(int)shapeKeyType]);
+        }
+    }
+
+    public void OnDead()
+    {
+        ChangeShapeKey(AnimalShapeKey.Eyes_Dead);
+        ChangeAnimation(AnimalAnimation.Death);
     }
 
     public void PauseAnimation()
