@@ -60,4 +60,10 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
             s_instance = null;
         }
     }
+
+    protected void ChangeParentToManagers()
+    {
+        Transform managerTransform = GameObject.Find("Managers").transform;
+        gameObject.transform.SetParent(managerTransform, false);
+    }
 }

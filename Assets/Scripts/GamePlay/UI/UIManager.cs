@@ -24,6 +24,8 @@ public class UIManager : SingletonBehaviour<UIManager>
     protected override void Init()
     {
         IsDestroyOnLoad = true;
+        ChangeParentToManagers();
+
         base.Init();
         
         if(CanvasTransform == null)

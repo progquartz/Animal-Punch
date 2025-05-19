@@ -11,7 +11,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
     protected override void Init()
     {
         IsDestroyOnLoad = true;
-
+        ChangeParentToManagers();
         base.Init();
 
     }
