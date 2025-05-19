@@ -83,7 +83,7 @@ public class PlayerStat
 
     public bool IsCritical()
     {
-        return Random.value < CriticalChance;
+        return Random.Range(0,100) <= CriticalChance;
     }
 
     public float CalculateDamage(float impulseMagnitude, bool IsCritical)

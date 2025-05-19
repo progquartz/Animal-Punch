@@ -186,7 +186,8 @@ public class PlayerPhysics : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && stat.BoostChargeRatio >= 1.0f)
+        // 캐주얼함을 늘리기 위해 자동으로 부스터 수정.
+        if(stat.BoostChargeRatio >= 1.0f)
         {
             playerRB.AddForce(playerTransform.forward * stat.BoostForce, ForceMode.Impulse);
             owner.particleController.OnBoost();
