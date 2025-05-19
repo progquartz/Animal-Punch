@@ -8,7 +8,7 @@ public class Player : SingletonBehaviour<Player>
     public Transform PlayerTransform;
     public Inventory Inventory;
     [SerializeField] private PlayerPhysics playerPhysics;
-    public AnimalAnimationController animationController;
+    public PlayerAnimationController animationController;
     public PlayerParticleController particleController;
 
     protected override void Awake()
@@ -30,9 +30,10 @@ public class Player : SingletonBehaviour<Player>
         base.Init();
         playerPhysics = GetComponent<PlayerPhysics>();
         Inventory = GetComponent<Inventory>();
-        animationController = GetComponent<AnimalAnimationController>();
+        animationController = GetComponent<PlayerAnimationController>();
         particleController = GetComponent<PlayerParticleController>();
         playerPhysics.Init(this);
+        animationController.Init(this);
         Stat.Init();
         InitialStat.Init();
         InitialStat.CopyData(Stat);

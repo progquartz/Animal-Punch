@@ -15,18 +15,21 @@ public class PlayerStat
 
     [Header("이동 기본 추력")]
     public float MoveForce;                         // 이동할 때 가해지는 힘
+    
 
     [Header("부스터")]
     public float BoostForce;                        // 앞으로 튀어나갈 힘
-    public float BoostCooltime;                     // Space 키 쿨타임
-    public float BoostMinimalCooltime = 0.1f;
+    public float BoostChargeRatio;                     // Space 키 쿨타임
+    public float BoostChargeTime = 2.0f;
+    public float BoostChargeMinimalTime = 0.3f;
+    
 
     [Header("가속도")]
     public float AdditionForceRatio;                // 추가 가속도 비중
     public float AdditionForceMax;                  // 최대 추가 가속도
 
     [Header("회전")]
-    public float RotationSpeed = 1000f;             // 최대 회전 속도.
+    public float RotationSpeed = 2000f;             // 최대 회전 속도.
 
     [Header("충격 데미지")]
     public float CollisionDamageBase;               // 기본 데미지
@@ -44,6 +47,10 @@ public class PlayerStat
     public int LevelUpExpNeed; // 레벨 업에 필요한 경험치.
     public int CurrentExp;
     public int AdditionalExpRatio;
+
+
+    [Header("애니메이션 관련 속성")]
+    public float StandardAnimationSpeed = 6f;
 
     public void Init()
     {
@@ -99,16 +106,19 @@ public class PlayerStat
     {
         MoveForce = stat.MoveForce;                         // 이동할 때 가해지는 힘
 
-        
-        BoostForce = stat.BoostForce;                        // 앞으로 튀어나갈 힘
-        BoostCooltime = stat.BoostCooltime;                     // Space 키 쿨타임
 
-        
+
+        BoostForce = stat.BoostForce;                        // 앞으로 튀어나갈 힘
+        BoostChargeRatio = stat.BoostChargeRatio;                     // Space 키 쿨타임
+        BoostChargeTime = stat.BoostChargeTime;
+        BoostChargeMinimalTime = stat.BoostChargeMinimalTime;
+
+
         AdditionForceRatio = stat.AdditionForceRatio;                // 추가 가속도 비중
         AdditionForceMax = stat.AdditionForceMax;                  // 최대 추가 가속도
 
         
-        RotationSpeed = 1000f;             // 최대 회전 속도.
+        RotationSpeed = stat.RotationSpeed;             // 최대 회전 속도.
 
         
         CollisionDamageBase = stat.CollisionDamageBase;               // 기본 데미지
@@ -125,6 +135,7 @@ public class PlayerStat
         Level = stat.Level;
         LevelUpExpNeed = stat.LevelUpExpNeed; // 레벨 업에 필요한 경험치.
         CurrentExp = stat.CurrentExp;
+        AdditionalExpRatio = stat.AdditionalExpRatio;
 }
 
 

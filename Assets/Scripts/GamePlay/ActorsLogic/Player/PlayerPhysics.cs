@@ -6,6 +6,10 @@ public class PlayerPhysics : MonoBehaviour
     private Player owner;
     public PlayerStat stat;
 
+    [Header("조이스틱 부분")]
+    public VariableJoystick variableJoystick;
+    public float joystickForceToChargeBoost = 0.8f;
+
     public LayerMask groundLayer;   // Ground 레이어 지정
 
     public Transform cameraTransform; // 카메라의 Transform
@@ -60,6 +64,7 @@ public class PlayerPhysics : MonoBehaviour
         CalculateAdditionalForce(stabilityChecker.CheckBoostEnabled(playerTransform));
         HandleMovement();
         CalculateSpeed();
+        owner.animationController.ChangeAnimationDependOnSpeed();
     }
 
     void Update()
@@ -129,10 +134,27 @@ public class PlayerPhysics : MonoBehaviour
     }
     void HandleMovement()
     {
-        playerRB.AddForce(playerTransform.forward * (stat.MoveForce + stat.CurrentAdditionForce), ForceMode.Force);
+        playerRB.AddForce(playerTransform.forward * variableJoystick.Strength * (stat.MoveForce + stat.CurrentAdditionForce), ForceMode.Force);
     }
 
     void HandleRotation()
+    {
+        HandleRotationOnJoyStick();
+    }
+
+    private void HandleRotationOnJoyStick()
+    {
+        
+        Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
+        if(direction !=  Vector3.zero)
+        {
+            Quaternion wanderRotation = Quaternion.LookRotation(direction);
+            playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, wanderRotation, stat.RotationSpeed * Time.deltaTime);
+        }
+        
+    }
+
+    private void HandleRotationOnPCOld()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -154,11 +176,22 @@ public class PlayerPhysics : MonoBehaviour
 
     void HandleBoost()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= stat.LastDashTime + stat.BoostCooltime)
+        if(variableJoystick.Strength >= joystickForceToChargeBoost)
+        {
+            float ratioDelta = Time.deltaTime / stat.BoostChargeTime;
+            stat.BoostChargeRatio += ratioDelta;
+            if (stat.BoostChargeRatio > 1)
+            {
+                stat.BoostChargeRatio = 1;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) && stat.BoostChargeRatio >= 1.0f)
         {
             playerRB.AddForce(playerTransform.forward * stat.BoostForce, ForceMode.Impulse);
             owner.particleController.OnBoost();
             stat.LastDashTime = Time.time;
+            stat.BoostChargeRatio = 0f;
         }
     }
 
