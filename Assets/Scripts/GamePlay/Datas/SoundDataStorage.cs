@@ -11,7 +11,7 @@ public class SoundDataStorage : MonoBehaviour
         public string key;
         public float volume;
         public float pitch;
-        public AudioClip[] clip;
+        public List<AudioClip> clip;
     }
 }
 

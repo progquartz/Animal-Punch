@@ -42,3 +42,10 @@ MonoBehaviour:
     ExpAmount: 1
     TimeAmount: 5
     IsGainingItem: 0
+  DeadClip:
+    clip:
+    - {fileID: 8300000, guid: 2353183dc91ea7646b628e9d033b71d6, type: 3}
+    - {fileID: 8300000, guid: b9285e6345a1500418701b25dce7acee, type: 3}
+    - {fileID: 8300000, guid: 4585cc647e14b5f408aae6c66d43c7bd, type: 3}
+    volume: 0.3
+    pitch: 1

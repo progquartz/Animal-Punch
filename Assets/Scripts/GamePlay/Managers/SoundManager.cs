@@ -42,6 +42,14 @@ public class SoundManager : MonoBehaviour
             if (!soundClips.ContainsKey(entry.key))
                 soundClips.Add(entry.key, new AudioClipData(entry.clip, entry.volume, entry.pitch));
         }
+
+        foreach(var entry in DataManager.Instance.EnemyDataStorage._enemyData)
+        {
+            if (!soundClips.ContainsKey(entry.ActorKey + "Dead") && entry.DeadClip.clip.Count > 0)
+            {
+                soundClips.Add((entry.ActorKey + "Dead"), new AudioClipData(entry.DeadClip.clip, entry.DeadClip.volume, entry.DeadClip.pitch));
+            }
+        }
     }
 
     private void InitSFXPool()
@@ -208,30 +216,33 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public class AudioClipData
+
+}
+
+[System.Serializable]
+public class AudioClipData
+{
+    public List<AudioClip> clip;
+    public float volume;
+    public float pitch;
+
+    public AudioClipData(List<AudioClip> clip, float volume, float pitch)
     {
-        public AudioClip[] clip;
-        public float volume;
-        public float pitch;
+        this.clip = clip;
+        this.volume = volume;
+        this.pitch = pitch;
+    }
 
-        public AudioClipData(AudioClip[] clip, float volume, float pitch)
+    public AudioClip GetRandomAudioClip()
+    {
+        if (clip.Count == 1)
         {
-            this.clip = clip;
-            this.volume = volume;
-            this.pitch = pitch;
+            return clip[0];
         }
-
-        public AudioClip GetRandomAudioClip()
+        else
         {
-            if(clip.Length == 1)
-            {
-                return clip[0];
-            }
-            else
-            {
-                int randomIndex = Random.Range(0, clip.Length);
-                return clip[randomIndex];
-            }
+            int randomIndex = Random.Range(0, clip.Count);
+            return clip[randomIndex];
         }
     }
 }
