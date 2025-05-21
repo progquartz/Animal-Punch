@@ -40,7 +40,7 @@ public class SoundManager : MonoBehaviour
         foreach (var entry in soundDataStorage.sounds)
         {
             if (!soundClips.ContainsKey(entry.key))
-                soundClips.Add(entry.key, new AudioClipData(entry.clip, entry.volume));
+                soundClips.Add(entry.key, new AudioClipData(entry.clip, entry.volume, entry.pitch));
         }
     }
 
@@ -67,25 +67,26 @@ public class SoundManager : MonoBehaviour
 
         if (sfxPool.Count == 0) return;
 
-        var source = sfxPool.Dequeue();
-        inUse.Add(source);
+        var sfxSource = sfxPool.Dequeue();
+        inUse.Add(sfxSource);
 
         if (pos.HasValue)
         {
-            source.transform.position = pos.Value;
-            source.spatialBlend = 1f; // 공간 음향 적용
+            sfxSource.transform.position = pos.Value;
+            sfxSource.spatialBlend = 1f; // 공간 음향 적용
         }
         else
         {
-            source.spatialBlend = 0f; // 공간 음향 적용 안함.
+            sfxSource.spatialBlend = 0f; // 공간 음향 적용 안함.
         }
 
-        source.outputAudioMixerGroup = sfxGroup; // 볼륨 그룹 나누기
-        source.volume = data.Volume;
-        source.clip = data.Clip;
-        source.Play();
+        sfxSource.outputAudioMixerGroup = sfxGroup; // 볼륨 그룹 나누기
+        sfxSource.volume = data.volume;
+        sfxSource.clip = data.GetRandomAudioClip();
+        sfxSource.pitch = data.pitch;
+        sfxSource.Play();
 
-        StartCoroutine(ReturnToPoolWhenDone(source));
+        StartCoroutine(ReturnToPoolWhenDone(sfxSource));
     }
 
     /// <summary>
@@ -104,8 +105,9 @@ public class SoundManager : MonoBehaviour
         }
 
         bgmSource.outputAudioMixerGroup = bgmGroup; // 볼륨 그룹 나누기
-        bgmSource.clip = data.Clip;
-        bgmSource.volume = data.Volume;
+        bgmSource.clip = data.GetRandomAudioClip();
+        bgmSource.volume = data.volume;
+        bgmSource.pitch = data.pitch;
         bgmSource.Play();
     }
 
@@ -147,21 +149,50 @@ public class SoundManager : MonoBehaviour
         {
             StopAllSFX();  // SFX 멈추기
         }
-        else
-        {
-
-        }
     }
 
     public void SetBGMVolume(float volume)
     {
         audioMixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20);
+        SaveBGMVolume(volume);
     }
 
     public void SetSFXVolume(float volume)
     {
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        SaveSFXVolume(volume);
     }
+
+    public void SaveCurrentVolume()
+    {
+        float sfxVolume = 1f;
+        float bgmVolume = 1f;
+        audioMixer.GetFloat("SFXVolume", out sfxVolume);
+        audioMixer.GetFloat("BGMVolume", out bgmVolume);
+
+        SaveSFXVolume(sfxVolume);
+        SaveBGMVolume(bgmVolume);
+    }
+
+    public void LoadVolume()
+    {
+        SetBGMVolume(PlayerPrefs.GetFloat("BGMVolume", 1));
+        SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 1));
+    }
+
+    private void SaveSFXVolume(float volume)
+    {
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+        PlayerPrefs.Save();
+    }
+
+    private void SaveBGMVolume(float volume)
+    {
+        PlayerPrefs.SetFloat("BGMVolume", volume);
+        PlayerPrefs.Save();
+    }
+
+
 
 
     // BGM은 계속 재생, 일시 정지 중에 사운드 효과는 멈추지 않도록 하기
@@ -179,13 +210,28 @@ public class SoundManager : MonoBehaviour
 
     public class AudioClipData
     {
-        public AudioClip Clip;
-        public float Volume;
+        public AudioClip[] clip;
+        public float volume;
+        public float pitch;
 
-        public AudioClipData(AudioClip clip, float volume)
+        public AudioClipData(AudioClip[] clip, float volume, float pitch)
         {
-            Clip = clip;
-            Volume = volume;
+            this.clip = clip;
+            this.volume = volume;
+            this.pitch = pitch;
+        }
+
+        public AudioClip GetRandomAudioClip()
+        {
+            if(clip.Length == 1)
+            {
+                return clip[0];
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, clip.Length);
+                return clip[randomIndex];
+            }
         }
     }
 }

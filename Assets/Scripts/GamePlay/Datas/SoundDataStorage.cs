@@ -10,7 +10,8 @@ public class SoundDataStorage : MonoBehaviour
     {
         public string key;
         public float volume;
-        public AudioClip clip;
+        public float pitch;
+        public AudioClip[] clip;
     }
 }
 
