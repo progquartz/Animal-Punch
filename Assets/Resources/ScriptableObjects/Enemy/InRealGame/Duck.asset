@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
-  m_Name: Cow
+  m_Name: Duck
   m_EditorClassIdentifier: 
-  ActorName: Cow
-  ActorKey: Cow
+  ActorName: Duck
+  ActorKey: Duck
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 10
+  MaxSpawnCount: 15
   SpawnInterval: 3
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
-  ModelObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
-  ModelType: 1
-  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.4763174}
-  BehaviourType: 1
+  ModelObject: {fileID: 5212188983111060022, guid: a02798c7e7812034fba0bc1d6d2fb0bc, type: 3}
+  ModelType: 0
+  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 0.71}
+  BehaviourType: 2
   ActorsStat:
     IsDead: 0
-    HP: 30
-    MaxHP: 30
-    Speed: 5
+    HP: 20
+    MaxHP: 20
+    Speed: 2.5
     Mass: 10
     MassOnDead: 0.3
     Drag: 5
@@ -44,8 +44,7 @@ MonoBehaviour:
     IsGainingItem: 0
   DeadClip:
     clip:
-    - {fileID: 8300000, guid: 2353183dc91ea7646b628e9d033b71d6, type: 3}
-    - {fileID: 8300000, guid: b9285e6345a1500418701b25dce7acee, type: 3}
-    - {fileID: 8300000, guid: 4585cc647e14b5f408aae6c66d43c7bd, type: 3}
-    volume: 0.3
+    - {fileID: 8300000, guid: 64bce61929fd61e4396b62c08136705f, type: 3}
+    - {fileID: 8300000, guid: 53a2e26642d7bd2489543704778427a4, type: 3}
+    volume: 0.2
     pitch: 1

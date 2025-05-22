@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
-  m_Name: Penguin
+  m_Name: Crow
   m_EditorClassIdentifier: 
-  ActorName: Penguin
-  ActorKey: Penguin
+  ActorName: Crow
+  ActorKey: Crow
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 15
-  SpawnInterval: 1
+  SpawnInterval: 4
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
-  ModelObject: {fileID: 4680175973705454238, guid: 28bbbf6958e852c48887071956e3afb0, type: 3}
+  ModelObject: {fileID: 6036527707262957442, guid: 6f476d4fc1c35ad4689d66005b9a8df5, type: 3}
   ModelType: 0
-  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 0.7}
-  BehaviourType: 0
+  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 0.79}
+  BehaviourType: 3
   ActorsStat:
     IsDead: 0
-    HP: 25
-    MaxHP: 25
-    Speed: 2
+    HP: 20
+    MaxHP: 20
+    Speed: 4
     Mass: 10
     MassOnDead: 0.3
     Drag: 5
@@ -42,3 +42,10 @@ MonoBehaviour:
     ExpAmount: 1
     TimeAmount: 5
     IsGainingItem: 0
+  DeadClip:
+    clip:
+    - {fileID: 8300000, guid: d8eb014a9c612524288e0a53267634eb, type: 3}
+    - {fileID: 8300000, guid: 7af36f352ed80f240b103f2f667c81c3, type: 3}
+    - {fileID: 8300000, guid: 08df1026cb7578a449d9369ebbecd54b, type: 3}
+    volume: 0.2
+    pitch: 1

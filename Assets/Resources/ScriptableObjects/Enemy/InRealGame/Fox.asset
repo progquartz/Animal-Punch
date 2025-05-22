@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
-  m_Name: Cow
+  m_Name: Fox
   m_EditorClassIdentifier: 
-  ActorName: Cow
-  ActorKey: Cow
+  ActorName: Fox
+  ActorKey: Fox
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 10
-  SpawnInterval: 3
+  MaxSpawnCount: 15
+  SpawnInterval: 5
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
-  ModelObject: {fileID: 8384758995966215210, guid: a717995d747bfb04f9706c954a191cca, type: 3}
+  ModelObject: {fileID: 6923407861767336570, guid: 409271dbc57f96946ad0b2413d1b86dd, type: 3}
   ModelType: 1
-  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.4763174}
-  BehaviourType: 1
+  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.08}
+  BehaviourType: 2
   ActorsStat:
     IsDead: 0
-    HP: 30
-    MaxHP: 30
-    Speed: 5
+    HP: 25
+    MaxHP: 25
+    Speed: 7
     Mass: 10
     MassOnDead: 0.3
     Drag: 5
@@ -44,8 +44,8 @@ MonoBehaviour:
     IsGainingItem: 0
   DeadClip:
     clip:
-    - {fileID: 8300000, guid: 2353183dc91ea7646b628e9d033b71d6, type: 3}
-    - {fileID: 8300000, guid: b9285e6345a1500418701b25dce7acee, type: 3}
-    - {fileID: 8300000, guid: 4585cc647e14b5f408aae6c66d43c7bd, type: 3}
-    volume: 0.3
+    - {fileID: 8300000, guid: 6ffd0413f5681ed428087135218eaca2, type: 3}
+    - {fileID: 8300000, guid: 6add088a694f1144d99115379f5e8ab8, type: 3}
+    - {fileID: 8300000, guid: 3404b1d7d1128ab47a1ca44a0156b51b, type: 3}
+    volume: 0.2
     pitch: 1
