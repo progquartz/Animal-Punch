@@ -74,6 +74,11 @@ public class PlayerPhysics : MonoBehaviour
         HandleRotation();
         HandleBoost();
         HandleStatChange();
+        
+    }
+
+    private void LateUpdate()
+    {
         UpdateCameraPosition();
     }
 
