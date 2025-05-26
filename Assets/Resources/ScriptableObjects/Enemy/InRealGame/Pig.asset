@@ -17,7 +17,7 @@ MonoBehaviour:
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 15
-  SpawnInterval: 1
+  SpawnInterval: 2
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
@@ -42,3 +42,9 @@ MonoBehaviour:
     ExpAmount: 1
     TimeAmount: 5
     IsGainingItem: 0
+  DeadClip:
+    clip:
+    - {fileID: 8300000, guid: 7033c0523265b8a4ea604660e6e36eaa, type: 3}
+    - {fileID: 8300000, guid: 86d44f7f01f00db4199574821ee6d54b, type: 3}
+    volume: 0.2
+    pitch: 1

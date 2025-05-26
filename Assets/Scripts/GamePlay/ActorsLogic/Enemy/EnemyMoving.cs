@@ -43,8 +43,17 @@ public class EnemyMoving : Enemy
         stat.IsDead = true;
         particleController.OnDead();
         animationController.OnDead();
+        
         LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
+        PlayDeadSound();
         OnDead?.Invoke();
+    }
+
+    private void PlayDeadSound()
+    {
+        SoundManager.Instance.PlaySFX("EnemyShooting");
+        // 자신의 동물의 상태에 맞는 shooting 효과음 제작
+        SoundManager.Instance.PlaySFX(targetEnemyDataSO.ActorKey + "Dead");
     }
 
     private void RegisterEvents()

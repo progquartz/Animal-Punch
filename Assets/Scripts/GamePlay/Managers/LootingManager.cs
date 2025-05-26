@@ -11,7 +11,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
     protected override void Init()
     {
         IsDestroyOnLoad = true;
-
+        ChangeParentToManagers();
         base.Init();
 
     }
@@ -33,6 +33,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
     public void OpenLootUI()
     {
         GameManager.Instance.StopTime();
+        SoundManager.Instance.PlaySFX("LootingUIOpen");
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData());
     }
 }

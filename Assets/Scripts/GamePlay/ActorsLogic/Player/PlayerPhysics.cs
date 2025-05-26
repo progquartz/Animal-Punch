@@ -74,6 +74,11 @@ public class PlayerPhysics : MonoBehaviour
         HandleRotation();
         HandleBoost();
         HandleStatChange();
+        
+    }
+
+    private void LateUpdate()
+    {
         UpdateCameraPosition();
     }
 
@@ -190,6 +195,7 @@ public class PlayerPhysics : MonoBehaviour
         if(stat.BoostChargeRatio >= 1.0f)
         {
             playerRB.AddForce(playerTransform.forward * stat.BoostForce, ForceMode.Impulse);
+            SoundManager.Instance.PlaySFX("Booster");
             owner.particleController.OnBoost();
             stat.LastDashTime = Time.time;
             stat.BoostChargeRatio = 0f;

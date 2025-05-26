@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    private HealthRatioComponent healthRatio = new HealthRatioComponent();
     // 현재 게임 진행 시간
     public float GameTime;
     public float EnemyHealthRatio;
@@ -22,6 +23,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     private void Update()
     {
         UpdateGameTime();
+        UpdateGameRatios();
         CheckGameEnd();
     }
 
@@ -48,6 +50,16 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             GameTimeLeft = MaxGameTime;
         }
+    }
+
+    public float GetHealthRatio()
+    {
+        return healthRatio.GetHealthRatio();
+    }
+
+    private void UpdateGameRatios()
+    {
+        healthRatio.UpdateHealthRatio(GameTime);
     }
 
     private void UpdateGameTime()

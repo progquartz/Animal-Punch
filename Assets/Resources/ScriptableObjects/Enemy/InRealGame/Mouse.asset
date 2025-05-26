@@ -18,7 +18,7 @@ MonoBehaviour:
   IsEnemyHasCondition: 1
   MaxSpawnCount: 30
   SpawnInterval: 1
-  SpawnCount: 3
+  SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
@@ -42,3 +42,7 @@ MonoBehaviour:
     ExpAmount: 1
     TimeAmount: 5
     IsGainingItem: 0
+  DeadClip:
+    clip: []
+    volume: 0
+    pitch: 0

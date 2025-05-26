@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
+  m_Name: Bear
+  m_EditorClassIdentifier: 
+  ActorName: Bear
+  ActorKey: Bear
+  IsEnemyHasHealth: 1
+  IsEnemyHasCondition: 1
+  MaxSpawnCount: 15
+  SpawnInterval: 5
+  SpawnCount: 1
+  NeedSpawnRightNow: 0
+  MinSpawnTime: -1
+  MaxSpawnTime: -1
+  ModelObject: {fileID: 5568499993248039948, guid: 2e23b199bbbf7744cb45d0f380db91e9, type: 3}
+  ModelType: 1
+  ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.63}
+  BehaviourType: 1
+  ActorsStat:
+    IsDead: 0
+    HP: 50
+    MaxHP: 50
+    Speed: 2
+    Mass: 10
+    MassOnDead: 0.3
+    Drag: 5
+    DragOnDead: 0
+    AngularDrag: 1
+    AngularDragOnDead: 0.05
+  DropItemData:
+    GoldAmount: 10
+    ExpAmount: 1
+    TimeAmount: 5
+    IsGainingItem: 0
+  DeadClip:
+    clip:
+    - {fileID: 8300000, guid: 5cb3b59a34368114094c345950f38de0, type: 3}
+    - {fileID: 8300000, guid: efab24a867da8904fadbcc2f7800a365, type: 3}
+    - {fileID: 8300000, guid: b8860f6917679184096ef550b6648a02, type: 3}
+    volume: 0.3
+    pitch: 1
