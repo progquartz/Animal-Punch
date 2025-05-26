@@ -1,32 +1,36 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
-using UnityEngine.WSA;
+using System.Collections.Generic;
 
 public class MapGroupObject : MonoBehaviour
 {
     public string key;
+    private List<GameObject> pooledObjects = new List<GameObject>();
 
-    /// <summary>
-    /// 그룹 오브젝트의 초기화 (필요한 경우 추가 로직)
-    /// </summary>
     public void Initialize()
     {
-        // Initialize를 하면서 내부에 있는 모든 오브젝트 이름에 맞는 오브젝트 풀링해와서 교체.
-        Transform myTransform = this.transform;
-        foreach(Transform child in myTransform)
+        foreach (Transform childHolder in transform)
         {
-            string key = child.name.Split(' ')[0];
+            string childKey = childHolder.name.Split(' ')[0];
+            if (string.IsNullOrEmpty(childKey)) continue;
 
-            // DataStorage에서 그룹 프리팹 찾기.
-            GameObject gp = MapManager.Instance.MapDataStorage.GetRandomModelPrefab(key);
-            if (gp != null)
+            GameObject prefab = MapManager.Instance.MapDataStorage.GetRandomModelPrefab(childKey);
+            if (prefab != null)
             {
-                GameObject model = Instantiate(gp.gameObject, child);
-                // 오브젝트 풀에서 해당 키의 단체 오브젝트 반환
+                GameObject model = MapObjectPool.Instance.GetFromPool(childKey, prefab, childHolder);
                 model.transform.localPosition = Vector3.zero;
-                //Debug.Log($"재설정 후 localPosition: {model.transform.localPosition}");
+                pooledObjects.Add(model);
             }
         }
-    }    
+    }
+
+    // 자식 오브젝트 전부 풀로 반환
+    public void ReturnAllChildrenToPool()
+    {
+        foreach (GameObject obj in pooledObjects)
+        {
+            string returnKey = obj.name.Split('(')[0].Trim(); // Instantiate 시 Unity가 추가한 (Clone) 제거
+            MapObjectPool.Instance.ReturnToPool(returnKey, obj);
+        }
+        pooledObjects.Clear();
+    }
 }
