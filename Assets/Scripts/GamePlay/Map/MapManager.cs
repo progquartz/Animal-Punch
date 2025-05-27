@@ -13,8 +13,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     public Vector2Int currentCenterChunk;
     private bool IsFirstTimeInitializing = true;
     private const float chunkSize = 90f;
-    private const float halfCellSize = chunkSize * 0.5f; // 45
-
+    private const float halfCellSize = chunkSize * 0.5f;
 
     // 잦은 플레이어 위치 업데이트를 막기 위해 일정 이동거리 이상 지났을 때마다 업데이트 여부를 확인.
     private Vector3 lastPlayerPosition;
@@ -76,6 +75,7 @@ public class MapManager : SingletonBehaviour<MapManager>
                     // 청크 위치 계산 (청크 크기를 고려)
                     Vector3 spawnPosition = new Vector3(chunkPos.x * MapDataStorage.chunkSize, 0, chunkPos.y * MapDataStorage.chunkSize);
 
+                    // 청크의 경우, 좌표에 따라 정해진 청크를 배분받아야 하기 때문에, 풀링 방식을 이용하기가 곤란함.
                     GameObject chunkObj = Instantiate(MapDataStorage.GetRandomMapChunk(chunkPos).gameObject, spawnPosition, Quaternion.identity, MapModelParent);
                     MapChunk newChunk = chunkObj.GetComponent<MapChunk>();
                     newChunk.Initialize(chunkPos, MapDataStorage);

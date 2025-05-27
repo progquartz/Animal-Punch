@@ -46,8 +46,6 @@ public class MapObjectPool : SingletonBehaviour<MapObjectPool>
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
             rb.Sleep();  
         }
 

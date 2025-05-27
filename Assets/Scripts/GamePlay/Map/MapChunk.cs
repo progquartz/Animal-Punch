@@ -52,6 +52,6 @@ public class MapChunk : MonoBehaviour
         spawnedMapGroupObjects.Clear();
 
         // MapChunk 자체도 풀에 반환
-        MapObjectPool.Instance.ReturnToPool("MapChunk", gameObject);
+        Destroy(this.gameObject);
     }
 }
