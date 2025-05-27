@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MapChunk : MonoBehaviour
 {
@@ -14,35 +12,26 @@ public class MapChunk : MonoBehaviour
 
     private void Awake()
     {
-        TestChunk();
+        // 테스트 목적으로 Awake에서 초기화를 막음 (실제 환경에선 제거 권장)
+        // TestChunk();
     }
 
-    private void TestChunk()
-    {
-        Initialize(Vector2Int.zero,  MapManager.Instance.MapDataStorage);
-    }
-    /// <summary>
-    /// 청크를 초기화 합니다.
-    /// </summary>
     public void Initialize(Vector2Int coordinate, MapDataStorage data)
     {
         chunkCoordinate = coordinate;
         dataStorage = data;
 
-        // 자식으로 있는 Holder의 이름을 기반으로 Transform에 맞게 해당 MapGroupObject를 생성.
         foreach (Transform holder in PrepperParentTransform)
         {
             string key = holder.gameObject.name.Split(' ')[0];
             if (string.IsNullOrEmpty(key)) continue;
 
-            MapGroupObject gp = data.GetRandomGroupPrefab(key);
-            if(gp != null)
+            MapGroupObject gpPrefab = data.GetRandomGroupPrefab(key);
+            if (gpPrefab != null)
             {
-                GameObject groupObj = Instantiate(gp.gameObject);
-                groupObj.transform.SetParent(holder, false);
+                GameObject groupObj = MapObjectPool.Instance.GetFromPool(gpPrefab.key, gpPrefab.gameObject, holder);
                 groupObj.transform.localPosition = Vector3.zero;
 
-                // MapGroupObject 컴포넌트를 받아 추가 초기화 진행
                 MapGroupObject groupComponent = groupObj.GetComponent<MapGroupObject>();
                 if (groupComponent != null)
                 {
@@ -53,17 +42,16 @@ public class MapChunk : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 청크 언로드 시, 내부 단체 오브젝트를 모두 풀로 반환합니다.
-    /// </summary>
     public void UnloadChunk()
     {
         foreach (MapGroupObject groupObj in spawnedMapGroupObjects)
         {
+            groupObj.ReturnAllChildrenToPool();
+            MapObjectPool.Instance.ReturnToPool(groupObj.key, groupObj.gameObject);
         }
         spawnedMapGroupObjects.Clear();
 
-        // 청크 자체는 필요 없다면 삭제
-        Destroy(gameObject);
+        // MapChunk 자체도 풀에 반환
+        Destroy(this.gameObject);
     }
 }

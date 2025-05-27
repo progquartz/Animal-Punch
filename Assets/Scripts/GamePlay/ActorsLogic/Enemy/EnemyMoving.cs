@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyMoving : Enemy
@@ -9,41 +8,33 @@ public class EnemyMoving : Enemy
     public AnimalAnimationController animationController;
     public EnemyParticleController particleController;
 
-    // start에서 Init으로 추후에 옮기기.
-    public override void Init(EnemyDataSO enemyData ,Vector3 randomPos)
+    public override void Init(EnemyDataSO enemyData, Vector3 spawnPosition)
     {
-        base.Init(enemyData, randomPos);
-        if(isFirstTimeInitiated)
+        base.Init(enemyData, spawnPosition);
+
+        transform.position = spawnPosition;
+        EnemyTransform.position = spawnPosition;
+
+        if (isFirstTimeInitiated)
         {
             isFirstTimeInitiated = false;
             RegisterEvents();
         }
+
         ResetStates();
-      
         actorBehaviour = ActorBehaviour.GetActorBehaviour(targetEnemyDataSO.BehaviourType);
         actorBehaviour.Init(this);
         animationController.SetAnimator(InitializeModel());
         animationController.Init();
         particleController.Init(this);
-        StartCoroutine(LatePositionFix(randomPos));
     }
-
-    protected IEnumerator LatePositionFix(Vector3 randomPos)
-    {
-        yield return null;
-        transform.parent = MapManager.Instance.EnemySpawner.EnemyParentTransform;
-        transform.position = randomPos;
-        EnemyTransform.position = randomPos;
-    }
-
-
 
     public override void HandleDeath()
     {
         stat.IsDead = true;
         particleController.OnDead();
         animationController.OnDead();
-        
+
         LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         PlayDeadSound();
         OnDead?.Invoke();
@@ -52,7 +43,6 @@ public class EnemyMoving : Enemy
     private void PlayDeadSound()
     {
         SoundManager.Instance.PlaySFX("EnemyShooting");
-        // 자신의 동물의 상태에 맞는 shooting 효과음 제작
         SoundManager.Instance.PlaySFX(targetEnemyDataSO.ActorKey + "Dead");
     }
 
@@ -61,20 +51,19 @@ public class EnemyMoving : Enemy
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
         GameManager.Instance.OnTimeToggle += particleController.OnTimeToggle;
         GameManager.Instance.OnQuitGameScene += ReleaseEvents;
-        
     }
 
     private void ReleaseEvents()
     {
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
-        GameManager.Instance.OnTimeToggle -= particleController.OnTimeToggle;   
-        GameManager.Instance.OnQuitGameScene -= ReleaseEvents; // 가장 마지막에 적용되어야 함.
+        GameManager.Instance.OnTimeToggle -= particleController.OnTimeToggle;
+        GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
     }
-    
+
     void Update()
     {
         if (GameManager.Instance.IsTimeStop) return;
-        
+
         if (targetEnemyDataSO.IsEnemyHasCondition)
         {
             actorBehaviour.CheckCondition();
@@ -84,7 +73,7 @@ public class EnemyMoving : Enemy
 
     private void OnTimeToggle(bool isTimeStop)
     {
-        if(isTimeStop)
+        if (isTimeStop)
         {
             EnemyRB.isKinematic = true;
             animationController.PauseAnimation();
@@ -98,18 +87,7 @@ public class EnemyMoving : Enemy
 
     public override void OnDamage(bool IsCritical)
     {
-        if(IsCritical)
-        {
-            particleController.OnCriticalHit();
-        }
-        else
-        {
-            particleController.OnHit();
-        }
-        
+        if (IsCritical) particleController.OnCriticalHit();
+        else particleController.OnHit();
     }
-
-
-
-
 }

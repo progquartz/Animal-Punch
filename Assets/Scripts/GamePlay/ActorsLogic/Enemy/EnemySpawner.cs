@@ -47,6 +47,7 @@ public class EnemySpawner : MonoBehaviour
                 EnemySpawnRightNowList.Add(data.ActorKey);
             }
         }
+        InitializeAllEnemyPools(10); // 각 적 타입당 20개씩 풀링, 원하는 개수로 조정 가능
     }
 
     void Update()
@@ -59,6 +60,7 @@ public class EnemySpawner : MonoBehaviour
         CheckDespawnEnemies();
     }
 
+    
     private void HandleIntervalSpawn()
     {
         float currentGameTime = GameManager.Instance.GameTime;
@@ -147,6 +149,24 @@ public class EnemySpawner : MonoBehaviour
         return enemyCountOnPool;    
     }
 
+    public void InitializeAllEnemyPools(int defaultPoolSize = 10)
+    {
+        var enemyDataList = DataManager.Instance.EnemyDataStorage.enemyDataList;
+
+        foreach (var enemyDataPair in enemyDataList)
+        {
+            string enemyKey = enemyDataPair.Key;
+            EnemyDataSO enemyData = enemyDataPair.Value;
+
+            // EnemyPool을 통해 각 적 타입을 초기화
+            Pool.InitializePool(enemyKey, defaultPoolSize);
+
+            // 로깅(옵션)
+            Debug.Log($"Initialized enemy pool for key: {enemyKey} with pool size: {defaultPoolSize}");
+        }
+    }
+
+    // SpawnEnemies 메서드 내부만 수정된 코드 예시
     private void SpawnEnemies(string key)
     {
         int spawnCount = DataManager.Instance.EnemyDataStorage.enemyDataList[key].SpawnCount;
@@ -156,28 +176,20 @@ public class EnemySpawner : MonoBehaviour
             if (!IsKeyValidToSpawn(key)) break;
 
             float randomRadius = Random.Range(minSpawnRadius, maxSpawnRadius);
-            Vector3 direction = Random.onUnitSphere; // 방향만 랜덤, 길이는 1
+            Vector3 direction = Random.onUnitSphere;
             Vector3 randomPos = playerTransform.position + direction * randomRadius;
             randomPos.y = 0f;
 
-            // 임시로 비 풀 객체 이용.
-            //GameObject enemyObj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyBasePrefab(key));
-            GameObject enemyObj = Pool.GetFromPool(key);
-            if (enemyObj != null)
-            {
-                enemyObj.transform.position = randomPos;
-                enemyObj.transform.rotation = Quaternion.identity;
-                Logger.Log($"{key}의 적을 받아와서 {randomPos}에 배치합니다.");
+            GameObject enemyObj = Pool.GetFromPool(key, EnemyParentTransform, randomPos);
+            Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
 
-                Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
-                enemyComponent.EnemyTransform.position = randomPos;
-                if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
-                {
-                    enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key), randomPos);
-                }
+            if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
+            {
+                enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key), randomPos);
             }
         }
     }
+
 
 
     private void CheckDespawnEnemies()

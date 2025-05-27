@@ -1,23 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class EnemyPool : MonoBehaviour
 {
     private Dictionary<string, Queue<GameObject>> enemyPool = new Dictionary<string, Queue<GameObject>>();
     private Dictionary<string, int> usingEnemyCount = new Dictionary<string, int>();
-    
 
-
-    /// <summary>
-    /// Ç®À» ¹Ì¸® ÃÊ±âÈ­ÇÕ´Ï´Ù.
-    /// </summary>
     public void InitializePool(string key, int initialSize)
     {
         if (!enemyPool.ContainsKey(key))
         {
-            Logger.Log($"{key}ÀÇ ÀÌ¸§À¸·Î »õ·Î¿î ¿ÀºêÁ§Æ® Ç®¸µ ½Ãµµ");
             Queue<GameObject> newPool = new Queue<GameObject>();
             for (int i = 0; i < initialSize; i++)
             {
@@ -25,96 +18,66 @@ public class EnemyPool : MonoBehaviour
                 obj.SetActive(false);
                 newPool.Enqueue(obj);
             }
-            Logger.Log($"{key}ÀÇ ÀÌ¸§À¸·Î »õ·Î¿î ¿ÀºêÁ§Æ® Ç®¸µ ¼º°ø");
             enemyPool.Add(key, newPool);
-            if(!usingEnemyCount.ContainsKey(key))
+            if (!usingEnemyCount.ContainsKey(key))
             {
                 usingEnemyCount.Add(key, 0);
             }
         }
     }
 
-    /// <summary>
-    /// ¿äÃ»µÈ Å°¿¡ ´ëÇØ Ç®¿¡¼­ ¿ÀºêÁ§Æ®¸¦ ¹ÝÈ¯ÇÕ´Ï´Ù. ¾øÀ¸¸é »õ·Î »ý¼º.
-    /// </summary>
-    public GameObject GetFromPool(string key)
+    public GameObject GetFromPool(string key, Transform parent, Vector3 position)
     {
-//        Debug.Log("È£Ãâ");
-        if (enemyPool.ContainsKey(key))
+        GameObject obj;
+
+        if (enemyPool.ContainsKey(key) && enemyPool[key].Count > 0)
         {
-            usingEnemyCount[key]++;
-            
-            if (enemyPool[key].Count > 0)
-            {
-                Debug.Log($"{key}ÀÌ¸§ÀÇ ÀûÀ» PoolingÇÏ¿© {usingEnemyCount[key]}°³ ÀÖ½À´Ï´Ù.");
-                GameObject obj = enemyPool[key].Dequeue();
-                obj.GetComponent<Enemy>().IsInPool = false;
-                obj.SetActive(true);
-                return obj;
-            }
-            else
-            {
-                Debug.Log($"{key}ÀÌ¸§ÀÇ ÀûÀÌ Pool¿¡ ¾ø¾î ¼ÒÈ¯ÇØ ÇöÀç {usingEnemyCount[key]}°³ ÀÖ½À´Ï´Ù.");
-                GameObject obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyBasePrefab(key));
-                obj.GetComponent<Enemy>().IsInPool = false;
-                return obj;
-            }
+            obj = enemyPool[key].Dequeue();
         }
         else
         {
-            // Å°°¡ ¾øÀ¸¸é ÃÊ±âÈ­ ÈÄ ¹ÝÈ¯
-            InitializePool(key, 1);
-            return GetFromPool(key);
+            obj = Instantiate(DataManager.Instance.EnemyDataStorage.GetEnemyBasePrefab(key));
         }
+
+        obj.SetActive(false);  // í™œì„±í™” ì „ ì„¤ì •
+        obj.transform.SetParent(parent, false);
+        obj.transform.position = position;
+        obj.transform.rotation = Quaternion.identity;
+
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.Sleep();
+        }
+
+        Enemy enemy = obj.GetComponent<Enemy>();
+        enemy.IsInPool = false;
+        obj.SetActive(true);
+
+        usingEnemyCount[key]++;
+        return obj;
     }
 
-    /// <summary>
-    /// »ç¿ëÀÌ ³¡³­ ¿ÀºêÁ§Æ®¸¦ Ç®¿¡ ¹ÝÈ¯ÇÕ´Ï´Ù.
-    /// </summary>
     public void ReturnToPool(string key, GameObject obj)
     {
-        Enemy enemy = obj.GetComponent<Enemy>();    
-        if(enemy == null || enemy.IsInPool)
-        {
-            return;
-        }
+        Enemy enemy = obj.GetComponent<Enemy>();
+        if (enemy == null || enemy.IsInPool) return;
 
         obj.SetActive(false);
+        obj.transform.SetParent(transform);
 
+        enemy.IsInPool = true;
+        usingEnemyCount[key]--;
 
-        if (enemyPool.ContainsKey(key))
-        {
-            Logger.Log($"EnemyPool¿¡ [{key}]¸¦ key°ªÀ¸·Î °¡Áö´Â {obj.name}¿ÀºêÁ§Æ®°¡ Ç®·Î µ¹¾Æ¿Ô½À´Ï´Ù.");
-            enemy.IsInPool = true;
-            usingEnemyCount[key]--;
-            enemyPool[key].Enqueue(obj);
-        }
-        else
-        {
-            // ¸¸¾à Ã³À½ºÎÅÍ ÀÖ´Â ¿£Æ¼Æ¼°¡ ÀÖÀ» °æ¿ì, ÀÌ´Â Á¶°Ç¿¡ Æ÷ÇÔµÇÁö ¾ÊÀ¸¹Ç·Î ¿¡·¯¸¦ ¶ç¿ö³õ¾Æ¾ß ÇÏ±ä ÇÔ.
-            // ¿ì¼± ¿¹¿ÜÃ³¸®´Â ÇØµÒ.
-            Logger.LogError($"ÇöÀç EnemyPool¿¡ InitializeµÇ¾î pool¿¡¼­ »ý¼ºµÇÁö ¾ÊÀº [{key}]¸¦ key°ªÀ¸·Î °¡Áö´Â {obj.name}¿ÀºêÁ§Æ®°¡ ¸®ÅÏÀ» ½ÃµµÇÕ´Ï´Ù.");
-            Queue<GameObject> newPool = new Queue<GameObject>();
-            newPool.Enqueue(obj);
-            enemyPool.Add(key, newPool);
-            usingEnemyCount.Add(key, 0);
-        }
+        if (!enemyPool.ContainsKey(key))
+            enemyPool[key] = new Queue<GameObject>();
+
+        enemyPool[key].Enqueue(obj);
     }
 
-    public int GetEnemyCount(string key)
-    {
-        if(usingEnemyCount.ContainsKey(key))
-        {
-            return usingEnemyCount[key];
-        }
-        usingEnemyCount.Add(key, 0);
-        return usingEnemyCount[key];
-    }
+    public int GetEnemyCount(string key) => usingEnemyCount.ContainsKey(key) ? usingEnemyCount[key] : 0;
 
-    public int GetAllEnemyCount()
-    {
-        return usingEnemyCount.Values.Sum();
-    }
-
-
+    public int GetAllEnemyCount() => usingEnemyCount.Values.Sum();
 }
