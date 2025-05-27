@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 446095511135074319}
   - component: {fileID: 7398889853081509348}
   - component: {fileID: 8131798608595844354}
+  - component: {fileID: 8524437166875158855}
   m_Layer: 0
   m_Name: DataStorage
   m_TagString: Untagged
@@ -51,7 +52,8 @@ MonoBehaviour:
   MapDataStorage: {fileID: 7888945515072305990}
   EnemyDataStorage: {fileID: 446095511135074319}
   LootingStorage: {fileID: 7398889853081509348}
-  SoundStorage: {fileID: 0}
+  SoundStorage: {fileID: 8131798608595844354}
+  PlayerDataStorage: {fileID: 8524437166875158855}
 --- !u!114 &7888945515072305990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,10 +132,18 @@ MonoBehaviour:
   MovingPrefab: {fileID: 5133525888614085507, guid: f0e147dbea414964b8f335d0b14f993d, type: 3}
   NotMovingPrefab: {fileID: 4083926577595866365, guid: 6e0e9790638fcce489916e53a097720a, type: 3}
   _enemyData:
+  - {fileID: 11400000, guid: 5da4f817c47ceab4281617f7b75e0283, type: 2}
+  - {fileID: 11400000, guid: a3761e659da3eb048a1a4205e8d0e5bd, type: 2}
   - {fileID: 11400000, guid: fbef76422df867b40b1f8791a42e63c7, type: 2}
+  - {fileID: 11400000, guid: 647c1a54f7e412d468eecd6de60ad980, type: 2}
+  - {fileID: 11400000, guid: 1209955a0150fa64e830925b4709c29c, type: 2}
+  - {fileID: 11400000, guid: c88655c4526077c438058e75102a3dba, type: 2}
+  - {fileID: 11400000, guid: 773645bb61552c3448f4f505fa9dc298, type: 2}
+  - {fileID: 11400000, guid: 44e8cddf34a001d429aaf2c28eb94cfe, type: 2}
   - {fileID: 11400000, guid: 4786a8f3f6ac7d94591980ccc504bf06, type: 2}
-  - {fileID: 11400000, guid: e29884097e4486a4ca0c4cd3f50b7848, type: 2}
   - {fileID: 11400000, guid: 762f952dcc8f6204da9c54a1ab02b310, type: 2}
+  - {fileID: 11400000, guid: 4646c71ca4d70834c804c445288e0dc6, type: 2}
+  - {fileID: 11400000, guid: 143067c77ea4c984a8c8150a26532956, type: 2}
 --- !u!114 &7398889853081509348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,5 +197,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - key: 
-    clip: {fileID: 0}
+  - key: MainBGM
+    volume: 0.2
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: f19c0f8f6f8aad740811c507b8813bfd, type: 3}
+  - key: LootingUIOpen
+    volume: 0.2
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: cb3f58919a5274944b4767991e706c9b, type: 3}
+  - key: LootingUISelect
+    volume: 0.1
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 21ce900cc59faf84dab076bade5f2f3f, type: 3}
+  - key: Booster
+    volume: 0.2
+    pitch: 1.5
+    clip:
+    - {fileID: 8300000, guid: 4ca12f4acf7eed84fa850f34ac9afc4b, type: 3}
+  - key: ButtonClick
+    volume: 1
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: ca462e29dbbae3647b411a1b44b2a2ad, type: 3}
+  - key: EnemyShooting
+    volume: 0.3
+    pitch: 0.8
+    clip:
+    - {fileID: 8300000, guid: 2cadf34ee7b9a5d44b131dbb8950c43a, type: 3}
+--- !u!114 &8524437166875158855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355039420950399707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bdd5c540fe90e1408df8335bb5a0b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExpDatas: 

@@ -55,6 +55,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         else
         {
             var prefab = Resources.Load<BaseUI>($"Prefabs/UI/{uiType}");
+            Logger.Log($"Try To Open Prefabs/UI/{uiType}");
             result = Instantiate(prefab);
             isAlreadyOpen = false;
             return result;

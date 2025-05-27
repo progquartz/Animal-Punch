@@ -22,11 +22,12 @@ public class Enemy : MonoBehaviour
 
     
     // start에서 Init으로 추후에 옮기기.
-    public virtual void Init(EnemyDataSO enemyData, Vector3 randomPos)
+    public virtual void Init(EnemyDataSO enemyData)
     {
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         IsInitialized = true;
         targetEnemyDataSO = enemyData;
+        Debug.Log("CopyData Start");
         stat.CopyData(enemyData.ActorsStat);
         stat.InitializeGameTimeScale();
 

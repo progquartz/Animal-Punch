@@ -4,6 +4,9 @@ using UnityEngine;
 public class GameManager : SingletonBehaviour<GameManager>
 {
     private HealthRatioComponent healthRatio = new HealthRatioComponent();
+    [SerializeField] private PlayerInfoDatas _playerInfoDatas;
+    
+
     // 현재 게임 진행 시간
     public float GameTime;
     public float EnemyHealthRatio;
@@ -14,6 +17,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float GameTimeDecreaseRate = 1.0f;
 
 
+    public bool IsGameStarted = false;
     public bool IsTimeStop = false;
     public Action<bool> OnTimeToggle;
     public Action OnQuitGameScene;
@@ -22,13 +26,26 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        UpdateGameTime();
-        UpdateGameRatios();
-        CheckGameEnd();
+        if(IsGameStarted)
+        {
+            UpdateGameTime();
+            UpdateGameRatios();
+            CheckGameEnd();
+        }
+        else
+        {
+            // 타이틀 씬 및 다른 곳에서는 playerInfoData 수정 외에는 다른 행동 금지.
+        }
+        
     }
 
     public void StartGameState()
     {
+        if(IsGameStarted)
+        {
+            Logger.LogWarning("이미 게임을 실행 중인데, 또 다시 호출하려 합니다.");
+        }
+        IsGameStarted = true;
         IsTimeStop = false;
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
@@ -39,6 +56,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void EndGameState()
     {
+        IsGameStarted = false;
+        IsTimeStop = false;
+        GameTime = 0f;
+        GameTimeLeft = InitialGameTimeLeft;
+        MaxGameTime = InitialGameTimeLeft;
         OnQuitGameScene.Invoke();
     }
 
@@ -101,6 +123,20 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         IsTimeStop = false;
         OnTimeToggle.Invoke(false);
+    }
+
+    public PlayerInfoDatas GetPlayerInfoData()
+    {
+        if (_playerInfoDatas == null)
+        {
+            _playerInfoDatas = gameObject.GetComponent<PlayerInfoDatas>();
+            if (_playerInfoDatas == null)
+            {
+                _playerInfoDatas = gameObject.AddComponent<PlayerInfoDatas>();
+                _playerInfoDatas.Init();
+            }
+        }
+        return _playerInfoDatas;
     }
 
 

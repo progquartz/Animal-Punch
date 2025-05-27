@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyNotMoving : Enemy
 {
     // start에서 Init으로 추후에 옮기기.
-    public override void Init(EnemyDataSO enemyData, Vector3 randomPos)
+    public override void Init(EnemyDataSO enemyData)
     {
         ResetStates();
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
