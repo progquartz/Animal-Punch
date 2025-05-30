@@ -3,6 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum SceneType
+{
+    GameScene,
+    TitleScene
+}
+
 public class SceneLoader : SingletonBehaviour<SceneLoader> 
 {
     [SerializeField] private GameObject _loaderCanvas;
@@ -14,8 +20,10 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
         base.Awake();
     }
 
-    public async void LoadScene(string sceneName)
+    public async void LoadScene(SceneType sceneType)
     {
+        string sceneName = "Scenes/" + sceneType.ToString();
+
         if(CurrentScene == sceneName)
         {
             Logger.LogWarning("현재 있는 씬과 이동하려는 씬이 같아서 이동하지 않습니다.");

@@ -16,6 +16,9 @@ public class PlayerInfoDatas : MonoBehaviour
     public void Init()
     {
         LoadExpData();
+        LoadGoodsData();
+        LoadHighScore();
+        LoadPlayerName();
     }
 
     public void ChangePlayerName(string name)
