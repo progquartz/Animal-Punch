@@ -4,22 +4,22 @@ using UnityEngine;
 [System.Serializable]
 public class LootingBoxSlot
 {
-    public string boxId;              // 상자 종류
-    public string startTime;         // ISO 8601 형식 UTC
-    public int durationSeconds;      // 열리는 데 걸리는 시간 (초)
+    public BoxDataSO boxData;
+    public string startTime;  // 시작 시간 (ISO 8601 형식)
 
-    public bool IsOccupied => !string.IsNullOrEmpty(boxId);
+    public bool IsOccupied => boxData != null && !string.IsNullOrEmpty(boxData.id);
+
 
     public bool IsComplete()
     {
         if (!IsOccupied) return false;
         var start = DateTime.Parse(startTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-        return (DateTime.UtcNow - start).TotalSeconds >= durationSeconds;
+        return (DateTime.UtcNow - start).TotalSeconds >= boxData.unlockDurationSeconds;
     }
 
     public float RemainingSeconds()
     {
         var start = DateTime.Parse(startTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-        return Mathf.Max(0, durationSeconds - (float)(DateTime.UtcNow - start).TotalSeconds);
+        return Mathf.Max(0, boxData.unlockDurationSeconds - (float)(DateTime.UtcNow - start).TotalSeconds);
     }
 }

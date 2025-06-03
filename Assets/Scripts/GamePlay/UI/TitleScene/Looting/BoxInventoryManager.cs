@@ -2,25 +2,17 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class BoxInventoryManager : MonoBehaviour
+public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
 {
     public static BoxInventoryManager Instance;
 
     public BoxInventory inventory = new();
     private string savePath => Path.Combine(Application.persistentDataPath, "boxinventory.json");
 
-    void Awake()
+    protected override void Init()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            Load();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Init();
+        Load();
     }
 
     public void AddBox(string boxId, int amount = 1)

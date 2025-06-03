@@ -56,7 +56,7 @@ public class BoxInventoryUI : MonoBehaviour
             {
                 
                 BoxDataSO boxData = allBoxDataList.Find(b => b.id == selectedBoxId);
-                LootingBoxSlots boxSlotManager = FindObjectOfType<LootingBoxSlots>();
+                BoxSlotManager boxSlotManager = FindObjectOfType<BoxSlotManager>();
                 boxSlotManager.AssignBoxToSlot(selectedSlotIndex, boxData);
                 gameObject.SetActive(false);
             }
