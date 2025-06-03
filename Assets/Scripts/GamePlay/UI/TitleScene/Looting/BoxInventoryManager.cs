@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
 {
-    public static BoxInventoryManager Instance;
-
     public BoxInventory inventory = new();
     private string savePath => Path.Combine(Application.persistentDataPath, "boxinventory.json");
 
