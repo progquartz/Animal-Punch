@@ -17,7 +17,7 @@ public class LootingBoxSlotUI : MonoBehaviour
     private bool isActive = false;
 
     private float refreshTime = 0f;
-    private float refreshCycle = 1.0f;
+    private float refreshCycle = 0.5f;
 
 
     void OnEnable()
@@ -93,6 +93,9 @@ public class LootingBoxSlotUI : MonoBehaviour
     {
         if (slot == null || slot.IsOccupied) return;
 
+        BoxSlotManager.Instance.slotButtonRequestIndex = slotIndex;
         // slot inventory 열리고, chest 선택할 수 있게.
+        UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
+        
     }
 }

@@ -6,7 +6,9 @@ using System.IO;
 public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 {
     public List<LootingBoxSlot> slots = new(4);
-    public List<BoxDataSO> allBoxDataList; 
+    public List<BoxDataSO> allBoxDataList;
+
+    public int slotButtonRequestIndex = -1;
 
 
     private string savePath => Path.Combine(Application.persistentDataPath, "boxslots.json");
@@ -60,6 +62,33 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
             slots[index] = new LootingBoxSlot(); // 초기화
             Save();
         }
+    }
+
+    public bool IsSlotFull()
+    {
+        bool isSlotFull = true;
+        foreach (var slot in slots)
+        {
+            if(!slot.IsOccupied)
+            {
+                isSlotFull = false;
+                break;
+            }
+        }
+        return isSlotFull;
+    }
+
+    public int GetSlotEmpty()
+    {
+        for(int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i].IsOccupied)
+            {
+                return i;
+            }
+        }
+        // 슬롯이 가득 찬 경우.
+        return -1;
     }
 
     public LootingBoxSlot GetSlot(int index) => slots[index];

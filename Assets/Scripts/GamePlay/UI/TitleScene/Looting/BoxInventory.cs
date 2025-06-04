@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class BoxInventory
@@ -10,42 +11,32 @@ public class BoxInventory
     public class BoxCount
     {
         public string boxId;
-        public int count;
     }
 
-    public int GetCount(string id)
+    public void Add(string id)
     {
-        var box = boxCounts.Find(b => b.boxId == id);
-        return box != null ? box.count : 0;
+        var box = new BoxCount { boxId = id };
+        boxCounts.Add(box);
     }
 
-    public void Add(string id, int amount = 1)
+    public bool Use(int index)
     {
-        var box = boxCounts.Find(b => b.boxId == id);
-        if (box == null)
+        var box = boxCounts[index];
+        if (box != null)
         {
-            box = new BoxCount { boxId = id, count = amount };
-            boxCounts.Add(box);
-        }
-        else
-        {
-            box.count += amount;
-        }
-    }
-
-    public bool Use(string id)
-    {
-        var box = boxCounts.Find(b => b.boxId == id);
-        if (box != null && box.count > 0)
-        {
-            box.count--;
+            boxCounts.Remove(box);
             return true;
         }
         return false;
     }
 
+    public string GetKey(int index)
+    {
+        return boxCounts[index].boxId;
+    }
+
     public List<BoxCount> GetAllOwnedBoxes()
     {
-        return boxCounts.FindAll(b => b.count > 0);
+        return boxCounts;
     }
 }

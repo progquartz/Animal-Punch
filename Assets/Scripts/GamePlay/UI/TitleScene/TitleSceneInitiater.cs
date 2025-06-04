@@ -7,4 +7,9 @@ public class TitleSceneInitiater : MonoBehaviour
     {
         UIManager.Instance.OpenUI<TitleBackgroundUI>(new BaseUIData());
     }
+
+    public void OpenInventory()
+    {
+        UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
+    }
 }

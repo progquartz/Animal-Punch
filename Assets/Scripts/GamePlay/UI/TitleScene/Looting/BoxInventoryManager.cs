@@ -13,15 +13,27 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
         Load();
     }
 
-    public void AddBox(string boxId, int amount = 1)
+    public void AddBox(string boxId)
     {
-        inventory.Add(boxId, amount);
+        inventory.Add(boxId);
         Save();
     }
 
-    public bool UseBox(string boxId)
+    public bool AssignBox(int inventoryIndex, int slotIndex)
     {
-        bool result = inventory.Use(boxId);
+        string keyTryOpening = inventory.GetKey(inventoryIndex);
+        bool result = inventory.Use(inventoryIndex);
+        if(result && keyTryOpening != null)
+        {
+            BoxDataSO boxData = BoxSlotManager.Instance.allBoxDataList.Find(b => b.id == keyTryOpening);
+            // 슬롯 지정 없이 호출되었을 경우.
+            if (slotIndex == -1)
+            {
+                slotIndex = BoxSlotManager.Instance.GetSlotEmpty();
+            }
+            BoxSlotManager.Instance.AssignBoxToSlot(slotIndex, boxData);
+        }
+        
         if (result) Save();
         return result;
     }
@@ -49,5 +61,10 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
             inventory = new BoxInventory();
             Save();
         }
+    }
+
+    public void TestLoot()
+    {
+        AddBox("NormalBox");
     }
 }
