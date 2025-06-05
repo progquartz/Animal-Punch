@@ -57,8 +57,21 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
     {
         if (slots[index].IsComplete())
         {
-            Debug.Log($"상자 {slots[index].boxData.id} 열림!");
-            // 캐릭터 언락 로직 여기에 추가
+            var box = slots[index].boxData;
+            if (box != null && box.unlockableItems != null)
+            {
+                // 언락... 어떻게시키지 알고리즘 고민.
+                foreach (var item in box.unlockableItems)
+                {
+                    if (!UnlockSaveManager.Instance.IsUnlocked(item.id))
+                    {
+                        UnlockSaveManager.Instance.Unlock(item.id);
+                        Debug.Log($"[언락됨] {item.displayName}");
+                        break; // 1개만 언락
+                    }
+                }
+            }
+
             slots[index] = new LootingBoxSlot(); // 초기화
             Save();
         }
