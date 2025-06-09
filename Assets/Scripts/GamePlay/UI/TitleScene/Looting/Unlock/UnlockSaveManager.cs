@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using static UnityEngine.GraphicsBuffer;
+using System.Linq;
 
 public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
 {
@@ -51,9 +53,18 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
         }
     }
 
-    public void HandleBuyItem(string unlockableId)
+    public bool HandleBuyItem(string unlockableId)
     {
-        Unlock(unlockableId);
+        UnlockableDataSO data = GetUnlockData(unlockableId);
+        int cost = data.costType.cost;
+        CostType costType = data.costType.costType;
+
+        if(GameManager.Instance.GetPlayerInfoData().TryUseCosts(costType, cost))
+        {
+            Unlock(unlockableId);
+            return true;
+        }
+        return false;
     }
 
     public void Save()
@@ -103,8 +114,10 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
     }
 
 
+    public UnlockableDataSO GetUnlockData(string id) => allUnlocks.FirstOrDefault(data => data.id == id);
 
-    // 언락 데이터 저장용 json 클래스.
+
+        // 언락 데이터 저장용 json 클래스.
     [System.Serializable]
     private class UnlockDataWrapper
     {

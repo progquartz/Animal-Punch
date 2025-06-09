@@ -53,7 +53,7 @@ public class UnLockUI : BaseUI
             // 선택하게 되면, selected를 바꾸게 하고, refresh하도록 설정.
             slot.SelectButton.onClick.AddListener(() =>
             {
-                // 언락이면...
+                // 슬롯이 언락 상태면면...
                 if(UnlockSaveManager.Instance.IsUnlocked(slot.unlockableId))
                 {
                     UnlockSaveManager.Instance.ChangeSelected(slot.unlockableId);
@@ -61,8 +61,14 @@ public class UnLockUI : BaseUI
                 // 언락 안되었으면...
                 else
                 {
-                    // 구매 UI로 처리해야 함.
-                    UnlockSaveManager.Instance.HandleBuyItem(slot.unlockableId);
+                    if(UnlockSaveManager.Instance.HandleBuyItem(slot.unlockableId))
+                    {
+                        // 구매 실패 (관련 메세지 넣기?)
+                    }
+                    else
+                    {
+                        // 구매 실패
+                    }
                 }
             });
         }

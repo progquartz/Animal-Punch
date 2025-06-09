@@ -50,7 +50,43 @@ public class PlayerInfoDatas : MonoBehaviour
         SaveGoodsData();
     }
 
-    public void GainGen(int amount)
+
+    public bool TryUseCosts(CostType costType, int amount)
+    {
+        if(costType == CostType.Gem)
+        {
+            return TryUseGem(amount);
+        }
+        else 
+        {
+            return TryUseGold(amount);
+        }
+    }
+    private bool TryUseGold(int amount)
+    {
+        LoadGoodsData() ;
+        if(gold >= amount)
+        {
+            gold -= amount;
+            SaveGoodsData() ;
+            return true;
+        }
+        return false;
+    }
+
+    private bool TryUseGem(int amount)
+    {
+        LoadGoodsData();
+        if (gold >= amount)
+        {
+            gold -= amount;
+            SaveGoodsData();
+            return true;
+        }
+        return false;
+    }
+
+    public void GainGem(int amount)
     {
         LoadGoodsData();
 
