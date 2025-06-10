@@ -10,4 +10,9 @@ public class TitleUI : BaseUI
     {
         UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
     }
+
+    public void OpenSettingUI()
+    {
+        UIManager.Instance.OpenUI<SettingsUI>(new BaseUIData());
+    }
 }

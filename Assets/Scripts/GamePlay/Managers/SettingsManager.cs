@@ -29,23 +29,6 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         LoadSettings();
     }
 
-    // 사용 하는 법.
-    void ApplyGraphicsSettings()
-    {
-        var quality = SettingsManager.Instance.graphicsQuality;
-        QualitySettings.SetQualityLevel((int)quality);
-
-        var aa = SettingsManager.Instance.antiAliasing;
-        QualitySettings.antiAliasing = aa switch
-        {
-            AntiAliasingLevel.Off => 0,
-            AntiAliasingLevel.Medium => 2,
-            AntiAliasingLevel.High => 4,
-            _ => 0
-        };
-    }
-
-
     public void SaveSettings()
     {
         PlayerPrefs.SetInt("GraphicsQuality", (int)graphicsQuality);
