@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         IsInitialized = true;
         targetEnemyDataSO = enemyData;
-        Debug.Log("CopyData Start");
         stat.CopyData(enemyData.ActorsStat);
         stat.InitializeGameTimeScale();
 

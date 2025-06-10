@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class TitleSceneInitiater : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        UIManager.Instance.OpenUI<TitleUI>(new BaseUIData());
+        TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+        title.IsAdditionalUIOpened = true; // 모델 보이지 않게 넣은 것.
+
         UIManager.Instance.OpenUI<TitleBackgroundUI>(new BaseUIData());
     }
 

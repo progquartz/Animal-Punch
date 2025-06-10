@@ -17,6 +17,7 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     private Camera mainCamera;
 
     private bool isDragging = false;
+    private bool isActive = false;
 
     private Quaternion initialRotation = Quaternion.Euler(Vector3.zero);
     private float timeSinceLastTouch;
@@ -28,13 +29,31 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        UpdateCurrentModel();
     }
 
     private void Update()
     {
         UpdateCurrentModel();
+        UpdateModelActive();
         HandleTouchInput();
+    }
+
+    private void UpdateModelActive()
+    {
+        TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+        if(titleUI.IsAdditionalUIOpened != isActive)
+        {
+            isActive = titleUI.IsAdditionalUIOpened;
+            if (isActive)
+            {
+                currentModel.transform.localRotation = initialRotation;
+                currentModel.SetActive(false);
+            }
+            else
+            {
+                currentModel.SetActive(true);
+            }
+        }
     }
 
     private void UpdateCurrentModel()
@@ -43,7 +62,6 @@ public class PlayerModelPlaceHolder : MonoBehaviour
 
         if (modelKey != managerModelKey)
         {
-            Debug.Log("????");
             modelKey = managerModelKey;
             ChangeModel(managerModelKey);
         }
@@ -60,8 +78,11 @@ public class PlayerModelPlaceHolder : MonoBehaviour
         }
         GameObject model = Instantiate(data.UnlockPrefab, modelParent.transform);
         currentModel = model;
+        AnimalAnimationController controller = model.AddComponent<AnimalAnimationController>();
+        controller.SetAnimator(model.GetComponent<Animator>());
+        controller.ChangeAnimation(AnimalAnimation.Idle_A);
         model.GetComponent<CapsuleCollider>().enabled = true;
-        //data.UnlockPrefab
+        model.SetActive(false);
     }
 
     private void HandleTouchInput()

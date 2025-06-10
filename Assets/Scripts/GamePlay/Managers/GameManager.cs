@@ -61,7 +61,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
-        OnQuitGameScene.Invoke();
+        //OnQuitGameScene.Invoke();
     }
 
     public void GainGameTime(float amount)

@@ -78,4 +78,11 @@ public class UnLockUI : BaseUI
     {
         Close();
     }
+
+    public override void Close(bool isCloseAll = false)
+    {
+        base.Close(isCloseAll);
+        TitleUI title =  UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+        title.IsAdditionalUIOpened = false;
+    }
 }
