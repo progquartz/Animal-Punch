@@ -18,4 +18,4 @@ MonoBehaviour:
     cost: 50
   displayName: Ox
   icon: {fileID: 21300000, guid: 599e34792fb819649af9232bd01ec4ce, type: 3}
-  UnlockPrefab: {fileID: 0}
+  UnlockPrefab: {fileID: 2815477408808645838, guid: fd1091c210c4d31418382679a7ed8457, type: 3}

@@ -24,6 +24,12 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
 
     public bool IsUnlocked(string id) => unlockedIds.Contains(id);
 
+    public UnlockableDataSO GetUnlockdata(string id)
+    {
+        if(!IsUnlocked(id)) return null;
+        return allUnlocks.Find((data) => (data.id == id));
+    }
+
     public void Unlock(string id)
     {
         if (!IsUnlocked(id))
@@ -55,7 +61,9 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
 
     public bool HandleBuyItem(string unlockableId)
     {
-        UnlockableDataSO data = GetUnlockData(unlockableId);
+        UnlockableDataSO data = GetUnlockdata(unlockableId);
+        if(data == null) return false;
+
         int cost = data.costType.cost;
         CostType costType = data.costType.costType;
 
@@ -112,9 +120,6 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
             Debug.LogWarning($"다음 경로에서 박스 데이터를 읽기 실패함. /{allUnlockListPath}");
         }
     }
-
-
-    public UnlockableDataSO GetUnlockData(string id) => allUnlocks.FirstOrDefault(data => data.id == id);
 
 
         // 언락 데이터 저장용 json 클래스.

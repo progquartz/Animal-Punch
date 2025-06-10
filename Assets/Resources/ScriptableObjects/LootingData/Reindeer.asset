@@ -18,4 +18,4 @@ MonoBehaviour:
     cost: 50
   displayName: Reindeer
   icon: {fileID: 21300000, guid: be483baeb004c9548a4a230f356e3917, type: 3}
-  UnlockPrefab: {fileID: 0}
+  UnlockPrefab: {fileID: 4983273531819209, guid: 0edc8dca9f6ad8d40acf2762da491a45, type: 3}
