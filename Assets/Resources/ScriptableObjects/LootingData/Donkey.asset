@@ -18,4 +18,6 @@ MonoBehaviour:
     cost: 50
   displayName: Donkey
   icon: {fileID: 21300000, guid: 75fbac5e3bf5fac4ea0c4403e3f9e2c2, type: 3}
-  UnlockPrefab: {fileID: 1220056181567420732, guid: 865a788f8b6cc56418cd8dc6723bdbe8, type: 3}
+  modelLow: {fileID: 1220056181567420732, guid: 865a788f8b6cc56418cd8dc6723bdbe8, type: 3}
+  modelMedium: {fileID: 4847193100091819686, guid: b21706c7c9152e24cad3944d9b4ed90a, type: 3}
+  modelHigh: {fileID: 3784150407313573576, guid: 42a6c3aa9b9acec4badeb3dc86dcf1a4, type: 3}
