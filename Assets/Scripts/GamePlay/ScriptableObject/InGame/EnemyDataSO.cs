@@ -32,7 +32,21 @@ public class EnemyDataSO : ScriptableObject
     public float MaxSpawnTime;
 
     [Header("모델 오브젝트")]
-    public GameObject ModelObject;
+    public GameObject modelLow;
+    public GameObject modelMedium;
+    public GameObject modelHigh;
+
+    public GameObject GetModelByQuality(GraphicsQuality quality)
+    {
+        return quality switch
+        {
+            GraphicsQuality.Low => modelLow,
+            GraphicsQuality.Medium => modelMedium,
+            GraphicsQuality.High => modelHigh,
+            _ => modelMedium
+        };
+    }
+
     public EnemyModelType ModelType;
     public Vector3 ModelColliderScale;
 

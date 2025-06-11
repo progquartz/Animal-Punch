@@ -76,7 +76,8 @@ public class PlayerModelPlaceHolder : MonoBehaviour
         {
             Destroy(modelParent.GetChild(0).gameObject);
         }
-        GameObject model = Instantiate(data.UnlockPrefab, modelParent.transform);
+        var quality = SettingsManager.Instance.graphicsQuality;
+        GameObject model = Instantiate(data.GetModelByQuality(quality), modelParent.transform);
         currentModel = model;
         AnimalAnimationController controller = model.AddComponent<AnimalAnimationController>();
         controller.SetAnimator(model.GetComponent<Animator>());

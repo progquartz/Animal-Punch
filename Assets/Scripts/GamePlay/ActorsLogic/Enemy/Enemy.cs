@@ -41,7 +41,9 @@ public class Enemy : MonoBehaviour
     {
         if (ModelGameObject == null)
         {
-            ModelGameObject = Instantiate(targetEnemyDataSO.ModelObject, transform);
+            var quality = SettingsManager.Instance.graphicsQuality;
+            GameObject prefab = targetEnemyDataSO.GetModelByQuality(quality);
+            ModelGameObject = Instantiate(prefab, transform);
             ModelGameObject.transform.localPosition = Vector3.zero;
             ModelGameObject.transform.localRotation = Quaternion.identity;
         }
