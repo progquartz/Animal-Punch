@@ -59,6 +59,11 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
         }
     }
 
+    public UnlockableDataSO GetSelectedUnlockData()
+    {
+        return GetUnlockdata(selectedIds);
+    }
+
     public bool HandleBuyItem(string unlockableId)
     {
         UnlockableDataSO data = GetUnlockdata(unlockableId);

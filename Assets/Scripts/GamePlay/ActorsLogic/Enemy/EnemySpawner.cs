@@ -127,25 +127,7 @@ public class EnemySpawner : MonoBehaviour
     /// <returns></returns>
     private int GetEnemyCount()
     {
-        
         int enemyCountOnPool = Pool.GetAllEnemyCount();
-
-        /*
-        int enemyCountOnHierarchy = 0;
-        foreach (Transform child in EnemyParentTransform)
-        {
-            if (child.gameObject.activeInHierarchy)
-            {
-                enemyCountOnHierarchy++;
-            }
-        }
-
-        if(enemyCountOnHierarchy != enemyCountOnPool)
-        {
-            Debug.LogWarning($"Pool에서 counting되는 enemyCount인 {enemyCountOnPool}개와, Hierarchy에서 Counting되는 enemyCount인 {enemyCountOnHierarchy}개가 서로 다릅니다. ");
-            return enemyCountOnHierarchy;
-        }
-        */
         return enemyCountOnPool;    
     }
 
