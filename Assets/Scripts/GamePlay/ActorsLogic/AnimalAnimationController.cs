@@ -47,7 +47,7 @@ public enum AnimalShapeKey
 
 public class AnimalAnimationController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    [SerializeField] protected Animator animator;
     public string currentAnimation;
 
     private List<string> animationList = new List<string>
