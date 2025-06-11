@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using static Unity.VisualScripting.Member;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : SingletonBehaviour<SoundManager>
 {
-    public static SoundManager Instance;
     public Transform SoundParent;
     public int GlobalVolume;
     [SerializeField] private SoundDataStorage soundDataStorage;
@@ -25,9 +24,9 @@ public class SoundManager : MonoBehaviour
     private AudioSource bgmSource;
     private bool isPaused = false;
 
-    private void Awake()
+    protected override void Init()
     {
-        if (Instance == null) Instance = this;
+        base.Init();
         InitSounds();
         InitSFXPool();
         SceneManager.sceneLoaded += OnSceneLoaded;

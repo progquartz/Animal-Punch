@@ -161,8 +161,7 @@ public class EnemySpawner : MonoBehaviour
             // EnemyPool을 통해 각 적 타입을 초기화
             Pool.InitializePool(enemyKey, defaultPoolSize);
 
-            // 로깅(옵션)
-            Debug.Log($"Initialized enemy pool for key: {enemyKey} with pool size: {defaultPoolSize}");
+            //Debug.Log($"Initialized enemy pool for key: {enemyKey} with pool size: {defaultPoolSize}");
         }
     }
 
@@ -185,7 +184,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
             {
-                enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key), randomPos);
+                enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
             }
         }
     }

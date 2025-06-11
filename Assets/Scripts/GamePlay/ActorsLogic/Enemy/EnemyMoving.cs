@@ -8,12 +8,9 @@ public class EnemyMoving : Enemy
     public AnimalAnimationController animationController;
     public EnemyParticleController particleController;
 
-    public override void Init(EnemyDataSO enemyData, Vector3 spawnPosition)
+    public override void Init(EnemyDataSO enemyData)
     {
-        base.Init(enemyData, spawnPosition);
-
-        transform.position = spawnPosition;
-        EnemyTransform.position = spawnPosition;
+        base.Init(enemyData);
 
         if (isFirstTimeInitiated)
         {

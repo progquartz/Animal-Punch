@@ -74,7 +74,6 @@ public class DropLoot : MonoBehaviour
             float distance = Vector3.Distance(Target.position, Loot.position);
             if (distance < followingDistance)
             {
-                Debug.Log("µû¶ó°©´Ï´Ù!");
                 StartFollowing();
             }
         }

@@ -6,6 +6,7 @@ public class DataManager : SingletonBehaviour<DataManager>
     public EnemyDataStorage EnemyDataStorage;
     public LootingDataStorage LootingStorage;
     public SoundDataStorage SoundStorage;
+    public PlayerDataStorage PlayerDataStorage;
     public CSVLoader CSVLoader;
 
     protected override void Init()
