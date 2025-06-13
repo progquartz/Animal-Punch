@@ -22,7 +22,9 @@ MonoBehaviour:
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
   MaxSpawnTime: -1
-  ModelObject: {fileID: 3258219717705546517, guid: e3784f953a95c0a459db8cb9f69b5796, type: 3}
+  modelLow: {fileID: 3258219717705546517, guid: e3784f953a95c0a459db8cb9f69b5796, type: 3}
+  modelMedium: {fileID: 2176415832269686351, guid: 8d806b08276be7a49a8b14b2ce9244ef, type: 3}
+  modelHigh: {fileID: 5495520130117692948, guid: bc94d197d038a744a8a88bcb274e0b56, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.95, y: 1.0728713, z: 1.5}
   BehaviourType: 3

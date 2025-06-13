@@ -18,4 +18,6 @@ MonoBehaviour:
     cost: 50
   displayName: Hyenna
   icon: {fileID: 21300000, guid: 10f6de6e5b1c82540a498a8f476e8f02, type: 3}
-  UnlockPrefab: {fileID: 6985794779703248577, guid: 8969012dcde1d0b4089ebced620dbe31, type: 3}
+  modelLow: {fileID: 6985794779703248577, guid: 8969012dcde1d0b4089ebced620dbe31, type: 3}
+  modelMedium: {fileID: 7328110816280940935, guid: 8ebe156994ec75a4a88684210d4578ec, type: 3}
+  modelHigh: {fileID: 9013696382740383958, guid: 77af4eee8986a484d80a7e67c0672920, type: 3}

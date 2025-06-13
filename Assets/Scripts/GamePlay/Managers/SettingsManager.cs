@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public enum GraphicsQuality { Low, Medium, High }
 public enum AntiAliasingLevel { Off, Medium, High }
 public enum FrameLimit { Fps30, Fps60, Unlimited }
+public enum AudioType { Master, Bgm, Entity, UI }
 
 [System.Serializable]
 public class VolumeSettings
@@ -20,8 +22,16 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 
     public VolumeSettings masterVolume = new VolumeSettings();
     public VolumeSettings bgmVolume = new VolumeSettings();
-    public VolumeSettings playerVolume = new VolumeSettings();
-    public VolumeSettings enemyVolume = new VolumeSettings();
+    public VolumeSettings entityVolume = new VolumeSettings();
+    public VolumeSettings uiVolume = new VolumeSettings();
+
+    public Action<VolumeSettings> masterVolumeChanged;
+    public Action<VolumeSettings> bgmVolumeChanged;
+    public Action<VolumeSettings> entityVolumeChanged;
+    public Action<VolumeSettings> uiVolumeChanged;
+
+    public Action<GraphicsQuality> graphicsQualityChanged;
+    public Action<FrameLimit> frameLimitChanged;
 
     protected override void Init()
     {
@@ -37,8 +47,15 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 
         SaveVolume("Master", masterVolume);
         SaveVolume("BGM", bgmVolume);
-        SaveVolume("Player", playerVolume);
-        SaveVolume("Enemy", enemyVolume);
+        SaveVolume("Entity", entityVolume);
+        SaveVolume("UI", uiVolume);
+
+        graphicsQualityChanged?.Invoke(graphicsQuality);
+        frameLimitChanged?.Invoke(frameLimit);
+        masterVolumeChanged?.Invoke(masterVolume);
+        bgmVolumeChanged?.Invoke(bgmVolume);
+        entityVolumeChanged?.Invoke(entityVolume);
+        uiVolumeChanged?.Invoke(uiVolume);
 
         PlayerPrefs.Save();
     }
@@ -51,8 +68,8 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 
         masterVolume = LoadVolume("Master");
         bgmVolume = LoadVolume("BGM");
-        playerVolume = LoadVolume("Player");
-        enemyVolume = LoadVolume("Enemy");
+        entityVolume = LoadVolume("Entity");
+        uiVolume = LoadVolume("UI");
     }
 
     private void SaveVolume(string key, VolumeSettings setting)

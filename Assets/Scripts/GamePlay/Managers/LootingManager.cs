@@ -33,7 +33,7 @@ public class LootingManager : SingletonBehaviour<LootingManager>
     public void OpenLootUI()
     {
         GameManager.Instance.StopTime();
-        SoundManager.Instance.PlaySFX("LootingUIOpen");
+        SoundManager.Instance.PlaySFX("LootingUIOpen", AudioType.UI);
         UIManager.Instance.OpenUI<LootingUI>(new BaseUIData());
     }
 }

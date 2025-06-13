@@ -29,11 +29,16 @@ public class PlayerAnimationController : AnimalAnimationController
 
     private void InstantiatePlayerCharacterModel()
     {
-        GameObject model = Instantiate(UnlockSaveManager.Instance.GetSelectedUnlockData().UnlockPrefab, playerModelHolder);
+        var quality = SettingsManager.Instance.graphicsQuality;
+        var selected = UnlockSaveManager.Instance.GetSelectedUnlockData();
+        GameObject modelPrefab = selected.GetModelByQuality(quality);
+
+        GameObject model = Instantiate(modelPrefab, playerModelHolder);
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
         animator = model.GetComponent<Animator>();
     }
+
     public void ChangeAnimationDependOnSpeed()
     {
         float speed = owner.Stat.RigidbodySpeed;

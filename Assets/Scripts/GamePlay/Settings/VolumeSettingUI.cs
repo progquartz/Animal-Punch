@@ -23,8 +23,8 @@ public class VolumeSettingUI : MonoBehaviour
         {
             "Master" => settings.masterVolume,
             "BGM" => settings.bgmVolume,
-            "Player" => settings.playerVolume,
-            "Enemy" => settings.enemyVolume,
+            "Player" => settings.entityVolume,
+            "Enemy" => settings.uiVolume,
             _ => new VolumeSettings()
         };
 
@@ -36,15 +36,15 @@ public class VolumeSettingUI : MonoBehaviour
     void OnVolumeChanged(float value)
     {
         currentVolume.volume = value;
-        SaveVolume();
         ApplyVolume();
+        SaveVolume();
     }
 
     void OnMuteToggled(bool isMuted)
     {
         currentVolume.muted = isMuted;
-        SaveVolume();
         ApplyVolume();
+        SaveVolume();
     }
 
     void SaveVolume()
@@ -53,8 +53,8 @@ public class VolumeSettingUI : MonoBehaviour
         {
             case "Master": SettingsManager.Instance.masterVolume = currentVolume; break;
             case "BGM": SettingsManager.Instance.bgmVolume = currentVolume; break;
-            case "Player": SettingsManager.Instance.playerVolume = currentVolume; break;
-            case "Enemy": SettingsManager.Instance.enemyVolume = currentVolume; break;
+            case "Player": SettingsManager.Instance.entityVolume = currentVolume; break;
+            case "Enemy": SettingsManager.Instance.uiVolume = currentVolume; break;
         }
 
         SettingsManager.Instance.SaveSettings();
@@ -63,10 +63,6 @@ public class VolumeSettingUI : MonoBehaviour
     void ApplyVolume()
     {
         float volumeToApply = currentVolume.muted ? 0f : currentVolume.volume;
-
-        // 예시 적용: AudioMixer 사용 시 아래 라인처럼 적용
-        // AudioMixer.SetFloat($"{volumeKey}Volume", Mathf.Log10(volumeToApply) * 20);
-
         Debug.Log($"{volumeKey} 볼륨 적용됨: {volumeToApply}");
     }
 }

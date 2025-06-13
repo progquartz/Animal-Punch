@@ -7,8 +7,21 @@ public class UnlockableDataSO : ScriptableObject
     public UnlockCost costType;
     public string displayName;
     public Sprite icon;
-    public GameObject UnlockPrefab;
-    // 캐릭터 프리팹 연결 방법 고민해보기....
+
+    public GameObject modelLow;
+    public GameObject modelMedium;
+    public GameObject modelHigh;
+
+    public GameObject GetModelByQuality(GraphicsQuality quality)
+    {
+        return quality switch
+        {
+            GraphicsQuality.Low => modelLow,
+            GraphicsQuality.Medium => modelMedium,
+            GraphicsQuality.High => modelHigh,
+            _ => modelMedium
+        };
+    }
 }
 
 [System.Serializable]
