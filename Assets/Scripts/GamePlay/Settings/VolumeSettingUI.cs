@@ -36,15 +36,15 @@ public class VolumeSettingUI : MonoBehaviour
     void OnVolumeChanged(float value)
     {
         currentVolume.volume = value;
-        SaveVolume();
         ApplyVolume();
+        SaveVolume();
     }
 
     void OnMuteToggled(bool isMuted)
     {
         currentVolume.muted = isMuted;
-        SaveVolume();
         ApplyVolume();
+        SaveVolume();
     }
 
     void SaveVolume()
@@ -63,10 +63,6 @@ public class VolumeSettingUI : MonoBehaviour
     void ApplyVolume()
     {
         float volumeToApply = currentVolume.muted ? 0f : currentVolume.volume;
-
-        // 예시 적용: AudioMixer 사용 시 아래 라인처럼 적용
-        // AudioMixer.SetFloat($"{volumeKey}Volume", Mathf.Log10(volumeToApply) * 20);
-
         Debug.Log($"{volumeKey} 볼륨 적용됨: {volumeToApply}");
     }
 }

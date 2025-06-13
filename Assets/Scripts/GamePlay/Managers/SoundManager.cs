@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
 using static Unity.VisualScripting.Member;
+using System.Runtime.CompilerServices;
 
 public class SoundManager : SingletonBehaviour<SoundManager>
 {
@@ -37,8 +38,18 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         InitSounds();
         InitSFXPool();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        RegisterEvent();
         PlayBGM("MainBGM");
         SoundParent = GameObject.Find("SoundParent").transform;
+        
+    }
+
+    private void RegisterEvent()
+    {
+        SettingsManager.Instance.masterVolumeChanged += SetMasterVolume;
+        SettingsManager.Instance.bgmVolumeChanged += SetBGMVolume;
+        SettingsManager.Instance.entityVolumeChanged += SetSFXEntityVolume;
+        SettingsManager.Instance.uiVolumeChanged += SetSFXUIVolume;
     }
 
     private void InitSounds()
@@ -180,25 +191,55 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         }
     }
 
-    public void SetMasterVolume(float sliderValue)
+    public void SetMasterVolume(VolumeSettings value)
     {
-        audioMixer.SetFloat(masterVolumeKey, CalculateSliderVolume(sliderValue) );
+        if(value.muted)
+        {
+            audioMixer.SetFloat(masterVolumeKey, CalculateSliderVolume(0f));
+        }
+        else
+        {
+            audioMixer.SetFloat(masterVolumeKey, CalculateSliderVolume(value.volume));
+        }
+        
     }
 
 
-    public void SetBGMVolume(float sliderValue)
+    public void SetBGMVolume(VolumeSettings value)
     {
-        audioMixer.SetFloat( bgmVolumeKey, CalculateSliderVolume(sliderValue));
+        if(value.muted)
+        {
+            audioMixer.SetFloat(bgmVolumeKey, CalculateSliderVolume(0f));
+        }
+        else
+        {
+            audioMixer.SetFloat(bgmVolumeKey, CalculateSliderVolume(value.volume));
+        }
     }
 
-    public void SetSFXEntityVolume(float sliderValue)
+    public void SetSFXEntityVolume(VolumeSettings value)
     {
-        audioMixer.SetFloat(sfxEntityVolumeKey, CalculateSliderVolume(sliderValue));
+        if (value.muted)
+        {
+            audioMixer.SetFloat(sfxEntityVolumeKey, CalculateSliderVolume(0f));
+        }
+        else
+        {
+            audioMixer.SetFloat(sfxEntityVolumeKey, CalculateSliderVolume(value.volume));
+        }   
     }
 
-    public void SetSFXUIVolume(float sliderValue)
+    public void SetSFXUIVolume(VolumeSettings value)
     {
-        audioMixer.SetFloat(sfxUIVolumeKey, CalculateSliderVolume(sliderValue));
+        if (value.muted)
+        {
+            audioMixer.SetFloat(sfxUIVolumeKey, CalculateSliderVolume(0f));
+        }
+        else
+        {
+            audioMixer.SetFloat(sfxUIVolumeKey, CalculateSliderVolume(value.volume));
+        }
+        
     }
 
     private float CalculateSliderVolume(float sliderValue)
@@ -214,19 +255,6 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 
     }
 
-    public void LoadVolume()
-    {
-        float masterVolume = SettingsManager.Instance.GetVolume(AudioType.Master);
-        float sfxUIVolume = SettingsManager.Instance.GetVolume(AudioType.UI);
-        float sfxEntityVolume = SettingsManager.Instance.GetVolume(AudioType.Entity);
-        float bgmVolume = SettingsManager.Instance.GetVolume(AudioType.Bgm);
-        
-        SetMasterVolume(masterVolume);
-        SetBGMVolume(bgmVolume);
-        SetSFXEntityVolume(sfxEntityVolume);
-        SetSFXUIVolume(sfxUIVolume);
-    }
-
     // BGM은 계속 재생, 일시 정지 중에 사운드 효과는 멈추지 않도록 하기
     private void Update()
     {
@@ -238,11 +266,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         {
             bgmSource.Play(); // BGM 재개
         }
-
-        LoadVolume();
     }
-
-
 }
 
 [System.Serializable]

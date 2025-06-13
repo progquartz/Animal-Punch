@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum GraphicsQuality { Low, Medium, High }
@@ -24,6 +25,14 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
     public VolumeSettings entityVolume = new VolumeSettings();
     public VolumeSettings uiVolume = new VolumeSettings();
 
+    public Action<VolumeSettings> masterVolumeChanged;
+    public Action<VolumeSettings> bgmVolumeChanged;
+    public Action<VolumeSettings> entityVolumeChanged;
+    public Action<VolumeSettings> uiVolumeChanged;
+
+    public Action<GraphicsQuality> graphicsQualityChanged;
+    public Action<FrameLimit> frameLimitChanged;
+
     protected override void Init()
     {
         base.Init();
@@ -40,6 +49,13 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         SaveVolume("BGM", bgmVolume);
         SaveVolume("Entity", entityVolume);
         SaveVolume("UI", uiVolume);
+
+        graphicsQualityChanged?.Invoke(graphicsQuality);
+        frameLimitChanged?.Invoke(frameLimit);
+        masterVolumeChanged?.Invoke(masterVolume);
+        bgmVolumeChanged?.Invoke(bgmVolume);
+        entityVolumeChanged?.Invoke(entityVolume);
+        uiVolumeChanged?.Invoke(uiVolume);
 
         PlayerPrefs.Save();
     }
@@ -69,29 +85,5 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
             volume = PlayerPrefs.GetFloat($"{key}Volume", 1f),
             muted = PlayerPrefs.GetInt($"{key}Muted", 0) == 1
         };
-    }
-
-    public float GetVolume(AudioType audioType)
-    {
-        if(LoadVolume("Master").muted)
-        {
-            return 0f;
-        }
-        switch(audioType)
-        {
-            case AudioType.Master:
-                return LoadVolume("Master").volume;
-            case AudioType.Bgm:
-                if (LoadVolume("BGM").muted) return 0f;
-                return LoadVolume("BGM").volume;
-            case AudioType.Entity:
-                if (LoadVolume("Entity").muted) return 0f;
-                return LoadVolume("Entity").volume;
-            case AudioType.UI:
-                if (LoadVolume("UI").muted) return 0f;
-                return LoadVolume("UI").volume;
-            default:
-                return 0f;
-        }
     }
 }

@@ -4,7 +4,9 @@ using UnityEngine;
 public class GameManager : SingletonBehaviour<GameManager>
 {
     private HealthRatioComponent healthRatio = new HealthRatioComponent();
+    private VideoSettingComponent videoSetting = new VideoSettingComponent();
     [SerializeField] private PlayerInfoDatas _playerInfoDatas;
+
     
 
     // 현재 게임 진행 시간
@@ -23,6 +25,18 @@ public class GameManager : SingletonBehaviour<GameManager>
     public Action OnQuitGameScene;
 
     public float hpIncreaseRate = 0.1f;
+
+
+    protected override void Init()
+    {
+        base.Init();
+        RegisterEvents();
+    }
+
+    private void RegisterEvents()
+    {
+        SettingsManager.Instance.frameLimitChanged += videoSetting.SetFrameRate;
+    }
 
     private void Update()
     {
