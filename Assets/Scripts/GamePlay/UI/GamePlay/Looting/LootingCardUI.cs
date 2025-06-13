@@ -35,7 +35,7 @@ public class LootingCardUI : MonoBehaviour
 
     public void OnClick()
     {
-        SoundManager.Instance.PlaySFX("LootingUISelect");
+        SoundManager.Instance.PlaySFX("LootingUISelect", AudioType.UI);
         lootEffect.ApplyEffect(Player.Instance); // Player ½Ì±ÛÅæ »ç¿ë
         owner.CloseLooting(true);
     }

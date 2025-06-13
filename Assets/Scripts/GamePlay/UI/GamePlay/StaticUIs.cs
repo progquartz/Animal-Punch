@@ -5,7 +5,7 @@ public class StaticUIs : MonoBehaviour
     public void OnClickPauseButtonUI()
     {
         UIManager.Instance.OpenUI<PauseUI>(new BaseUIData());
-        SoundManager.Instance.PlaySFX("ButtonClick");
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         GameManager.Instance.StopTime();
     }
 }

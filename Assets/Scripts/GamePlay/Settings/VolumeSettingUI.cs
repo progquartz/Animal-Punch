@@ -23,8 +23,8 @@ public class VolumeSettingUI : MonoBehaviour
         {
             "Master" => settings.masterVolume,
             "BGM" => settings.bgmVolume,
-            "Player" => settings.playerVolume,
-            "Enemy" => settings.enemyVolume,
+            "Player" => settings.entityVolume,
+            "Enemy" => settings.uiVolume,
             _ => new VolumeSettings()
         };
 
@@ -53,8 +53,8 @@ public class VolumeSettingUI : MonoBehaviour
         {
             case "Master": SettingsManager.Instance.masterVolume = currentVolume; break;
             case "BGM": SettingsManager.Instance.bgmVolume = currentVolume; break;
-            case "Player": SettingsManager.Instance.playerVolume = currentVolume; break;
-            case "Enemy": SettingsManager.Instance.enemyVolume = currentVolume; break;
+            case "Player": SettingsManager.Instance.entityVolume = currentVolume; break;
+            case "Enemy": SettingsManager.Instance.uiVolume = currentVolume; break;
         }
 
         SettingsManager.Instance.SaveSettings();

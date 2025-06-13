@@ -39,8 +39,8 @@ public class EnemyMoving : Enemy
 
     private void PlayDeadSound()
     {
-        SoundManager.Instance.PlaySFX("EnemyShooting");
-        SoundManager.Instance.PlaySFX(targetEnemyDataSO.ActorKey + "Dead");
+        SoundManager.Instance.PlaySFX("EnemyShooting", AudioType.Entity);
+        SoundManager.Instance.PlaySFX(targetEnemyDataSO.ActorKey + "Dead", AudioType.Entity);
     }
 
     private void RegisterEvents()

@@ -3,6 +3,7 @@ using UnityEngine;
 public enum GraphicsQuality { Low, Medium, High }
 public enum AntiAliasingLevel { Off, Medium, High }
 public enum FrameLimit { Fps30, Fps60, Unlimited }
+public enum AudioType { Master, Bgm, Entity, UI }
 
 [System.Serializable]
 public class VolumeSettings
@@ -20,8 +21,8 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 
     public VolumeSettings masterVolume = new VolumeSettings();
     public VolumeSettings bgmVolume = new VolumeSettings();
-    public VolumeSettings playerVolume = new VolumeSettings();
-    public VolumeSettings enemyVolume = new VolumeSettings();
+    public VolumeSettings entityVolume = new VolumeSettings();
+    public VolumeSettings uiVolume = new VolumeSettings();
 
     protected override void Init()
     {
@@ -37,8 +38,8 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 
         SaveVolume("Master", masterVolume);
         SaveVolume("BGM", bgmVolume);
-        SaveVolume("Player", playerVolume);
-        SaveVolume("Enemy", enemyVolume);
+        SaveVolume("Entity", entityVolume);
+        SaveVolume("UI", uiVolume);
 
         PlayerPrefs.Save();
     }
@@ -51,8 +52,8 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 
         masterVolume = LoadVolume("Master");
         bgmVolume = LoadVolume("BGM");
-        playerVolume = LoadVolume("Player");
-        enemyVolume = LoadVolume("Enemy");
+        entityVolume = LoadVolume("Entity");
+        uiVolume = LoadVolume("UI");
     }
 
     private void SaveVolume(string key, VolumeSettings setting)
@@ -68,5 +69,29 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
             volume = PlayerPrefs.GetFloat($"{key}Volume", 1f),
             muted = PlayerPrefs.GetInt($"{key}Muted", 0) == 1
         };
+    }
+
+    public float GetVolume(AudioType audioType)
+    {
+        if(LoadVolume("Master").muted)
+        {
+            return 0f;
+        }
+        switch(audioType)
+        {
+            case AudioType.Master:
+                return LoadVolume("Master").volume;
+            case AudioType.Bgm:
+                if (LoadVolume("BGM").muted) return 0f;
+                return LoadVolume("BGM").volume;
+            case AudioType.Entity:
+                if (LoadVolume("Entity").muted) return 0f;
+                return LoadVolume("Entity").volume;
+            case AudioType.UI:
+                if (LoadVolume("UI").muted) return 0f;
+                return LoadVolume("UI").volume;
+            default:
+                return 0f;
+        }
     }
 }
