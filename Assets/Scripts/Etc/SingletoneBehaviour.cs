@@ -4,6 +4,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
 {
     // 씬 전환시 파괴 여부 결정 변수.
     protected bool IsDestroyOnLoad { get; set; } = false;
+    private static bool isInitialized = false;
 
     private static T s_instance;
 
@@ -22,7 +23,11 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
                     s_instance = singletonObject.AddComponent<T>();
 
                 }
-                s_instance.GetComponent<T>().Init();
+                if(!isInitialized)
+                {
+                    s_instance.GetComponent<T>().Init();
+                    isInitialized = true;
+                }
             }
             return s_instance;
         }
@@ -33,9 +38,13 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         if (s_instance == null)
         {
             s_instance = this as T;
-            Init();  // 상속받은 클래스에서 원하는 초기화 작업을 진행할 수 있게 만듦.
+            if(!isInitialized)
+            {
+                Init();  // 상속받은 클래스에서 원하는 초기화 작업을 진행할 수 있게 만듦.
+            }
             if (!IsDestroyOnLoad)
             {
+                Debug.Log(gameObject.name);
                 DontDestroyOnLoad(gameObject);
             }
         }

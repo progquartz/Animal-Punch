@@ -18,6 +18,8 @@ public class CSVLoader
     }
     public void LoadExpData()
     {
+        owner.LootingStorage.levelExpList.Clear();
+
         // Resources 폴더에서 CSV 파일을 TextAsset 형태로 로드
         TextAsset csvFile = Resources.Load<TextAsset>(levelExpFilePath);
         if (csvFile == null)
@@ -48,6 +50,8 @@ public class CSVLoader
 
     public void LoadTitleExpData()
     {
+        owner.PlayerDataStorage.ExpDatas.Clear();
+
         // Resources 폴더에서 CSV 파일을 TextAsset 형태로 로드
         TextAsset csvFile = Resources.Load<TextAsset>(titleLevelExpFilePath);
         if (csvFile == null)

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class MapManager : SingletonBehaviour<MapManager>
 {
-    public MapDataStorage MapDataStorage;
     public EnemySpawner EnemySpawner;
     public Transform MapModelParent;
 
@@ -19,20 +18,14 @@ public class MapManager : SingletonBehaviour<MapManager>
     private Vector3 lastPlayerPosition;
     private const float minDistanceToUpdate = 5f; // 최소 이동거리 설정
 
-    protected override void Awake()
+    protected override void Init()
     {
         IsDestroyOnLoad = true;
-        base.Awake();
+        base.Init();
         EnemySpawner.Init();
-    }
-
-    void Start()
-    {
         InitializeNearbyBlock();
-        MapDataStorage = DataManager.Instance.MapDataStorage;
-        //LoadChunksAround(currentCenterChunk);
+        Debug.Log("MapManager Init");
     }
-
 
 
     private void Update()
@@ -65,6 +58,7 @@ public class MapManager : SingletonBehaviour<MapManager>
     /// </summary>
     public void LoadChunksAround(Vector2Int center)
     {
+        MapDataStorage MapDataStorage = DataManager.Instance.MapDataStorage;
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)

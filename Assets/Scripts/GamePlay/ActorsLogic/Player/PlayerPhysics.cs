@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
@@ -63,6 +62,8 @@ public class PlayerPhysics : MonoBehaviour
 
         CalculateAdditionalForce(stabilityChecker.CheckBoostEnabled(playerTransform));
         HandleMovement();
+
+        HandleRotation();
         CalculateSpeed();
         owner.animationController.ChangeAnimationDependOnSpeed();
     }
@@ -71,7 +72,6 @@ public class PlayerPhysics : MonoBehaviour
     {
         if (IsTimeStopped) return;
 
-        HandleRotation();
         HandleBoost();
         HandleStatChange();
         

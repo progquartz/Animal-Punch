@@ -1,16 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameTextPooler : SingletonBehaviour<InGameTextPooler>
+public class InGameTextPooler : MonoBehaviour
 {
+    public static InGameTextPooler Instance;
 
     public GameText damageTextPrefab; 
     public int initialPoolSize = 10;
 
     private Queue<GameText> poolQueue = new Queue<GameText>();
 
+
     private void Awake()
     {
+        // Singleton À¯Áö
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameText dt = Instantiate(damageTextPrefab, transform);

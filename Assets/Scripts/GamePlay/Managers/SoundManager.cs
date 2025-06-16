@@ -10,7 +10,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 {
     public Transform SoundParent;
     public int GlobalVolume;
-    [SerializeField] private SoundDataStorage soundDataStorage;
+    private SoundDataStorage soundDataStorage;
     [SerializeField] private int poolSize = 10;
 
     private Dictionary<string, AudioClipData> soundClips = new();
@@ -35,25 +35,18 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     protected override void Init()
     {
         base.Init();
+        InitSoundParent();
         InitSounds();
         InitSFXPool();
         SceneManager.sceneLoaded += OnSceneLoaded;
-        RegisterEvent();
         PlayBGM("MainBGM");
-        SoundParent = GameObject.Find("SoundParent").transform;
-        
-    }
-
-    private void RegisterEvent()
-    {
-        SettingsManager.Instance.masterVolumeChanged += SetMasterVolume;
-        SettingsManager.Instance.bgmVolumeChanged += SetBGMVolume;
-        SettingsManager.Instance.entityVolumeChanged += SetSFXEntityVolume;
-        SettingsManager.Instance.uiVolumeChanged += SetSFXUIVolume;
+        Debug.Log("SoundManager Init");
     }
 
     private void InitSounds()
     {
+        soundDataStorage = DataManager.Instance.SoundStorage;
+
         foreach (var entry in soundDataStorage.sounds)
         {
             if (!soundClips.ContainsKey(entry.key))
@@ -77,6 +70,22 @@ public class SoundManager : SingletonBehaviour<SoundManager>
             source.transform.SetParent(SoundParent);
             source.playOnAwake = false;
             sfxPool.Enqueue(source);
+        }
+    }
+
+    private void InitSoundParent()
+    {
+        if (SoundParent == null)
+        {
+            GameObject parentObj = GameObject.Find("SoundParent");
+
+            if (parentObj == null)
+            {
+                parentObj = new GameObject("SoundParent");
+                DontDestroyOnLoad(parentObj); // 사운드 부모도 유지
+            }
+
+            SoundParent = parentObj.transform;
         }
     }
 
@@ -166,8 +175,12 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     // 씬이 로드될 때 모든 SFX를 멈추기
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StopAllSFX();
-        SoundParent = GameObject.Find("SoundParent").transform;
+        if (SoundParent == null || SoundParent.gameObject.scene.name != "DontDestroyOnLoad")
+        {
+            InitSoundParent();
+        }
+
+        StopAllSFX(); // SFX 정리
     }
 
     // 모든 SFX를 멈추고 풀로 반환

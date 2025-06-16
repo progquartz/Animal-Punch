@@ -25,7 +25,10 @@ public class SettingsUI : BaseUI
     public override void Close(bool isCloseAll = false)
     {
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        title.IsAdditionalUIOpened = false;
+        if(title != null)
+        {
+            title.IsAdditionalUIOpened = false;
+        }
         base.Close(isCloseAll);
     }
 

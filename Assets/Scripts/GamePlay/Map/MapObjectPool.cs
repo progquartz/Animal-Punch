@@ -5,10 +5,11 @@ public class MapObjectPool : SingletonBehaviour<MapObjectPool>
 {
     private Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
-    protected override void Awake()
+
+    protected override void Init()
     {
         IsDestroyOnLoad = true;
-        base.Awake();
+        base.Init();
     }
 
     public void InitializePool(string key, GameObject prefab, int initialSize)

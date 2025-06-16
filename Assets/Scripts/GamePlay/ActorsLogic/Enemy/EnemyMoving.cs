@@ -7,6 +7,7 @@ public class EnemyMoving : Enemy
 
     public AnimalAnimationController animationController;
     public EnemyParticleController particleController;
+    private Vector3 PausedVelocity = Vector3.zero;
 
     public override void Init(EnemyDataSO enemyData)
     {
@@ -57,7 +58,7 @@ public class EnemyMoving : Enemy
         GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (GameManager.Instance.IsTimeStop) return;
 
@@ -70,14 +71,36 @@ public class EnemyMoving : Enemy
 
     private void OnTimeToggle(bool isTimeStop)
     {
+
+        if (EnemyRB == null) return;
+
         if (isTimeStop)
         {
+            // 현재 속도 저장
+            PausedVelocity = EnemyRB.linearVelocity;
+
+            // Rigidbody를 멈추고, 물리 연산 비활성화
+            EnemyRB.linearVelocity = Vector3.zero;
+            EnemyRB.angularVelocity = Vector3.zero;
             EnemyRB.isKinematic = true;
+            EnemyRB.Sleep();
+
+            // 애니메이션 멈춤
             animationController.PauseAnimation();
         }
         else
         {
+            // Kinematic 해제 전 위치 강제 갱신 → 물리 보정 최소화
+            EnemyRB.position += Vector3.zero;
+            EnemyRB.WakeUp();
+
             EnemyRB.isKinematic = false;
+
+            // 저장된 속도 복원
+            EnemyRB.linearVelocity = PausedVelocity;
+            PausedVelocity = Vector3.zero;
+
+            // 애니메이션 재생
             animationController.ResumeAnimation();
         }
     }

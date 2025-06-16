@@ -121,7 +121,6 @@ public class PlayerModelPlaceHolder : MonoBehaviour
         // 모바일 터치 처리
         if (Input.touchCount == 1)
         {
-            Debug.Log("터치됨");
             Touch touch = Input.GetTouch(0);
 
             switch (touch.phase)

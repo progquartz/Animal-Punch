@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    public VideoSettingComponent VideoSetting = new VideoSettingComponent();
+
     private HealthRatioComponent healthRatio = new HealthRatioComponent();
-    private VideoSettingComponent videoSetting = new VideoSettingComponent();
+    
     [SerializeField] private PlayerInfoDatas _playerInfoDatas;
 
     
@@ -30,13 +32,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     protected override void Init()
     {
         base.Init();
-        RegisterEvents();
+        Debug.Log("GameManager Init");
     }
 
-    private void RegisterEvents()
-    {
-        SettingsManager.Instance.frameLimitChanged += videoSetting.SetFrameRate;
-    }
 
     private void Update()
     {
@@ -129,14 +127,21 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void StopTime()
     {
-        IsTimeStop = true;
-        OnTimeToggle.Invoke(true);
+        if(!IsTimeStop)
+        {
+            IsTimeStop = true;
+            OnTimeToggle.Invoke(true);
+        }
     }
 
     public void ResumeTime()
     {
-        IsTimeStop = false;
-        OnTimeToggle.Invoke(false);
+        if(IsTimeStop)
+        {
+            IsTimeStop = false;
+            OnTimeToggle.Invoke(false);
+        }
+        
     }
 
     public PlayerInfoDatas GetPlayerInfoData()

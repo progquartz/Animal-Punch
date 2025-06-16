@@ -2,20 +2,19 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDataStorage : MonoBehaviour
+public class EnemyDataStorage : DataStorage
 {
     public GameObject MovingPrefab;
     public GameObject NotMovingPrefab;
     public List<EnemyDataSO> _enemyData;
     public Dictionary<string, EnemyDataSO> enemyDataList;
     
-
-    private void Awake()
+    public void CheckResources()
     {
-        Init();
+        Debug.Log($"EnemyDataStorage - \nenemyDataList.Count = {enemyDataList.Count}");
     }
 
-    private void Init()
+    public void Init()
     {
         enemyDataList = new Dictionary<string, EnemyDataSO>();
         foreach(EnemyDataSO data in _enemyData)

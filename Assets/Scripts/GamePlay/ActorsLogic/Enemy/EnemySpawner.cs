@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -37,6 +35,10 @@ public class EnemySpawner : MonoBehaviour
         EnemyParentTransform = GameObject.Find("EnemyParent").transform;
         EnemySpawnMaximum = new Dictionary<string, int>();
 
+        Debug.Log("1" + DataManager.Instance.gameObject.name);
+        Debug.Log("2" + DataManager.Instance.EnemyDataStorage.gameObject.name);
+        Debug.Log("3" + DataManager.Instance.EnemyDataStorage.enemyDataList.Count);
+        
         foreach (EnemyDataSO data in DataManager.Instance.EnemyDataStorage.enemyDataList.Values)
         {
             EnemySpawnMaximum.Add(data.ActorKey, data.MaxSpawnCount);

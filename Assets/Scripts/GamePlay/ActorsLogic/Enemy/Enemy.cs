@@ -18,14 +18,20 @@ public class Enemy : MonoBehaviour
     public Action OnInit;
 
     public bool IsInPool = false;
-    public bool IsInitialized = false;
 
     
     // start에서 Init으로 추후에 옮기기.
     public virtual void Init(EnemyDataSO enemyData)
     {
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
-        IsInitialized = true;
+        
+        if (GameManager.Instance.IsTimeStop)
+        {
+            EnemyRB.isKinematic = true;
+            EnemyRB.linearVelocity = Vector3.zero;
+            EnemyRB.Sleep();
+        }
+
         targetEnemyDataSO = enemyData;
         stat.CopyData(enemyData.ActorsStat);
         //stat.InitializeGameTimeScale();

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "UnlockableData", menuName = "ScriptableObject/Looting/UnlockableData")]
 public class UnlockableDataSO : ScriptableObject
 {

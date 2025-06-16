@@ -9,13 +9,18 @@ public class LootingRankProbability
     public int Probability;
 }
 
-public class LootingDataStorage : MonoBehaviour
+public class LootingDataStorage : DataStorage
 {
     public List<int> levelExpList = new List<int>();
     public List<Sprite> LootingEffectImages;
     public List<Sprite> LootingCardBackgroundImages;
     public List<LootingRankProbability> LootingProbabilityList;
-    
+
+
+    public void CheckResources()
+    {
+        Debug.Log($"LootingDataStorage - \n levelExpList.Count = {levelExpList.Count} \n/ lootingEffectImages.Count = {LootingEffectImages.Count} \n / LootingCardBackgroundImages.Count = {LootingCardBackgroundImages.Count} \n / LootingProbabilityList.Count = {LootingProbabilityList.Count}");
+    }
 
     // 자동보정시키기
     private void NormalizeProbabilities()
@@ -51,4 +56,5 @@ public class LootingDataStorage : MonoBehaviour
 
         return LootingRankType.Normal;
     }
+
 }

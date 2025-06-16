@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using System;
-using static UnityEngine.GraphicsBuffer;
 using System.Linq;
 
 public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
@@ -19,14 +18,17 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
         base.Init();
         LoadAllIds();
         LoadUnlockedIds();
-        Debug.Log($"{selectedIds} ??"); 
     }
-
     public bool IsUnlocked(string id) => unlockedIds.Contains(id);
 
     public UnlockableDataSO GetUnlockdata(string id)
     {
-        if(!IsUnlocked(id)) return null;
+        if(!IsUnlocked(id))
+        {
+            Debug.Log($"{allUnlocks.Count}개 중 찾는 {id}를 가진 unlockdataso가 없습니다.");
+            return null;
+        }
+            
         return allUnlocks.Find((data) => (data.id == id));
     }
 
@@ -95,6 +97,12 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
             unlockedIds = wrapper.ids ?? new List<string>();
             Unlock("Cheetah");
         }
+        else
+        {
+            unlockedIds = new List<string>();
+            Unlock("Cheetah");
+            Save();
+        }
 
         // selected id
         string data = PlayerPrefs.GetString("SelectedCharacterID");
@@ -112,12 +120,12 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
     private void LoadAllIds()
     {
         allUnlocks.Clear();
-        UnlockableDataSO[] loadedBoxes = Resources.LoadAll<UnlockableDataSO>(allUnlockListPath);
+        UnlockableDataSO[] loadedUnlocks = Resources.LoadAll<UnlockableDataSO>(allUnlockListPath);
 
-        if (loadedBoxes != null && loadedBoxes.Length > 0)
+        if (loadedUnlocks != null && loadedUnlocks.Length > 0)
         {
-            allUnlocks.AddRange(loadedBoxes);
-            Debug.Log($"{loadedBoxes.Length}개의 박스 데이터 로드.");
+            allUnlocks.AddRange(loadedUnlocks);
+            Debug.Log($"{loadedUnlocks.Length}개의 언락 데이터 로드.");
 
         }
         else
