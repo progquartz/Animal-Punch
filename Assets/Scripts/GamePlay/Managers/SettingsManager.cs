@@ -25,18 +25,13 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
     public VolumeSettings entityVolume = new VolumeSettings();
     public VolumeSettings uiVolume = new VolumeSettings();
 
-    public Action<VolumeSettings> masterVolumeChanged;
-    public Action<VolumeSettings> bgmVolumeChanged;
-    public Action<VolumeSettings> entityVolumeChanged;
-    public Action<VolumeSettings> uiVolumeChanged;
-
-    public Action<GraphicsQuality> graphicsQualityChanged;
-    public Action<FrameLimit> frameLimitChanged;
+    public bool hasChange = false;
 
     protected override void Init()
     {
         base.Init();
         LoadSettings();
+        Debug.Log("SettingManager Init");
     }
 
     public void SaveSettings()
@@ -49,13 +44,9 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         SaveVolume("BGM", bgmVolume);
         SaveVolume("Entity", entityVolume);
         SaveVolume("UI", uiVolume);
-
-        graphicsQualityChanged?.Invoke(graphicsQuality);
-        frameLimitChanged?.Invoke(frameLimit);
-        masterVolumeChanged?.Invoke(masterVolume);
-        bgmVolumeChanged?.Invoke(bgmVolume);
-        entityVolumeChanged?.Invoke(entityVolume);
-        uiVolumeChanged?.Invoke(uiVolume);
+        
+        ApplySettings();
+        hasChange = true;
 
         PlayerPrefs.Save();
     }
@@ -70,6 +61,19 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         bgmVolume = LoadVolume("BGM");
         entityVolume = LoadVolume("Entity");
         uiVolume = LoadVolume("UI");
+        
+        ApplySettings();
+
+    }
+
+    private void ApplySettings()
+    {
+        // graphics quality
+        GameManager.Instance.VideoSetting.SetFrameRate(frameLimit);
+        SoundManager.Instance.SetMasterVolume(masterVolume);
+        SoundManager.Instance.SetBGMVolume(bgmVolume);
+        SoundManager.Instance.SetSFXEntityVolume(entityVolume);
+        SoundManager.Instance.SetSFXUIVolume(uiVolume);
     }
 
     private void SaveVolume(string key, VolumeSettings setting)

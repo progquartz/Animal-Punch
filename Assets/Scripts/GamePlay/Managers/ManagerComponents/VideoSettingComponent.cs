@@ -4,6 +4,14 @@ public class VideoSettingComponent
 {
     public void SetFrameRate(FrameLimit option)
     {
+
+        if (GameManager.Instance.IsTimeStop)
+        {
+            Debug.Log("시간 멈춤 중에는 프레임 설정을 적용하지 않음");
+            return;
+        }
+
+
         QualitySettings.vSyncCount = 0; // VSync 끔
         switch (option)
         {

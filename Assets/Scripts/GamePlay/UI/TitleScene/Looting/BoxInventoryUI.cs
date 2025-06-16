@@ -141,7 +141,10 @@ public class BoxInventoryUI : BaseUI
         // request √Îº“.
         BoxSlotManager.Instance.slotButtonRequestIndex = -1;
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        title.IsAdditionalUIOpened = false;
+        if(title != null)
+        {
+            title.IsAdditionalUIOpened = false;
+        }
         Close();
     }
 }

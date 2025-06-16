@@ -15,11 +15,6 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
     [SerializeField] private Image _progressBar;
     public string CurrentScene;
 
-    private void Awake()
-    {
-        base.Awake();
-    }
-
     public async void LoadScene(SceneType sceneType)
     {
         string sceneName = "Scenes/" + sceneType.ToString();

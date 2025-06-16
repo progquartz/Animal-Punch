@@ -13,7 +13,7 @@ public class MapGroupObject : MonoBehaviour
             string childKey = childHolder.name.Split(' ')[0];
             if (string.IsNullOrEmpty(childKey)) continue;
 
-            GameObject prefab = MapManager.Instance.MapDataStorage.GetRandomModelPrefab(childKey);
+            GameObject prefab = DataManager.Instance.MapDataStorage.GetRandomModelPrefab(childKey);
             if (prefab != null)
             {
                 GameObject model = MapObjectPool.Instance.GetFromPool(childKey, prefab, childHolder);

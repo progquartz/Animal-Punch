@@ -15,12 +15,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     private Dictionary<Type, BaseUI> _openUIPool = new();
     private Dictionary<Type, BaseUI> _closeUIPool = new();
 
-
-    public void StartGameState()
-    {
-        Init();
-    }
-
     protected override void Init()
     {
         IsDestroyOnLoad = true;

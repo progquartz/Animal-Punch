@@ -11,19 +11,7 @@ public class Player : SingletonBehaviour<Player>
     public PlayerAnimationController animationController;
     public PlayerParticleController particleController;
 
-    protected override void Awake()
-    {
-        IsDestroyOnLoad = true;
-        base.Awake();
-        Init();
-    }
-
-    public void StartGameState()
-    {
-        Init();
-    }
-
-    protected void Init()
+    protected override void Init()
     {
         IsDestroyOnLoad = true;
 

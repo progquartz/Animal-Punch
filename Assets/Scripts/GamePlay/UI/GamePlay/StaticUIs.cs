@@ -8,4 +8,10 @@ public class StaticUIs : MonoBehaviour
         SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         GameManager.Instance.StopTime();
     }
+
+    public void OnClickSettingButtonUI()
+    {
+        UIManager.Instance.OpenUI<SettingsUI>(new BaseUIData());    
+
+    }
 }

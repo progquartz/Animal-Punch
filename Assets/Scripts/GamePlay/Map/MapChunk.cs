@@ -10,12 +10,6 @@ public class MapChunk : MonoBehaviour
     [SerializeField] private Transform PrepperParentTransform;
     private List<MapGroupObject> spawnedMapGroupObjects = new List<MapGroupObject>();
 
-    private void Awake()
-    {
-        // 테스트 목적으로 Awake에서 초기화를 막음 (실제 환경에선 제거 권장)
-        // TestChunk();
-    }
-
     public void Initialize(Vector2Int coordinate, MapDataStorage data)
     {
         chunkCoordinate = coordinate;
@@ -24,7 +18,12 @@ public class MapChunk : MonoBehaviour
         foreach (Transform holder in PrepperParentTransform)
         {
             string key = holder.gameObject.name.Split(' ')[0];
-            if (string.IsNullOrEmpty(key)) continue;
+            if (string.IsNullOrEmpty(key))
+            {
+                Debug.Log($"mapchunk에서 initialize하는 도중, key값으로 {key}를 가진 오브젝트가 발견되지 않음");
+                continue;
+            }
+                
 
             MapGroupObject gpPrefab = data.GetRandomGroupPrefab(key);
             if (gpPrefab != null)
@@ -38,6 +37,10 @@ public class MapChunk : MonoBehaviour
                     spawnedMapGroupObjects.Add(groupComponent);
                     groupComponent.Initialize();
                 }
+            }
+            else
+            {
+                Debug.Log("MapGroundObject를 받아오지 못함!");
             }
         }
     }

@@ -18,6 +18,7 @@ public abstract class ActorBehaviour
 
     public virtual void Init(EnemyMoving owner)
     {
+        if (GameManager.Instance.IsTimeStop) return;
         this.owner = owner;
         playerTransform = Player.Instance.PlayerTransform;
     }

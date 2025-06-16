@@ -1,10 +1,8 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
-
-public class MapDataStorage : MonoBehaviour
+public class MapDataStorage : DataStorage
 {
     // 프로젝트 내에서 소환 가능한 모든 일반 프리팹
     public List<GameObject> ModelPrefabs = new List<GameObject>();
@@ -13,6 +11,12 @@ public class MapDataStorage : MonoBehaviour
     // 프로젝트에서 소환 가능한 맵 청크 목록
     public List<MapChunk> mapChunks = new List<MapChunk>();
     public int chunkSize = 90;
+
+    public void CheckResource()
+    {
+        Debug.Log($"MapDataStorage - \nModelPrefabs.Count = {ModelPrefabs.Count} \n / GroupPrefabs.Count = {groupPrefabs.Count} ");
+    }
+
 
     public GameObject GetRandomModelPrefab(string key)
     {
@@ -41,6 +45,7 @@ public class MapDataStorage : MonoBehaviour
         int index = hash % mapChunks.Count;
         return mapChunks[index];
     }
+
 
 
 }

@@ -16,6 +16,7 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 
     protected override void Init()
     {
+        base.Init();
         Load();
         LoadBoxData();
     }

@@ -49,6 +49,7 @@ public class FrameSettingUI : MonoBehaviour
 
     void ApplyFrameSetting()
     {
+
         Application.targetFrameRate = SettingsManager.Instance.frameLimit switch
         {
             FrameLimit.Fps30 => 30,
@@ -56,5 +57,6 @@ public class FrameSettingUI : MonoBehaviour
             FrameLimit.Unlimited => -1,
             _ => 60
         };
+        
     }
 }
