@@ -47,8 +47,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private Vector2Int CalculateCurrentPlayerChunkPos()
     {
-        int gridX = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.x + halfCellSize) / chunkSize);
-        int gridZ = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.z + halfCellSize) / chunkSize);
+        int gridX = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.x + 
+                                      halfCellSize) / chunkSize);
+        int gridZ = Mathf.FloorToInt((Player.Instance.PlayerTransform.position.z + 
+                                      halfCellSize) / chunkSize);
 
         return new Vector2Int(gridX, gridZ);
     }

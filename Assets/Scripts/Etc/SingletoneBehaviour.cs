@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<T>
 {
-    // 씬 전환시 파괴 여부 결정 변수.
     protected bool IsDestroyOnLoad { get; set; } = false;
-    private static bool isInitialized = false;
-
     private static T s_instance;
+    private static bool isInitialized = false;
 
     public static T Instance
     {
-        // 최초 찾을 때만 호출되며 생성.
         get
         {
             if (s_instance == null)
@@ -21,14 +18,9 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
                 {
                     GameObject singletonObject = new GameObject(typeof(T).Name);
                     s_instance = singletonObject.AddComponent<T>();
-
-                }
-                if(!isInitialized)
-                {
-                    s_instance.GetComponent<T>().Init();
-                    isInitialized = true;
                 }
             }
+
             return s_instance;
         }
     }
@@ -38,28 +30,23 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         if (s_instance == null)
         {
             s_instance = this as T;
-            if(!isInitialized)
-            {
-                Init();  // 상속받은 클래스에서 원하는 초기화 작업을 진행할 수 있게 만듦.
-            }
-            if (!IsDestroyOnLoad)
-            {
-                Debug.Log(gameObject.name);
-                DontDestroyOnLoad(gameObject);
-            }
         }
-        else if (s_instance != this)
+
+        if (!isInitialized)
         {
-            Destroy(gameObject);
+            Init();    
+            isInitialized = true;
+        }
+
+        if (!IsDestroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject);
         }
     }
 
-    /// <summary>
-    /// 싱글톤 초기화용 메서드.
-    /// </summary>
     protected virtual void Init()
     {
-        // 기본 초기화 구현(필요 시 상속받은 클래스에서 오버라이드)
+        // 상속된 클래스에서 사용
     }
 
     protected virtual void OnDestroy()
@@ -67,6 +54,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         if (s_instance == this)
         {
             s_instance = null;
+            isInitialized = false;
         }
     }
 
