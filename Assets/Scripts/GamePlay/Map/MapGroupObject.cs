@@ -18,6 +18,8 @@ public class MapGroupObject : MonoBehaviour
             {
                 GameObject model = MapObjectPool.Instance.GetFromPool(childKey, prefab, childHolder);
                 model.transform.localPosition = Vector3.zero;
+                model.transform.localRotation = Quaternion.identity;
+                model.transform.localScale = Vector3.one;
                 pooledObjects.Add(model);
             }
         }

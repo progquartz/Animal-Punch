@@ -628,6 +628,7 @@ MonoBehaviour:
   poolSize: 10
   masterAudioGroup: {fileID: 24300002, guid: 9cd30cd8e1f25c846808beb016435189, type: 2}
   sfxEntityGroup: {fileID: -7322342719378225357, guid: 9cd30cd8e1f25c846808beb016435189, type: 2}
+  sfxSFXGroup: {fileID: 3625961094728398059, guid: 9cd30cd8e1f25c846808beb016435189, type: 2}
   sfxUIGroup: {fileID: -1803520367065661889, guid: 9cd30cd8e1f25c846808beb016435189, type: 2}
   bgmGroup: {fileID: 2379155735144356119, guid: 9cd30cd8e1f25c846808beb016435189, type: 2}
   audioMixer: {fileID: 24100000, guid: 9cd30cd8e1f25c846808beb016435189, type: 2}
@@ -810,6 +811,9 @@ MonoBehaviour:
     volume: 0
     muted: 0
   entityVolume:
+    volume: 0
+    muted: 0
+  sfxVolume:
     volume: 0
     muted: 0
   uiVolume:

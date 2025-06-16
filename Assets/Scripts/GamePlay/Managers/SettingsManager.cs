@@ -4,7 +4,7 @@ using UnityEngine;
 public enum GraphicsQuality { Low, Medium, High }
 public enum AntiAliasingLevel { Off, Medium, High }
 public enum FrameLimit { Fps30, Fps60, Unlimited }
-public enum AudioType { Master, Bgm, Entity, UI }
+public enum AudioType { Master, Bgm, Entity, UI, SFX }
 
 [System.Serializable]
 public class VolumeSettings
@@ -23,7 +23,9 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
     public VolumeSettings masterVolume = new VolumeSettings();
     public VolumeSettings bgmVolume = new VolumeSettings();
     public VolumeSettings entityVolume = new VolumeSettings();
+    public VolumeSettings sfxVolume = new VolumeSettings();
     public VolumeSettings uiVolume = new VolumeSettings();
+    
 
     public bool hasChange = false;
 
@@ -43,6 +45,7 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         SaveVolume("Master", masterVolume);
         SaveVolume("BGM", bgmVolume);
         SaveVolume("Entity", entityVolume);
+        SaveVolume("SFX", sfxVolume);
         SaveVolume("UI", uiVolume);
         
         ApplySettings();
@@ -61,6 +64,7 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         bgmVolume = LoadVolume("BGM");
         entityVolume = LoadVolume("Entity");
         uiVolume = LoadVolume("UI");
+        sfxVolume = LoadVolume("SFX");
         
         ApplySettings();
 
@@ -70,10 +74,6 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
     {
         // graphics quality
         GameManager.Instance.VideoSetting.SetFrameRate(frameLimit);
-        SoundManager.Instance.SetMasterVolume(masterVolume);
-        SoundManager.Instance.SetBGMVolume(bgmVolume);
-        SoundManager.Instance.SetSFXEntityVolume(entityVolume);
-        SoundManager.Instance.SetSFXUIVolume(uiVolume);
     }
 
     private void SaveVolume(string key, VolumeSettings setting)

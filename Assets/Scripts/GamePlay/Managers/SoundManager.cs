@@ -20,6 +20,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     // 볼륨 제어 부분
     public AudioMixerGroup masterAudioGroup;
     public AudioMixerGroup sfxEntityGroup;
+    public AudioMixerGroup sfxSFXGroup;
     public AudioMixerGroup sfxUIGroup;
     public AudioMixerGroup bgmGroup;
     public AudioMixer audioMixer;
@@ -27,10 +28,12 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     private AudioSource bgmSource;
     private bool isPaused = false;
 
-    private string masterVolumeKey = "MasterVolume";
-    private string bgmVolumeKey = "BGMVolume";
-    private string sfxEntityVolumeKey = "SFXEntityVolume";
-    private string sfxUIVolumeKey = "SFXUIVolume";
+    private readonly string masterVolumeKey = "MasterVolume";
+    private readonly string bgmVolumeKey = "BGMVolume";
+    private readonly string sfxEntityVolumeKey = "SFXEntityVolume";
+    private readonly string sfxSFXVolumeKey = "SFXSFXVolume";
+    private readonly string sfxUIVolumeKey = "SFXUIVolume";
+    
 
     protected override void Init()
     {
@@ -39,7 +42,9 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         InitSounds();
         InitSFXPool();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(ApplyVolumeWithDelay()); 
         PlayBGM("MainBGM");
+
         Debug.Log("SoundManager Init");
     }
 
@@ -125,6 +130,9 @@ public class SoundManager : SingletonBehaviour<SoundManager>
             case AudioType.UI:
                 sfxSource.outputAudioMixerGroup = sfxUIGroup;
                 break;
+            case AudioType.SFX:
+                sfxSource.outputAudioMixerGroup= sfxSFXGroup;
+                break;
             default:
                 sfxSource.outputAudioMixerGroup = sfxEntityGroup;
                 break;
@@ -150,6 +158,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         if (bgmSource == null)
         {
             bgmSource = new GameObject("BGMSource").AddComponent<AudioSource>();
+            DontDestroyOnLoad(bgmSource);
             bgmSource.loop = loop;
         }
 
@@ -204,6 +213,24 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         }
     }
 
+    private IEnumerator ApplyVolumeWithDelay()
+    {
+        yield return null; // 한 프레임 대기 (혹은 WaitForSeconds(0.05f))
+        ApplyVolumeFromSettings();
+    }
+
+    public void ApplyVolumeFromSettings()
+    {
+        var settings = SettingsManager.Instance;
+
+        SetMasterVolume(settings.masterVolume);
+        SetBGMVolume(settings.bgmVolume);
+        SetSFXEntityVolume(settings.entityVolume);
+        SetSFXUIVolume(settings.uiVolume);
+        SetSFXSFXVolume(settings.sfxVolume);
+        
+    }
+
     public void SetMasterVolume(VolumeSettings value)
     {
         if(value.muted)
@@ -254,6 +281,20 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         }
         
     }
+
+    public void SetSFXSFXVolume(VolumeSettings value)
+    {
+        if (value.muted)
+        {
+            audioMixer.SetFloat(sfxSFXVolumeKey, CalculateSliderVolume(0f));
+        }
+        else
+        {
+            audioMixer.SetFloat(sfxSFXVolumeKey, CalculateSliderVolume(value.volume));
+        }
+
+    }
+
 
     private float CalculateSliderVolume(float sliderValue)
     {
