@@ -38,6 +38,8 @@ public class EnemyMoving : Enemy
         OnDead?.Invoke();
     }
 
+    
+
     private void PlayDeadSound()
     {
         SoundManager.Instance.PlaySFX("EnemyShooting", AudioType.Entity);
@@ -105,9 +107,38 @@ public class EnemyMoving : Enemy
         }
     }
 
-    public override void OnDamage(bool IsCritical)
+    public override bool HandleDamage(Collision collision, float impulseDamage, bool isCritical)
     {
-        if (IsCritical) particleController.OnCriticalHit();
+        bool isDead = base.HandleDamage(collision, impulseDamage, isCritical);
+        HandleDamageVisual(collision, impulseDamage, isCritical);
+        HandleDamageSound(collision, isCritical);
+        
+        if(isDead)
+        {
+            HandleDeath();
+        }
+        return isDead;
+    }
+
+    private void HandleDamageVisual(Collision collision, float impulseDamage, bool isCritical)
+    {
+        // damage indicator text
+        Color textColor;
+        if (isCritical)
+            textColor = Color.red;
+        else
+            textColor = Color.white;
+
+        InGameTextPooler.Instance.SpawnText(((int)impulseDamage).ToString(), textColor, EnemyTransform.position);
+
+        // particle
+        if (isCritical) particleController.OnCriticalHit();
         else particleController.OnHit();
+
+    }
+
+    private void HandleDamageSound(Collision collision, bool isCritical)
+    {
+        SoundManager.Instance.PlaySFX("EnemyHit", AudioType.SFX, EnemyTransform.position);
     }
 }

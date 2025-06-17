@@ -59,61 +59,42 @@ public class ActorCollision : MonoBehaviour
         UpdateCooldown();
     }
 
-    public void HandleCollision(Collision collision, GameObject collisionObject, float impulseDamage, bool isCritical)
+    public void HandleCollision(Collision collision, float impulseDamage, bool isCritical)
     {
-        if (collisionObject.CompareTag("Player"))
+        if (owner.targetEnemyDataSO.IsEnemyHasHealth)
         {
-            if (owner.targetEnemyDataSO.IsEnemyHasHealth)
-            {
-                HandleCollisionOnHealthCondition(collision, collisionObject, impulseDamage, isCritical);
-                owner.OnDamage(isCritical);
-            }
-            else
-            {
-                HandleCollisionOnNoneHealthCondition(collision,collisionObject, impulseDamage);
-            }
+            HandleCollisionOnHealthCondition(collision, impulseDamage, isCritical);
+        }
+        else
+        {
+            HandleCollisionOnNoneHealthCondition(collision);
         }
     }
 
-    private void HandleCollisionOnNoneHealthCondition(Collision collision, GameObject collisionObjects, float impulseDamage)
-    {
-        HandleDeadOnRigidBody();
-    }
 
-
-
-    private void HandleCollisionOnHealthCondition(Collision collision, GameObject collisionObject, float impulseDamage, bool isCritical)
-    {
-        HandleCollisionDamage(collision, collisionObject, impulseDamage, isCritical);
-    }
-
-    private void HandleCollisionDamage(Collision collision, GameObject collisionObject, float impulseDamage, bool isCritical)
+    private void HandleCollisionOnHealthCondition(Collision collision,  float impulseDamage, bool isCritical)
     {
         if(isActorAbleToHit)
         {
-            bool isDead = owner.stat.HandleDamage(impulseDamage);
-
-            Color textColor;
-            if (isCritical)
-                textColor = Color.red;
-            else
-                textColor = Color.white;
-            
-            InGameTextPooler.Instance.SpawnText(((int)impulseDamage).ToString(), textColor, ActorTransform.position);
-
+            bool isDead = owner.HandleDamage(collision, impulseDamage, isCritical);
             if (isDead)
             {
-                owner.HandleDeath();
-                HandleMassForceChange(collision);
-                HandleShootingUp();
-                HandleDeadOnRigidBody();
-                Spin();
-            }
-            else
-            {
-
+                HandleDeadOnRB(collision);
             }
         }
+    }
+
+    private void HandleCollisionOnNoneHealthCondition(Collision collision)
+    {
+        HandleDeadOnRB(collision);
+    }
+
+
+    private void HandleDeadOnRB(Collision collision)
+    {
+        HandleMassForceChange(collision);
+        HandleShootingUp();
+        HandleDeadOnRigidBody();
     }
 
     private void HandleMassForceChange(Collision collision)
