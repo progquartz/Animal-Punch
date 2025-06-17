@@ -10,6 +10,7 @@ public class Player : SingletonBehaviour<Player>
     [SerializeField] private PlayerPhysics playerPhysics;
     public PlayerAnimationController animationController;
     public PlayerParticleController particleController;
+    public PlayerComboHandler comboHandler;
 
     protected override void Init()
     {

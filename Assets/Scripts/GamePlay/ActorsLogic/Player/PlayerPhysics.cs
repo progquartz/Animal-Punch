@@ -156,7 +156,6 @@ public class PlayerPhysics : MonoBehaviour
             Quaternion wanderRotation = Quaternion.LookRotation(direction);
             playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, wanderRotation, stat.RotationSpeed * Time.deltaTime);
         }
-        
     }
 
     private void HandleRotationOnPCOld()

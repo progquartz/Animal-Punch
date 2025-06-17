@@ -59,20 +59,22 @@ public class ActorCollision : MonoBehaviour
         UpdateCooldown();
     }
 
-    public void HandleCollision(Collision collision, float impulseDamage, bool isCritical)
+    public bool HandleCollision(Collision collision, float impulseDamage, bool isCritical)
     {
+        bool isDead = false;   
         if (owner.targetEnemyDataSO.IsEnemyHasHealth)
         {
-            HandleCollisionOnHealthCondition(collision, impulseDamage, isCritical);
+            isDead = HandleCollisionOnHealthCondition(collision, impulseDamage, isCritical);
         }
         else
         {
-            HandleCollisionOnNoneHealthCondition(collision);
+            isDead = HandleCollisionOnNoneHealthCondition(collision);
         }
+        return isDead;
     }
 
 
-    private void HandleCollisionOnHealthCondition(Collision collision,  float impulseDamage, bool isCritical)
+    private bool HandleCollisionOnHealthCondition(Collision collision,  float impulseDamage, bool isCritical)
     {
         if(isActorAbleToHit)
         {
@@ -81,12 +83,15 @@ public class ActorCollision : MonoBehaviour
             {
                 HandleDeadOnRB(collision);
             }
+            return isDead;
         }
+        return false;
     }
 
-    private void HandleCollisionOnNoneHealthCondition(Collision collision)
+    private bool HandleCollisionOnNoneHealthCondition(Collision collision)
     {
         HandleDeadOnRB(collision);
+        return true;
     }
 
 
