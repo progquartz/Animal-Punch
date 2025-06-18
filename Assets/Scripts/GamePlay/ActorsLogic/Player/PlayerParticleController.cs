@@ -11,7 +11,7 @@ public class PlayerParticleController : ParticleController
 
     void Update()
     {
-        if(GameManager.Instance.IsTimeStop) return;
+        if(GameManager.Instance.IsGamePaused) return;
         CheckTrailParticles();
         CheckBoostParticles();
 

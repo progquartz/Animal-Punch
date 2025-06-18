@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         
-        if (GameManager.Instance.IsTimeStop)
+        if (GameManager.Instance.IsGamePaused)
         {
             EnemyRB.isKinematic = true;
             EnemyRB.linearVelocity = Vector3.zero;

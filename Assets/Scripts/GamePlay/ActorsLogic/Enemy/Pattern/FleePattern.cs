@@ -14,7 +14,7 @@ public class FleePattern : IActorPattern
 
     public void ActPattern()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
         MoveFront(); // 사실 도망치기이긴 한데
         HandleRotation();
         HandleAnimation();
@@ -68,7 +68,7 @@ public class FleePattern : IActorPattern
 
     public void EnterPattern()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
         //Logger.Log("FleePattern Enter");
     }
 

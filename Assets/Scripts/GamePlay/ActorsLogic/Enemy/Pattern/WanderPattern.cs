@@ -15,7 +15,7 @@ public class WanderPattern : IActorPattern
 
     public void ActPattern()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
         MoveFront();
         HandleRotation();
         HandleAnimation();
@@ -65,7 +65,7 @@ public class WanderPattern : IActorPattern
 
     public void EnterPattern()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
         //Logger.Log("WanderPattern Enter");
     }
 

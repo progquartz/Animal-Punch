@@ -24,7 +24,7 @@ public class LevelExpBar : MonoBehaviour
 
     private void UpdateExpBar(PlayerInfoDatas infoData)
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
         
         float currentExp = (float)infoData.currentExp;
         float nextExp = (float)infoData.nextExp;

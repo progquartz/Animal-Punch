@@ -62,7 +62,7 @@ public class EnemyMoving : Enemy
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
 
         if (targetEnemyDataSO.IsEnemyHasCondition)
         {

@@ -13,13 +13,16 @@ public class PlayerComboHandler : MonoBehaviour
 
     void Update()
     {
-        if (IsComboActive)
+        if(GameManager.Instance.IsGameStarted || !GameManager.Instance.IsGamePaused)
         {
-            comboTimer += Time.deltaTime;
-
-            if (comboTimer >= comboResetTime)
+            if (IsComboActive)
             {
-                ResetCombo();
+                comboTimer += Time.deltaTime;
+
+                if (comboTimer >= comboResetTime)
+                {
+                    ResetCombo();
+                }
             }
         }
     }

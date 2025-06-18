@@ -22,7 +22,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 
     public bool IsGameStarted = false;
-    public bool IsTimeStop = false;
+    public bool IsGamePaused = false;
     public Action<bool> OnTimeToggle;
     public Action OnQuitGameScene;
 
@@ -38,7 +38,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        if(IsGameStarted)
+        if(IsGameStarted || !IsGamePaused)
         {
             UpdateGameTime();
             UpdateGameRatios();
@@ -58,7 +58,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             Logger.LogWarning("이미 게임을 실행 중인데, 또 다시 호출하려 합니다.");
         }
         IsGameStarted = true;
-        IsTimeStop = false;
+        IsGamePaused = false;
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
@@ -69,7 +69,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void EndGameState()
     {
         IsGameStarted = false;
-        IsTimeStop = false;
+        IsGamePaused = false;
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
@@ -88,12 +88,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public float GetHealthRatio()
     {
-        return healthRatio.GetHealthRatio();
+        return healthRatio.Ratio;
     }
 
     private void UpdateGameRatios()
     {
-        healthRatio.UpdateHealthRatio(GameTime);
+        healthRatio.UpdateRatio();
     }
 
     private void UpdateGameTime()
@@ -127,18 +127,18 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void StopTime()
     {
-        if(!IsTimeStop)
+        if(!IsGamePaused)
         {
-            IsTimeStop = true;
+            IsGamePaused = true;
             OnTimeToggle.Invoke(true);
         }
     }
 
     public void ResumeTime()
     {
-        if(IsTimeStop)
+        if(IsGamePaused)
         {
-            IsTimeStop = false;
+            IsGamePaused = false;
             OnTimeToggle.Invoke(false);
         }
         
