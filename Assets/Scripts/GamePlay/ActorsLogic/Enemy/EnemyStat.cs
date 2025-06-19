@@ -7,6 +7,7 @@ public class EnemyStat
     public bool IsDead = false;
     public float HP;
     public float MaxHP;
+    public float OriginalMaxHP;
 
     [Header("패턴 유형")]
     // 패턴 클래스 제작.
@@ -47,6 +48,7 @@ public class EnemyStat
         IsDead =target.IsDead;
         HP = target.HP;
         MaxHP = target.MaxHP;
+        OriginalMaxHP = target.OriginalMaxHP;
 
 
         Speed = target.Speed;
@@ -60,7 +62,7 @@ public class EnemyStat
 
     public void InitializeGameTimeScale()
     {
-        MaxHP = MaxHP * GameManager.Instance.EnemyHealthRatio;
+        MaxHP = OriginalMaxHP * GameManager.Instance.EnemyHealthRatio.Ratio;
         HP = MaxHP;
     }
 

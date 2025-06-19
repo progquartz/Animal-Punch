@@ -67,7 +67,7 @@ public class PlayerFeverHandler : MonoBehaviour
 
     public float GetFeverLimit()
     {
-        return feverMax * GameManager.Instance.EnemyHealthRatio;
+        return feverMax * GameManager.Instance.EnemyHealthRatio.Ratio;
     }
 
     // fever 중일때에는 fever time을 

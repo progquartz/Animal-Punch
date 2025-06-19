@@ -5,7 +5,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 {
     public VideoSettingComponent VideoSetting = new VideoSettingComponent();
 
-    private HealthRatioComponent healthRatio = new HealthRatioComponent();
+    public HealthRatioComponent EnemyHealthRatio = new HealthRatioComponent();
     
     [SerializeField] private PlayerInfoDatas _playerInfoDatas;
 
@@ -13,7 +13,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     // 현재 게임 진행 시간
     public float GameTime;
-    public float EnemyHealthRatio;
 
     public float InitialGameTimeLeft = 10f;
     public float GameTimeLeft = 10f;
@@ -88,18 +87,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public float GetHealthRatio()
     {
-        return healthRatio.Ratio;
+        return EnemyHealthRatio.Ratio;
     }
 
     private void UpdateGameRatios()
     {
-        healthRatio.UpdateRatio();
+        EnemyHealthRatio.UpdateRatio();
     }
 
     private void UpdateGameTime()
     {
         GameTime += Time.deltaTime;
-        EnemyHealthRatio = GameTimeEnemyRatio.GetHealthRatio(GameTime);
         GameTimeLeft -= Time.deltaTime * GameTimeDecreaseRate;
     }
 

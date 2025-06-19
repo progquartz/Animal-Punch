@@ -43,7 +43,6 @@ public class PlayerExpGauge : MonoBehaviour
     private void UpdateExpGauge()
     {
         float ratio = Player.Instance.feverHandler.GetFeverRatio();
-        Debug.Log(Player.Instance.feverHandler.GetFeverRatio());
         //float ratio = (float)Player.Instance.Stat.CurrentExp / Player.Instance.Stat.LevelUpExpNeed;
         //Debug.Log(ratio);
         if (ratio < prevRatio) // 레벨업 한 경우

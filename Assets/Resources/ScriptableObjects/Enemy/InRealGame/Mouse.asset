@@ -32,6 +32,7 @@ MonoBehaviour:
     IsDead: 0
     HP: 20
     MaxHP: 20
+    OriginalMaxHP: 20
     Speed: 5
     Mass: 10
     MassOnDead: 0.3
