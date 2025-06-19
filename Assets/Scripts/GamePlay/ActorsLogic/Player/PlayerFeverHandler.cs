@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerFeverHandler : MonoBehaviour
 {
     public float feverCount = 0;
-    public float feverMax = 10f;
+    private float feverMax = 15f;
     public float currentFeverMax = 0;
     
     private float currentCooltime = 1f;
@@ -11,7 +11,7 @@ public class PlayerFeverHandler : MonoBehaviour
     private float fevercoolRatioPerSec = 0.05f;
 
     public float feverTime = 0f;
-    private float originalFeverTime = 3f;
+    private float originalFeverTime = 4f;
     public float currentFeverTimeMax = 3f;
     
     public bool isFever = false;

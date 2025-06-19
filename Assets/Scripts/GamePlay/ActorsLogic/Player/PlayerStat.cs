@@ -19,8 +19,9 @@ public class PlayerStat
 
     [Header("부스터")]
     public float BoostForce;                        // 앞으로 튀어나갈 힘
-    public float BoostChargeRatio;                     // Space 키 쿨타임
+    public float BoostChargeRatio;                     
     public float BoostChargeTime = 2.0f;
+    public float BoostFeverChargeTime = 0.25f;
     public float BoostChargeMinimalTime = 0.3f;
     
 
@@ -111,6 +112,7 @@ public class PlayerStat
         BoostForce = stat.BoostForce;                        // 앞으로 튀어나갈 힘
         BoostChargeRatio = stat.BoostChargeRatio;                     // Space 키 쿨타임
         BoostChargeTime = stat.BoostChargeTime;
+        BoostFeverChargeTime = stat.BoostFeverChargeTime;
         BoostChargeMinimalTime = stat.BoostChargeMinimalTime;
 
 
