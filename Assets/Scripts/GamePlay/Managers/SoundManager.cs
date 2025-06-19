@@ -102,9 +102,18 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     /// <param name="pos"></param>
     public void PlaySFX(string key , AudioType audioType, Vector3? pos = null)
     {
-        if (!soundClips.TryGetValue(key, out var data)) return;
+        if (!soundClips.TryGetValue(key, out var data))
+        {
+            Debug.LogWarning($"{key}값을 가지는 SFX가 발견되지 않았습니다.");
+            return;
+        } 
 
-        if (sfxPool.Count == 0) return;
+        if (sfxPool.Count == 0)
+        {
+            Debug.Log("SFXPool이 가득 찼습니다.");
+            return;
+        }
+            
 
         var sfxSource = sfxPool.Dequeue();
         inUse.Add(sfxSource);

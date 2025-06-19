@@ -50,7 +50,7 @@ public class CowardBehaviour : ActorBehaviour
 
     public override void BehaveOnUpdate()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
         CurrentPattern.ActPattern();
     }
 

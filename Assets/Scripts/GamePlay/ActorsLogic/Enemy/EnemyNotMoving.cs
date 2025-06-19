@@ -20,7 +20,7 @@ public class EnemyNotMoving : Enemy
 
     private void Update()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
 
     }
 

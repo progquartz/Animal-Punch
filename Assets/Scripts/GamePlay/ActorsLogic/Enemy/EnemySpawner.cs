@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
 
         HandleImmediateSpawn();
         HandleIntervalSpawn();

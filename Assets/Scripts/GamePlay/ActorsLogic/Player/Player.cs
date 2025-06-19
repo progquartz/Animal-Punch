@@ -10,6 +10,8 @@ public class Player : SingletonBehaviour<Player>
     [SerializeField] private PlayerPhysics playerPhysics;
     public PlayerAnimationController animationController;
     public PlayerParticleController particleController;
+    public PlayerComboHandler comboHandler;
+    public PlayerFeverHandler feverHandler;
 
     protected override void Init()
     {
@@ -54,6 +56,13 @@ public class Player : SingletonBehaviour<Player>
         {
             animationController.ResumeAnimation();
         }
+    }
+
+    public bool GainExp(int amount)
+    {
+        bool isLevelUp = Stat.GainExp(amount);
+        feverHandler.AddFeverGauge(amount);
+        return isLevelUp;
     }
 
     public void OnLevelUp(bool isSelectedLooting)

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
@@ -139,6 +140,23 @@ public class PlayerPhysics : MonoBehaviour
     }
     void HandleMovement()
     {
+        if(!owner.feverHandler.isFever)
+        {
+            HandleNormalMovement();
+        }
+        else
+        {
+            HandleFeverMovement();
+        }
+    }
+
+    private void HandleNormalMovement()
+    {
+        playerRB.AddForce(playerTransform.forward * variableJoystick.Strength * (stat.MoveForce + stat.CurrentAdditionForce), ForceMode.Force);
+    }
+
+    private void HandleFeverMovement()
+    {
         playerRB.AddForce(playerTransform.forward * variableJoystick.Strength * (stat.MoveForce + stat.CurrentAdditionForce), ForceMode.Force);
     }
 
@@ -156,7 +174,6 @@ public class PlayerPhysics : MonoBehaviour
             Quaternion wanderRotation = Quaternion.LookRotation(direction);
             playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, wanderRotation, stat.RotationSpeed * Time.deltaTime);
         }
-        
     }
 
     private void HandleRotationOnPCOld()
@@ -181,15 +198,7 @@ public class PlayerPhysics : MonoBehaviour
 
     void HandleBoost()
     {
-        if(variableJoystick.Strength >= joystickForceToChargeBoost)
-        {
-            float ratioDelta = Time.deltaTime / stat.BoostChargeTime;
-            stat.BoostChargeRatio += ratioDelta;
-            if (stat.BoostChargeRatio > 1)
-            {
-                stat.BoostChargeRatio = 1;
-            }
-        }
+        ChargeBoost();
 
         // 캐주얼함을 늘리기 위해 자동으로 부스터 수정.
         if(stat.BoostChargeRatio >= 1.0f)
@@ -202,6 +211,32 @@ public class PlayerPhysics : MonoBehaviour
         }
     }
 
+    private void ChargeBoost()
+    {
+        if (!owner.feverHandler.isFever)
+        {
+            if (variableJoystick.Strength >= joystickForceToChargeBoost)
+            {
+                ChargeBoost(stat.BoostChargeTime);
+            }
+        }
+        else
+        {
+            ChargeBoost(stat.BoostFeverChargeTime);
+        }
+    }
+
+    private void ChargeBoost(float chargeTime)
+    {
+        float ratioDelta = Time.deltaTime / chargeTime;
+        stat.BoostChargeRatio += ratioDelta;
+        if (stat.BoostChargeRatio > 1)
+        {
+            stat.BoostChargeRatio = 1;
+        }
+    }
+
+
     private void CalculateSpeed()
     {
         stat.RigidbodySpeed = playerRB.linearVelocity.magnitude;
@@ -210,7 +245,6 @@ public class PlayerPhysics : MonoBehaviour
     public float CalculateImpulseDamage(float impulseMagnitude, bool isCritical)
     {
         return stat.CalculateDamage(impulseMagnitude, isCritical);
-
     }
 
     private void HandleStatChange()

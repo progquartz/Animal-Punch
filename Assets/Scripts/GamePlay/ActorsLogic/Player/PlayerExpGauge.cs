@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 public class PlayerExpGauge : MonoBehaviour
 {
     [SerializeField] private Transform Target;
+    [SerializeField] private SpriteRenderer gaugeRenderer;
+    [SerializeField] private Color noneFeverColor;
+    [SerializeField] private Color feverColor;
     private Vector3 targetOffset = new Vector3(0f, -1f, 0f);
 
     private float MinArcRotation = 345f;
@@ -17,6 +20,7 @@ public class PlayerExpGauge : MonoBehaviour
     {
         UpdatePosition();
         UpdateExpGauge();
+        UpdateExpGaugeColor();
     }
 
     private void UpdatePosition()
@@ -24,9 +28,24 @@ public class PlayerExpGauge : MonoBehaviour
         transform.position = Target.position + targetOffset;
     }
 
+    private void UpdateExpGaugeColor()
+    {
+        if(Player.Instance.feverHandler.isFever)
+        {
+            gaugeRenderer.color = feverColor;
+        }
+        else
+        {
+            gaugeRenderer.color = noneFeverColor;
+        }
+    }
+
     private void UpdateExpGauge()
     {
-        float ratio = (float)Player.Instance.Stat.CurrentExp / Player.Instance.Stat.LevelUpExpNeed;
+        float ratio = Player.Instance.feverHandler.GetFeverRatio();
+        Debug.Log(Player.Instance.feverHandler.GetFeverRatio());
+        //float ratio = (float)Player.Instance.Stat.CurrentExp / Player.Instance.Stat.LevelUpExpNeed;
+        //Debug.Log(ratio);
         if (ratio < prevRatio) // 레벨업 한 경우
         {
             prevRatio = ratio;

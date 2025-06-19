@@ -28,7 +28,7 @@ public class RatioUI : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
 
         if (GetRatio != null)
         {

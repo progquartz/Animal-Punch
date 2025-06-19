@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - key: MainBGM
-    volume: 0.2
+    volume: 0.4
     pitch: 1
     clip:
     - {fileID: 8300000, guid: f19c0f8f6f8aad740811c507b8813bfd, type: 3}
@@ -75,3 +75,11 @@ MonoBehaviour:
     pitch: 0.8
     clip:
     - {fileID: 8300000, guid: 2cadf34ee7b9a5d44b131dbb8950c43a, type: 3}
+  - key: EnemyHit
+    volume: 0.3
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 4fe786cd10bbbaa4a9f04741b4f57867, type: 3}
+    - {fileID: 8300000, guid: 627ef782ed318fc4e81751cd6919cbc9, type: 3}
+    - {fileID: 8300000, guid: 383a76cd8c76d234a8ff83809d5f2417, type: 3}
+    - {fileID: 8300000, guid: 9d8f9bb541bde1a4a85e95da7bf34a7e, type: 3}

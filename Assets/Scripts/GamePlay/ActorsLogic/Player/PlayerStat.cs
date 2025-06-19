@@ -19,8 +19,9 @@ public class PlayerStat
 
     [Header("부스터")]
     public float BoostForce;                        // 앞으로 튀어나갈 힘
-    public float BoostChargeRatio;                     // Space 키 쿨타임
+    public float BoostChargeRatio;                     
     public float BoostChargeTime = 2.0f;
+    public float BoostFeverChargeTime = 0.25f;
     public float BoostChargeMinimalTime = 0.3f;
     
 
@@ -41,6 +42,10 @@ public class PlayerStat
     [Header("치명타 관련")]
     public int CriticalChance;
     public int CriticalBonusDamage;
+
+    [Header("콤보 데미지")]
+    public int ComboDamageBase = 1;
+    public int ComboDamageAdditional = 0; 
 
     [Header("경험치 및 레벨")]
     public int Level;
@@ -86,20 +91,31 @@ public class PlayerStat
         return Random.Range(0,100) <= CriticalChance;
     }
 
+    public float GetComboCountRatio()
+    {
+        return (ComboDamageBase + ComboDamageAdditional) * 0.01f;
+    }
+
     public float CalculateDamage(float impulseMagnitude, bool IsCritical)
     {
-
+        // 기본 데미지
         float baseDamage = CollisionDamageBase + CollisionDamageAdditional;
+
+        // 충격량 데미지
         float impulseDamage = CollisionImpulseDamageBase * (impulseMagnitude / CollisionImpulseStandard) * CollisionImpulseDamageRatio;
 
-        float totalDamage = baseDamage + impulseDamage;
+        // 콤보 곱하기
+        float comboRatio = Player.Instance.comboHandler.comboDamageRatio;
+
+        // 일반 데미지 = (기본 데미지 + 충격량 데미지 ) * 콤보 배율
+        float normalDamage = (baseDamage + impulseDamage) * comboRatio;
 
         if (IsCritical)
         {
-            totalDamage *= 2f + (0.01f * CriticalBonusDamage);
+            normalDamage *= 2f + (0.01f * CriticalBonusDamage);
         }
 
-        return totalDamage;
+        return normalDamage;
     }
 
     public void CopyData(PlayerStat stat)
@@ -111,6 +127,7 @@ public class PlayerStat
         BoostForce = stat.BoostForce;                        // 앞으로 튀어나갈 힘
         BoostChargeRatio = stat.BoostChargeRatio;                     // Space 키 쿨타임
         BoostChargeTime = stat.BoostChargeTime;
+        BoostFeverChargeTime = stat.BoostFeverChargeTime;
         BoostChargeMinimalTime = stat.BoostChargeMinimalTime;
 
 
@@ -136,7 +153,10 @@ public class PlayerStat
         LevelUpExpNeed = stat.LevelUpExpNeed; // 레벨 업에 필요한 경험치.
         CurrentExp = stat.CurrentExp;
         AdditionalExpRatio = stat.AdditionalExpRatio;
-}
+
+        ComboDamageBase = stat.ComboDamageBase;
+        ComboDamageAdditional = stat.ComboDamageAdditional;
+    }
 
 
 }

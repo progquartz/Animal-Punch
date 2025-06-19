@@ -86,7 +86,7 @@ public class DropLoot : MonoBehaviour
     private void LootItem()
     {
         GameManager.Instance.GainGameTime(dropItemData.TimeAmount);
-        if(Player.Instance.Stat.GainExp(dropItemData.ExpAmount))
+        if(Player.Instance.GainExp(dropItemData.ExpAmount))
         {
             LootingManager.Instance.OpenLootUI();
         }
@@ -100,7 +100,7 @@ public class DropLoot : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.IsTimeStop) return;
+        if (GameManager.Instance.IsGamePaused) return;
 
         if (currentWaiting)
         {

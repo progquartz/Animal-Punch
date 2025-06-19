@@ -3,35 +3,23 @@ using UnityEngine.Rendering.Universal;
 
 public class HealthRatioComponent
 {
-    public float StartTime = 0f;
-    public float EndTime = 600f;
-    public float startValue = 1f;
-    public float endValue = 15f;
-    
-    private float ratio;            // 현재 비율
-    private float timeElapsed;      // 경과 시간
+    [Header("Multiplier Settings")]
+    [SerializeField] private float maxRatio = 3f;
+    [SerializeField] private float maxTime = 1800f;
+    [SerializeField, Range(1f, 5f)] private float easePower = 2f; // 높을수록 천천히 시작해서 점점 가속
 
+    private float currentTime = 0f;
+    public float Ratio { get; private set; } = 1f;
 
-    public void UpdateHealthRatio (float time)
+    public void UpdateRatio()
     {
-        timeElapsed = time;
+        currentTime = GameManager.Instance.GameTime;
+        currentTime = Mathf.Min(currentTime, maxTime); // maxtime 이상 증가하지 않도록 만들기.
 
-        // 경과 시간 비율 t (0 ~ 1)
-        float t = Mathf.InverseLerp(StartTime, EndTime, timeElapsed);
-        t = Mathf.Clamp01(t); // 보통의 안전장치
+        float normalizedTime = currentTime / maxTime;
+        float curved = Mathf.Pow(normalizedTime, easePower);
 
-        // ease in 효과 적용: t를 비선형으로 (t^2)
-        float easeInT = Mathf.Pow(t, 2);
-
-        // 선형 보간에 적용 (t 대신 easeInT)
-        ratio = Mathf.Lerp(startValue, endValue, easeInT);
-
-        //Debug.Log($"[Ease In] 시간: {timeElapsed:F1}, 배수: {ratio:F2}");
-    }
-
-    public float GetHealthRatio()
-    {
-        return ratio;
+        Ratio = Mathf.Lerp(1f, maxRatio, curved); // 비율 보간
     }
 }
 

@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         EnemyRB = EnemyTransform.GetComponent<Rigidbody>();
         
-        if (GameManager.Instance.IsTimeStop)
+        if (GameManager.Instance.IsGamePaused)
         {
             EnemyRB.isKinematic = true;
             EnemyRB.linearVelocity = Vector3.zero;
@@ -63,14 +63,16 @@ public class Enemy : MonoBehaviour
         LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         OnDead?.Invoke();
     }
+    public virtual bool HandleDamage(Collision collision, float impulseDamage, bool isCritical)
+    {
+        bool isDead = stat.HandleDamage(impulseDamage);
+        return isDead;
+    }
 
     protected void ResetStates()
     {
         stat.IsDead = false;
     }
 
-    public virtual void OnDamage(bool IsCritical)
-    {
-        
-    }
+
 }
