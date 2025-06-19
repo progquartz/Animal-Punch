@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ComboUI : MonoBehaviour
 {
     public TextMeshProUGUI comboText;
+    public TextMeshProUGUI comboRatioText;
     public Slider comboSlider;
     public GameObject comboUIGroup;
 
@@ -43,6 +44,7 @@ public class ComboUI : MonoBehaviour
 
             // 텍스트 및 슬라이더 업데이트
             comboText.text = $"{comboHandler.comboCount} Combo!";
+            comboRatioText.text = comboHandler.comboDamageRatio.ToString();
 
             float progress = comboHandler.comboTimer / comboHandler.comboResetTime;
             comboSlider.value = 1f - progress;

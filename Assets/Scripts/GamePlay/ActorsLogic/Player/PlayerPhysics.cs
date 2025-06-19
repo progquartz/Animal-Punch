@@ -245,7 +245,6 @@ public class PlayerPhysics : MonoBehaviour
     public float CalculateImpulseDamage(float impulseMagnitude, bool isCritical)
     {
         return stat.CalculateDamage(impulseMagnitude, isCritical);
-
     }
 
     private void HandleStatChange()

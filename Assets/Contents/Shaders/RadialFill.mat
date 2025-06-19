@@ -101,7 +101,7 @@ Material:
     - _AlphaToMask: 0
     - _Angle: 270
     - _Arc1: 15
-    - _Arc2: 192.1392
+    - _Arc2: 345
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
