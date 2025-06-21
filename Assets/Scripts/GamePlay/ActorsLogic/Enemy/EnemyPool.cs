@@ -26,7 +26,7 @@ public class EnemyPool : MonoBehaviour
         }
     }
 
-    public GameObject GetFromPool(string key, Transform parent, Vector3 position)
+    public GameObject GetFromPool(string key, Transform parent, Vector3 position, bool isDummy = false)
     {
         GameObject obj;
 

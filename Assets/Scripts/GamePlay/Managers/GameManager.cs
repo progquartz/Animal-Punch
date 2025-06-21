@@ -4,8 +4,8 @@ using UnityEngine;
 public class GameManager : SingletonBehaviour<GameManager>
 {
     public VideoSettingComponent VideoSetting = new VideoSettingComponent();
-
     public HealthRatioComponent EnemyHealthRatio = new HealthRatioComponent();
+    public EnemyDeathCountHandler EnemyDeathCountHandler = new EnemyDeathCountHandler();
     
     [SerializeField] private PlayerInfoDatas _playerInfoDatas;
 

@@ -17,7 +17,7 @@ public class HealthRatioComponent
         currentTime = Mathf.Min(currentTime, maxTime); // maxtime 이상 증가하지 않도록 만들기.
 
         float normalizedTime = currentTime / maxTime;
-        Debug.Log(maxTime + " " + maxRatio + " " +   normalizedTime + " " + Ratio);
+        //Debug.Log(maxTime + " " + maxRatio + " " +   normalizedTime + " " + Ratio);
         Ratio = Mathf.Lerp(1f, maxRatio, normalizedTime); // 비율 보간
     }
 }
