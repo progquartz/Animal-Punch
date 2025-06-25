@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.IsGamePaused) return;
+        if (!GameManager.Instance.IsGameStarted ||  GameManager.Instance.IsGamePaused || GameManager.Instance.IsGameOver) return;
 
         HandleImmediateSpawn();
         HandleIntervalSpawn();
@@ -184,6 +184,23 @@ public class EnemySpawner : MonoBehaviour
             {
                 // 풀에 없으니까 소환된거임...
                 if (!enemy.IsInPool && IsOutOfDespawnDistance(enemy.transform.position, playerTransform.position))
+                {
+                    string poolKey = enemy.targetEnemyDataSO.ActorKey;
+                    Pool.ReturnToPool(poolKey, enemy.gameObject);
+                }
+            }
+        }
+    }
+
+    public void DeSpawnAllEnemies()
+    {
+        foreach(Transform child in EnemyParentTransform)
+        {
+            Enemy enemy;
+            if (child.TryGetComponent<Enemy>(out enemy))
+            {
+                // 풀에 없으니까 소환된거임...
+                if (!enemy.IsInPool)
                 {
                     string poolKey = enemy.targetEnemyDataSO.ActorKey;
                     Pool.ReturnToPool(poolKey, enemy.gameObject);

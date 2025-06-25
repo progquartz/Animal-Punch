@@ -29,13 +29,13 @@ public class EnemyMoving : Enemy
 
     public override void HandleDeath()
     {
-        stat.IsDead = true;
+        base.HandleDeath();
         particleController.OnDead();
         animationController.OnDead();
 
         LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
+        GameManager.Instance.EnemyDeathCountHandler.RegisterDeath(targetEnemyDataSO.ActorKey);
         PlayDeadSound();
-        OnDead?.Invoke();
     }
 
     

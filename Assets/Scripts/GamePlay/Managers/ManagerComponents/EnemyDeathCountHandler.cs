@@ -8,6 +8,7 @@ public class EnemyDeathCountHandler
 
     public void RegisterDeath(string enemyKey)
     {
+        Debug.Log($"{enemyKey}аж╠щ");
         if (!deathCounts.ContainsKey(enemyKey))
         {
             deathCounts[enemyKey] = 1;
@@ -42,5 +43,15 @@ public class EnemyDeathCountHandler
     public bool HasEnemiesLeft()
     {
         return availableKeys.Count > 0;
+    }
+
+    public int GetTotalDeathCount()
+    {
+        int total = 0;
+        foreach (var count in deathCounts.Values)
+        {
+            total += count;
+        }
+        return total;
     }
 }

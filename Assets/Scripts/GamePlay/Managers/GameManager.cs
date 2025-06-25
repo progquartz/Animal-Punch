@@ -20,8 +20,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float GameTimeDecreaseRate = 1.0f;
 
 
-    public bool IsGameStarted = false;
+    public bool IsGameStarted = true;
     public bool IsGamePaused = false;
+    public bool IsGameOver = false;
     public Action<bool> OnTimeToggle;
     public Action OnQuitGameScene;
 
@@ -37,7 +38,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        if(IsGameStarted || !IsGamePaused)
+        if(IsGameStarted || !IsGamePaused || !IsGameOver)
         {
             UpdateGameTime();
             UpdateGameRatios();
@@ -67,12 +68,15 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void EndGameState()
     {
+        IsGameOver = true;
+        IsGamePaused = true;
         IsGameStarted = false;
-        IsGamePaused = false;
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
-        //OnQuitGameScene.Invoke();
+
+        MapManager.Instance.EnemySpawner.DeSpawnAllEnemies();
+        Player.Instance.gameObject.SetActive(false); // 이렇게 해도 되는지 확인해야 함.
     }
 
     public void GainGameTime(float amount)
@@ -104,15 +108,16 @@ public class GameManager : SingletonBehaviour<GameManager>
     private void CheckGameEnd()
     {
         // 게임 오버 정의.
-        if(GameTimeLeft < 0)
+        if(GameTimeLeft < 0 && !IsGameOver)
         {
             OnGameOver();
         }
     }
 
-    private void OnGameOver()
+    public void OnGameOver()
     {
-        //Logger.LogError("게임 오버!");
+        EndGameState();
+        EndingManager.Instance.OnGameOver();
     }
 
     /// <summary>
