@@ -32,6 +32,10 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         gameOverScreenUI.ShowScore(droppingTime);
     }
 
+    public void OnGameOverDummy()
+    {
+        GameManager.Instance.OnGameOver();
+    }
     public void HandleEndingScreenUI(int score, bool isSkipped = false)
     {
         if(!isSkipped)

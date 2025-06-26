@@ -99,8 +99,6 @@ public class GameOverScreenUI : MonoBehaviour
         {
             currentEnemyScore += Mathf.CeilToInt(scoreAnimationSpeed * Time.deltaTime);
             if (currentEnemyScore > targetScore) currentEnemyScore = targetScore;
-
-            enemyScoreText.text = currentEnemyScore.ToString("N0");
             CheckMilestones(currentEnemyScore);
 
             yield return null;

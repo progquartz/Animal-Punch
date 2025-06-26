@@ -158,6 +158,8 @@ public class GameOverSpawner : MonoBehaviour
         while (GameManager.Instance.EnemyDeathCountHandler.HasEnemiesLeft() || !isSkipped)
         {
             string enemyKey = GameManager.Instance.EnemyDeathCountHandler.GetRandomEnemyKey();
+            if (enemyKey == null)
+                break;
             EnemyDataSO enemyData = DataManager.Instance.EnemyDataStorage.GetEnemyData(enemyKey);
             EndingManager.Instance.HandleEndingScreenUI(enemyData.DropItemData.ExpAmount);
 
