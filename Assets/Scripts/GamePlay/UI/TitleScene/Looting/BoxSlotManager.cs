@@ -5,9 +5,19 @@ using System.IO;
 
 public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 {
+    private List<BoxDataSO> _allBoxDataList;
     public List<LootingBoxSlot> slots = new(4);
-    public List<BoxDataSO> allBoxDataList;
-
+    public List<BoxDataSO> AllBoxDataList
+    {
+        get
+        {
+            if (_allBoxDataList == null)
+            {
+                LoadBoxData();
+            }
+            return _allBoxDataList;
+        }
+    }
     public int slotButtonRequestIndex = -1;
 
 
@@ -21,9 +31,9 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
         LoadBoxData();
     }
 
-    public BoxDataSO GetBoxDataById(string id)
+    public BoxDataSO GetBoxDataById(BoxRankType id)
     {
-        return allBoxDataList.Find(b => b.id == id);
+        return AllBoxDataList.Find(b => b.rank == id);
     }
 
     public BoxDataSO GetBoxDataInIndex(int index)
@@ -36,13 +46,13 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 
     public void TestBoxPutting()
     {
-        AssignBoxToSlot(0, GetBoxDataById("NormalBox"));
+        AssignBoxToSlot(0, GetBoxDataById(BoxRankType.Normal));
     }
 
 
     public void AssignBoxToSlot(int index, BoxDataSO boxData)
     {
-        if(allBoxDataList.Count == 0)
+        if(AllBoxDataList.Count == 0)
             LoadBoxData();
 
 
@@ -130,13 +140,17 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 
     private void LoadBoxData()
     {
-        allBoxDataList.Clear();
+        if(_allBoxDataList == null)        
+            _allBoxDataList = new List<BoxDataSO>();
+        else
+            _allBoxDataList.Clear();
+        
         BoxDataSO[] loadedBoxes = Resources.LoadAll<BoxDataSO>(boxDataListPath);
 
         if (loadedBoxes != null && loadedBoxes.Length > 0)
         {
-            allBoxDataList.AddRange(loadedBoxes);
-            Debug.Log($"{allBoxDataList.Count}개의 박스 데이터 로드.");
+            _allBoxDataList.AddRange(loadedBoxes);
+            Debug.Log($"{_allBoxDataList.Count}개의 박스 데이터 로드.");
             
         }
         else

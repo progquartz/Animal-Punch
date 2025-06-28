@@ -41,12 +41,10 @@ public class GameOverObjectPool : MonoBehaviour
         GameObject obj;
         if (visualPool[key].Count > 0)
         {
-            Debug.Log("test1");
             obj = visualPool[key].Dequeue();
         }
         else
         {
-            Debug.Log("test2");
             obj = Instantiate(enemyData.modelLow);
         }
         obj.SetActive(true);

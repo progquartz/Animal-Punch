@@ -12,6 +12,7 @@ public class GameOverScreenUI : MonoBehaviour
     public TMP_Text floatingScoreTextPrefab;
     public Transform floatingTextParent;
 
+    public GameOverLootingUI lootingUI;
 
     private int currentTotalScore = 0;
     private int targetTimeScore = 0;
@@ -35,7 +36,7 @@ public class GameOverScreenUI : MonoBehaviour
         // 시간 점수 처리
         if (!isSkipped)
         {
-            if (currentTimeScore < targetTimeScore)
+            if (currentTimeScore < EndingManager.Instance.finalTimeScore)
             {
                 currentTime += Time.deltaTime;
                 float t = Mathf.Clamp01(currentTime / droppingTime);
@@ -45,7 +46,7 @@ public class GameOverScreenUI : MonoBehaviour
         else
         {
             // 스킵된 경우에는 즉시 최대값으로 설정
-            currentTimeScore = targetTimeScore;
+            currentTimeScore = EndingManager.Instance.finalTimeScore;
             currentEnemyScore = GameManager.Instance.EnemyDeathCountHandler.GetTotalDeathCount(); // 예시
         }
 
@@ -64,9 +65,10 @@ public class GameOverScreenUI : MonoBehaviour
         isTriggered = true;
         isSkipped = false;
         droppingTime = dropTime;
+        
         currentTime = 0f;
-
-        targetTimeScore = Mathf.RoundToInt(GameManager.Instance.GameTime);
+        targetTimeScore = EndingManager.Instance.finalTimeScore;
+        lootingUI.ShowLoot(EndingManager.Instance.finalTotalScore, EndingManager.Instance.lootingData);
     }
 
     public void OnSkipButtonTriggered()
@@ -86,16 +88,11 @@ public class GameOverScreenUI : MonoBehaviour
         enemyScoreText.text = targetScore.ToString();
     }
 
-    public void OnAddingEnemyScoreFinished()
-    {
-        
-    }
-
     private IEnumerator AnimateEnemyScore(int score)
     {
         int targetScore = currentEnemyScore + score;
 
-        while (currentEnemyScore < targetScore)
+        while (currentEnemyScore < targetScore && !isSkipped)
         {
             currentEnemyScore += Mathf.CeilToInt(scoreAnimationSpeed * Time.deltaTime);
             if (currentEnemyScore > targetScore) currentEnemyScore = targetScore;

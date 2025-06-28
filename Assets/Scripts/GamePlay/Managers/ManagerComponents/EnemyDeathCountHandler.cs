@@ -8,7 +8,7 @@ public class EnemyDeathCountHandler
 
     public void RegisterDeath(string enemyKey)
     {
-        Debug.Log($"{enemyKey}주금");
+        //Debug.Log($"{enemyKey}주금");
         if (!deathCounts.ContainsKey(enemyKey))
         {
             deathCounts[enemyKey] = 1;
@@ -53,5 +53,17 @@ public class EnemyDeathCountHandler
             total += count;
         }
         return total;
+    }
+
+    public int GetDeathScore()
+    {
+        int deathScore = 0;
+
+        foreach (var count in deathCounts)
+        {
+            EnemyDataSO enemyData = DataManager.Instance.EnemyDataStorage.GetEnemyData(count.Key);
+            deathScore += enemyData.DropItemData.ExpAmount * count.Value;
+        }
+        return deathScore;
     }
 }

@@ -42,7 +42,7 @@ public class BoxInventoryUI : BaseUI
         int i = 0;
         for (i = 0; i < boxKeyList.Count; i++)
         {
-            BoxDataSO boxData = BoxSlotManager.Instance.allBoxDataList.Find(b => b.id == boxKeyList[i].boxId);
+            BoxDataSO boxData = BoxSlotManager.Instance.AllBoxDataList.Find(b => b.rank == boxKeyList[i].boxId);
             if (boxData == null) continue;
             AssignNewSlot(i, boxData);
         }

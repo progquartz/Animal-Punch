@@ -88,7 +88,7 @@ public class DropLoot : MonoBehaviour
         GameManager.Instance.GainGameTime(dropItemData.TimeAmount);
         if(Player.Instance.GainExp(dropItemData.ExpAmount))
         {
-            LootingManager.Instance.OpenLootUI();
+            DropManager.Instance.OpenLootUI();
         }
         InGameTextPooler.Instance.SpawnText($"+{dropItemData.GoldAmount}", Color.yellow, Player.Instance.PlayerTransform.position);
         Player.Instance.Inventory.GainGold(dropItemData.GoldAmount);

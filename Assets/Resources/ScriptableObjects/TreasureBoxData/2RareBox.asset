@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4d56bd5756f884c8a0abe412fc875c, type: 3}
   m_Name: 2RareBox
   m_EditorClassIdentifier: 
-  id: RareBox
+  rank: 2
   displayName: Rare Treasure Box
   icon: {fileID: 21300000, guid: 49ccc48012798ed42b0fbe2df6dab484, type: 3}
   unlockDurationSeconds: 1000
+  unlockableItems: []
+  minScore: 1
+  bonusScoreStep: 10
+  bonusRate: 5
+  baseRate: 100
+  dropScore: 5

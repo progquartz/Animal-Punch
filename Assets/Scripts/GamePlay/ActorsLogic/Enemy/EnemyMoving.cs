@@ -33,7 +33,7 @@ public class EnemyMoving : Enemy
         particleController.OnDead();
         animationController.OnDead();
 
-        LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
+        DropManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         GameManager.Instance.EnemyDeathCountHandler.RegisterDeath(targetEnemyDataSO.ActorKey);
         PlayDeadSound();
     }

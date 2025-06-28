@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4d56bd5756f884c8a0abe412fc875c, type: 3}
   m_Name: 3UniqueBox
   m_EditorClassIdentifier: 
-  id: UniqueBox
+  rank: 3
   displayName: Unique Treasure Box
   icon: {fileID: 21300000, guid: 3dcb610315a71644f84aa3a430131d4e, type: 3}
   unlockDurationSeconds: 3600
+  unlockableItems: []
+  minScore: 1
+  bonusScoreStep: 10
+  bonusRate: 5
+  baseRate: 100
+  dropScore: 10

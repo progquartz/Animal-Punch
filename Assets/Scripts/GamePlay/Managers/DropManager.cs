@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LootingManager : SingletonBehaviour<LootingManager>
+public class DropManager : SingletonBehaviour<DropManager>
 {
     public GameObject LootingPrefab;
     public GameObject LootingParent;
