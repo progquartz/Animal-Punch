@@ -21,27 +21,13 @@ public class GameOverLootingUI : MonoBehaviour
 
     public void ShowLoot(int totalScore, List<LootingData> lootingData)
     {
-        Debug.Log("GameOverLootingUI Working");
-        foreach (LootingData data in lootingData)
+        for(int i = 0; i < lootingData.Count; i++)
         {
             GameObject slot = Instantiate(lootingslot, gridTransform);
-            LootingRankDesignTemplate designTemplate = rankDesignTemplateList.FirstOrDefault(o => o.rank == data.rankType);
+            LootingRankDesignTemplate designTemplate = rankDesignTemplateList.FirstOrDefault(o => o.rank == lootingData[i].rankType);
 
-            slot.GetComponent<GameOverLootingUISlot>().SetUI(designTemplate, data.count);
-
-            if (data.rankType == BoxRankType.Gold)
-            {
-
-            }
-            else if (data.rankType == BoxRankType.Gem)
-            {
-
-            }
-            else
-            {
-
-            }
-
+            float slotWaitingTime = i * 0.1f;
+            slot.GetComponent<GameOverLootingUISlot>().SetUI(designTemplate,lootingData[i].count);
         }
 
 

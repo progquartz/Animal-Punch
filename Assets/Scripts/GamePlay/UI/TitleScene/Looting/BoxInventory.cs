@@ -7,6 +7,7 @@ public class BoxInventory
 {
     public List<BoxCount> boxCounts = new();
 
+
     [Serializable]
     public class BoxCount
     {

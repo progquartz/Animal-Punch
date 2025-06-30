@@ -168,6 +168,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8576565978213396611}
+  - {fileID: 6827010450024573282}
   m_Father: {fileID: 5741760227799039418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -287,7 +288,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5238325861377932814}
-  - {fileID: 6827010450024573282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -311,6 +311,7 @@ MonoBehaviour:
   LootingUIForeground: {fileID: 8877517482327192096}
   LootingItemImage: {fileID: 7015301164868950621}
   LootingCountText: {fileID: 3802977371852307845}
+  LootingSlotTransform: {fileID: 5238325861377932814}
 --- !u!1 &4639480607490471847
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,13 +337,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4639480607490471847}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1294153298886696509}
-  m_Father: {fileID: 5741760227799039418}
+  m_Father: {fileID: 5238325861377932814}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

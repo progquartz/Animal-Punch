@@ -10,6 +10,7 @@ public class GoldUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goldText.text = Player.Instance.Inventory.gold.ToString();
+
+        goldText.text = InventoryManager.Instance.gold.ToString();
     }
 }

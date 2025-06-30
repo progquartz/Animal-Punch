@@ -15,6 +15,7 @@ public class GameOverSpawner : MonoBehaviour
     public void StartDroppingEnemies()
     {
         dropContainer.position = dropContainerPos.position;
+        SoundManager.Instance.PlaySFX("EndingScoreUpLoop", AudioType.UI, isLoop: true);
         StartCoroutine(DropEnemiesRoutine());
     }
 
@@ -108,51 +109,6 @@ public class GameOverSpawner : MonoBehaviour
         return dropInterval * GameManager.Instance.EnemyDeathCountHandler.GetTotalDeathCount();
     }
 
-    /*
-
-    private IEnumerator DropEnemiesRoutine()
-    {
-        while (GameManager.Instance.EnemyDeathCountHandler.HasEnemiesLeft())
-        {
-            string enemyKey = GameManager.Instance.EnemyDeathCountHandler.GetRandomEnemyKey();
-            if (enemyKey == null) yield break;
-
-
-            Vector3 spawnPos = dropContainer.position + Random.insideUnitSphere * 2f;
-            spawnPos.y = dropContainer.position.y;
-
-            GameObject dummy = Instantiate(dummyObject);
-
-            dummy.SetActive(false);  // 활성화 전 설정
-            dummy.transform.SetParent(dropContainer, false);
-            dummy.transform.position = spawnPos;
-            dummy.transform.rotation = Random.rotation;
-
-            Rigidbody rb = dummy.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                rb.Sleep();
-            }
-
-
-            EnemyDataSO enemyData = DataManager.Instance.EnemyDataStorage.GetEnemyData(enemyKey);
-            EndingManager.Instance.HandleEndingScreenUI(enemyData.DropItemData.ExpAmount);
-
-            GameObject enemyVisual = enemyData.modelLow;
-
-            Instantiate(enemyVisual, dummy.transform);
-            enemyVisual.transform.localPosition = Vector3.zero;
-            enemyVisual.transform.localRotation = Quaternion.identity;
-
-            dummy.SetActive(true);
-
-            yield return new WaitForSeconds(dropInterval);
-        }
-    }
-    */
-
     private IEnumerator DropEnemiesRoutine()
     {
         while (GameManager.Instance.EnemyDeathCountHandler.HasEnemiesLeft() || !isSkipped)
@@ -195,5 +151,8 @@ public class GameOverSpawner : MonoBehaviour
 
             yield return new WaitForSeconds(dropInterval);
         }
+        SoundManager.Instance.StopLoopSFX("EndingScoreUpLoop");
+        SoundManager.Instance.PlaySFX("EndingScoreUpEnd", AudioType.UI);
+        EndingManager.Instance.ShowLoot();
     }
 }

@@ -33,7 +33,7 @@ public class BoxInventoryUI : BaseUI
 
     private void InitUI()
     {
-        List<BoxInventory.BoxCount> boxKeyList = BoxInventoryManager.Instance.GetOwnedBoxes();
+        List<BoxInventory.BoxCount> boxKeyList = InventoryManager.Instance.GetOwnedBoxes();
 
         foreach (Transform child in contentParent)
         {
@@ -42,7 +42,7 @@ public class BoxInventoryUI : BaseUI
         int i = 0;
         for (i = 0; i < boxKeyList.Count; i++)
         {
-            BoxDataSO boxData = BoxSlotManager.Instance.AllBoxDataList.Find(b => b.rank == boxKeyList[i].boxId);
+            BoxDataSO boxData = DataManager.Instance.LootingStorage.AllBoxDataList.Find(b => b.rank == boxKeyList[i].boxId);
             if (boxData == null) continue;
             AssignNewSlot(i, boxData);
         }
@@ -101,7 +101,7 @@ public class BoxInventoryUI : BaseUI
         Button assignButton = slotUI.assignButton;
         assignButton.onClick.AddListener(() =>
         {
-            if (BoxInventoryManager.Instance.AssignBox(selectedBoxIndex, BoxSlotManager.Instance.slotButtonRequestIndex))
+            if (InventoryManager.Instance.AssignBox(selectedBoxIndex, BoxSlotManager.Instance.slotButtonRequestIndex))
             {
                 EraseSlot(selectedBoxIndex);
                 selectedBoxIndex = -1;
@@ -124,7 +124,7 @@ public class BoxInventoryUI : BaseUI
         }
         GameObject slot = contentParent.GetChild(index).gameObject;
         Destroy(slot);
-        List<BoxInventory.BoxCount> boxKeyList = BoxInventoryManager.Instance.GetOwnedBoxes();
+        List<BoxInventory.BoxCount> boxKeyList = InventoryManager.Instance.GetOwnedBoxes();
         if(boxKeyList.Count < maxInventoryBoxCount)
         {
             // Ãß°¡...

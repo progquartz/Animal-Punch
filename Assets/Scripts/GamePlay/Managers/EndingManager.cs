@@ -11,6 +11,7 @@ public class EndingManager : SingletonBehaviour<EndingManager>
 
     [SerializeField] private GameOverSpawner gameOverSpawner;
     [SerializeField] private GameOverScreenUI gameOverScreenUI;
+    [SerializeField] private GameOverLootingUI gameOverLootingUI;
     public int finalTotalScore = 0;
     public int finalTimeScore = 0;
     public int finalEnemyScore = 0;
@@ -36,8 +37,8 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         gameOverSpawner.TestAnimalDeathStack();
         CalculateFinalScores();
         float droppingTime = gameOverSpawner.GetAllSpawnTime();
-        lootingData = BoxInventoryManager.Instance.CalculateGameEndingLoots(finalTotalScore);
-
+        lootingData = InventoryManager.Instance.CalculateGameEndingLoots(finalTotalScore);
+        InventoryManager.Instance.GetLoot(lootingData);
 
 
         // UI ÀÛ¾÷
@@ -48,6 +49,12 @@ public class EndingManager : SingletonBehaviour<EndingManager>
 
         
     }
+
+    public void ShowLoot()
+    {
+        gameOverLootingUI.ShowLoot(finalTotalScore, lootingData);
+    }
+
 
     public void OnGameOverDummy()
     {

@@ -16,9 +16,15 @@ public struct LootingData
     }
 }
 
-public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
+public class InventoryManager : SingletonBehaviour<InventoryManager>
 {
     public BoxInventory inventory = new();
+    public int gold = 0;
+    public int gem = 0;
+
+    private readonly string gemPlayerPrefsKey = "InventoryGem";
+    private readonly string goldPlayerPrefsKey = "InventoryGold";
+
     public int maxDropScore = 100;
 
     private string savePath => Path.Combine(Application.persistentDataPath, "boxinventory.json");
@@ -54,6 +60,21 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
         return result;
     }
 
+    public void AddGold(int amount, bool isNeedSave = false)
+    {
+        gold += amount;
+        if(isNeedSave)
+        {
+            SaveCashes();
+        }
+    }
+
+    public void AddGem(int amount)
+    {
+        gem += amount;
+        SaveCashes();
+    }
+
     public List<BoxInventory.BoxCount> GetOwnedBoxes()
     {
         return inventory.GetAllOwnedBoxes();
@@ -63,6 +84,25 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
     {
         string json = JsonUtility.ToJson(inventory, true);
         File.WriteAllText(savePath, json);
+        SaveCashes();
+    }
+
+    public void SaveCashes()
+    {
+        SaveGold();
+        SaveGem();
+        PlayerPrefs.Save();
+    }
+
+    private void SaveGold()
+    {
+        PlayerPrefs.SetInt(goldPlayerPrefsKey, gold);
+    }
+
+    private void SaveGem()
+    {
+        PlayerPrefs.SetInt(gemPlayerPrefsKey, gem);
+        
     }
 
     public void Load()
@@ -71,12 +111,24 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
         {
             string json = File.ReadAllText(savePath);
             inventory = JsonUtility.FromJson<BoxInventory>(json);
+            LoadGold();
+            LoadGem();
         }
         else
         {
             inventory = new BoxInventory();
             Save();
         }
+    }
+
+    private void LoadGold()
+    {
+        gold = PlayerPrefs.GetInt(gemPlayerPrefsKey);
+    }
+
+    private void LoadGem()
+    {
+        gem = PlayerPrefs.GetInt(gemPlayerPrefsKey);
     }
 
     public List<LootingData> CalculateGameEndingLoots(int totalScore)
@@ -161,17 +213,20 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
             // 榜靛 贸府
             if (data.rankType == BoxRankType.Gold)
             {
-
+                AddGold(data.count, true);
             }
             // 焊籍 贸府.
             else if (data.rankType == BoxRankType.Gem)
             {
-
+                AddGold(data.count);
             }
             // 惑磊 贸府.
             else
             {
-
+                for(int i = 0; i < data.count; i++)
+                {
+                    AddBox(data.rankType);
+                }
             }
         }
     }

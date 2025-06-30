@@ -83,3 +83,18 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 627ef782ed318fc4e81751cd6919cbc9, type: 3}
     - {fileID: 8300000, guid: 383a76cd8c76d234a8ff83809d5f2417, type: 3}
     - {fileID: 8300000, guid: 9d8f9bb541bde1a4a85e95da7bf34a7e, type: 3}
+  - key: EndingScoreUpLoop
+    volume: 0.3
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 3b35bd05590172547a469f8a44fe9aae, type: 3}
+  - key: EndingScoreUpEnd
+    volume: 0.3
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 903484f234d503d469d27409c8b824d0, type: 3}
+  - key: EndingLootChest
+    volume: 0.3
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: f22dc66628fc2844c80be739f14cd388, type: 3}

@@ -68,7 +68,6 @@ public class GameOverScreenUI : MonoBehaviour
         
         currentTime = 0f;
         targetTimeScore = EndingManager.Instance.finalTimeScore;
-        lootingUI.ShowLoot(EndingManager.Instance.finalTotalScore, EndingManager.Instance.lootingData);
     }
 
     public void OnSkipButtonTriggered()
