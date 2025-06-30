@@ -41,7 +41,7 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
         bool result = inventory.Use(inventoryIndex);
         if(result)
         {
-            BoxDataSO boxData = BoxSlotManager.Instance.AllBoxDataList.Find(b => b.rank == keyTryOpening);
+            BoxDataSO boxData = DataManager.Instance.LootingStorage.AllBoxDataList.Find(b => b.rank == keyTryOpening);
             // 슬롯 지정 없이 호출되었을 경우.
             if (slotIndex == -1)
             {
@@ -83,22 +83,18 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
     {
         var result = new List<LootingData>();
         int usedDropScore = 0;
-
-        Debug.Log($"[LootSystem] totalScore: {totalScore}, maxDropScore: {maxDropScore}");
-
-        var lootItems = BoxSlotManager.Instance.AllBoxDataList
+        var loots = DataManager.Instance.LootingStorage.AllBoxDataList
             .OrderByDescending(item => item.dropScore)
             .ToList();
+        loots.Add(DataManager.Instance.LootingStorage.GemData);
+        loots.Add(DataManager.Instance.LootingStorage.GoldData);
 
-        Debug.Log($"[LootSystem] Loaded {lootItems.Count} items from BoxSlotManager.");
-
-        foreach (var item in lootItems)
+        foreach (var item in loots)
         {
             Debug.Log($"[LootSystem] → Checking item: {item.name}, Rank: {item.rank}, MinScore: {item.minScore}");
 
             if (totalScore < item.minScore)
             {
-                Debug.Log($"  Skipped: totalScore({totalScore}) < minScore({item.minScore})");
                 continue;
             }
 
@@ -108,9 +104,7 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
             int guaranteedCount = Mathf.FloorToInt(totalChance / 100f);
             float leftoverChance = totalChance % 100f;
 
-            Debug.Log($"  baseRate: {item.baseRate}, bonusRate: {item.bonusRate}, bonusStep: {item.bonusScoreStep}");
-            Debug.Log($"  → totalChance: {totalChance}, guaranteedCount: {guaranteedCount}, leftoverChance: {leftoverChance}");
-
+            Debug.Log($"totalChance: {totalChance}");
             int finalCount = 0;
 
             // 확정 드랍
@@ -118,13 +112,11 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
             {
                 if (usedDropScore + item.dropScore > maxDropScore)
                 {
-                    Debug.Log($"  Stop guaranteed drop: usedDropScore({usedDropScore}) + dropScore({item.dropScore}) > maxDropScore({maxDropScore})");
                     break;
                 }
 
                 usedDropScore += item.dropScore;
                 finalCount++;
-                Debug.Log($"  Guaranteed drop #{i + 1}: total usedDropScore = {usedDropScore}");
             }
 
             // 추가 확률 드랍
@@ -132,17 +124,11 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
                 usedDropScore + item.dropScore <= maxDropScore)
             {
                 float roll = Random.Range(0f, 100f);
-                Debug.Log($"  Attempting leftover drop: chance = {leftoverChance}, rolled = {roll}");
 
                 if (roll < leftoverChance)
                 {
                     usedDropScore += item.dropScore;
                     finalCount++;
-                    Debug.Log($"  Success! Leftover drop added. Total usedDropScore = {usedDropScore}");
-                }
-                else
-                {
-                    Debug.Log($"  Failed leftover drop.");
                 }
             }
 
@@ -152,92 +138,43 @@ public class BoxInventoryManager : SingletonBehaviour<BoxInventoryManager>
                 if (index >= 0)
                 {
                     result[index] = new LootingData(item.rank, result[index].count + finalCount);
-                    Debug.Log($"  Updated existing entry: {item.rank} → count = {result[index].count}");
                 }
                 else
                 {
                     result.Add(new LootingData(item.rank, finalCount));
-                    Debug.Log($"  Added new entry: {item.rank} → count = {finalCount}");
                 }
-            }
-            else
-            {
-                Debug.Log($"  No loot given for item: {item.name}");
             }
         }
 
-        Debug.Log($"[LootSystem] Final result count: {result.Count}");
         foreach (var data in result)
         {
-            Debug.Log($" → {data.rankType}: {data.count}");
+            Debug.Log($"{data.rankType.ToString()}랭크를 {data.count} 개 드랍합니다.");
         }
 
         return result;
     }
 
-    /*
-    public List<LootingData> CalculateGameEndingLoots(int totalScore)
+    public void GetLoot(List<LootingData> lootingDatas)
     {
-        var result = new List<LootingData>();
-        int usedDropScore = 0;
-
-        // 드랍 점수 높은 순서대로 리스트 가져오기.
-        var lootItems = BoxSlotManager.Instance.AllBoxDataList.OrderByDescending(item => item.dropScore);
-        Debug.Log($"lootItems Count: {BoxSlotManager.Instance.AllBoxDataList.Count}");
-
-        foreach (var item in lootItems)
+        foreach (var data in lootingDatas)
         {
-            if (totalScore < item.minScore)
-                continue;
-
-            // 2. 누적 확률 계산
-            int bonusCount = Mathf.Max(0, (totalScore - item.minScore) / item.bonusScoreStep);
-            float totalChance = item.baseRate + (bonusCount * item.bonusRate);
-
-            int guaranteedCount = Mathf.FloorToInt(totalChance / 100f);
-            float leftoverChance = totalChance % 100f;
-
-            int finalCount = 0;
-
-            // 3. 확정 획득 계산 (드랍 점수 한도 내에서만)
-            for (int i = 0; i < guaranteedCount; i++)
+            // 골드 처리
+            if (data.rankType == BoxRankType.Gold)
             {
-                if (usedDropScore + item.dropScore > maxDropScore)
-                    break;
 
-                usedDropScore += item.dropScore;
-                finalCount++;
             }
-
-            // 4. 나머지 확률로 추가 획득 시도
-            if (leftoverChance > 0f &&
-                usedDropScore + item.dropScore <= maxDropScore &&
-                Random.Range(0f, 100f) < leftoverChance)
+            // 보석 처리.
+            else if (data.rankType == BoxRankType.Gem)
             {
-                usedDropScore += item.dropScore;
-                finalCount++;
+
             }
-
-            if (finalCount > 0)
+            // 상자 처리.
+            else
             {
-                // 기존 데이터에 누적
-                var existing = result.Find(x => x.rankType == item.rank);
-                if (result.Any(x => x.rankType == item.rank))
-                {
-                    existing.count += finalCount;
-                    result.RemoveAll(x => x.rankType == item.rank);
-                    result.Add(existing);
-                }
-                else
-                {
-                    result.Add(new LootingData(item.rank, finalCount));
-                }
+
             }
         }
-
-        return result;
     }
-    */
 
     public void TestLoot()
     {

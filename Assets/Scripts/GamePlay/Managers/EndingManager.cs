@@ -26,29 +26,22 @@ public class EndingManager : SingletonBehaviour<EndingManager>
 
     public void OnGameOver()
     {
-        TurnOffStaticUIs();
+        GameManager.Instance.EndGameState();
 
+        // 게임 비활성화
+        TurnOffStaticUIs();
         CameraManager.Instance.SwitchToCamera(CameraType.GameEndCamera);
 
-
-        //
-
         // 데이터 부분 작업
+        gameOverSpawner.TestAnimalDeathStack();
         CalculateFinalScores();
         float droppingTime = gameOverSpawner.GetAllSpawnTime();
-        Debug.Log("Test1");
         lootingData = BoxInventoryManager.Instance.CalculateGameEndingLoots(finalTotalScore);
-        foreach (LootingData data in lootingData)
-        {
-            Debug.Log($"{data.rankType.ToString()}랭크를 {data.count} 개 드랍합니다.");
-        }
 
 
 
-
+        // UI 작업
         GameEndingComponent.gameObject.SetActive(true);
-
-        gameOverSpawner.TestGameOver();
         gameOverSpawner.StartDroppingEnemies();
         
         gameOverScreenUI.ShowScore(droppingTime);

@@ -11,7 +11,7 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
     public List<UnlockableDataSO> allUnlocks = new();
     public bool hasChange = false;
     private string unlockIdSavePath => Path.Combine(Application.persistentDataPath, "unlocked.json");
-    private string allUnlockListPath = "ScriptableObjects/LootingData/";
+    private string allUnlockListPath = "ScriptableObjects/CharacterData/";
 
     protected override void Init()
     {

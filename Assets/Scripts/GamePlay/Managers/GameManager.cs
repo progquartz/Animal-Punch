@@ -116,7 +116,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void OnGameOver()
     {
-        EndGameState();
         EndingManager.Instance.OnGameOver();
     }
 

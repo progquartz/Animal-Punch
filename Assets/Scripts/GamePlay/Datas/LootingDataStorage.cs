@@ -19,6 +19,10 @@ public class LootingDataStorage : DataStorage
 
     // 게임플레이 외 루팅
 
+    // 게임 끝날 때에 뜨는 부분
+    public List<BoxDataSO> AllBoxDataList;
+    public BoxDataSO GoldData;
+    public BoxDataSO GemData;
 
 
     public void CheckResources()

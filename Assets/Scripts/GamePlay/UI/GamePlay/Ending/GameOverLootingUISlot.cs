@@ -14,5 +14,6 @@ public class GameOverLootingUISlot : MonoBehaviour
         LootingUIBackground.color = template.backgroundColor;
         LootingUIForeground.color = template.foregroundColor;
         LootingItemImage.sprite = template.sprite;
+        LootingCountText.text = count.ToString();
     }
 }

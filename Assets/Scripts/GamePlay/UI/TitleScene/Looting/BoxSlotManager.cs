@@ -5,35 +5,22 @@ using System.IO;
 
 public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 {
-    private List<BoxDataSO> _allBoxDataList;
     public List<LootingBoxSlot> slots = new(4);
-    public List<BoxDataSO> AllBoxDataList
-    {
-        get
-        {
-            if (_allBoxDataList == null)
-            {
-                LoadBoxData();
-            }
-            return _allBoxDataList;
-        }
-    }
     public int slotButtonRequestIndex = -1;
 
 
     private string savePath => Path.Combine(Application.persistentDataPath, "boxslots.json");
-    private string boxDataListPath = "ScriptableObjects/TreasureBoxData/";
+    private string boxDataListPath = "ScriptableObjects/LootingData/TreasureBoxData/";
 
     protected override void Init()
     {
         base.Init();
         Load();
-        LoadBoxData();
     }
 
     public BoxDataSO GetBoxDataById(BoxRankType id)
     {
-        return AllBoxDataList.Find(b => b.rank == id);
+        return DataManager.Instance.LootingStorage.AllBoxDataList.Find(b => b.rank == id);
     }
 
     public BoxDataSO GetBoxDataInIndex(int index)
@@ -52,10 +39,6 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 
     public void AssignBoxToSlot(int index, BoxDataSO boxData)
     {
-        if(AllBoxDataList.Count == 0)
-            LoadBoxData();
-
-
         slots[index] = new LootingBoxSlot
         {
             boxData = boxData,
@@ -135,27 +118,6 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
             slots.Clear();
             for (int i = 0; i < 4; i++) slots.Add(new LootingBoxSlot());
             Save();
-        }
-    }
-
-    private void LoadBoxData()
-    {
-        if(_allBoxDataList == null)        
-            _allBoxDataList = new List<BoxDataSO>();
-        else
-            _allBoxDataList.Clear();
-        
-        BoxDataSO[] loadedBoxes = Resources.LoadAll<BoxDataSO>(boxDataListPath);
-
-        if (loadedBoxes != null && loadedBoxes.Length > 0)
-        {
-            _allBoxDataList.AddRange(loadedBoxes);
-            Debug.Log($"{_allBoxDataList.Count}개의 박스 데이터 로드.");
-            
-        }
-        else
-        {
-            Debug.LogWarning($"다음 경로에서 박스 데이터를 읽기 실패함. /{boxDataListPath}");
         }
     }
 }

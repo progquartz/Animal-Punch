@@ -29,7 +29,7 @@ public class GameOverSpawner : MonoBehaviour
 
         }
     }
-    public void TestGameOver()
+    public void TestAnimalDeathStack()
     {
         GameManager.Instance.EnemyDeathCountHandler.RegisterDeath("Bear");
         GameManager.Instance.EnemyDeathCountHandler.RegisterDeath("Cow");

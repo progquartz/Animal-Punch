@@ -24,12 +24,10 @@ public class GameOverLootingUI : MonoBehaviour
         Debug.Log("GameOverLootingUI Working");
         foreach (LootingData data in lootingData)
         {
-            Debug.Log($"{data.rankType.ToString()}랭크를 {data.count} 개 드랍합니다.");
-            GameOverLootingUISlot slot = Instantiate(lootingslot, gridTransform).GetComponent<GameOverLootingUISlot>();
-
+            GameObject slot = Instantiate(lootingslot, gridTransform);
             LootingRankDesignTemplate designTemplate = rankDesignTemplateList.FirstOrDefault(o => o.rank == data.rankType);
 
-            slot.SetUI(designTemplate, data.count);
+            slot.GetComponent<GameOverLootingUISlot>().SetUI(designTemplate, data.count);
 
             if (data.rankType == BoxRankType.Gold)
             {
