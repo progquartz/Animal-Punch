@@ -20,7 +20,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float GameTimeDecreaseRate = 1.0f;
 
 
-    public bool IsGameStarted = true;
+    public bool IsGameStarted = false;
     public bool IsGamePaused = false;
     public bool IsGameOver = false;
     public Action<bool> OnTimeToggle;
@@ -38,17 +38,19 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        if(IsGameStarted || !IsGamePaused || !IsGameOver)
+        if(SceneLoader.Instance.CurrentScene == "GameScene")
         {
-            UpdateGameTime();
-            UpdateGameRatios();
-            CheckGameEnd();
+            if (IsGameStarted || !IsGamePaused || !IsGameOver)
+            {
+                UpdateGameTime();
+                UpdateGameRatios();
+                CheckGameEnd();
+            }
+            else
+            {
+                // 타이틀 씬 및 다른 곳에서는 playerInfoData 수정 외에는 다른 행동 금지.
+            }
         }
-        else
-        {
-            // 타이틀 씬 및 다른 곳에서는 playerInfoData 수정 외에는 다른 행동 금지.
-        }
-        
     }
 
     public void StartGameState()

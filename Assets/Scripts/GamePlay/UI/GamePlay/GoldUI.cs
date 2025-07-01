@@ -11,6 +11,6 @@ public class GoldUI : MonoBehaviour
     void Update()
     {
 
-        goldText.text = InventoryManager.Instance.gold.ToString();
+        goldText.text = GameManager.Instance.GetPlayerInfoData().gold.ToString();
     }
 }
