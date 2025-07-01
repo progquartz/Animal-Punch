@@ -41,15 +41,23 @@ public class PlayerInfoDatas : MonoBehaviour
     }
 
    
-    public void GainGold(int amount)
+    public void GainGold(int amount, bool needsSave = false)
     {
-        LoadGoodsData();
-
         gold += amount;
 
+        Debug.Log($"Gold = {gold}를 추가합니다.");
+        if (needsSave)
+        {
+            SaveGoodsData();
+            Debug.Log($"Gold = {gold}를 저장합니다.");
+        }
+    }
+    public void GainGem(int amount)
+    {
+        gem += amount;
+        Debug.Log($"Gem = {gem}를 저장합니다.");
         SaveGoodsData();
     }
-
 
     public bool TryUseCosts(CostType costType, int amount)
     {
@@ -64,7 +72,6 @@ public class PlayerInfoDatas : MonoBehaviour
     }
     private bool TryUseGold(int amount)
     {
-        LoadGoodsData() ;
         if(gold >= amount)
         {
             gold -= amount;
@@ -76,7 +83,6 @@ public class PlayerInfoDatas : MonoBehaviour
 
     private bool TryUseGem(int amount)
     {
-        LoadGoodsData();
         if (gold >= amount)
         {
             gold -= amount;
@@ -86,14 +92,6 @@ public class PlayerInfoDatas : MonoBehaviour
         return false;
     }
 
-    public void GainGem(int amount)
-    {
-        LoadGoodsData();
-
-        gem += amount;
-
-        SaveGoodsData();
-    }
 
     /// <summary>
     /// 만약 레벨업 한다면 true 리턴
@@ -136,8 +134,8 @@ public class PlayerInfoDatas : MonoBehaviour
 
     private void SaveGoodsData()
     {
-        PlayerPrefs.SetInt("Gold", 0);
-        PlayerPrefs.SetInt("Gem", 0);
+        PlayerPrefs.SetInt("Gold", gold);
+        PlayerPrefs.SetInt("Gem", gem);
     }
 
     private void LoadGoodsData()

@@ -162,7 +162,7 @@ public class InventoryManager : SingletonBehaviour<InventoryManager>
             // 榜靛 贸府
             if (data.rankType == BoxRankType.Gold)
             {
-                GameManager.Instance.GetPlayerInfoData().GainGold(data.count);
+                GameManager.Instance.GetPlayerInfoData().GainGold(data.count, true);
             }
             // 焊籍 贸府.
             else if (data.rankType == BoxRankType.Gem)

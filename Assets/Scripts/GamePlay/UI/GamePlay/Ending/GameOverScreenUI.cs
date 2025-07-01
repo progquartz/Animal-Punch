@@ -48,6 +48,7 @@ public class GameOverScreenUI : MonoBehaviour
             // 스킵된 경우에는 즉시 최대값으로 설정
             currentTimeScore = EndingManager.Instance.finalTimeScore;
             currentEnemyScore = GameManager.Instance.EnemyDeathCountHandler.GetTotalDeathCount(); // 예시
+            currentTotalScore = currentTimeScore + currentTimeScore;
         }
 
         // 총합 갱신
@@ -72,6 +73,7 @@ public class GameOverScreenUI : MonoBehaviour
 
     public void OnSkipButtonTriggered()
     {
+        Debug.Log("스킵 버튼 활성화");
         isSkipped = true;
     }
 
