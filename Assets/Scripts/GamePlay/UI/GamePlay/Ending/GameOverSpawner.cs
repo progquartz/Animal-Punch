@@ -8,7 +8,6 @@ public class GameOverSpawner : MonoBehaviour
     public Transform dropContainer;
     public Transform dropContainerPos;
     public GameObject dummyObject;
-    public bool isSkipped = false;
     [SerializeField] private GameOverObjectPool pool;
     public readonly float dropInterval = 0.03f;
 
@@ -21,7 +20,6 @@ public class GameOverSpawner : MonoBehaviour
 
     public void OnSkipButtonTriggered()
     {
-        isSkipped = true;
         while (GameManager.Instance.EnemyDeathCountHandler.HasEnemiesLeft())
         {
             string enemyKey = GameManager.Instance.EnemyDeathCountHandler.GetRandomEnemyKey();
@@ -111,7 +109,7 @@ public class GameOverSpawner : MonoBehaviour
 
     private IEnumerator DropEnemiesRoutine()
     {
-        while (GameManager.Instance.EnemyDeathCountHandler.HasEnemiesLeft() || !isSkipped)
+        while (GameManager.Instance.EnemyDeathCountHandler.HasEnemiesLeft() || !EndingManager.Instance.isSkipped)
         {
             string enemyKey = GameManager.Instance.EnemyDeathCountHandler.GetRandomEnemyKey();
             if (enemyKey == null)

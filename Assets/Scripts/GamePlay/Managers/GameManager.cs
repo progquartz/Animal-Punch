@@ -38,9 +38,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        if(SceneLoader.Instance.CurrentScene == "GameScene")
+        if(SceneLoader.Instance.CurrentScene == "Scenes/GameScene")
         {
-            if (IsGameStarted || !IsGamePaused || !IsGameOver)
+            if (IsGameStarted && !IsGamePaused && !IsGameOver)
             {
                 UpdateGameTime();
                 UpdateGameRatios();

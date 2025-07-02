@@ -560,7 +560,6 @@ MonoBehaviour:
   scoreAnimationSpeed: 50
   scoreMilestones: 8813000010270000204e0000
   isTriggered: 0
-  isSkipped: 0
 --- !u!114 &47982382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3765,6 +3764,7 @@ MonoBehaviour:
   finalTimeScore: 0
   finalEnemyScore: 0
   lootingData: []
+  isSkipped: 0
 --- !u!1001 &334783354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6536,7 +6536,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1247221309}
   m_HandleRect: {fileID: 1247221308}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7970,6 +7970,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dc3cae085a8034db537729b281282a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LootingPrefab: {fileID: 5224998614622296294, guid: cf7b004a15280a04ab8d6ca3b6d8fd1e, type: 3}
+  LootingParent: {fileID: 1941905535}
+  lootIncludeingItem:
+    GoldAmount: 0
+    ExpAmount: 0
+    TimeAmount: 0
+    IsGainingItem: 0
+  lootExcludingItem:
+    GoldAmount: 0
+    ExpAmount: 0
+    TimeAmount: 0
+    IsGainingItem: 0
 --- !u!114 &852863487 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 127321581675513862, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
@@ -22345,7 +22357,6 @@ MonoBehaviour:
   dropContainer: {fileID: 1757873983}
   dropContainerPos: {fileID: 729735848}
   dummyObject: {fileID: 8072612473022233421, guid: f0494b085dcb48445b9505a4ad7babe9, type: 3}
-  isSkipped: 0
   pool: {fileID: 2137145206}
 --- !u!114 &2137145206
 MonoBehaviour:

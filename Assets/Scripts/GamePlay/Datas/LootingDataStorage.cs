@@ -14,7 +14,6 @@ public class LootingDataStorage : DataStorage
     // 게임플레이 내 루팅
     public List<int> levelExpList = new List<int>();
     public List<Sprite> LootingEffectImages;
-    public List<Sprite> LootingCardBackgroundImages;
     public List<LootingRankProbability> LootingProbabilityList;
 
     // 게임플레이 외 루팅
@@ -27,7 +26,7 @@ public class LootingDataStorage : DataStorage
 
     public void CheckResources()
     {
-        Debug.Log($"LootingDataStorage - \n levelExpList.Count = {levelExpList.Count} \n/ lootingEffectImages.Count = {LootingEffectImages.Count} \n / LootingCardBackgroundImages.Count = {LootingCardBackgroundImages.Count} \n / LootingProbabilityList.Count = {LootingProbabilityList.Count}");
+        Debug.Log($"LootingDataStorage - \n levelExpList.Count = {levelExpList.Count} \n/ lootingEffectImages.Count = {LootingEffectImages.Count} \n / LootingProbabilityList.Count = {LootingProbabilityList.Count}");
     }
 
 

@@ -17,6 +17,8 @@ public class EndingManager : SingletonBehaviour<EndingManager>
     public int finalEnemyScore = 0;
     public List<LootingData> lootingData;
 
+    public bool isSkipped = false;
+
 
     protected override void Init()
     {
@@ -81,8 +83,8 @@ public class EndingManager : SingletonBehaviour<EndingManager>
     }
     public void OnClickSkipButton()
     {
+        isSkipped = true;
         gameOverSpawner.OnSkipButtonTriggered();
-        gameOverScreenUI.OnSkipButtonTriggered();
     }
 
     private void TurnOffStaticUIs()

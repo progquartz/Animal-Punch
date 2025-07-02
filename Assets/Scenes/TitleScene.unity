@@ -867,6 +867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory:
     boxCounts: []
+  maxDropScore: 100
 --- !u!114 &881950452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,7 +881,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: []
-  allBoxDataList: []
   slotButtonRequestIndex: -1
 --- !u!1 &1008259180
 GameObject:
@@ -1220,8 +1220,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 881950451}
-        m_TargetAssemblyTypeName: BoxInventoryManager, Assembly-CSharp
-        m_MethodName: TestLoot
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: ClearInventory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

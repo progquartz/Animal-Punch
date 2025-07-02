@@ -35,6 +35,12 @@ public class InventoryManager : SingletonBehaviour<InventoryManager>
         Save();
     }
 
+    public void ClearInventory()
+    {
+        inventory = new();
+        Save();
+    }
+
     public bool AssignBox(int inventoryIndex, int slotIndex)
     {
         BoxRankType keyTryOpening = inventory.GetType(inventoryIndex);

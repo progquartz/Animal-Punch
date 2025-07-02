@@ -1,15 +1,30 @@
 using DG.Tweening;
+using NUnit.Framework;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class LootingCardUI : MonoBehaviour
 {
+    [System.Serializable]
+    public class LootingCardImagePalette
+    {
+        public Color backgroundFrame;
+        public Color background;
+        public Color loreground;
+    }
+
     private LootingUI owner;
     public TMP_Text CardTitleText;
     public TMP_Text CardLoreText;
     public Image CardBackgroundImage;
+    public Image CardBackgroundFrameImage;
+    public Image CardLoregroundImage;
     public Image CardImage;
+    public List<LootingCardImagePalette> cardPaletteList;
+    
 
     private ILootEffect lootEffect;
 
@@ -17,9 +32,13 @@ public class LootingCardUI : MonoBehaviour
     {
         this.owner = owner;
         lootEffect = LootEffectFactory.CreateEffect(type, rank);
+        
         CardTitleText.text = type.ToString();
         CardLoreText.text = string.Join("\n", lootEffect.GetEffectDescriptions());
-        CardBackgroundImage.sprite = LootEffectFactory.GetLootBackgroundImage(rank);
+
+        CardBackgroundImage.color = cardPaletteList[(int)rank].background;
+        CardBackgroundFrameImage.color = cardPaletteList[(int)rank].backgroundFrame;
+        CardLoregroundImage.color = cardPaletteList[(int)rank].loreground;
         CardImage.sprite = LootEffectFactory.GetLootTypeImage(type);
 
         if((int)rank > (int)LootingRankType.Epic)
@@ -36,7 +55,7 @@ public class LootingCardUI : MonoBehaviour
     public void OnClick()
     {
         SoundManager.Instance.PlaySFX("LootingUISelect", AudioType.UI);
-        lootEffect.ApplyEffect(Player.Instance); // Player ½Ì±ÛÅæ »ç¿ë
+        lootEffect.ApplyEffect(Player.Instance);
         owner.CloseLooting(true);
     }
 }
