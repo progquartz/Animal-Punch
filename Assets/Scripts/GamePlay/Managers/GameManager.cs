@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    
     public VideoSettingComponent VideoSetting = new VideoSettingComponent();
     public HealthRatioComponent EnemyHealthRatio = new HealthRatioComponent();
     public EnemyDeathCountHandler EnemyDeathCountHandler = new EnemyDeathCountHandler();
     
     [SerializeField] private PlayerInfoDatas _playerInfoDatas;
-
     
 
     // 현재 게임 진행 시간
@@ -20,6 +20,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float GameTimeDecreaseRate = 1.0f;
 
 
+    // 타이틀 씬 방문 여부.
+    public bool isFirstTimeInTitle = true;
+    // 게임 상태
     public bool IsGameStarted = false;
     public bool IsGamePaused = false;
     public bool IsGameOver = false;
@@ -119,6 +122,12 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void OnGameOver()
     {
         EndingManager.Instance.OnGameOver();
+    }
+
+    public void QuitGameScene()
+    {
+        OnQuitGameScene?.Invoke();
+        GameManager.Instance.EndGameState();
     }
 
     /// <summary>

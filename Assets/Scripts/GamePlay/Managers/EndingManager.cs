@@ -83,8 +83,17 @@ public class EndingManager : SingletonBehaviour<EndingManager>
     }
     public void OnClickSkipButton()
     {
-        isSkipped = true;
-        gameOverSpawner.OnSkipButtonTriggered();
+        if(!isSkipped)
+        {
+            isSkipped = true;
+            gameOverSpawner.OnSkipButtonTriggered();
+        }
+        else
+        {
+            // ¾À ³Ñ¾î°¡±â
+            SceneLoader.Instance.LoadScene(SceneType.TitleScene);
+        }
+        
     }
 
     private void TurnOffStaticUIs()

@@ -3,6 +3,7 @@ using UnityEngine;
 public class TitleUI : BaseUI
 {
     public bool IsAdditionalUIOpened = false;
+    
 
     public void OpenUnlockUI()
     {

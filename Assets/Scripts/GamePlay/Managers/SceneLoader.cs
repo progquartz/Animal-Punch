@@ -33,7 +33,7 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
 
         if (CurrentScene == "Scenes/GameScene")
         {
-            GameManager.Instance.EndGameState();
+            GameManager.Instance.QuitGameScene();
         }
 
         Logger.Log($"{sceneName}¿∏∑Œ æ¿¿ª ¿ÃµøΩ√≈µ¥œ¥Ÿ.");
@@ -44,7 +44,7 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
 
         do
         {
-            await Task.Delay(100);
+            await Task.Delay(1500);
             _progressBar.fillAmount = scene.progress;
         }
         while (scene.progress < 0.9f);

@@ -149,6 +149,7 @@ public class GameOverSpawner : MonoBehaviour
 
             yield return new WaitForSeconds(dropInterval);
         }
+        EndingManager.Instance.isSkipped = true;
         SoundManager.Instance.StopLoopSFX("EndingScoreUpLoop");
         SoundManager.Instance.PlaySFX("EndingScoreUpEnd", AudioType.UI);
         EndingManager.Instance.ShowLoot();
