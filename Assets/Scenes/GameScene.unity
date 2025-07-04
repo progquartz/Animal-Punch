@@ -2716,8 +2716,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 523480152}
-  EnemyParentTransform: {fileID: 0}
+  EnemyParentTransform: {fileID: 174752684}
   Pool: {fileID: 201404925}
+  IsPoolingReady: 0
 --- !u!1 &206080639 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7549313766251646159, guid: 36847bc75d4c6b9478220558a0b7e853, type: 3}
@@ -4397,7 +4398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &450963398
 RectTransform:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class EnemyPool : MonoBehaviour
         }
     }
 
-    public GameObject GetFromPool(string key, Transform parent, Vector3 position, bool isDummy = false)
+    public GameObject GetFromPool(string key, Transform parent, Vector3 position, Quaternion rotation, bool isDummy = false)
     {
         GameObject obj;
 
@@ -42,7 +42,7 @@ public class EnemyPool : MonoBehaviour
         obj.SetActive(false);  // 활성화 전 설정
         obj.transform.SetParent(parent, false);
         obj.transform.position = position;
-        obj.transform.rotation = Quaternion.identity;
+        obj.transform.rotation = rotation;
 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)

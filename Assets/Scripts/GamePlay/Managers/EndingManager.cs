@@ -29,8 +29,6 @@ public class EndingManager : SingletonBehaviour<EndingManager>
 
     public void OnGameOver()
     {
-        GameManager.Instance.EndGameState();
-
         // 게임 비활성화
         TurnOffStaticUIs();
         CameraManager.Instance.SwitchToCamera(CameraType.GameEndCamera);
@@ -55,12 +53,6 @@ public class EndingManager : SingletonBehaviour<EndingManager>
     public void ShowLoot()
     {
         gameOverLootingUI.ShowLoot(finalTotalScore, lootingData);
-    }
-
-
-    public void OnGameOverDummy()
-    {
-        GameManager.Instance.OnGameOver();
     }
 
     public void HandleEndingScreenUI(int score, bool isSkipped = false)

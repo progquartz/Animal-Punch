@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+ï»¿using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,18 +25,14 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
     {
         string sceneName = "Scenes/" + sceneType.ToString();
 
-        if(CurrentScene == sceneName)
+        if (CurrentScene == sceneName)
         {
-            Logger.LogWarning("ÇöÀç ÀÖ´Â ¾À°ú ÀÌµ¿ÇÏ·Á´Â ¾ÀÀÌ °°¾Æ¼­ ÀÌµ¿ÇÏÁö ¾Ê½À´Ï´Ù.");
-            return; 
+            Logger.LogWarning("í˜„ì¬ ìˆëŠ” ì”¬ê³¼ ì´ë™í•˜ë ¤ëŠ” ì”¬ì´ ê°™ì•„ì„œ ì´ë™í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+            return;
         }
 
-        if (CurrentScene == "Scenes/GameScene")
-        {
-            GameManager.Instance.QuitGameScene();
-        }
+        Logger.Log($"{sceneName}ìœ¼ë¡œ ì”¬ì„ ì´ë™ì‹œí‚µë‹ˆë‹¤.");
 
-        Logger.Log($"{sceneName}À¸·Î ¾ÀÀ» ÀÌµ¿½ÃÅµ´Ï´Ù.");
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
 
@@ -44,18 +40,34 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
 
         do
         {
-            await Task.Delay(1500);
+            await Task.Delay(100);
             _progressBar.fillAmount = scene.progress;
         }
         while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;
         CurrentScene = sceneName;
-        if(sceneName == "Scenes/GameScene")
+
+        if(CurrentScene == "Scenes/GameScene")
         {
+            // EnemySpawnerì˜ ì´ˆê¸°í™” ê¸°ë‹¤ë¦¬ê¸°
+            await Task.Yield();
+
+            // EnemySpawnerì˜ í’€ë§ ëŒ€ê¸°
+            while (!MapManager.Instance.EnemySpawner.IsPoolingReady)
+            {
+                await Task.Delay(100); // ì§§ê²Œ ëŒ€ê¸°
+            }
+
             GameManager.Instance.StartGameState();
         }
-        _loaderCanvas.SetActive(false);
+        else if(CurrentScene == "Scenes/TitleScene")
+        {
+            // ì›ë˜ titleui initializeë¥¼ ì—¬ê¸°ì„œ í•´ì•¼í•˜ëŠ”ë°...
+            // titleui initializerë¥¼ ë§Œë“¤ì–´ë’€ìŒ.
+        }
 
+        _loaderCanvas.SetActive(false);
     }
+
 }

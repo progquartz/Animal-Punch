@@ -47,12 +47,14 @@ public class PlayerPhysics : MonoBehaviour
 
     private void RegisterEvent()
     {
+        Debug.Log("Register");
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
         GameManager.Instance.OnQuitGameScene += ReleaseEvent;
     }
 
     private void ReleaseEvent()
     {
+        Debug.Log("Release");
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
         GameManager.Instance.OnQuitGameScene -= ReleaseEvent;
     }

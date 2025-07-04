@@ -18,18 +18,22 @@ public class MapManager : SingletonBehaviour<MapManager>
     private Vector3 lastPlayerPosition;
     private const float minDistanceToUpdate = 5f; // 최소 이동거리 설정
 
-    protected override void Init()
+    protected override async void Init()
     {
         IsDestroyOnLoad = true;
         base.Init();
-        EnemySpawner.Init();
+
+        await EnemySpawner.PreloadAllEnemyObjects(10); 
+
         InitializeNearbyBlock();
         Debug.Log("MapManager Init");
     }
 
 
+
     private void Update()
     {
+        
         if (Vector3.Distance(Player.Instance.PlayerTransform.position, lastPlayerPosition) > minDistanceToUpdate)
         {
             Vector2Int playerChunkPos = CalculateCurrentPlayerChunkPos();
