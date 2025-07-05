@@ -1,7 +1,11 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+
 
 public class PlayerInfoUI : MonoBehaviour
 {
@@ -10,7 +14,7 @@ public class PlayerInfoUI : MonoBehaviour
     public Image playerRankImage;
     public TMP_Text playerHighScore;
 
-    public Sprite[] rankImages;
+    public RankData[] rankDatas;
 
     private void Update()
     {
@@ -39,12 +43,7 @@ public class PlayerInfoUI : MonoBehaviour
 
     private Sprite GetRankImage(int score)
     {
-        int index = score % 100;
-        if(index > 8)
-        {
-            index = 8;
-        }
-        return rankImages[index];
+        return  DataManager.Instance.PlayerDataStorage.GetRankData(score).rankSprite;
     }
 
     

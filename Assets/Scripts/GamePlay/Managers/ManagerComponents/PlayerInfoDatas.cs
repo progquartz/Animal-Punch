@@ -30,7 +30,7 @@ public class PlayerInfoDatas : MonoBehaviour
         SavePlayerName(playerName);
     }
 
-    public void OnGameEndResult(int score)
+    public void UpdateGameEndResult(int score)
     {
         LoadHighScore();
 
