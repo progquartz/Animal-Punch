@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -21,23 +23,21 @@ public class EnemySpawner : MonoBehaviour
 
     // 유지하고 싶은 적의 최대 수 (종류별로 관리할 수도 있음)
     private int maxEnemyCount = 100;
-    
+
+    public bool IsPoolingReady = false;
+
     private Dictionary<string, float> enemySpawnTimers = new Dictionary<string, float>();
+    private Dictionary<string, Coroutine> spawningCoroutines = new Dictionary<string, Coroutine>();
+
 
     private List<string> EnemyNeedToSpawnList = new List<string>();
     private List<string> EnemySpawnRightNowList = new List<string>();
 
-
-
-
     public void Init()
     {
+        Debug.Log("EnemySpawner Init");
         EnemyParentTransform = GameObject.Find("EnemyParent").transform;
         EnemySpawnMaximum = new Dictionary<string, int>();
-
-        Debug.Log("1" + DataManager.Instance.gameObject.name);
-        Debug.Log("2" + DataManager.Instance.EnemyDataStorage.gameObject.name);
-        Debug.Log("3" + DataManager.Instance.EnemyDataStorage.enemyDataList.Count);
         
         foreach (EnemyDataSO data in DataManager.Instance.EnemyDataStorage.enemyDataList.Values)
         {
@@ -49,12 +49,11 @@ public class EnemySpawner : MonoBehaviour
                 EnemySpawnRightNowList.Add(data.ActorKey);
             }
         }
-        InitializeAllEnemyPools(10); // 각 적 타입당 20개씩 풀링, 원하는 개수로 조정 가능
     }
 
     void Update()
     {
-        if (GameManager.Instance.IsGamePaused) return;
+        if (!GameManager.Instance.IsGameStarted ||  GameManager.Instance.IsGamePaused || GameManager.Instance.IsGameOver) return;
 
         HandleImmediateSpawn();
         HandleIntervalSpawn();
@@ -63,10 +62,47 @@ public class EnemySpawner : MonoBehaviour
     }
 
     
+
+    public async Task PreloadAllEnemyObjects(int defaultPoolSize = 10)
+    {
+        Init();
+        var enemyDataList = DataManager.Instance.EnemyDataStorage.enemyDataList;
+
+        foreach (var enemyDataPair in enemyDataList)
+        {
+            string enemyKey = enemyDataPair.Key;
+            EnemyDataSO enemyData = enemyDataPair.Value;
+
+            Pool.InitializePool(enemyKey, defaultPoolSize);
+
+            // 프레임 당 로드 제한
+            await Task.Yield();
+        }
+
+        IsPoolingReady = true;
+    }
+
+
+
     private void HandleIntervalSpawn()
     {
-        float currentGameTime = GameManager.Instance.GameTime;
+        
+        
+        CheckIntervalTime();
 
+        if (EnemyNeedToSpawnList.Count > 0 && GetEnemyCount() < maxEnemyCount)
+        {
+            int randomIndex = Random.Range(0, EnemyNeedToSpawnList.Count);
+            string randomEnemyKey = EnemyNeedToSpawnList[randomIndex];
+            EnemyNeedToSpawnList.RemoveAt(randomIndex);
+
+            SpawnEnemies(randomEnemyKey);
+        }
+    }
+
+    private void CheckIntervalTime()
+    {
+        float currentGameTime = GameManager.Instance.GameTime;
         // Dictionary의 키 목록을 별도 리스트로 복사하여 순회하는데, 이 부분은 dictionary의 값이 변경되어 오류가 나는 부분을 고치기 위함임.
         List<string> enemyKeys = new List<string>(enemySpawnTimers.Keys);
 
@@ -87,15 +123,6 @@ public class EnemySpawner : MonoBehaviour
 
                 enemySpawnTimers[enemyKey] = enemyData.SpawnInterval;
             }
-        }
-
-        if (EnemyNeedToSpawnList.Count > 0 && GetEnemyCount() < maxEnemyCount)
-        {
-            int randomIndex = Random.Range(0, EnemyNeedToSpawnList.Count);
-            string randomEnemyKey = EnemyNeedToSpawnList[randomIndex];
-            EnemyNeedToSpawnList.RemoveAt(randomIndex);
-
-            SpawnEnemies(randomEnemyKey);
         }
     }
 
@@ -142,35 +169,55 @@ public class EnemySpawner : MonoBehaviour
             string enemyKey = enemyDataPair.Key;
             EnemyDataSO enemyData = enemyDataPair.Value;
 
-            // EnemyPool을 통해 각 적 타입을 초기화
+            // EnemyPool을 통해 적 타입 초기화
             Pool.InitializePool(enemyKey, defaultPoolSize);
-
-            //Debug.Log($"Initialized enemy pool for key: {enemyKey} with pool size: {defaultPoolSize}");
         }
     }
 
-    // SpawnEnemies 메서드 내부만 수정된 코드 예시
+
     private void SpawnEnemies(string key)
     {
-        int spawnCount = DataManager.Instance.EnemyDataStorage.enemyDataList[key].SpawnCount;
+        if (spawningCoroutines.ContainsKey(key))
+        {
+            return;
+        }
 
+        spawningCoroutines.Add(key, null);   // 먼저 추가
+        Coroutine spawnRoutine = StartCoroutine(SpawnEnemiesCoroutine(key));
+    }
+
+    private IEnumerator SpawnEnemiesCoroutine(string key, int countPerFrame = 3)
+    {
+        int spawnCount = DataManager.Instance.EnemyDataStorage.enemyDataList[key].SpawnCount;
         for (int i = 0; i < spawnCount; i++)
         {
             if (!IsKeyValidToSpawn(key)) break;
 
             float randomRadius = Random.Range(minSpawnRadius, maxSpawnRadius);
             Vector3 direction = Random.onUnitSphere;
+            
             Vector3 randomPos = playerTransform.position + direction * randomRadius;
             randomPos.y = 0f;
 
-            GameObject enemyObj = Pool.GetFromPool(key, EnemyParentTransform, randomPos);
+            float randomRotationY = Random.Range(0f, 360f);
+            Quaternion randomRotation = Quaternion.Euler(0f, randomRotationY, 0f);
+            
+
+            GameObject enemyObj = Pool.GetFromPool(key, EnemyParentTransform, randomPos, randomRotation);
             Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
 
             if (enemyComponent != null && enemyComponent.targetEnemyDataSO != null)
             {
                 enemyComponent.Init(DataManager.Instance.EnemyDataStorage.GetEnemyData(key));
             }
+
+            // 일정 개수마다 다음 프레임으로 넘김
+            if ((i + 1) % countPerFrame == 0)
+            {
+                yield return null; 
+            }
         }
+        spawningCoroutines.Remove(key);
     }
 
 
@@ -184,6 +231,23 @@ public class EnemySpawner : MonoBehaviour
             {
                 // 풀에 없으니까 소환된거임...
                 if (!enemy.IsInPool && IsOutOfDespawnDistance(enemy.transform.position, playerTransform.position))
+                {
+                    string poolKey = enemy.targetEnemyDataSO.ActorKey;
+                    Pool.ReturnToPool(poolKey, enemy.gameObject);
+                }
+            }
+        }
+    }
+
+    public void DeSpawnAllEnemies()
+    {
+        foreach(Transform child in EnemyParentTransform)
+        {
+            Enemy enemy;
+            if (child.TryGetComponent<Enemy>(out enemy))
+            {
+                // 풀에 없으니까 소환된거임...
+                if (!enemy.IsInPool)
                 {
                     string poolKey = enemy.targetEnemyDataSO.ActorKey;
                     Pool.ReturnToPool(poolKey, enemy.gameObject);

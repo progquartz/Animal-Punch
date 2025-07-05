@@ -72,3 +72,11 @@ MonoBehaviour:
     Probability: 15
   - Type: 4
     Probability: 5
+  AllBoxDataList:
+  - {fileID: 11400000, guid: fe83817658159ca4183cca4a85e81550, type: 2}
+  - {fileID: 11400000, guid: 4689c6cc6ca72444ba51d5f81f66497a, type: 2}
+  - {fileID: 11400000, guid: a2580c4f90b940f45971c750b7ccaf47, type: 2}
+  - {fileID: 11400000, guid: e912f37086dcfd640b34dd43af5d2e01, type: 2}
+  - {fileID: 11400000, guid: 9822fb9cdeb37bb4eb14f1a86e7928d2, type: 2}
+  GoldData: {fileID: 11400000, guid: da90096791a14da458377f58ccb0c469, type: 2}
+  GemData: {fileID: 11400000, guid: 9f4464c4fba8786428a7866e8c736188, type: 2}

@@ -16,6 +16,8 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     private Dictionary<string, AudioClipData> soundClips = new();
     private Queue<AudioSource> sfxPool = new();
     private List<AudioSource> inUse = new(); // 사용중인 경우
+    private List<AudioSource> loopingSources = new(); // 루프 중인 SFX 추적용
+
 
     // 볼륨 제어 부분
     public AudioMixerGroup masterAudioGroup;
@@ -100,20 +102,19 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="pos"></param>
-    public void PlaySFX(string key , AudioType audioType, Vector3? pos = null)
+    public void PlaySFX(string key, AudioType audioType, Vector3? pos = null, bool isLoop = false)
     {
         if (!soundClips.TryGetValue(key, out var data))
         {
             Debug.LogWarning($"{key}값을 가지는 SFX가 발견되지 않았습니다.");
             return;
-        } 
+        }
 
         if (sfxPool.Count == 0)
         {
             Debug.Log("SFXPool이 가득 찼습니다.");
             return;
         }
-            
 
         var sfxSource = sfxPool.Dequeue();
         inUse.Add(sfxSource);
@@ -121,39 +122,38 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         if (pos.HasValue)
         {
             sfxSource.transform.position = pos.Value;
-            sfxSource.spatialBlend = 1f; // 공간 음향 적용
+            sfxSource.spatialBlend = 1f;
         }
         else
         {
-            sfxSource.spatialBlend = 0f; // 공간 음향 적용 안함.
+            sfxSource.spatialBlend = 0f;
         }
 
-        switch(audioType)
+        switch (audioType)
         {
-            case AudioType.Entity:
-                sfxSource.outputAudioMixerGroup = sfxEntityGroup; // 볼륨 그룹 나누기
-                break;
-            case AudioType.Bgm:
-                sfxSource.outputAudioMixerGroup = bgmGroup; // 볼륨 그룹 나누기
-                break;
-            case AudioType.UI:
-                sfxSource.outputAudioMixerGroup = sfxUIGroup;
-                break;
-            case AudioType.SFX:
-                sfxSource.outputAudioMixerGroup= sfxSFXGroup;
-                break;
-            default:
-                sfxSource.outputAudioMixerGroup = sfxEntityGroup;
-                break;
+            case AudioType.Entity: sfxSource.outputAudioMixerGroup = sfxEntityGroup; break;
+            case AudioType.Bgm: sfxSource.outputAudioMixerGroup = bgmGroup; break;
+            case AudioType.UI: sfxSource.outputAudioMixerGroup = sfxUIGroup; break;
+            case AudioType.SFX: sfxSource.outputAudioMixerGroup = sfxSFXGroup; break;
+            default: sfxSource.outputAudioMixerGroup = sfxEntityGroup; break;
         }
 
         sfxSource.volume = data.volume;
         sfxSource.clip = data.GetRandomAudioClip();
         sfxSource.pitch = data.pitch;
+        sfxSource.loop = isLoop;
         sfxSource.Play();
 
-        StartCoroutine(ReturnToPoolWhenDone(sfxSource));
+        if (isLoop)
+        {
+            loopingSources.Add(sfxSource);
+        }
+        else
+        {
+            StartCoroutine(ReturnToPoolWhenDone(sfxSource));
+        }
     }
+
 
     /// <summary>
     /// BGM 재생
@@ -177,14 +177,33 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         bgmSource.pitch = data.pitch;
         bgmSource.Play();
     }
+    public void StopLoopSFX(string key)
+    {
+        for (int i = loopingSources.Count - 1; i >= 0; i--)
+        {
+            var source = loopingSources[i];
+            if (source.clip != null && soundClips.TryGetValue(key, out var data) && data.clip.Contains(source.clip))
+            {
+                source.Stop();
+                source.loop = false;
+                source.clip = null;
+                loopingSources.RemoveAt(i);
+                inUse.Remove(source);
+                sfxPool.Enqueue(source);
+            }
+        }
+    }
+
 
     private IEnumerator ReturnToPoolWhenDone(AudioSource source)
     {
         yield return new WaitWhile(() => source.isPlaying);
         source.clip = null;
+        source.loop = false; // 루프 초기화
         inUse.Remove(source);
         sfxPool.Enqueue(source);
     }
+
 
 
 

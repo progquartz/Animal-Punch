@@ -59,8 +59,6 @@ public class Enemy : MonoBehaviour
     public virtual void HandleDeath()
     {
         stat.IsDead = true;
-        
-        LootingManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
         OnDead?.Invoke();
     }
     public virtual bool HandleDamage(Collision collision, float impulseDamage, bool isCritical)

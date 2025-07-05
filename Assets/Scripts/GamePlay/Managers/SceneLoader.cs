@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+ï»¿using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,28 +9,30 @@ public enum SceneType
     TitleScene
 }
 
-public class SceneLoader : SingletonBehaviour<SceneLoader> 
+public class SceneLoader : SingletonBehaviour<SceneLoader>
 {
     [SerializeField] private GameObject _loaderCanvas;
     [SerializeField] private Image _progressBar;
     public string CurrentScene;
 
+    protected override void Init()
+    {
+        base.Init();
+        CurrentScene = "Scenes/" + SceneManager.GetActiveScene().name;
+    }
+
     public async void LoadScene(SceneType sceneType)
     {
-        string sceneName = "Scenes/" + sceneType.ToString();
+        string sceneName = "Scenes/" + sceneType;
 
-        if(CurrentScene == sceneName)
+        if (CurrentScene == sceneName)
         {
-            Logger.LogWarning("ÇöÀç ÀÖ´Â ¾À°ú ÀÌµ¿ÇÏ·Á´Â ¾ÀÀÌ °°¾Æ¼­ ÀÌµ¿ÇÏÁö ¾Ê½À´Ï´Ù.");
-            return; 
+            Logger.LogWarning("í˜„ì¬ ìˆëŠ” ì”¬ê³¼ ì´ë™í•˜ë ¤ëŠ” ì”¬ì´ ê°™ì•„ì„œ ì´ë™í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+            return;
         }
 
-        if (CurrentScene == "Scenes/GameScene")
-        {
-            GameManager.Instance.EndGameState();
-        }
+        Logger.Log($"{sceneName}ìœ¼ë¡œ ì”¬ì„ ì´ë™ì‹œí‚µë‹ˆë‹¤.");
 
-        Logger.Log($"{sceneName}À¸·Î ¾ÀÀ» ÀÌµ¿½ÃÅµ´Ï´Ù.");
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
 
@@ -44,12 +46,34 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
         while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;
-        CurrentScene = sceneName;
-        if(sceneName == "Scenes/GameScene")
+
+        // ì”¬ í™œì„±í™”ê°€ ì™„ë£Œëœ ë‹¤ìŒ í”„ë ˆì„ê¹Œì§€ ëŒ€ê¸°
+        await Task.Yield();
+
+        if (sceneType == SceneType.GameScene)
         {
+            // MapManagerê°€ ìƒì„±ë  ë•Œê¹Œì§€ ëŒ€ê¸°
+            while (MapManager.Instance == null)
+            {
+                await Task.Delay(100);
+            }
+
+            // EnemySpawnerê°€ í• ë‹¹ë  ë•Œê¹Œì§€ ëŒ€ê¸°
+            while (MapManager.Instance.EnemySpawner == null)
+            {
+                await Task.Delay(100);
+            }
+
+            // í’€ë§ì´ ì™„ë£Œë  ë•Œê¹Œì§€ ëŒ€ê¸°
+            while (!MapManager.Instance.EnemySpawner.IsPoolingReady)
+            {
+                await Task.Delay(100);
+            }
+
             GameManager.Instance.StartGameState();
         }
-        _loaderCanvas.SetActive(false);
 
+        _loaderCanvas.SetActive(false);
+        CurrentScene = sceneName;
     }
 }

@@ -6,24 +6,20 @@ using System.IO;
 public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 {
     public List<LootingBoxSlot> slots = new(4);
-    public List<BoxDataSO> allBoxDataList;
-
     public int slotButtonRequestIndex = -1;
 
 
     private string savePath => Path.Combine(Application.persistentDataPath, "boxslots.json");
-    private string boxDataListPath = "ScriptableObjects/TreasureBoxData/";
 
     protected override void Init()
     {
         base.Init();
         Load();
-        LoadBoxData();
     }
 
-    public BoxDataSO GetBoxDataById(string id)
+    public BoxDataSO GetBoxDataById(BoxRankType id)
     {
-        return allBoxDataList.Find(b => b.id == id);
+        return DataManager.Instance.LootingStorage.AllBoxDataList.Find(b => b.rank == id);
     }
 
     public BoxDataSO GetBoxDataInIndex(int index)
@@ -36,16 +32,12 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 
     public void TestBoxPutting()
     {
-        AssignBoxToSlot(0, GetBoxDataById("NormalBox"));
+        AssignBoxToSlot(0, GetBoxDataById(BoxRankType.Normal));
     }
 
 
     public void AssignBoxToSlot(int index, BoxDataSO boxData)
     {
-        if(allBoxDataList.Count == 0)
-            LoadBoxData();
-
-
         slots[index] = new LootingBoxSlot
         {
             boxData = boxData,
@@ -125,23 +117,6 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
             slots.Clear();
             for (int i = 0; i < 4; i++) slots.Add(new LootingBoxSlot());
             Save();
-        }
-    }
-
-    private void LoadBoxData()
-    {
-        allBoxDataList.Clear();
-        BoxDataSO[] loadedBoxes = Resources.LoadAll<BoxDataSO>(boxDataListPath);
-
-        if (loadedBoxes != null && loadedBoxes.Length > 0)
-        {
-            allBoxDataList.AddRange(loadedBoxes);
-            Debug.Log($"{allBoxDataList.Count}개의 박스 데이터 로드.");
-            
-        }
-        else
-        {
-            Debug.LogWarning($"다음 경로에서 박스 데이터를 읽기 실패함. /{boxDataListPath}");
         }
     }
 }

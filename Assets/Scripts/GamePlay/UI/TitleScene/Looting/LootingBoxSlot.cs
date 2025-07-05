@@ -7,7 +7,7 @@ public class LootingBoxSlot
     public BoxDataSO boxData;
     public string startTime;  // 시작 시간 (ISO 8601 형식)
 
-    public bool IsOccupied => boxData != null && !string.IsNullOrEmpty(boxData.id);
+    public bool IsOccupied => boxData != null;
 
 
     public bool IsComplete()

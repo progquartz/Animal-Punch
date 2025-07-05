@@ -9,6 +9,8 @@ public enum LootingRankType
     Unique = 2,
     Epic = 3,
     Legendary = 4,
+    Gold = 5,
+    Gem = 6,
 }
 
 

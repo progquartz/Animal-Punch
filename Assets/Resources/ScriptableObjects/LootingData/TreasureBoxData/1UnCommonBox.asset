@@ -10,9 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a4d56bd5756f884c8a0abe412fc875c, type: 3}
-  m_Name: 3UniqueBox
+  m_Name: 1UnCommonBox
   m_EditorClassIdentifier: 
-  id: UniqueBox
-  displayName: Unique Treasure Box
-  icon: {fileID: 21300000, guid: 3dcb610315a71644f84aa3a430131d4e, type: 3}
-  unlockDurationSeconds: 3600
+  rank: 1
+  displayName: Uncommon Treasure Box
+  icon: {fileID: 21300000, guid: 7fa0bcb592413a441b619cc839bd3502, type: 3}
+  unlockDurationSeconds: 300
+  unlockableItems: []
+  minScore: 1
+  bonusScoreStep: 10
+  bonusRate: 5
+  baseRate: 100
+  dropScore: 2

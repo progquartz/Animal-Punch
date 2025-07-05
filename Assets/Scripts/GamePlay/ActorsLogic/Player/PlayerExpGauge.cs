@@ -11,7 +11,6 @@ public class PlayerExpGauge : MonoBehaviour
     private Vector3 targetOffset = new Vector3(0f, -1f, 0f);
 
     private float MinArcRotation = 345f;
-    private float MaxArcRotation = 15f;
     private float TotalArcRange = 330f;
     private float prevRatio = 0f;
     private float followUpLerpTime = 0.3f;

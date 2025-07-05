@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4d56bd5756f884c8a0abe412fc875c, type: 3}
   m_Name: 0NormalBox
   m_EditorClassIdentifier: 
-  id: NormalBox
+  rank: 0
   displayName: Normal Treasure Box
   icon: {fileID: 21300000, guid: 2984a9fd62e05af488caf602a4b4fec7, type: 3}
   unlockDurationSeconds: 150
@@ -28,3 +28,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa326a2a78d319741bd5afd35b6ba26a, type: 2}
   - {fileID: 11400000, guid: c4f4cf49299d15047860e8f6112a6375, type: 2}
   - {fileID: 11400000, guid: 9df17d0f617abde429a60cf9d02c90dc, type: 2}
+  minScore: 1
+  bonusScoreStep: 10
+  bonusRate: 5
+  baseRate: 100
+  dropScore: 1

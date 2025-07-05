@@ -4,14 +4,14 @@ using UnityEngine;
 
 public enum LootingTypeType
 {
-    AccelerationLoot = 0,
-    DashForceLoot = 1,
-    MassLoot = 2,
-    SizeLoot = 3,
-    DashCooltimeLoot = 4,
-    ExpRatioLoot = 5,
-    CriticalChanceLoot = 6,
-    CritiaclDamageLoot = 7,
+    Acceleration = 0,
+    DashForce = 1,
+    Mass = 2,
+    Size = 3,
+    DashCooltime = 4,
+    ExpRatio = 5,
+    CriticalChance = 6,
+    CriticalDamage = 7,
 }
 
 public static class LootEffectFactory
@@ -20,14 +20,14 @@ public static class LootEffectFactory
     {
         return type switch
         {
-            LootingTypeType.AccelerationLoot => new AccelerationLoot(rank),
-            LootingTypeType.DashForceLoot => new DashForceLoot(rank),
-            LootingTypeType.MassLoot => new MassLoot(rank),
-            LootingTypeType.SizeLoot => (Player.Instance.Stat.CurrentSize <= Player.Instance.Stat.MaximalSize) ? new SizeLoot(rank) : new MassLoot(rank),
-            LootingTypeType.DashCooltimeLoot => (Player.Instance.Stat.BoostChargeTime >= Player.Instance.Stat.BoostChargeMinimalTime) ? new DashCooltimeLoot(rank) : new DashForceLoot(rank),
-            LootingTypeType.ExpRatioLoot =>  new ExpRatioLoot(rank),
-            LootingTypeType.CriticalChanceLoot => (Player.Instance.Stat.CriticalChance <= 100) ? new CriticalChanceLoot(rank) : new CriticalDamageLoot(rank),
-            LootingTypeType.CritiaclDamageLoot => new CriticalDamageLoot(rank),
+            LootingTypeType.Acceleration => new AccelerationLoot(rank),
+            LootingTypeType.DashForce => new DashForceLoot(rank),
+            LootingTypeType.Mass => new MassLoot(rank),
+            LootingTypeType.Size => (Player.Instance.Stat.CurrentSize <= Player.Instance.Stat.MaximalSize) ? new SizeLoot(rank) : new MassLoot(rank),
+            LootingTypeType.DashCooltime => (Player.Instance.Stat.BoostChargeTime >= Player.Instance.Stat.BoostChargeMinimalTime) ? new DashCooltimeLoot(rank) : new DashForceLoot(rank),
+            LootingTypeType.ExpRatio =>  new ExpRatioLoot(rank),
+            LootingTypeType.CriticalChance => (Player.Instance.Stat.CriticalChance <= 100) ? new CriticalChanceLoot(rank) : new CriticalDamageLoot(rank),
+            LootingTypeType.CriticalDamage => new CriticalDamageLoot(rank),
             _ => null
         };
     }
@@ -38,8 +38,4 @@ public static class LootEffectFactory
         return DataManager.Instance.LootingStorage.LootingEffectImages[(int)type];
     }
 
-    public static Sprite GetLootBackgroundImage(LootingRankType rank)
-    {
-        return DataManager.Instance.LootingStorage.LootingCardBackgroundImages[(int)rank];
-    }
 }

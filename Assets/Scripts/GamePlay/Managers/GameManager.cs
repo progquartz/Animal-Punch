@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    
     public VideoSettingComponent VideoSetting = new VideoSettingComponent();
-
     public HealthRatioComponent EnemyHealthRatio = new HealthRatioComponent();
+    public EnemyDeathCountHandler EnemyDeathCountHandler = new EnemyDeathCountHandler();
     
     [SerializeField] private PlayerInfoDatas _playerInfoDatas;
-
     
 
     // 현재 게임 진행 시간
@@ -20,8 +20,12 @@ public class GameManager : SingletonBehaviour<GameManager>
     public float GameTimeDecreaseRate = 1.0f;
 
 
+    // 타이틀 씬 방문 여부.
+    public bool isFirstTimeInTitle = true;
+    // 게임 상태
     public bool IsGameStarted = false;
     public bool IsGamePaused = false;
+    public bool IsGameOver = false;
     public Action<bool> OnTimeToggle;
     public Action OnQuitGameScene;
 
@@ -37,18 +41,33 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        if(IsGameStarted || !IsGamePaused)
+        if(SceneLoader.Instance.CurrentScene == "Scenes/GameScene")
         {
-            UpdateGameTime();
-            UpdateGameRatios();
-            CheckGameEnd();
+            //Debug.Log($"isGameStarted = {IsGameStarted} / isgamePaused = {IsGamePaused} / isGameOver = {IsGameOver}");
+            if (IsGameStarted && !IsGamePaused && !IsGameOver)
+            {
+                UpdateGameTime();
+                UpdateGameRatios();
+                CheckGameEnd();
+            }
+            else
+            {
+                // 타이틀 씬 및 다른 곳에서는 playerInfoData 수정 외에는 다른 행동 금지.
+            }
         }
-        else
-        {
-            // 타이틀 씬 및 다른 곳에서는 playerInfoData 수정 외에는 다른 행동 금지.
-        }
-        
     }
+
+    private void UpdateGameRatios()
+    {
+        EnemyHealthRatio.UpdateRatio();
+    }
+
+    private void UpdateGameTime()
+    {
+        GameTime += Time.deltaTime;
+        GameTimeLeft -= Time.deltaTime * GameTimeDecreaseRate;
+    }
+
 
     public void StartGameState()
     {
@@ -58,6 +77,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         IsGameStarted = true;
         IsGamePaused = false;
+        IsGameOver = false;
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
@@ -65,14 +85,42 @@ public class GameManager : SingletonBehaviour<GameManager>
         //Player.Instance.StartGameState();
     }
 
-    public void EndGameState()
+    public void OnNaturalGameOver()
     {
+        EndGameState();
+    }
+
+    public void OnClickQuitGameOver()
+    {
+        EndGameState(true);
+        SceneLoader.Instance.LoadScene(SceneType.TitleScene);
+    }
+
+    public void EndGameState(bool isFinishedOnForce = false)
+    {
+        IsGameOver = true;
+        IsGamePaused = true;
         IsGameStarted = false;
-        IsGamePaused = false;
-        GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
-        //OnQuitGameScene.Invoke();
+        OnQuitGameScene?.Invoke();
+
+        if(!isFinishedOnForce)
+        {
+            EndingManager.Instance.OnGameOver();
+        }
+        MapManager.Instance.EnemySpawner.DeSpawnAllEnemies();
+        Player.Instance.gameObject.SetActive(false); // 이렇게 해도 되는지 확인해야 함.
+    }
+
+
+    private void CheckGameEnd()
+    {
+        // 게임 오버 정의.
+        if (GameTimeLeft < 0 && !IsGameOver)
+        {
+            OnNaturalGameOver();
+        }
     }
 
     public void GainGameTime(float amount)
@@ -90,30 +138,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         return EnemyHealthRatio.Ratio;
     }
 
-    private void UpdateGameRatios()
-    {
-        EnemyHealthRatio.UpdateRatio();
-    }
-
-    private void UpdateGameTime()
-    {
-        GameTime += Time.deltaTime;
-        GameTimeLeft -= Time.deltaTime * GameTimeDecreaseRate;
-    }
-
-    private void CheckGameEnd()
-    {
-        // 게임 오버 정의.
-        if(GameTimeLeft < 0)
-        {
-            OnGameOver();
-        }
-    }
-
-    private void OnGameOver()
-    {
-        //Logger.LogError("게임 오버!");
-    }
 
     /// <summary>
     /// 현재 게임 진행 시간에 따른 HP 배율을 계산합니다.

@@ -6,7 +6,6 @@ public class Player : SingletonBehaviour<Player>
     public PlayerStat InitialStat;
     public PlayerStat Stat;
     public Transform PlayerTransform;
-    public Inventory Inventory;
     [SerializeField] private PlayerPhysics playerPhysics;
     public PlayerAnimationController animationController;
     public PlayerParticleController particleController;
@@ -19,7 +18,6 @@ public class Player : SingletonBehaviour<Player>
 
         base.Init();
         playerPhysics = GetComponent<PlayerPhysics>();
-        Inventory = GetComponent<Inventory>();
         animationController = GetComponent<PlayerAnimationController>();
         particleController = GetComponent<PlayerParticleController>();
         playerPhysics.Init(this);

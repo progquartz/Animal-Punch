@@ -1,0 +1,156 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using TMPro;
+
+public class GameOverScreenUI : MonoBehaviour
+{
+    public TMP_Text totalScoreText;
+    public TMP_Text timeScoreText;
+
+    public TMP_Text enemyScoreText;
+    public TMP_Text floatingScoreTextPrefab;
+    public Transform floatingTextParent;
+
+    public GameOverLootingUI lootingUI;
+
+    private int currentTotalScore = 0;
+    private int targetTimeScore = 0;
+    private int currentTimeScore = 0;
+    private int currentEnemyScore = 0;
+    public float scoreAnimationSpeed = 50f;
+
+    public int[] scoreMilestones = { 5000, 10000, 20000 };
+
+    public bool isTriggered = false;
+
+    private float currentTime = 0f;
+    private float droppingTime = 0f;
+
+
+    private void Update()
+    {
+        if (!isTriggered) return;
+
+        // 시간 점수 처리
+        if (!EndingManager.Instance.isSkipped)
+        {
+            if (currentTimeScore < EndingManager.Instance.finalTimeScore)
+            {
+                currentTime += Time.deltaTime;
+                float t = Mathf.Clamp01(currentTime / droppingTime);
+                currentTimeScore = Mathf.RoundToInt(Mathf.Lerp(0, targetTimeScore, t));
+            }
+        }
+        else
+        {
+            // 스킵된 경우에는 즉시 최대값으로 설정
+            currentTimeScore = EndingManager.Instance.finalTimeScore;
+            currentEnemyScore = EndingManager.Instance.finalEnemyScore; 
+            currentTotalScore = currentTimeScore + currentTimeScore;
+        }
+
+        // 총합 갱신
+        currentTotalScore = currentTimeScore + currentEnemyScore;
+
+        // 텍스트 업데이트
+        timeScoreText.text =  "Time : " + currentTimeScore.ToString("N0");
+        enemyScoreText.text = "Enemy : " + currentEnemyScore.ToString("N0");
+        totalScoreText.text = currentTotalScore.ToString("N0");
+    }
+
+
+    public void ShowScore(float dropTime)
+    {
+        isTriggered = true;
+        droppingTime = dropTime;
+        
+        currentTime = 0f;
+        targetTimeScore = EndingManager.Instance.finalTimeScore;
+    }
+
+    public void OnSkipButtonTriggered()
+    {
+        Debug.Log("스킵 버튼 활성화");
+        Debug.Log($"death = {EndingManager.Instance.finalEnemyScore} time = {EndingManager.Instance.finalTimeScore}");
+        EndingManager.Instance.OnClickSkipButton();
+    }
+
+    public void AddEnemyScore(int score)
+    {
+        StartCoroutine(AnimateEnemyScore(score));
+        SpawnFloatingScore(score);
+    }
+
+    public void AddEnemyScoreSkipped(int score)
+    {
+        int targetScore = currentEnemyScore + score;
+        enemyScoreText.text = targetScore.ToString();
+    }
+
+    private IEnumerator AnimateEnemyScore(int score)
+    {
+        int targetScore = currentEnemyScore + score;
+
+        while (currentEnemyScore < targetScore && !EndingManager.Instance.isSkipped)
+        {
+            currentEnemyScore += Mathf.CeilToInt(scoreAnimationSpeed * Time.deltaTime);
+            if (currentEnemyScore > targetScore) currentEnemyScore = targetScore;
+            CheckMilestones(currentEnemyScore);
+
+            yield return null;
+        }
+    }
+
+    private void SpawnFloatingScore(int score)
+    {
+        TMP_Text floatingScore = Instantiate(floatingScoreTextPrefab, floatingTextParent);
+        floatingScore.text = $"+{score:N0}";
+        Destroy(floatingScore.gameObject, 1.5f);
+    }
+
+    private void CheckMilestones(int score)
+    {
+        foreach (var milestone in scoreMilestones)
+        {
+            if (currentEnemyScore >= milestone && (currentEnemyScore - milestone) < scoreAnimationSpeed)
+            {
+                PlayMilestoneEffect();
+                break;
+            }
+        }
+    }
+
+    private void PlayMilestoneEffect()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+        StartCoroutine(ScaleScoreTextRoutine());
+    }
+
+    private IEnumerator ScaleScoreTextRoutine()
+    {
+        Vector3 originalScale = enemyScoreText.transform.localScale;
+        Vector3 targetScale = originalScale * 1.5f;
+
+        float duration = 0.2f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            enemyScoreText.transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsed / duration);
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            enemyScoreText.transform.localScale = Vector3.Lerp(targetScale, originalScale, elapsed / duration);
+            yield return null;
+        }
+
+        enemyScoreText.transform.localScale = originalScale;
+    }
+}

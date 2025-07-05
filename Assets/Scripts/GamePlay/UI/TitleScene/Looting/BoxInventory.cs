@@ -7,13 +7,14 @@ public class BoxInventory
 {
     public List<BoxCount> boxCounts = new();
 
+
     [Serializable]
     public class BoxCount
     {
-        public string boxId;
+        public BoxRankType boxId;
     }
 
-    public void Add(string id)
+    public void Add(BoxRankType id)
     {
         var box = new BoxCount { boxId = id };
         boxCounts.Add(box);
@@ -30,7 +31,7 @@ public class BoxInventory
         return false;
     }
 
-    public string GetKey(int index)
+    public BoxRankType GetType(int index)
     {
         return boxCounts[index].boxId;
     }

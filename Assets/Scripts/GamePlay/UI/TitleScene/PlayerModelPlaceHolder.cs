@@ -17,7 +17,6 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     private Camera mainCamera;
 
     private bool isDragging = false;
-    private bool isActive = false;
 
     private Quaternion initialRotation = Quaternion.Euler(Vector3.zero);
     private float timeSinceLastTouch;
@@ -41,18 +40,14 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     private void UpdateModelActive()
     {
         TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        if(titleUI.IsAdditionalUIOpened != isActive)
+        if (titleUI.IsAdditionalUIOpened)
         {
-            isActive = titleUI.IsAdditionalUIOpened;
-            if (isActive)
-            {
-                currentModel.transform.localRotation = initialRotation;
-                currentModel.SetActive(false);
-            }
-            else
-            {
-                currentModel.SetActive(true);
-            }
+            currentModel.transform.localRotation = initialRotation;
+            currentModel.SetActive(false);
+        }
+        else
+        {
+            currentModel.SetActive(true);
         }
     }
 
@@ -81,7 +76,7 @@ public class PlayerModelPlaceHolder : MonoBehaviour
         currentModel = model;
         AnimalAnimationController controller = model.AddComponent<AnimalAnimationController>();
         controller.SetAnimator(model.GetComponent<Animator>());
-        controller.ChangeAnimation(AnimalAnimation.Idle_A);
+        controller.ChangeAnimation(AnimalAnimation.Run);
         model.GetComponent<CapsuleCollider>().enabled = true;
         model.SetActive(false);
     }

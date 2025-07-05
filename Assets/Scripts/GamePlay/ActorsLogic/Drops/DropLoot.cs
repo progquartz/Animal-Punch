@@ -88,13 +88,14 @@ public class DropLoot : MonoBehaviour
         GameManager.Instance.GainGameTime(dropItemData.TimeAmount);
         if(Player.Instance.GainExp(dropItemData.ExpAmount))
         {
-            LootingManager.Instance.OpenLootUI();
+            DropManager.Instance.OpenLootUI();
         }
         InGameTextPooler.Instance.SpawnText($"+{dropItemData.GoldAmount}", Color.yellow, Player.Instance.PlayerTransform.position);
-        Player.Instance.Inventory.GainGold(dropItemData.GoldAmount);
+        GameManager.Instance.GetPlayerInfoData().GainGold(dropItemData.GoldAmount);
         if(dropItemData.IsGainingItem)
         {
             // 보물상자 열리는 루팅 열기.
+            DropManager.Instance.OpenLootUI();
         }
     }
 

@@ -96,6 +96,7 @@ public class LootingBoxSlotUI : MonoBehaviour
         BoxSlotManager.Instance.slotButtonRequestIndex = slotIndex;
         // slot inventory 열리고, chest 선택할 수 있게.
         UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
-        
+        TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+        titleUI.IsAdditionalUIOpened = true;
     }
 }
