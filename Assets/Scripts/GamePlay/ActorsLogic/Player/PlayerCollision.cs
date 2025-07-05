@@ -47,7 +47,7 @@ public class PlayerCollision : MonoBehaviour
             if (interactable != null)
             {
                 bool isCritical = owner.stat.IsCritical();
-                float impulseDamage = owner.CalculateImpulseDamage(GetImpulseMagnitude(), isCritical);
+                float impulseDamage = owner.CalculateImpulseDamage(GetImpulseMagnitude(collision), isCritical);
                 bool isEnemyDead = interactable.HandleCollision(collision, impulseDamage, isCritical);
                 if(isEnemyDead)
                 {
@@ -57,9 +57,8 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
-    private float GetImpulseMagnitude()
+    private float GetImpulseMagnitude(Collision collision)
     {
-        Vector3 velocityChanged = playerRB.linearVelocity - previousVelocity;
-        return velocityChanged.magnitude;
+        return collision.impulse.magnitude;
     }
 }
