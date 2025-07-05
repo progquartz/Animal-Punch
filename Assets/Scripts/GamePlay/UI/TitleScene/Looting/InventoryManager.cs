@@ -98,7 +98,7 @@ public class InventoryManager : SingletonBehaviour<InventoryManager>
 
         foreach (var item in loots)
         {
-            Debug.Log($"[LootSystem] → Checking item: {item.name}, Rank: {item.rank}, MinScore: {item.minScore}");
+            //Debug.Log($"[LootSystem] → Checking item: {item.name}, Rank: {item.rank}, MinScore: {item.minScore}");
 
             if (totalScore < item.minScore)
             {
@@ -111,7 +111,6 @@ public class InventoryManager : SingletonBehaviour<InventoryManager>
             int guaranteedCount = Mathf.FloorToInt(totalChance / 100f);
             float leftoverChance = totalChance % 100f;
 
-            Debug.Log($"totalChance: {totalChance}");
             int finalCount = 0;
 
             // 확정 드랍

@@ -12,7 +12,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         {
             if (s_instance == null)
             {
-                s_instance = FindObjectOfType<T>();
+                s_instance = FindFirstObjectByType<T>();
 
                 if (s_instance == null)
                 {

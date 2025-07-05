@@ -72,6 +72,7 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         finalEnemyScore = GameManager.Instance.EnemyDeathCountHandler.GetDeathScore();
         finalTimeScore = Mathf.RoundToInt(GameManager.Instance.GameTime);
         finalTotalScore= finalEnemyScore + finalTimeScore;
+        Debug.Log($"finalEnemyScore = {finalEnemyScore} / finalTimeScore = {finalTimeScore} / finalTotalScore = {finalTotalScore}");
     }
     public void OnClickSkipButton()
     {

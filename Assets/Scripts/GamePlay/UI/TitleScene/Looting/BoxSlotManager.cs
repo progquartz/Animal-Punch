@@ -10,7 +10,6 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 
 
     private string savePath => Path.Combine(Application.persistentDataPath, "boxslots.json");
-    private string boxDataListPath = "ScriptableObjects/LootingData/TreasureBoxData/";
 
     protected override void Init()
     {

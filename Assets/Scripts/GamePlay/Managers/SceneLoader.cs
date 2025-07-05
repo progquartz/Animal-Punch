@@ -9,7 +9,7 @@ public enum SceneType
     TitleScene
 }
 
-public class SceneLoader : SingletonBehaviour<SceneLoader> 
+public class SceneLoader : SingletonBehaviour<SceneLoader>
 {
     [SerializeField] private GameObject _loaderCanvas;
     [SerializeField] private Image _progressBar;
@@ -23,7 +23,7 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
 
     public async void LoadScene(SceneType sceneType)
     {
-        string sceneName = "Scenes/" + sceneType.ToString();
+        string sceneName = "Scenes/" + sceneType;
 
         if (CurrentScene == sceneName)
         {
@@ -46,28 +46,34 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
         while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;
-        CurrentScene = sceneName;
 
-        if(CurrentScene == "Scenes/GameScene")
+        // 씬 활성화가 완료된 다음 프레임까지 대기
+        await Task.Yield();
+
+        if (sceneType == SceneType.GameScene)
         {
-            // EnemySpawner의 초기화 기다리기
-            await Task.Yield();
+            // MapManager가 생성될 때까지 대기
+            while (MapManager.Instance == null)
+            {
+                await Task.Delay(100);
+            }
 
-            // EnemySpawner의 풀링 대기
+            // EnemySpawner가 할당될 때까지 대기
+            while (MapManager.Instance.EnemySpawner == null)
+            {
+                await Task.Delay(100);
+            }
+
+            // 풀링이 완료될 때까지 대기
             while (!MapManager.Instance.EnemySpawner.IsPoolingReady)
             {
-                await Task.Delay(100); // 짧게 대기
+                await Task.Delay(100);
             }
 
             GameManager.Instance.StartGameState();
         }
-        else if(CurrentScene == "Scenes/TitleScene")
-        {
-            // 원래 titleui initialize를 여기서 해야하는데...
-            // titleui initializer를 만들어뒀음.
-        }
 
         _loaderCanvas.SetActive(false);
+        CurrentScene = sceneName;
     }
-
 }

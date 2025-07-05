@@ -43,6 +43,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if(SceneLoader.Instance.CurrentScene == "Scenes/GameScene")
         {
+            //Debug.Log($"isGameStarted = {IsGameStarted} / isgamePaused = {IsGamePaused} / isGameOver = {IsGameOver}");
             if (IsGameStarted && !IsGamePaused && !IsGameOver)
             {
                 UpdateGameTime();
@@ -76,6 +77,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         IsGameStarted = true;
         IsGamePaused = false;
+        IsGameOver = false;
         GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
@@ -99,7 +101,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         IsGameOver = true;
         IsGamePaused = true;
         IsGameStarted = false;
-        GameTime = 0f;
         GameTimeLeft = InitialGameTimeLeft;
         MaxGameTime = InitialGameTimeLeft;
         OnQuitGameScene?.Invoke();

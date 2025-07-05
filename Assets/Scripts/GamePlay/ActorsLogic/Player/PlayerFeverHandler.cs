@@ -11,7 +11,7 @@ public class PlayerFeverHandler : MonoBehaviour
     private float fevercoolRatioPerSec = 0.05f;
 
     public float feverTime = 0f;
-    private float originalFeverTime = 4f;
+    private float originalFeverTime = 4f; // looting에 추가할 때에 사용해야 함.
     public float currentFeverTimeMax = 3f;
     
     public bool isFever = false;
