@@ -45,3 +45,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExpDatas: 
+  _rankDatas:
+  - minScore: 0
+    rankKey: 0
+    rankName: Bronze
+    rankSprite: {fileID: 21300000, guid: 7d9eb76336f19cc4e95b8793f936c58c, type: 3}
+  - minScore: 100
+    rankKey: 1
+    rankName: Silver
+    rankSprite: {fileID: 21300000, guid: 7a8d5138369893d4aa6f51f46f723874, type: 3}
+  - minScore: 250
+    rankKey: 2
+    rankName: Gold
+    rankSprite: {fileID: 21300000, guid: 9b961af762cdee34b83c2e90d308e5fe, type: 3}
+  - minScore: 500
+    rankKey: 3
+    rankName: Platinum
+    rankSprite: {fileID: 21300000, guid: e7157e6034289e7499eb9ec0b5228468, type: 3}
+  - minScore: 1000
+    rankKey: 4
+    rankName: Diamond
+    rankSprite: {fileID: 21300000, guid: fd28b084bca6f994b805a305dfc6ad28, type: 3}
+  - minScore: 2500
+    rankKey: 5
+    rankName: Masters
+    rankSprite: {fileID: 21300000, guid: 2935a1a477b0019418aa2e6940ee2fcd, type: 3}
+  isRankDataSorted: 0

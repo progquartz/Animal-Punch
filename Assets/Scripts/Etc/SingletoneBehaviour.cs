@@ -34,8 +34,8 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
 
         if (!isInitialized)
         {
-            Init();    
-            isInitialized = true;
+            isInitialized = true;  // 호출 전 바로 true
+            Init();
         }
 
         if (!IsDestroyOnLoad)
@@ -44,8 +44,10 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
         }
     }
 
+
     protected virtual void Init()
     {
+        isInitialized = true;
         // 상속된 클래스에서 사용
     }
 

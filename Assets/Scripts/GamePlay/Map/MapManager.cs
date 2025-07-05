@@ -1,3 +1,4 @@
+ï»¿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class MapManager : SingletonBehaviour<MapManager>
     public Vector2Int currentCenterChunk;
     private bool IsFirstTimeInitializing = true;
 
+    public static event Action OnMapManagerInitialized;
+
     private const float chunkSize = 90f;
     private const float halfCellSize = chunkSize * 0.5f;
     private Vector3 lastPlayerPosition;
@@ -18,30 +21,47 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     protected override async void Init()
     {
-        IsDestroyOnLoad = true;
         base.Init();
+        IsDestroyOnLoad = true;
 
         if (EnemySpawner == null)
         {
             EnemySpawner = GetComponent<EnemySpawner>();
+            if (EnemySpawner == null)
+            {
+                Debug.LogError("[MapManager] EnemySpawnerê°€ ì—†ìŠµë‹ˆë‹¤. Init ì¤‘ë‹¨.");
+                return;
+            }
         }
 
-        // EnemySpawner°¡ Awake() ¿Ï·áµÇ¾ú´ÂÁö ±â´Ù¸®±â À§ÇØ 1 ÇÁ·¹ÀÓ ´ë±â
         await Task.Yield();
 
+        Debug.Log("MapManager: Start preload enemies");
         await EnemySpawner.PreloadAllEnemyObjects(10);
+        Debug.Log("MapManager: Preload finished");
 
         InitializeNearbyBlock();
         Debug.Log("MapManager Init Complete");
+
+        OnMapManagerInitialized?.Invoke(); 
     }
+
+
+
 
     private void Update()
     {
-        if (Vector3.Distance(Player.Instance.PlayerTransform.position, lastPlayerPosition) > minDistanceToUpdate)
+        if (SceneLoader.Instance.CurrentScene == "Scenes/GameScene")
         {
-            Vector2Int playerChunkPos = CalculateCurrentPlayerChunkPos();
-            UpdateCenterChunk(playerChunkPos);
-            lastPlayerPosition = Player.Instance.PlayerTransform.position;
+            if (GameManager.Instance.IsGameStarted && !GameManager.Instance.IsGamePaused && !GameManager.Instance.IsGameOver)
+            {
+                if (Vector3.Distance(Player.Instance.PlayerTransform.position, lastPlayerPosition) > minDistanceToUpdate)
+                {
+                    Vector2Int playerChunkPos = CalculateCurrentPlayerChunkPos();
+                    UpdateCenterChunk(playerChunkPos);
+                    lastPlayerPosition = Player.Instance.PlayerTransform.position;
+                }
+            }
         }
     }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -36,6 +37,7 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         // 데이터 부분 작업
         gameOverSpawner.TestAnimalDeathStack();
         CalculateFinalScores();
+        CheckHighScore();
         float droppingTime = gameOverSpawner.GetAllSpawnTime();
         lootingData = InventoryManager.Instance.CalculateGameEndingLoots(finalTotalScore);
         InventoryManager.Instance.GetLoot(lootingData);
@@ -67,13 +69,19 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         }
     }
 
-    public void CalculateFinalScores()
+    private void CalculateFinalScores()
     {
         finalEnemyScore = GameManager.Instance.EnemyDeathCountHandler.GetDeathScore();
         finalTimeScore = Mathf.RoundToInt(GameManager.Instance.GameTime);
-        finalTotalScore= finalEnemyScore + finalTimeScore;
+        finalTotalScore = finalEnemyScore + finalTimeScore;
         Debug.Log($"finalEnemyScore = {finalEnemyScore} / finalTimeScore = {finalTimeScore} / finalTotalScore = {finalTotalScore}");
     }
+
+    private void CheckHighScore()
+    {
+        GameManager.Instance.GetPlayerInfoData().UpdateGameEndResult(finalTotalScore);
+    }
+
     public void OnClickSkipButton()
     {
         if(!isSkipped)

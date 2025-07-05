@@ -78,6 +78,7 @@ public class ActorCollision : MonoBehaviour
     {
         if(isActorAbleToHit)
         {
+            Debug.Log($"플레이어와 {owner.targetEnemyDataSO.ActorName}간의 충격량이 {impulseDamage} 입니다?");
             bool isDead = owner.HandleDamage(collision, impulseDamage, isCritical);
             if (isDead)
             {
@@ -97,12 +98,12 @@ public class ActorCollision : MonoBehaviour
 
     private void HandleDeadOnRB(Collision collision)
     {
-        HandleMassForceChange(collision);
+        HandleDeathForce(collision);
         HandleShootingUp();
         HandleDeadOnRigidBody();
     }
 
-    private void HandleMassForceChange(Collision collision)
+    private void HandleDeathForce(Collision collision)
     {
         // 충돌 시 발생한 impulse. 충돌한 객체로부터 받아낸 impulse이기에 -1을 곱해야 함.
         Vector3 impulse = -collision.impulse / 10;
@@ -123,7 +124,6 @@ public class ActorCollision : MonoBehaviour
     private void HandleShootingUp()
     {
         rb.AddForce(new Vector3(0,10,0), ForceMode.Impulse);  
-        
     }
 
     private void Spin()

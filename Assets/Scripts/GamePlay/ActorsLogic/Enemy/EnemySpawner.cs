@@ -61,25 +61,32 @@ public class EnemySpawner : MonoBehaviour
         CheckDespawnEnemies();
     }
 
-    
+
 
     public async Task PreloadAllEnemyObjects(int defaultPoolSize = 10)
     {
-        Init();
-        var enemyDataList = DataManager.Instance.EnemyDataStorage.enemyDataList;
-
-        foreach (var enemyDataPair in enemyDataList)
+        try
         {
-            string enemyKey = enemyDataPair.Key;
-            EnemyDataSO enemyData = enemyDataPair.Value;
+            Init();
+            var enemyDataList = DataManager.Instance.EnemyDataStorage.enemyDataList;
 
-            Pool.InitializePool(enemyKey, defaultPoolSize);
+            foreach (var enemyDataPair in enemyDataList)
+            {
+                string enemyKey = enemyDataPair.Key;
+                EnemyDataSO enemyData = enemyDataPair.Value;
 
-            // 프레임 당 로드 제한
-            await Task.Yield();
+                Pool.InitializePool(enemyKey, defaultPoolSize);
+                await Task.Yield();
+            }
+
+            IsPoolingReady = true;
+            Debug.Log("EnemySpawner: Preload completed.");
         }
-
-        IsPoolingReady = true;
+        catch (System.Exception e)
+        {
+            Debug.LogError($"EnemySpawner preload failed: {e.Message}");
+            IsPoolingReady = false;
+        }
     }
 
 

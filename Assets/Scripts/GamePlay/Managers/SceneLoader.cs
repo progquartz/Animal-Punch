@@ -47,28 +47,28 @@ public class SceneLoader : SingletonBehaviour<SceneLoader>
 
         scene.allowSceneActivation = true;
 
-        // 씬 활성화가 완료된 다음 프레임까지 대기
-        await Task.Yield();
+        await Task.Yield();  // 씬 전환 완료
 
         if (sceneType == SceneType.GameScene)
         {
-            // MapManager가 생성될 때까지 대기
-            while (MapManager.Instance == null)
+            bool isMapManagerReady = false;
+
+            void OnInitialized() => isMapManagerReady = true;
+            MapManager.OnMapManagerInitialized += OnInitialized;
+
+            // 혹시 Init 전에 이미 준비된 경우
+            if (MapManager.Instance != null && MapManager.Instance.EnemySpawner != null && MapManager.Instance.EnemySpawner.IsPoolingReady)
             {
+                isMapManagerReady = true;
+            }
+
+            while (!isMapManagerReady)
+            {
+                Debug.Log("Waiting for MapManager initialization...");
                 await Task.Delay(100);
             }
 
-            // EnemySpawner가 할당될 때까지 대기
-            while (MapManager.Instance.EnemySpawner == null)
-            {
-                await Task.Delay(100);
-            }
-
-            // 풀링이 완료될 때까지 대기
-            while (!MapManager.Instance.EnemySpawner.IsPoolingReady)
-            {
-                await Task.Delay(100);
-            }
+            MapManager.OnMapManagerInitialized -= OnInitialized;
 
             GameManager.Instance.StartGameState();
         }

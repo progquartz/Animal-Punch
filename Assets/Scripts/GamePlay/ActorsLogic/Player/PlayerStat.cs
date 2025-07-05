@@ -102,6 +102,7 @@ public class PlayerStat
         float baseDamage = CollisionDamageBase + CollisionDamageAdditional;
 
         // 충격량 데미지
+        Debug.Log($"ImpulseMagniture = {impulseMagnitude}");
         float impulseDamage = CollisionImpulseDamageBase * (impulseMagnitude / CollisionImpulseStandard) * CollisionImpulseDamageRatio;
 
         // 콤보 곱하기
