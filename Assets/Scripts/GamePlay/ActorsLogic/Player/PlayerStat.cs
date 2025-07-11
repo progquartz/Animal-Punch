@@ -45,7 +45,10 @@ public class PlayerStat
 
     [Header("콤보 데미지")]
     public int ComboDamageBase = 1;
-    public int ComboDamageAdditional = 0; 
+    public int ComboDamageAdditional = 0;
+
+    [Header("콤보 시간")]
+    public float comboBonusTime = 0f;
 
     [Header("경험치 및 레벨")]
     public int Level;
