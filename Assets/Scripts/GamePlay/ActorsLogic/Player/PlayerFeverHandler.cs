@@ -77,7 +77,7 @@ public class PlayerFeverHandler : MonoBehaviour
     {
         if(isFever)
         {
-            return feverTime / feverTimeDuration + bonusTimeDuration);
+            return feverTime / (feverTimeDuration + bonusTimeDuration);
         }
         else
         {

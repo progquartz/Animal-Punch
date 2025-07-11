@@ -6,7 +6,7 @@ public class PlayerComboHandler : MonoBehaviour
     public float comboDamageRatio = 0f;
     public float comboTimer = 0f;
     public float comboResetTime = 3.0f;
-    public float comboBonusTime = 0f;
+
 
     public bool IsComboActive = false;
 
