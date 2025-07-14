@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerFeverHandler : MonoBehaviour
 {
-    public float feverCount = 0;
+    public float feverGauge = 0;
     private float feverMax = 15f;
     public float currentFeverMax = 0;
     
@@ -11,21 +11,24 @@ public class PlayerFeverHandler : MonoBehaviour
     private float fevercoolRatioPerSec = 0.05f;
 
     public float feverTime = 0f;
-    private float originalFeverTime = 4f; // looting에 추가할 때에 사용해야 함.
-    public float currentFeverTimeMax = 3f;
+    public float originalFeverTime = 3f; // looting에 추가할 때에 사용해야 함.
+    public float feverTimeDuration = 3f;
+    
     
     public bool isFever = false;
 
     public void AddFeverGauge(float expAmount)
     {
-        feverCount += expAmount;
+        expAmount = expAmount * (1 + (0.01f * Player.Instance.Stat.FeverGaugeBonus));
+
+        feverGauge += expAmount;
         currentCooltime = 0;
 
-        if(feverCount >= GetFeverLimit())
+        if(feverGauge >= GetFeverLimit())
         {
             isFever = true;
-            feverTime = currentFeverTimeMax;
-            feverCount = 0;
+            feverTime = feverTimeDuration + Player.Instance.Stat.FeverBonusTime;
+            feverGauge = 0;
         }
     }
 
@@ -56,10 +59,10 @@ public class PlayerFeverHandler : MonoBehaviour
     private void CooldownFever()
     {
         float FeverCoolPerSec = GetFeverLimit() * fevercoolRatioPerSec;
-        feverCount -= FeverCoolPerSec * Time.deltaTime;
-        if(feverCount < 0 )
+        feverGauge -= FeverCoolPerSec * Time.deltaTime;
+        if(feverGauge < 0 )
         {
-            feverCount = 0;
+            feverGauge = 0;
         }
     }
 
@@ -76,15 +79,15 @@ public class PlayerFeverHandler : MonoBehaviour
     {
         if(isFever)
         {
-            return feverTime / currentFeverTimeMax;
+            return feverTime / (feverTimeDuration + Player.Instance.Stat.FeverBonusTime);
         }
         else
         {
-            if(feverCount == 0)
+            if(feverGauge == 0)
             {
                 return 0f;
             }
-            return feverCount / GetFeverLimit();
+            return feverGauge / GetFeverLimit();
         }
     }
 }

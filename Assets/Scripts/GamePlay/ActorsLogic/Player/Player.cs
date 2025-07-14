@@ -24,7 +24,7 @@ public class Player : SingletonBehaviour<Player>
         animationController.Init(this);
         Stat.Init();
         InitialStat.Init();
-        InitialStat.CopyData(Stat);
+        Stat.CopyData(InitialStat);
         RegisterEvents();
     }
 
@@ -58,8 +58,12 @@ public class Player : SingletonBehaviour<Player>
 
     public bool GainExp(int amount)
     {
-        bool isLevelUp = Stat.GainExp(amount);
+        // 피버에는 exp 배율 적용하면 안됨.
         feverHandler.AddFeverGauge(amount);
+
+        // exp 배율 적용 필요
+        bool isLevelUp = Stat.GainExp(amount);
+        
         return isLevelUp;
     }
 

@@ -48,6 +48,7 @@ public class PlayerCollision : MonoBehaviour
             {
                 bool isCritical = owner.stat.IsCritical();
                 float impulseDamage = owner.CalculateImpulseDamage(GetImpulseMagnitude(collision), isCritical);
+                Debug.Log($"impulseDamage = {impulseDamage}");
                 bool isEnemyDead = interactable.HandleCollision(collision, impulseDamage, isCritical);
                 if(isEnemyDead)
                 {

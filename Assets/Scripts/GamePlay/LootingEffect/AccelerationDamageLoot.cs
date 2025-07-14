@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class MassLoot : ILootEffect
+public class AccelerationDamageLoot : ILootEffect
 {
-    private float bonus;
+    private float bonus;    
 
-    public MassLoot(LootingRankType lootingRankType)
+    public AccelerationDamageLoot(LootingRankType lootingRankType)
     {
         switch (lootingRankType)
         {
@@ -15,30 +15,29 @@ public class MassLoot : ILootEffect
                 bonus = 5f;
                 break;
             case LootingRankType.Epic:
-                bonus = 10f;
+                bonus = 8f;
                 break;
             case LootingRankType.Unique:
-                bonus = 15f;
+                bonus = 10f;
                 break;
             case LootingRankType.Legendary:
-                bonus = 30f;
+                bonus = 20f;
                 break;
-
         }
     }
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.CurrentMass += Player.Instance.InitialStat.CurrentMass * 0.01f * bonus;
+        player.Stat.ImpulseDamage += player.InitialStat.ImpulseDamage * 0.01f * bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player Gets {bonus}% bonus mass" };
+        return new[] { $"Damage by Speed Increases {bonus}%" };
     }
 
     public string GetEffectName()
     {
-        return "Increase Weight";
+        return "Speed Damage";
     }
 }

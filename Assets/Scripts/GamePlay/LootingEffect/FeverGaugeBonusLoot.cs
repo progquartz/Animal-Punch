@@ -1,44 +1,43 @@
 using UnityEngine;
 
-public class MassLoot : ILootEffect
+public class FeverGaugeBonusLoot : ILootEffect
 {
-    private float bonus;
+    private int bonus;
 
-    public MassLoot(LootingRankType lootingRankType)
+    public FeverGaugeBonusLoot(LootingRankType lootingRankType)
     {
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
-                bonus = 3f;
+                bonus = 3;
                 break;
             case LootingRankType.Rare:
-                bonus = 5f;
+                bonus = 5;
                 break;
             case LootingRankType.Epic:
-                bonus = 10f;
+                bonus = 8;
                 break;
             case LootingRankType.Unique:
-                bonus = 15f;
+                bonus = 10;
                 break;
             case LootingRankType.Legendary:
-                bonus = 30f;
+                bonus = 20;
                 break;
-
         }
     }
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.CurrentMass += Player.Instance.InitialStat.CurrentMass * 0.01f * bonus;
+        player.Stat.FeverGaugeBonus += bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player Gets {bonus}% bonus mass" };
+        return new[] { $"Fever Gauge Charges {bonus}% faster" };
     }
 
     public string GetEffectName()
     {
-        return "Increase Weight";
+        return "Fever Bonus";
     }
 }

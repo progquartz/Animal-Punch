@@ -46,21 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelExpList: 
   LootingEffectImages:
-  - {fileID: 21300000, guid: 84a9ead98297c8042ad6996d4be3c45d, type: 3}
   - {fileID: 21300000, guid: 053c1aa10efbdcc468e1aedb7a8e6f98, type: 3}
-  - {fileID: 21300000, guid: d1a3bd3c8d1a44c4180ae31249e3fb13, type: 3}
-  - {fileID: 21300000, guid: e503f0b8178f34f428716d43897e6d1b, type: 3}
-  - {fileID: 21300000, guid: deb5c010e286cfd429b01adc1bcad4a4, type: 3}
-  - {fileID: 21300000, guid: 8444186e3504c8640aa700ca899c1988, type: 3}
+  - {fileID: 21300000, guid: 84a9ead98297c8042ad6996d4be3c45d, type: 3}
+  - {fileID: 21300000, guid: 6ea75199122fc1c46ac3c13ef03a2d27, type: 3}
+  - {fileID: 21300000, guid: 73f038f21cc287b4c9d71b61ed10d68d, type: 3}
   - {fileID: 21300000, guid: 458008dfd51cc784fb017c86405026ce, type: 3}
   - {fileID: 21300000, guid: 44f6af97ee382e5479da7d5c23d94b8a, type: 3}
-  - {fileID: 21300000, guid: 84a9ead98297c8042ad6996d4be3c45d, type: 3}
-  LootingCardBackgroundImages:
-  - {fileID: 21300000, guid: 964ca1e34af2e2d4a8df96db723ee26d, type: 3}
-  - {fileID: 21300000, guid: 225a14f28fb040c488762dc9de8ebeb8, type: 3}
-  - {fileID: 21300000, guid: e027c8f9a97d43e45b317fc4707acc86, type: 3}
-  - {fileID: 21300000, guid: f0399aa66c03c5d4f9852be8c60d03fb, type: 3}
-  - {fileID: 21300000, guid: 67e176723e2be6349b5b662f5c64fe4a, type: 3}
+  - {fileID: 21300000, guid: deb5c010e286cfd429b01adc1bcad4a4, type: 3}
+  - {fileID: 21300000, guid: 053c1aa10efbdcc468e1aedb7a8e6f98, type: 3}
+  - {fileID: 21300000, guid: 8444186e3504c8640aa700ca899c1988, type: 3}
+  - {fileID: 21300000, guid: 0b74ca2663e81d24096ccf96822bc36e, type: 3}
+  - {fileID: 21300000, guid: 320e810440470054cbd71e7ff491a7c5, type: 3}
+  - {fileID: 21300000, guid: d1a3bd3c8d1a44c4180ae31249e3fb13, type: 3}
+  - {fileID: 21300000, guid: e503f0b8178f34f428716d43897e6d1b, type: 3}
+  - {fileID: 21300000, guid: 6ea75199122fc1c46ac3c13ef03a2d27, type: 3}
   LootingProbabilityList:
   - Type: 0
     Probability: 100

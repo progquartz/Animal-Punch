@@ -7,6 +7,7 @@ public class PlayerComboHandler : MonoBehaviour
     public float comboTimer = 0f;
     public float comboResetTime = 3.0f;
 
+
     public bool IsComboActive = false;
 
     public ComboUI comboUI;
@@ -22,7 +23,7 @@ public class PlayerComboHandler : MonoBehaviour
             {
                 comboTimer += Time.deltaTime;
 
-                if (comboTimer >= comboResetTime)
+                if (comboTimer >= comboResetTime + Player.Instance.Stat.comboBonusTime)
                 {
                     ResetCombo();
                 }
@@ -32,7 +33,7 @@ public class PlayerComboHandler : MonoBehaviour
 
     public void UpdateCombo()
     {
-        if (!IsComboActive || comboTimer >= comboResetTime)
+        if (!IsComboActive || comboTimer >= comboResetTime + Player.Instance.Stat.comboBonusTime)
         {
             comboCount = 1; 
         }
