@@ -28,16 +28,16 @@ public class ComboTimeLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        player.comboHandler.comboBonusTime += bonus;
+        player.Stat.comboBonusTime += bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player ComboTime Gets{bonus} sec" };
+        return new[] { $"Combo Time Increases {bonus} sec"};
     }
 
     public string GetEffectName()
     {
-        return "Increase ComboTime";
+        return "ComboTime";
     }
 }

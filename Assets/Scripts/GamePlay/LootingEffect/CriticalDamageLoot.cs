@@ -28,7 +28,7 @@ public class CriticalDamageLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.CriticalBonusDamage += bonus;
+        player.Stat.CriticalDamageBonus += bonus;
     }
 
     public string[] GetEffectDescriptions()

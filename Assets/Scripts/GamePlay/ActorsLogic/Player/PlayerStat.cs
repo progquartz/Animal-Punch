@@ -18,33 +18,39 @@ public class PlayerStat
     
 
     [Header("부스터")]
-    public float BoostForce;                        // 앞으로 튀어나갈 힘
-    public float BoostChargeRatio;                     
-    public float BoostChargeTime = 2.0f;
-    public float BoostFeverChargeTime = 0.25f;
-    public float BoostChargeMinimalTime = 0.3f;
-    
+    public float DashForce;                        // 앞으로 튀어나갈 힘
+    public float DashChargeRatio;                     
+    public float DashChargeTime = 2.0f;
+    public float DashChargeMinTime = 0.3f;
 
-    [Header("가속도")]
+    [Header("피버")]
+    public int FeverGaugeBonus = 0;
+    public float FeverBonusTime = 0f;
+    public float FeverBoostChargeTime = 0.25f;
+
+    [Header("같은 방향으로 이동할 때의 가속도")]
     public float AdditionForceRatio;                // 추가 가속도 비중
     public float AdditionForceMax;                  // 최대 추가 가속도
 
     [Header("회전")]
     public float RotationSpeed = 2000f;             // 최대 회전 속도.
 
-    [Header("충격 데미지")]
-    public float CollisionDamageBase;               // 기본 데미지
-    public float CollisionDamageAdditional;         // 추가 데미지
-    public float CollisionImpulseDamageBase;
-    public float CollisionImpulseStandard;          // 기준 충격량 (1배)
-    public float CollisionImpulseDamageRatio;       // 충격량 비례 추가 데미지
+    [Header("데미지")]
+    public float BaseDamage;               // 기본 데미지
+    public float AdditionalDamage;         // 추가 데미지
+    public float ImpulseDamage;            // 충격량 데미지
+    public float TotalDamageBonus = 0f;         // 데미지 총합 보너스
+
+    [SerializeField]
+    private float ImpulseStandard;          // 기준 충격량 (1배)
+    public float ImpulseDamageBonusRatio;       // 충격량 비례 추가 데미지
 
     [Header("치명타 관련")]
     public int CriticalChance;
-    public int CriticalBonusDamage;
+    public int CriticalDamageBonus;
 
     [Header("콤보 데미지")]
-    public int ComboDamageBase = 1;
+    public int ComboDamage = 1;
     public int ComboDamageAdditional = 0;
 
     [Header("콤보 시간")]
@@ -72,6 +78,7 @@ public class PlayerStat
     /// </summary>
     public bool GainExp(int amount)
     {
+        amount = (int)(amount * (1 + (AdditionalExpRatio * 0.01f)));
         CurrentExp += amount;
 
         if (CurrentExp >= LevelUpExpNeed)
@@ -96,18 +103,18 @@ public class PlayerStat
 
     public float GetComboCountRatio()
     {
-        return (ComboDamageBase + ComboDamageAdditional) * 0.01f;
+        return (ComboDamage + ComboDamageAdditional) * 0.01f;
     }
 
     public float CalculateDamage(float impulseMagnitude, bool IsCritical)
     {
         // 기본 데미지
-        float baseDamage = CollisionDamageBase + CollisionDamageAdditional;
+        float baseDamage = BaseDamage + AdditionalDamage;
 
         // 충격량 데미지
         Debug.Log($"ImpulseMagniture = {impulseMagnitude}");
-        float impulseDamage = CollisionImpulseDamageBase * (impulseMagnitude / CollisionImpulseStandard) * CollisionImpulseDamageRatio;
-
+        float impulseDamage = ImpulseDamage * (impulseMagnitude / ImpulseStandard) * (1 + 0.01f * ImpulseDamageBonusRatio);
+        Debug.Log($"impulseMag = {impulseMagnitude} / impulsestandard = {ImpulseStandard} / impulsebonusratio = {ImpulseDamageBonusRatio} /  ImpulseDamage = {impulseDamage}");
         // 콤보 곱하기
         float comboRatio = Player.Instance.comboHandler.comboDamageRatio;
 
@@ -116,7 +123,7 @@ public class PlayerStat
 
         if (IsCritical)
         {
-            normalDamage *= 2f + (0.01f * CriticalBonusDamage);
+            normalDamage *= 2f + (0.01f * CriticalDamageBonus);
         }
 
         return normalDamage;
@@ -125,15 +132,19 @@ public class PlayerStat
     public void CopyData(PlayerStat stat)
     {
         MoveForce = stat.MoveForce;                         // 이동할 때 가해지는 힘
+        CurrentMass = stat.CurrentMass;
+        CurrentSize = stat.CurrentSize;
+        MaximalSize = stat.MaximalSize;
 
 
+        DashForce = stat.DashForce;                        // 앞으로 튀어나갈 힘
+        DashChargeRatio = stat.DashChargeRatio;                     // Space 키 쿨타임
+        DashChargeTime = stat.DashChargeTime;
+        DashChargeMinTime = stat.DashChargeMinTime;
 
-        BoostForce = stat.BoostForce;                        // 앞으로 튀어나갈 힘
-        BoostChargeRatio = stat.BoostChargeRatio;                     // Space 키 쿨타임
-        BoostChargeTime = stat.BoostChargeTime;
-        BoostFeverChargeTime = stat.BoostFeverChargeTime;
-        BoostChargeMinimalTime = stat.BoostChargeMinimalTime;
-
+        FeverBoostChargeTime = stat.FeverBoostChargeTime;
+        FeverGaugeBonus = stat.FeverGaugeBonus;
+        FeverBonusTime = stat.FeverBonusTime;
 
         AdditionForceRatio = stat.AdditionForceRatio;                // 추가 가속도 비중
         AdditionForceMax = stat.AdditionForceMax;                  // 최대 추가 가속도
@@ -142,24 +153,28 @@ public class PlayerStat
         RotationSpeed = stat.RotationSpeed;             // 최대 회전 속도.
 
         
-        CollisionDamageBase = stat.CollisionDamageBase;               // 기본 데미지
-        CollisionDamageAdditional = stat.CollisionDamageAdditional;         // 추가 데미지
-        CollisionImpulseDamageBase = stat.CollisionDamageAdditional;
-        CollisionImpulseStandard = stat.CollisionImpulseStandard;          // 기준 충격량 (1배)
-        CollisionImpulseDamageRatio = stat.CollisionImpulseDamageRatio;       // 충격량 비례 추가 데미지
+        BaseDamage = stat.BaseDamage;               // 기본 데미지
+        AdditionalDamage = stat.AdditionalDamage;         // 추가 데미지
+        ImpulseDamage = stat.AdditionalDamage;
+        TotalDamageBonus = stat.TotalDamageBonus;
 
+
+        ImpulseStandard = stat.ImpulseStandard;          // 기준 충격량 (1배)
+        ImpulseDamageBonusRatio = stat.ImpulseDamageBonusRatio;       // 충격량 비례 추가 데미지
         
+
         CriticalChance = stat.CriticalChance;
-        CriticalBonusDamage = stat.CriticalBonusDamage;
+        CriticalDamageBonus = stat.CriticalDamageBonus;
 
-        
+
+        ComboDamage = stat.ComboDamage;
+        ComboDamageAdditional = stat.ComboDamageAdditional;
+
         Level = stat.Level;
         LevelUpExpNeed = stat.LevelUpExpNeed; // 레벨 업에 필요한 경험치.
         CurrentExp = stat.CurrentExp;
         AdditionalExpRatio = stat.AdditionalExpRatio;
 
-        ComboDamageBase = stat.ComboDamageBase;
-        ComboDamageAdditional = stat.ComboDamageAdditional;
     }
 
 

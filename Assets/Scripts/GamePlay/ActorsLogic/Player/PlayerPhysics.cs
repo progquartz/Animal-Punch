@@ -75,7 +75,7 @@ public class PlayerPhysics : MonoBehaviour
     {
         if (IsTimeStopped) return;
 
-        HandleBoost();
+        HandleDash();
         HandleStatChange();
         
     }
@@ -178,63 +178,43 @@ public class PlayerPhysics : MonoBehaviour
         }
     }
 
-    private void HandleRotationOnPCOld()
+    void HandleDash()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-        {
-            Vector3 targetPosition = hit.point;
-
-            Vector3 direction = targetPosition - playerTransform.position;
-            direction.y = 0f;
-
-            if (direction != Vector3.zero)
-            {
-                Quaternion wanderRotation = Quaternion.LookRotation(direction);
-                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, wanderRotation, stat.RotationSpeed * Time.deltaTime);
-            }
-        }
-    }
-
-    void HandleBoost()
-    {
-        ChargeBoost();
+        Dash();
 
         // 캐주얼함을 늘리기 위해 자동으로 부스터 수정.
-        if(stat.BoostChargeRatio >= 1.0f)
+        if(stat.DashChargeRatio >= 1.0f)
         {
-            playerRB.AddForce(playerTransform.forward * stat.BoostForce, ForceMode.Impulse);
+            playerRB.AddForce(playerTransform.forward * stat.DashForce, ForceMode.Impulse);
             SoundManager.Instance.PlaySFX("Booster", AudioType.Entity);
             owner.particleController.OnBoost();
             stat.LastDashTime = Time.time;
-            stat.BoostChargeRatio = 0f;
+            stat.DashChargeRatio = 0f;
         }
     }
 
-    private void ChargeBoost()
+    private void Dash()
     {
         if (!owner.feverHandler.isFever)
         {
             if (variableJoystick.Strength >= joystickForceToChargeBoost)
             {
-                ChargeBoost(stat.BoostChargeTime);
+                ChargeDash(stat.DashChargeTime);
             }
         }
         else
         {
-            ChargeBoost(stat.BoostFeverChargeTime);
+            ChargeDash(stat.FeverBoostChargeTime);
         }
     }
 
-    private void ChargeBoost(float chargeTime)
+    private void ChargeDash(float chargeTime)
     {
         float ratioDelta = Time.deltaTime / chargeTime;
-        stat.BoostChargeRatio += ratioDelta;
-        if (stat.BoostChargeRatio > 1)
+        stat.DashChargeRatio += ratioDelta;
+        if (stat.DashChargeRatio > 1)
         {
-            stat.BoostChargeRatio = 1;
+            stat.DashChargeRatio = 1;
         }
     }
 

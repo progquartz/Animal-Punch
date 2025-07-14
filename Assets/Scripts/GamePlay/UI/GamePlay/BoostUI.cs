@@ -31,7 +31,7 @@ public class BoostUI : MonoBehaviour
     {
         boosterImage.transform.position = owner.PlayerTransform.position + hpBarOffset;
         boosterImageBackground.transform.position = owner.PlayerTransform.position + hpBarOffset;
-        float ratio = owner.Stat.BoostChargeRatio;
+        float ratio = owner.Stat.DashChargeRatio;
         ratio = Mathf.Clamp01(ratio); // ratio는 0~1로 제한
         SetUIColorByRatio(ratio);
         SetUISizeByRatio(ratio);

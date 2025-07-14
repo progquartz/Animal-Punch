@@ -22552,7 +22552,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.DashForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.BaseDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.ImpulseDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.CriticalChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.ImpulseStandard
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7319532398676461027, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7348161077928678076, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}

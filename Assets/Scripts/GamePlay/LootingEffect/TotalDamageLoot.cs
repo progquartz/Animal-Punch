@@ -28,16 +28,16 @@ public class TotalDamageLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.MoveForce += BaseMoveForce * 0.01f * bonus;
+        player.Stat.TotalDamageBonus += bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player Acceleration Gets {bonus}% faster" };
+        return new[] { $"Player All Damage Increases {bonus}%" };
     }
 
     public string GetEffectName()
     {
-        return "Increase Speed";
+        return "All Damage";
     }
 }

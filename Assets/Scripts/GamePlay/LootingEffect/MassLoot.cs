@@ -3,11 +3,9 @@ using UnityEngine;
 public class MassLoot : ILootEffect
 {
     private float bonus;
-    private float OriginalMass;
 
     public MassLoot(LootingRankType lootingRankType)
     {
-        OriginalMass = Player.Instance.InitialStat.CurrentMass;
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
@@ -31,7 +29,7 @@ public class MassLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.CurrentMass += OriginalMass * 0.01f * bonus;
+        player.Stat.CurrentMass += Player.Instance.InitialStat.CurrentMass * 0.01f * bonus;
     }
 
     public string[] GetEffectDescriptions()

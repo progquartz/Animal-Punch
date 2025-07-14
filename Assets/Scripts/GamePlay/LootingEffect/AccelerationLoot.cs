@@ -1,7 +1,6 @@
 public class AccelerationLoot : ILootEffect
 {
     private float bonus;
-    private float BaseMoveForce = 3000f;
 
     public AccelerationLoot(LootingRankType lootingRankType)
     {
@@ -23,21 +22,20 @@ public class AccelerationLoot : ILootEffect
                 bonus = 20f;
                 break;
         }
-        BaseMoveForce = Player.Instance.InitialStat.MoveForce;
     }
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.MoveForce += BaseMoveForce * 0.01f * bonus;
+        player.Stat.MoveForce += player.InitialStat.MoveForce * 0.01f * bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player Acceleration Gets {bonus}% faster" };
+        return new[] { $"Acceleration Gets {bonus}% faster" };
     }
 
     public string GetEffectName()
     {
-        return "Increase Speed";
+        return "Speed";
     }
 }

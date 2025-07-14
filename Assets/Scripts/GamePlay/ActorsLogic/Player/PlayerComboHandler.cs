@@ -23,7 +23,7 @@ public class PlayerComboHandler : MonoBehaviour
             {
                 comboTimer += Time.deltaTime;
 
-                if (comboTimer >= comboResetTime + comboBonusTime)
+                if (comboTimer >= comboResetTime + Player.Instance.Stat.comboBonusTime)
                 {
                     ResetCombo();
                 }
@@ -33,7 +33,7 @@ public class PlayerComboHandler : MonoBehaviour
 
     public void UpdateCombo()
     {
-        if (!IsComboActive || comboTimer >= comboResetTime + comboBonusTime)
+        if (!IsComboActive || comboTimer >= comboResetTime + Player.Instance.Stat.comboBonusTime)
         {
             comboCount = 1; 
         }

@@ -3,9 +3,8 @@ using UnityEngine;
 public class BaseAttackDamageLoot : ILootEffect
 {
     private float bonus;
-    private float BaseMoveForce = 3000f;
 
-    public AccelerationLoot(LootingRankType lootingRankType)
+    public BaseAttackDamageLoot(LootingRankType lootingRankType)
     {
         switch (lootingRankType)
         {
@@ -25,21 +24,20 @@ public class BaseAttackDamageLoot : ILootEffect
                 bonus = 20f;
                 break;
         }
-        BaseMoveForce = Player.Instance.InitialStat.MoveForce;
     }
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.MoveForce += BaseMoveForce * 0.01f * bonus;
+        player.Stat.BaseDamage += bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player Acceleration Gets {bonus}% faster" };
+        return new[] { $"Damage Increases {bonus}" };
     }
 
     public string GetEffectName()
     {
-        return "Increase Speed";
+        return "Attack Damage";
     }
 }

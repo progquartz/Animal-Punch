@@ -39,6 +39,6 @@ public class ExpRatioLoot : ILootEffect
 
     public string GetEffectName()
     {
-        throw new System.NotImplementedException();
+        return "EXP Bonus";
     }
 }

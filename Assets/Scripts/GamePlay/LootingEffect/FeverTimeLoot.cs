@@ -3,43 +3,41 @@ using UnityEngine;
 public class FeverTimeLoot : ILootEffect
 {
     private float bonus;
-    private float originalFeverTime;
 
     public FeverTimeLoot(LootingRankType lootingRankType)
     {
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
-                bonus = 5f;
+                bonus = 0.25f;
                 break;
             case LootingRankType.Rare:
-                bonus = 10f;
+                bonus = 0.5f;
                 break;
             case LootingRankType.Epic:
-                bonus = 15f;
+                bonus = 1f;
                 break;
             case LootingRankType.Unique:
-                bonus = 20f;
+                bonus = 2f;
                 break;
             case LootingRankType.Legendary:
-                bonus = 30f;
+                bonus = 3f;
                 break;
         }
-        originalFeverTime = Player.Instance.feverHandler.originalFeverTime;
     }
 
     public void ApplyEffect(Player player)
     {
-        player.feverHandler.bonusTimeDuration += originalFeverTime * bonus;
+        player.Stat.FeverBonusTime += bonus;
     }
 
     public string[] GetEffectDescriptions()
     {
-        return new[] { $"Player FeverTime Gets {bonus}% more time" };
+        return new[] { $"{bonus}% more Fever Time" };
     }
 
     public string GetEffectName()
     {
-        return "Increase FeverTime";
+        return "Fever Time";
     }
 }

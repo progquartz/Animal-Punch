@@ -4,11 +4,9 @@ public class DashCooltimeLoot : ILootEffect
 {
 
     private float bonus;
-    private float originalBoostCooltime;
 
     public DashCooltimeLoot(LootingRankType lootingRankType)
     {
-        originalBoostCooltime = Player.Instance.InitialStat.BoostChargeTime;
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
@@ -32,10 +30,10 @@ public class DashCooltimeLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.BoostChargeTime -= originalBoostCooltime * 0.01f * bonus;
-        if(player.Stat.BoostChargeTime <= player.Stat.BoostChargeMinimalTime)
+        player.Stat.DashChargeTime -= player.InitialStat.DashChargeTime * 0.01f * bonus;
+        if(player.Stat.DashChargeTime <= player.Stat.DashChargeMinTime)
         {
-            player.Stat.BoostChargeTime = player.Stat.BoostChargeMinimalTime;
+            player.Stat.DashChargeTime = player.Stat.DashChargeMinTime;
         }
     }
 

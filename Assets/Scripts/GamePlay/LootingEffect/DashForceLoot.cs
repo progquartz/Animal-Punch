@@ -3,7 +3,6 @@ using UnityEngine;
 public class DashForceLoot : ILootEffect
 {
     private float bonus;
-    private float initialDashForce;
 
     public DashForceLoot(LootingRankType lootingRankType)
     {
@@ -18,7 +17,6 @@ public class DashForceLoot : ILootEffect
             case LootingRankType.Epic:
                 bonus = 9f;
                 break;
-
             case LootingRankType.Unique:
                 bonus = 15f;
                 break;
@@ -26,12 +24,11 @@ public class DashForceLoot : ILootEffect
                 bonus = 30f;
                 break;
         }
-        initialDashForce = Player.Instance.InitialStat.BoostForce;
     }
 
     public void ApplyEffect(Player player)
     {
-        player.InitialStat.BoostForce += bonus * 0.01f * bonus;
+        player.InitialStat.DashForce += Player.Instance.InitialStat.DashForce * 0.01f * bonus;
     }
 
     public string[] GetEffectDescriptions()

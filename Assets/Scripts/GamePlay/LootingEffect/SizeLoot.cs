@@ -3,10 +3,8 @@ using UnityEngine;
 public class SizeLoot : ILootEffect
 {
     private float bonus;
-    private float originalSize;
     public SizeLoot(LootingRankType lootingRankType)
     {
-        originalSize = Player.Instance.InitialStat.CurrentSize;
         switch (lootingRankType)
         {
             case LootingRankType.Normal:
@@ -29,7 +27,7 @@ public class SizeLoot : ILootEffect
 
     public void ApplyEffect(Player player)
     {
-        player.Stat.CurrentSize += originalSize * 0.01f * bonus;
+        player.Stat.CurrentSize += Player.Instance.InitialStat.CurrentSize * 0.01f * bonus;
         if(player.Stat.CurrentSize >= player.Stat.MaximalSize)
         {
             player.Stat.CurrentSize = player.Stat.MaximalSize;
