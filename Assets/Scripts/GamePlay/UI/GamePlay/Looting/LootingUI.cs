@@ -48,9 +48,10 @@ public class LootingUI : BaseUI
     public void CloseLooting(bool isSelectedLooting)
     {
         GameManager.Instance.ResumeTime();
-        if(isSelectedLooting)
+        Player.Instance.particleController.OnLevelUp();
+        if (isSelectedLooting)
         {
-            Player.Instance.OnLevelUp(isSelectedLooting);
+            
         }
         else 
         {

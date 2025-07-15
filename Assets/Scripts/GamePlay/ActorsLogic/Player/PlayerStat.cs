@@ -91,6 +91,7 @@ public class PlayerStat
 
     public void OnLevelUp()
     {
+        Player.Instance.OnLevelUp?.Invoke();
         int expLeft = CurrentExp - LevelUpExpNeed;
         Level++;
         CurrentExp = expLeft;

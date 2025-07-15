@@ -75,7 +75,7 @@ public class PlayerPhysics : MonoBehaviour
     {
         if (IsTimeStopped) return;
 
-        HandleDash();
+        UpdateForDash();
         HandleStatChange();
         
     }
@@ -178,12 +178,15 @@ public class PlayerPhysics : MonoBehaviour
         }
     }
 
-    void HandleDash()
+    private void UpdateForDash()
     {
-        Dash();
+        UpdateDashRatio();
+        owner.OnDash?.Invoke();
+    }
 
-        // 캐주얼함을 늘리기 위해 자동으로 부스터 수정.
-        if(stat.DashChargeRatio >= 1.0f)
+    public void Dash()
+    {
+        if (stat.DashChargeRatio >= 1.0f)
         {
             playerRB.AddForce(playerTransform.forward * stat.DashForce, ForceMode.Impulse);
             SoundManager.Instance.PlaySFX("Booster", AudioType.Entity);
@@ -193,17 +196,19 @@ public class PlayerPhysics : MonoBehaviour
         }
     }
 
-    private void Dash()
+    private void UpdateDashRatio()
     {
         if (!owner.feverHandler.isFever)
         {
             if (variableJoystick.Strength >= joystickForceToChargeBoost)
             {
+                // 피버 상태가 아닌 경우
                 ChargeDash(stat.DashChargeTime);
             }
         }
         else
         {
+            // 피버 상태일 경우
             ChargeDash(stat.FeverBoostChargeTime);
         }
     }
