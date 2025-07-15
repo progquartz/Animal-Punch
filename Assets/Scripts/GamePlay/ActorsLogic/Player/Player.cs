@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
 public class Player : SingletonBehaviour<Player>
@@ -11,6 +12,12 @@ public class Player : SingletonBehaviour<Player>
     public PlayerParticleController particleController;
     public PlayerComboHandler comboHandler;
     public PlayerFeverHandler feverHandler;
+
+    public Action OnDash;
+    public Action OnFeverStart;
+    public Action OnFeverEnd;
+    public Action OnLevelUp;
+
 
     protected override void Init()
     {
@@ -33,6 +40,7 @@ public class Player : SingletonBehaviour<Player>
         GameManager.Instance.OnTimeToggle += OnTimeToggle;
         GameManager.Instance.OnTimeToggle += particleController.OnTimeToggle;
         GameManager.Instance.OnQuitGameScene += ReleaseEvents;
+        OnDash += playerPhysics.Dash;
         
     }
 
@@ -41,7 +49,8 @@ public class Player : SingletonBehaviour<Player>
         GameManager.Instance.OnTimeToggle -= OnTimeToggle;
         GameManager.Instance.OnTimeToggle -= particleController.OnTimeToggle;
         GameManager.Instance.OnQuitGameScene -= ReleaseEvents;
-        
+        OnDash -= playerPhysics.Dash;
+
     }
 
     private void OnTimeToggle(bool isTimeStop)
@@ -66,15 +75,4 @@ public class Player : SingletonBehaviour<Player>
         
         return isLevelUp;
     }
-
-    public void OnLevelUp(bool isSelectedLooting)
-    {
-        if(isSelectedLooting)
-        {
-            particleController.OnLevelUp();
-        }
-    }
-
-    
-
 }

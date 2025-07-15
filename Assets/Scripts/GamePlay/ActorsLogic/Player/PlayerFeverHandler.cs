@@ -27,6 +27,7 @@ public class PlayerFeverHandler : MonoBehaviour
         if(feverGauge >= GetFeverLimit())
         {
             isFever = true;
+            Player.Instance.OnFeverStart?.Invoke();
             feverTime = feverTimeDuration + Player.Instance.Stat.FeverBonusTime;
             feverGauge = 0;
         }
@@ -43,6 +44,7 @@ public class PlayerFeverHandler : MonoBehaviour
                 if (feverTime < 0)
                 {
                     isFever = false;
+                    Player.Instance.OnFeverEnd?.Invoke();
                 }
             }
             else
