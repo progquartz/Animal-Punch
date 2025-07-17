@@ -23,4 +23,16 @@ public class GoodsPanel : MonoBehaviour
     {
         goldText.text = infoData.gold.ToString();
     }
+
+    public void OnPressGemButton()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+        OverlayCanvas.instance.CallUnderDevelopmentUI();
+    }
+
+    public void OnPressGoldButton()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+        OverlayCanvas.instance.CallUnderDevelopmentUI();
+    }
 }

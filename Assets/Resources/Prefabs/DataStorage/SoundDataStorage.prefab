@@ -69,7 +69,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     clip:
-    - {fileID: 8300000, guid: ca462e29dbbae3647b411a1b44b2a2ad, type: 3}
+    - {fileID: 8300000, guid: 687c5d7ee3c53684384a6d28b8e94b4c, type: 3}
   - key: EnemyShooting
     volume: 0.3
     pitch: 0.8
@@ -98,3 +98,8 @@ MonoBehaviour:
     pitch: 1
     clip:
     - {fileID: 8300000, guid: f22dc66628fc2844c80be739f14cd388, type: 3}
+  - key: ConfirmButton
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: ca462e29dbbae3647b411a1b44b2a2ad, type: 3}

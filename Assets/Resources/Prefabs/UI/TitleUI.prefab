@@ -1603,7 +1603,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1567210297260750346}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6314418398474684336}
+        m_TargetAssemblyTypeName: GoodsPanel, Assembly-CSharp
+        m_MethodName: OnPressGoldButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2025167035420782027
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,7 +2700,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8775055936312973389}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6314418398474684336}
+        m_TargetAssemblyTypeName: GoodsPanel, Assembly-CSharp
+        m_MethodName: OnPressGemButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3806523100043479577
 GameObject:
   m_ObjectHideFlags: 0
@@ -5772,8 +5796,7 @@ MonoBehaviour:
   playerImage: {fileID: 5819637697009442663}
   playerRankImage: {fileID: 5291572950764569517}
   playerHighScore: {fileID: 6131757194579222944}
-  rankImages:
-  - {fileID: 21300000, guid: 964ca1e34af2e2d4a8df96db723ee26d, type: 3}
+  rankDatas: []
 --- !u!1 &8176580439632552807
 GameObject:
   m_ObjectHideFlags: 0

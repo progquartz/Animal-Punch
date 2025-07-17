@@ -29,7 +29,13 @@ public class SettingsUI : BaseUI
         {
             title.IsAdditionalUIOpened = false;
         }
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         base.Close(isCloseAll);
+    }
+
+    public void OnValueChangeSFX()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
     }
 
 }
