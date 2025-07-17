@@ -83,6 +83,7 @@ public class UnLockUI : BaseUI
     {
         base.Close(isCloseAll);
         TitleUI title =  UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        title.IsAdditionalUIOpened = false;
+
+        title.OnAdditionalUIToggled(false);
     }
 }

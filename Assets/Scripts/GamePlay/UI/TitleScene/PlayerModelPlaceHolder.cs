@@ -5,8 +5,6 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     [Header("모델 부모 Transform")]
     public Transform modelParent; // 자식 중 회전시킬 모델이 들어있음
 
-
-
     public string modelKey;
 
 
@@ -33,21 +31,20 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     private void Update()
     {
         UpdateCurrentModel();
-        UpdateModelActive();
         HandleTouchInput();
     }
 
-    private void UpdateModelActive()
+    public void ToggleModel(bool state)
     {
-        TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        if (titleUI.IsAdditionalUIOpened)
+        UpdateCurrentModel();
+        if (state)
         {
-            currentModel.transform.localRotation = initialRotation;
-            currentModel.SetActive(false);
+            currentModel.SetActive(true);
         }
         else
         {
-            currentModel.SetActive(true);
+            currentModel.transform.localRotation = initialRotation;
+            currentModel.SetActive(false);
         }
     }
 
@@ -59,6 +56,12 @@ public class PlayerModelPlaceHolder : MonoBehaviour
         {
             modelKey = managerModelKey;
             ChangeModel(managerModelKey);
+            return;
+        }
+        if(currentModel == null)
+        {
+            // 만약에 모델이 나오지 않는다면, 기본값으로 소환
+            ChangeModel("Cheetah");
         }
     }
 

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UIElements;
+using System;
 
 public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 {
@@ -53,21 +54,43 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
             var box = slots[index].boxData;
             if (box != null && box.unlockableItems != null)
             {
-                // 언락... 어떻게시키지 알고리즘 고민.
-                foreach (var item in box.unlockableItems)
-                {
-                    if (!UnlockSaveManager.Instance.IsUnlocked(item.id))
-                    {
-                        UnlockSaveManager.Instance.Unlock(item.id);
-                        Debug.Log($"[언락됨] {item.displayName}");
-                        break; // 1개만 언락
-                    }
-                }
+                OpenBox(box);
             }
 
             slots[index] = new LootingBoxSlot(); // 초기화
             Save();
         }
+    }
+
+    private void OpenBox(BoxDataSO box)
+    {
+        // 확률 계산
+        bool isGettingItem = UnityEngine.Random.Range(0f, 1f) < box.unlockItemPercent;
+        if (isGettingItem)
+        {
+            // 언락... 어떻게시키지 알고리즘 고민.
+            foreach (var item in box.unlockableItems)
+            {
+                if (!UnlockSaveManager.Instance.IsUnlocked(item.id))
+                {
+                    UnlockSaveManager.Instance.Unlock(item.id);
+                    Debug.Log($"[언락됨] {item.displayName}");
+                    return;
+                }
+            }
+        }
+
+        bool isGettingGem = UnityEngine.Random.Range(0f, 1f) < box.gemPercent;
+        if(isGettingGem)
+        {
+            int gemGetting = UnityEngine.Random.Range(box.gemMin, box.gemMax);
+            GameManager.Instance.GetPlayerInfoData().GainGem(gemGetting);
+            return;
+        }
+
+        int goldGetting = UnityEngine.Random.Range(box.goldMin, box.goldMax);
+        GameManager.Instance.GetPlayerInfoData().GainGold(goldGetting);
+        return;
     }
 
     public bool IsSlotFull()

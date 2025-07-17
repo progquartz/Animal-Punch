@@ -1276,6 +1276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimOnOpen: {fileID: 0}
   IsAdditionalUIOpened: 0
+  modelPlaceHolder: {fileID: 5086191878610820500}
 --- !u!1 &1553532663575501406
 GameObject:
   m_ObjectHideFlags: 0

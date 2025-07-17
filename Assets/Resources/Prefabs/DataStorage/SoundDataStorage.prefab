@@ -103,3 +103,18 @@ MonoBehaviour:
     pitch: 1
     clip:
     - {fileID: 8300000, guid: ca462e29dbbae3647b411a1b44b2a2ad, type: 3}
+  - key: LootingWarning
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: eaf4f79357700294b9b7145593dc60f2, type: 3}
+  - key: PopupShut
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: bc3a798b90b072c478baf6952350707e, type: 3}
+  - key: ChestLootGet
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: cb3f58919a5274944b4767991e706c9b, type: 3}

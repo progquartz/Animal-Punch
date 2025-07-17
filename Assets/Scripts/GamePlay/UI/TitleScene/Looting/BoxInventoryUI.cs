@@ -143,7 +143,7 @@ public class BoxInventoryUI : BaseUI
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         if(title != null)
         {
-            title.IsAdditionalUIOpened = false;
+            title.OnAdditionalUIToggled(false);
         }
         Close();
     }

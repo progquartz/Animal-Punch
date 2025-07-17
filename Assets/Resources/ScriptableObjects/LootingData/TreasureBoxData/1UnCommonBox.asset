@@ -16,7 +16,18 @@ MonoBehaviour:
   displayName: Uncommon Treasure Box
   icon: {fileID: 21300000, guid: 7fa0bcb592413a441b619cc839bd3502, type: 3}
   unlockDurationSeconds: 300
-  unlockableItems: []
+  unlockItemPercent: 10
+  unlockableItems:
+  - {fileID: 11400000, guid: 9a2e97b2726d2f74a994a179e23849e9, type: 2}
+  - {fileID: 11400000, guid: dc52fb3decf126f408d9efe0c31cc97c, type: 2}
+  - {fileID: 11400000, guid: f770043ad6f2c2943916e1c514245db6, type: 2}
+  - {fileID: 11400000, guid: fa326a2a78d319741bd5afd35b6ba26a, type: 2}
+  - {fileID: 11400000, guid: d19d43138b0ecfc4d86a4b015934ce7e, type: 2}
+  gemPercent: 20
+  gemMin: 3
+  gemMax: 10
+  goldMin: 30
+  goldMax: 70
   minScore: 1
   bonusScoreStep: 10
   bonusRate: 5

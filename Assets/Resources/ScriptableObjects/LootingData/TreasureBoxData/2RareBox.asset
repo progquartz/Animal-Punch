@@ -16,7 +16,20 @@ MonoBehaviour:
   displayName: Rare Treasure Box
   icon: {fileID: 21300000, guid: 49ccc48012798ed42b0fbe2df6dab484, type: 3}
   unlockDurationSeconds: 1000
-  unlockableItems: []
+  unlockItemPercent: 15
+  unlockableItems:
+  - {fileID: 11400000, guid: 9a2e97b2726d2f74a994a179e23849e9, type: 2}
+  - {fileID: 11400000, guid: dc52fb3decf126f408d9efe0c31cc97c, type: 2}
+  - {fileID: 11400000, guid: f770043ad6f2c2943916e1c514245db6, type: 2}
+  - {fileID: 11400000, guid: fa326a2a78d319741bd5afd35b6ba26a, type: 2}
+  - {fileID: 11400000, guid: d19d43138b0ecfc4d86a4b015934ce7e, type: 2}
+  - {fileID: 11400000, guid: a2d72c9dc44730140b1cfdc84d45f1d0, type: 2}
+  - {fileID: 11400000, guid: dcb47dec9185d2e4d88173e9977b242c, type: 2}
+  gemPercent: 30
+  gemMin: 5
+  gemMax: 15
+  goldMin: 40
+  goldMax: 100
   minScore: 1
   bonusScoreStep: 10
   bonusRate: 5
