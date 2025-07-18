@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UnderDevelopmentUI : MonoBehaviour
 {
+    public GameObject holder;
     public Image maskedImage; 
     public TMP_Text maskedText;  
 
@@ -39,10 +40,13 @@ public class UnderDevelopmentUI : MonoBehaviour
         if (isUICalled)
         {
             StopCoroutine(currentlyCallingCoroutine);
+            holder.SetActive(false);
             currentlyCallingCoroutine = null;
             SetImageHeight(0f);
         }
+        holder.SetActive(true);
         currentlyCallingCoroutine = StartCoroutine(RevealRoutine());
+        
     }
 
     private IEnumerator RevealRoutine()
@@ -72,5 +76,6 @@ public class UnderDevelopmentUI : MonoBehaviour
 
         SetImageHeight(0f);
         isUICalled = false;
+        holder.SetActive(false);
     }
 }

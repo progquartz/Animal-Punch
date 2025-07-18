@@ -1,8 +1,12 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ChestOpenResultUI : MonoBehaviour
+public class ChestLootNoneUnlockUI : BaseUI
 {
-    public PlayerModelPlaceHolder modelPlaceHolder;
+    public Image lootingUI;
+    public TMP_Text lootingText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

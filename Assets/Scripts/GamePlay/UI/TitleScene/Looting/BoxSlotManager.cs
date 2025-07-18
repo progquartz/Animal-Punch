@@ -74,6 +74,9 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
                 if (!UnlockSaveManager.Instance.IsUnlocked(item.id))
                 {
                     UnlockSaveManager.Instance.Unlock(item.id);
+                    UIManager.Instance.OpenUI<ChestLootUnlockUI>(new BaseUIData());
+                    ChestLootUnlockUI unlockUI = UIManager.Instance.GetActiveUI<ChestLootUnlockUI>() as ChestLootUnlockUI;
+                    unlockUI.OpenLoot(item.id);
                     Debug.Log($"[¾ð¶ôµÊ] {item.displayName}");
                     return;
                 }
