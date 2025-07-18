@@ -57,6 +57,8 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
         {
             selectedIds = id;
             hasChange = true;
+            TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+            if (titleUI != null) titleUI.OnSelectedCharacterChange(id);
             Save();
         }
     }

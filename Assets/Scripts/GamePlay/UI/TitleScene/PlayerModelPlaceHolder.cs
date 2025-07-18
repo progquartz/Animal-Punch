@@ -30,13 +30,17 @@ public class PlayerModelPlaceHolder : MonoBehaviour
 
     private void Update()
     {
-        UpdateCurrentModel();
         HandleTouchInput();
     }
 
     public void ToggleModel(bool state)
     {
-        UpdateCurrentModel();
+        if(modelKey == null)
+        {
+            modelKey = UnlockSaveManager.Instance.selectedIds;
+        }
+        ChangeModelKey(modelKey);
+
         if (state)
         {
             currentModel.SetActive(true);
@@ -48,19 +52,16 @@ public class PlayerModelPlaceHolder : MonoBehaviour
         }
     }
 
-    private void UpdateCurrentModel()
+    public void ChangeModelKey(string key)
     {
-        string managerModelKey = UnlockSaveManager.Instance.selectedIds;
-
-        if (modelKey != managerModelKey)
+        if(key !=  modelKey)
         {
-            modelKey = managerModelKey;
-            ChangeModel(managerModelKey);
+            modelKey = key;
+            ChangeModel(modelKey);
             return;
         }
         if(currentModel == null)
         {
-            // 만약에 모델이 나오지 않는다면, 기본값으로 소환
             ChangeModel("Cheetah");
         }
     }

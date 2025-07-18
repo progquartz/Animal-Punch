@@ -40,4 +40,9 @@ public class TitleUI : BaseUI
         }
         modelPlaceHolder.ToggleModel(!isAdditionalUIOpened);
     }
+
+    public void OnSelectedCharacterChange(string id)
+    {
+        modelPlaceHolder.ChangeModelKey(id);
+    }
 }
