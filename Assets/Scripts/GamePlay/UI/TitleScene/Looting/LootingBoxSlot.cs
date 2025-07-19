@@ -9,7 +9,6 @@ public class LootingBoxSlot
 
     public bool IsOccupied => boxData != null;
 
-
     public bool IsComplete()
     {
         if (!IsOccupied) return false;

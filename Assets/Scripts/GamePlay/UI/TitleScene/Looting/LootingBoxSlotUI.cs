@@ -17,15 +17,16 @@ public class LootingBoxSlotUI : MonoBehaviour
     private LootingBoxSlot slot;
 
     private bool isActive = false;
-    private bool isTimeWarningActive = false;
+    
 
-    private int warningCycle = 3;
-    private float warningTime = 0.3f;
 
     private float refreshTime = 0f;
     private float refreshCycle = 0.5f;
 
     private int minutePerGem = 120;
+
+    [SerializeField]
+    private ChestGemOpenUI chestGemOpenUI;
 
 
     void OnEnable()
@@ -61,12 +62,18 @@ public class LootingBoxSlotUI : MonoBehaviour
             else
             {
                 TimeSpan ts = TimeSpan.FromSeconds(slot.RemainingSeconds());
-                openText.text = ((int)(ts.TotalSeconds / minutePerGem)).ToString();
+                openText.text = GetGemNeedCount(ts).ToString();
                 timerText.text = $"{ts.Hours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
                 gemIcon.gameObject.SetActive(true);
             }
         }
     }
+
+    public int GetGemNeedCount(TimeSpan ts)
+    {
+        return ((int)(ts.TotalSeconds / minutePerGem));
+    }
+    
 
     public void Refresh()
     {
@@ -93,37 +100,25 @@ public class LootingBoxSlotUI : MonoBehaviour
         if (slot.IsComplete())
         {
             // 상자 열기 가능.
-            Debug.Log("Try Open Box");
-            BoxSlotManager.Instance.TryOpenSlot(slotIndex);
-            SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+            OpenBox();
         }
         else
         {
-            // 시간 오류나는거 알려주기.
-            if(!isTimeWarningActive)
-            {
-                isTimeWarningActive = true;
-                StartCoroutine(ColorWarningCoroutine());
-                SoundManager.Instance.PlaySFX("LootingWarning", AudioType.UI);
-            }
+            // 잼이 있으면 잼으로 열건지 알려주는 UI 뜨고...
+            TimeSpan ts = TimeSpan.FromSeconds(slot.RemainingSeconds());
+            int gemCount = GetGemNeedCount(ts);
+            chestGemOpenUI.OpenUI(this, gemCount);
+            TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+            titleUI.OnAdditionalUIToggled(true);
         }
     }
 
-    private IEnumerator ColorWarningCoroutine()
+    public void OpenBox(bool isUsedGem = false)
     {
-        bool isWhite = true;
-
-        for (int i = 0; i < warningCycle; i++)
-        {
-            timerText.color = isWhite ? Color.red : Color.white;
-            isWhite = !isWhite;
-            yield return new WaitForSeconds(warningTime);
-        }
-
-        // 마지막에는 흰색으로 초기화해줌 (선택사항)
-        timerText.color = Color.white;
+        Debug.Log("Try Open Box");
+        BoxSlotManager.Instance.TryOpenSlot(slotIndex, isUsedGem);
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
     }
-
 
 
     // 비어있다면, 채워넣는거 고르는 선택지 열리게.
@@ -136,5 +131,10 @@ public class LootingBoxSlotUI : MonoBehaviour
         UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
         TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         titleUI.OnAdditionalUIToggled(true);
+    }
+
+    public bool IsSlotOccupied()
+    {
+        return slot.IsOccupied;
     }
 }

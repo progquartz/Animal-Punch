@@ -118,3 +118,8 @@ MonoBehaviour:
     pitch: 1
     clip:
     - {fileID: 8300000, guid: cb3f58919a5274944b4767991e706c9b, type: 3}
+  - key: BoxOpenDrum
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 9a8e02a3fd4a60c46a9efed6f4ed480d, type: 3}

@@ -47,16 +47,16 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
         Save();
     }
 
-    public void TryOpenSlot(int index)
+    public void TryOpenSlot(int index, bool isForced = false)
     {
-        if (slots[index].IsComplete())
+        // occupied 되었다면, forced 되었거나, 상자가 끝났거나 했을 때에 언락.
+        if (slots[index].IsOccupied && (isForced ||  slots[index].IsComplete()))
         {
             var box = slots[index].boxData;
             if (box != null && box.unlockableItems != null)
             {
                 OpenBox(box);
             }
-
             slots[index] = new LootingBoxSlot(); // 초기화
             Save();
         }
@@ -65,8 +65,10 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
     private void OpenBox(BoxDataSO box)
     {
         // 확률 계산
+        // 캐릭터 언락의 경우
+        SoundManager.Instance.PlaySFX("BoxOpenDrum", AudioType.UI);
         bool isGettingItem = UnityEngine.Random.Range(0f, 100f) < box.unlockItemPercent;
-        if (false)
+        if (isGettingItem)
         {
             // 언락... 어떻게시키지 알고리즘 고민.
             foreach (var item in box.unlockableItems)
@@ -83,6 +85,8 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
                 }
             }
         }
+
+        // 잼 획득의 경우
         UIManager.Instance.OpenUI<ChestLootNoneUnlockUI>(new BaseUIData());
         ChestLootNoneUnlockUI lootUI = UIManager.Instance.GetActiveUI<ChestLootNoneUnlockUI>() as ChestLootNoneUnlockUI;
         bool isGettingGem = UnityEngine.Random.Range(0f, 100f) < box.gemPercent;
@@ -96,6 +100,7 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
             return;
         }
 
+        // 골드 획득의 경우
         int goldGetting = UnityEngine.Random.Range(box.goldMin, box.goldMax);
         GameManager.Instance.GetPlayerInfoData().GainGold(goldGetting, true);
         lootUI.OpenLoot(false, goldGetting);
