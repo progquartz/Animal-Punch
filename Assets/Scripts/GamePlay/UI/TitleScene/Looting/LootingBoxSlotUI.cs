@@ -25,6 +25,8 @@ public class LootingBoxSlotUI : MonoBehaviour
     private float refreshTime = 0f;
     private float refreshCycle = 0.5f;
 
+    private int minutePerGem = 120;
+
 
     void OnEnable()
     {
@@ -59,7 +61,7 @@ public class LootingBoxSlotUI : MonoBehaviour
             else
             {
                 TimeSpan ts = TimeSpan.FromSeconds(slot.RemainingSeconds());
-                openText.text = "999";
+                openText.text = ((int)(ts.TotalSeconds / minutePerGem)).ToString();
                 timerText.text = $"{ts.Hours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
                 gemIcon.gameObject.SetActive(true);
             }
@@ -91,6 +93,7 @@ public class LootingBoxSlotUI : MonoBehaviour
         if (slot.IsComplete())
         {
             // 상자 열기 가능.
+            Debug.Log("Try Open Box");
             BoxSlotManager.Instance.TryOpenSlot(slotIndex);
             SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         }

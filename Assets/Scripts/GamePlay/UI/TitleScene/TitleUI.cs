@@ -4,7 +4,11 @@ public class TitleUI : BaseUI
 {
     public bool IsAdditionalUIOpened = false;
     public PlayerModelPlaceHolder modelPlaceHolder;
-    
+
+    private void Awake()
+    {
+        modelPlaceHolder.ChangeModelKey(UnlockSaveManager.Instance.selectedIds);
+    }
 
     public void OpenUnlockUI()
     {
@@ -38,6 +42,7 @@ public class TitleUI : BaseUI
         {
             modelPlaceHolder = GetComponentInChildren<PlayerModelPlaceHolder>();
         }
+        Debug.Log($"Toggle Model {!isAdditionalUIOpened}");
         modelPlaceHolder.ToggleModel(!isAdditionalUIOpened);
     }
 

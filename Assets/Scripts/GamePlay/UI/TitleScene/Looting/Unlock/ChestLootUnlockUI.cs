@@ -16,8 +16,8 @@ public class ChestLootUnlockUI : BaseUI
         {
             modelPlaceHolder = GetComponentInChildren<PlayerModelPlaceHolder>();
         }
-        modelPlaceHolder.ToggleModel(true);
         modelPlaceHolder.ChangeModelKey(modelKey);
+        modelPlaceHolder.ToggleModel(true);
         modelName.text = modelKey;
     }
 
@@ -26,6 +26,7 @@ public class ChestLootUnlockUI : BaseUI
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         if (title != null)
         {
+            Debug.Log("²ô±â!");
             title.OnAdditionalUIToggled(false);
         }
         else

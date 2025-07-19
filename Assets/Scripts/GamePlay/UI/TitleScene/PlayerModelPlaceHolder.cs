@@ -35,11 +35,17 @@ public class PlayerModelPlaceHolder : MonoBehaviour
 
     public void ToggleModel(bool state)
     {
-        if(modelKey == null)
+        if(modelKey == null || modelKey == "")
         {
-            modelKey = UnlockSaveManager.Instance.selectedIds;
+            modelKey = "Cheetah";
+            Debug.Log("방문은 함?");
         }
-        ChangeModelKey(modelKey);
+
+        if(currentModel == null)
+        {
+            ChangeModel(modelKey);
+        }
+        
 
         if (state)
         {
@@ -54,15 +60,17 @@ public class PlayerModelPlaceHolder : MonoBehaviour
 
     public void ChangeModelKey(string key)
     {
+        Debug.Log($"{key} \\ {modelKey}");
         if(key !=  modelKey)
         {
             modelKey = key;
             ChangeModel(modelKey);
             return;
         }
+
         if(currentModel == null)
         {
-            ChangeModel("Cheetah");
+            ChangeModel(key);
         }
     }
 

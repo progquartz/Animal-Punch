@@ -65,8 +65,8 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
     private void OpenBox(BoxDataSO box)
     {
         // 확률 계산
-        bool isGettingItem = UnityEngine.Random.Range(0f, 1f) < box.unlockItemPercent;
-        if (true)
+        bool isGettingItem = UnityEngine.Random.Range(0f, 100f) < box.unlockItemPercent;
+        if (false)
         {
             // 언락... 어떻게시키지 알고리즘 고민.
             foreach (var item in box.unlockableItems)
@@ -83,20 +83,24 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
                 }
             }
         }
-
-        /*
-        bool isGettingGem = UnityEngine.Random.Range(0f, 1f) < box.gemPercent;
+        UIManager.Instance.OpenUI<ChestLootNoneUnlockUI>(new BaseUIData());
+        ChestLootNoneUnlockUI lootUI = UIManager.Instance.GetActiveUI<ChestLootNoneUnlockUI>() as ChestLootNoneUnlockUI;
+        bool isGettingGem = UnityEngine.Random.Range(0f, 100f) < box.gemPercent;
         if(isGettingGem)
         {
             int gemGetting = UnityEngine.Random.Range(box.gemMin, box.gemMax);
             GameManager.Instance.GetPlayerInfoData().GainGem(gemGetting);
+
+
+            lootUI.OpenLoot(true, gemGetting);
             return;
         }
 
         int goldGetting = UnityEngine.Random.Range(box.goldMin, box.goldMax);
-        GameManager.Instance.GetPlayerInfoData().GainGold(goldGetting);
+        GameManager.Instance.GetPlayerInfoData().GainGold(goldGetting, true);
+        lootUI.OpenLoot(false, goldGetting);
         return;
-        */
+        
     }
 
     public bool IsSlotFull()

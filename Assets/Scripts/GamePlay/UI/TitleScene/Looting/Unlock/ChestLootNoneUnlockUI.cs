@@ -12,7 +12,13 @@ public class ChestLootNoneUnlockUI : BaseUI
 
     public void OpenLoot(bool isGem, int amouunt)
     {
-        if(isGem)
+        TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+        if (title != null)
+        {
+            title.OnAdditionalUIToggled(true);
+        }
+
+        if (isGem)
         {
             lootingUI.sprite = gemSprite;
             lootingText.text = amouunt.ToString();
