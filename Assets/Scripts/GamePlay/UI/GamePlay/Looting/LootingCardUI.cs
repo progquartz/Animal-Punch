@@ -32,7 +32,11 @@ public class LootingCardUI : MonoBehaviour
     {
         this.owner = owner;
         lootEffect = LootEffectFactory.CreateEffect(type, rank);
-        
+        if(lootEffect == null)
+        {
+            Debug.LogError($"{type.ToString()} 을 만들었는데, 그 결과가 null값으로 도출됩니다.");
+        }
+
         CardTitleText.text = type.ToString();
         CardLoreText.text = string.Join("\n", lootEffect.GetEffectDescriptions());
 

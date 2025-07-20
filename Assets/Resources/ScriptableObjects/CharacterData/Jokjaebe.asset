@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Jokjaebe
   costType:
     costType: 1
-    cost: 50
+    cost: 500
   displayName: Jokjaebe
   icon: {fileID: 21300000, guid: 16048b2c7c5c5fc479c9e0d5c1a0344c, type: 3}
   modelLow: {fileID: 5601743806548243660, guid: c51c0f1d6412e3d479b3ad810789d5a9, type: 3}

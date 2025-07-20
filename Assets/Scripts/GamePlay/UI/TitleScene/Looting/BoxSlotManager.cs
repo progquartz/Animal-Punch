@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UIElements;
+using System;
 
 public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
 {
@@ -46,28 +47,65 @@ public class BoxSlotManager : SingletonBehaviour<BoxSlotManager>
         Save();
     }
 
-    public void TryOpenSlot(int index)
+    public void TryOpenSlot(int index, bool isForced = false)
     {
-        if (slots[index].IsComplete())
+        // occupied 되었다면, forced 되었거나, 상자가 끝났거나 했을 때에 언락.
+        if (slots[index].IsOccupied && (isForced ||  slots[index].IsComplete()))
         {
             var box = slots[index].boxData;
             if (box != null && box.unlockableItems != null)
             {
-                // 언락... 어떻게시키지 알고리즘 고민.
-                foreach (var item in box.unlockableItems)
-                {
-                    if (!UnlockSaveManager.Instance.IsUnlocked(item.id))
-                    {
-                        UnlockSaveManager.Instance.Unlock(item.id);
-                        Debug.Log($"[언락됨] {item.displayName}");
-                        break; // 1개만 언락
-                    }
-                }
+                OpenBox(box);
             }
-
             slots[index] = new LootingBoxSlot(); // 초기화
             Save();
         }
+    }
+
+    private void OpenBox(BoxDataSO box)
+    {
+        // 확률 계산
+        // 캐릭터 언락의 경우
+        SoundManager.Instance.PlaySFX("BoxOpenDrum", AudioType.UI);
+        bool isGettingItem = UnityEngine.Random.Range(0f, 100f) < box.unlockItemPercent;
+        if (isGettingItem)
+        {
+            // 언락... 어떻게시키지 알고리즘 고민.
+            foreach (var item in box.unlockableItems)
+            {
+                if (!UnlockSaveManager.Instance.IsUnlocked(item.id))
+                {
+                    UnlockSaveManager.Instance.Unlock(item.id);
+
+                    UIManager.Instance.OpenUI<ChestLootUnlockUI>(new BaseUIData());
+                    ChestLootUnlockUI unlockUI = UIManager.Instance.GetActiveUI<ChestLootUnlockUI>() as ChestLootUnlockUI;
+                    unlockUI.OpenLoot(item.id);
+                    Debug.Log($"[언락됨] {item.displayName}");
+                    return;
+                }
+            }
+        }
+
+        // 잼 획득의 경우
+        UIManager.Instance.OpenUI<ChestLootNoneUnlockUI>(new BaseUIData());
+        ChestLootNoneUnlockUI lootUI = UIManager.Instance.GetActiveUI<ChestLootNoneUnlockUI>() as ChestLootNoneUnlockUI;
+        bool isGettingGem = UnityEngine.Random.Range(0f, 100f) < box.gemPercent;
+        if(isGettingGem)
+        {
+            int gemGetting = UnityEngine.Random.Range(box.gemMin, box.gemMax);
+            GameManager.Instance.GetPlayerInfoData().GainGem(gemGetting);
+
+
+            lootUI.OpenLoot(true, gemGetting);
+            return;
+        }
+
+        // 골드 획득의 경우
+        int goldGetting = UnityEngine.Random.Range(box.goldMin, box.goldMax);
+        GameManager.Instance.GetPlayerInfoData().GainGold(goldGetting, true);
+        lootUI.OpenLoot(false, goldGetting);
+        return;
+        
     }
 
     public bool IsSlotFull()

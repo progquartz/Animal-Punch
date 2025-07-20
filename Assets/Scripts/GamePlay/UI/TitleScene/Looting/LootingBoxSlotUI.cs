@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using System.Collections;
+using Unity.VisualScripting;
 
 public class LootingBoxSlotUI : MonoBehaviour
 {
@@ -15,9 +17,16 @@ public class LootingBoxSlotUI : MonoBehaviour
     private LootingBoxSlot slot;
 
     private bool isActive = false;
+    
+
 
     private float refreshTime = 0f;
     private float refreshCycle = 0.5f;
+
+    private int minutePerGem = 120;
+
+    [SerializeField]
+    private ChestGemOpenUI chestGemOpenUI;
 
 
     void OnEnable()
@@ -53,12 +62,18 @@ public class LootingBoxSlotUI : MonoBehaviour
             else
             {
                 TimeSpan ts = TimeSpan.FromSeconds(slot.RemainingSeconds());
-                openText.text = "999";
+                openText.text = GetGemNeedCount(ts).ToString();
                 timerText.text = $"{ts.Hours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
                 gemIcon.gameObject.SetActive(true);
             }
         }
     }
+
+    public int GetGemNeedCount(TimeSpan ts)
+    {
+        return ((int)(ts.TotalSeconds / minutePerGem));
+    }
+    
 
     public void Refresh()
     {
@@ -77,26 +92,52 @@ public class LootingBoxSlotUI : MonoBehaviour
         isActive = true;
     }
 
-    public void OnClickOpenButton()
-    {
-        if (!isActive || slot == null) return;
-
-        if (slot.IsComplete())
-        {
-            // 상자 열기 가능.
-            BoxSlotManager.Instance.TryOpenSlot(slotIndex);
-        }
-    }
-
     // 비어있다면, 채워넣는거 고르는 선택지 열리게.
     public void OnClickSlotButton()
     {
         if (slot == null || slot.IsOccupied) return;
 
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         BoxSlotManager.Instance.slotButtonRequestIndex = slotIndex;
         // slot inventory 열리고, chest 선택할 수 있게.
         UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
         TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        titleUI.IsAdditionalUIOpened = true;
+        titleUI.OnAdditionalUIToggled(true);
+    }
+    public void OnClickOpenButton()
+    {
+        if (!isActive || slot == null) return;
+
+        
+        if (slot.IsComplete())
+        {
+            // 상자 열기 가능.
+            OpenBox();
+        }
+        else
+        {
+            // 잼이 있으면 잼으로 열건지 알려주는 UI 뜨고...
+            TimeSpan ts = TimeSpan.FromSeconds(slot.RemainingSeconds());
+            int gemCount = GetGemNeedCount(ts);
+            SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+            chestGemOpenUI.OpenUI(this, gemCount);
+            TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+            titleUI.OnAdditionalUIToggled(true);
+        }
+    }
+
+    public void OpenBox(bool isUsedGem = false)
+    {
+        Debug.Log("Try Open Box");
+        BoxSlotManager.Instance.TryOpenSlot(slotIndex, isUsedGem);
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+    }
+
+
+
+
+    public bool IsSlotOccupied()
+    {
+        return slot.IsOccupied;
     }
 }

@@ -5,8 +5,6 @@ public class PlayerModelPlaceHolder : MonoBehaviour
     [Header("모델 부모 Transform")]
     public Transform modelParent; // 자식 중 회전시킬 모델이 들어있음
 
-
-
     public string modelKey;
 
 
@@ -32,39 +30,53 @@ public class PlayerModelPlaceHolder : MonoBehaviour
 
     private void Update()
     {
-        UpdateCurrentModel();
-        UpdateModelActive();
         HandleTouchInput();
     }
 
-    private void UpdateModelActive()
+    public void ToggleModel(bool state)
     {
-        TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        if (titleUI.IsAdditionalUIOpened)
+        if(modelKey == null || modelKey == "")
+        {
+            modelKey = "Cheetah";
+            Debug.Log("방문은 함?");
+        }
+
+        if(currentModel == null)
+        {
+            ChangeModel(modelKey);
+        }
+        
+
+        if (state)
+        {
+            currentModel.SetActive(true);
+        }
+        else
         {
             currentModel.transform.localRotation = initialRotation;
             currentModel.SetActive(false);
         }
-        else
-        {
-            currentModel.SetActive(true);
-        }
     }
 
-    private void UpdateCurrentModel()
+    public void ChangeModelKey(string key)
     {
-        string managerModelKey = UnlockSaveManager.Instance.selectedIds;
-
-        if (modelKey != managerModelKey)
+        Debug.Log($"{key} \\ {modelKey}");
+        if(key !=  modelKey)
         {
-            modelKey = managerModelKey;
-            ChangeModel(managerModelKey);
+            modelKey = key;
+            ChangeModel(modelKey);
+            return;
+        }
+
+        if(currentModel == null)
+        {
+            ChangeModel(key);
         }
     }
 
     private void ChangeModel(string modelKey)
     {
-        UnlockableDataSO data = UnlockSaveManager.Instance.GetUnlockdata(modelKey);
+        UnlockableDataSO data = UnlockSaveManager.Instance.GetUnlockedData(modelKey);
         if (data == null) return;
 
         for(int i = 0; i < modelParent.childCount; i++)

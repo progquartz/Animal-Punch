@@ -35,6 +35,8 @@ public static class LootEffectFactory
             LootingTypeType.DashCooltime => (Player.Instance.Stat.DashChargeTime >= Player.Instance.Stat.DashChargeMinTime) ? new DashCooltimeLoot(rank) : new DashForceLoot(rank),
             LootingTypeType.DashForce => new DashForceLoot(rank),
             LootingTypeType.ExpRatio => new ExpRatioLoot(rank),
+            LootingTypeType.FeverGaugeBonus => new FeverGaugeBonusLoot(rank),
+            LootingTypeType.FeverTime => new FeverTimeLoot(rank),
             LootingTypeType.Mass => new MassLoot(rank),
             LootingTypeType.Size => (Player.Instance.Stat.CurrentSize <= Player.Instance.Stat.MaximalSize) ? new SizeLoot(rank) : new MassLoot(rank),
             LootingTypeType.TotalDamage => new TotalDamageLoot(rank),

@@ -46,5 +46,11 @@ public class PlayerInfoUI : MonoBehaviour
         return  DataManager.Instance.PlayerDataStorage.GetRankData(score).rankSprite;
     }
 
+
+    public void OnClickPlayerRecordButton()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+        OverlayCanvas.instance.CallUnderDevelopmentUI();
+    }
     
 }

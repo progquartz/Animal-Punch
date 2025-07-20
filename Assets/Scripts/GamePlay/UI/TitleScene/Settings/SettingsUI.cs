@@ -27,9 +27,15 @@ public class SettingsUI : BaseUI
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         if(title != null)
         {
-            title.IsAdditionalUIOpened = false;
+            title.OnAdditionalUIToggled(false);
         }
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         base.Close(isCloseAll);
+    }
+
+    public void OnValueChangeSFX()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
     }
 
 }

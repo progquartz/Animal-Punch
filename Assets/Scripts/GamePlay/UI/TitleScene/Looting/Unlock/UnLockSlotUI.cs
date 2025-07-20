@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,11 @@ public class UnLockSlotUI : MonoBehaviour
 
     public Sprite gemSprite;
     public Sprite goldSprite;
+
+    private readonly int warningCycle = 3;
+    private readonly float warningTime = 0.3f;
+    private bool isGemWarningActive = false;
+
 
     public void ChangeUI(bool isUnlocked, bool isSelected, UnlockableDataSO unlockData)
     {
@@ -54,6 +60,37 @@ public class UnLockSlotUI : MonoBehaviour
         }
     }
 
-    
+    public void OnBuyFailed()
+    {
+        SoundManager.Instance.PlaySFX("LootingWarning", AudioType.UI);
+        if(!isGemWarningActive)
+        {
+            isGemWarningActive = true;
+            StartCoroutine(ColorWarningCoroutine());
+        }
+        
+    }
+
+    public void OnBuySuceed()
+    {
+        SoundManager.Instance.PlaySFX("Purchase", AudioType.UI);
+    }
+
+
+    private IEnumerator ColorWarningCoroutine()
+    {
+        bool isWhite = true;
+
+        for (int i = 0; i < warningCycle; i++)
+        {
+            SelectButtonText.color = isWhite ? Color.red : Color.white;
+            isWhite = !isWhite;
+            yield return new WaitForSeconds(warningTime);
+        }
+
+        // 마지막에는 흰색으로 초기화해줌 (선택사항)
+        SelectButtonText.color = Color.white;
+        isGemWarningActive = false;
+    }
 
 }

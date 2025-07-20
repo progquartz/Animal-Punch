@@ -69,7 +69,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     clip:
-    - {fileID: 8300000, guid: ca462e29dbbae3647b411a1b44b2a2ad, type: 3}
+    - {fileID: 8300000, guid: 687c5d7ee3c53684384a6d28b8e94b4c, type: 3}
   - key: EnemyShooting
     volume: 0.3
     pitch: 0.8
@@ -98,3 +98,33 @@ MonoBehaviour:
     pitch: 1
     clip:
     - {fileID: 8300000, guid: f22dc66628fc2844c80be739f14cd388, type: 3}
+  - key: ConfirmButton
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: ca462e29dbbae3647b411a1b44b2a2ad, type: 3}
+  - key: LootingWarning
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: eaf4f79357700294b9b7145593dc60f2, type: 3}
+  - key: PopupShut
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: bc3a798b90b072c478baf6952350707e, type: 3}
+  - key: ChestLootGet
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: cb3f58919a5274944b4767991e706c9b, type: 3}
+  - key: BoxOpenDrum
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 9a8e02a3fd4a60c46a9efed6f4ed480d, type: 3}
+  - key: Purchase
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 6eb8ce0920b90494c8bdb56d6ab9e06f, type: 3}

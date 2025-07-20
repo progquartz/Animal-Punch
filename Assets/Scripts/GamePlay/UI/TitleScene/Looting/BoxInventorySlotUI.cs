@@ -24,6 +24,7 @@ public class BoxInventorySlotUI : MonoBehaviour
         
         if(boxdata != null)
         {
+            assignButton.gameObject.SetActive(false);
             PutInSlot(boxdata);
         }
         else
@@ -52,6 +53,7 @@ public class BoxInventorySlotUI : MonoBehaviour
     public void SlotSelected(bool isSelected)
     {
         boxSelectedImage.gameObject.SetActive(isSelected);
+        assignButton.gameObject.SetActive(isSelected);
         assignButton.interactable = isSelected;
     }
 
@@ -65,7 +67,7 @@ public class BoxInventorySlotUI : MonoBehaviour
     {
         if(boxData != null)
         {
-            boxName.text = boxData.name;
+            boxName.text = boxData.displayName;
             boxImage.sprite = boxData.icon;
             TimeSpan time = TimeSpan.FromSeconds(boxData.unlockDurationSeconds);
             boxTime.text =
@@ -86,6 +88,7 @@ public class BoxInventorySlotUI : MonoBehaviour
     {
         if (BoxSlotManager.Instance.IsSlotFull())
         {
+            assignButton.gameObject.SetActive(false);
             assignButton.interactable = false;
         }
     }

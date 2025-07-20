@@ -13,10 +13,27 @@ MonoBehaviour:
   m_Name: 3UniqueBox
   m_EditorClassIdentifier: 
   rank: 3
-  displayName: Unique Treasure Box
+  displayName: Unique Box
   icon: {fileID: 21300000, guid: 3dcb610315a71644f84aa3a430131d4e, type: 3}
   unlockDurationSeconds: 3600
-  unlockableItems: []
+  unlockItemPercent: 20
+  unlockableItems:
+  - {fileID: 11400000, guid: 9a2e97b2726d2f74a994a179e23849e9, type: 2}
+  - {fileID: 11400000, guid: dc52fb3decf126f408d9efe0c31cc97c, type: 2}
+  - {fileID: 11400000, guid: f770043ad6f2c2943916e1c514245db6, type: 2}
+  - {fileID: 11400000, guid: fa326a2a78d319741bd5afd35b6ba26a, type: 2}
+  - {fileID: 11400000, guid: d19d43138b0ecfc4d86a4b015934ce7e, type: 2}
+  - {fileID: 11400000, guid: a2d72c9dc44730140b1cfdc84d45f1d0, type: 2}
+  - {fileID: 11400000, guid: dcb47dec9185d2e4d88173e9977b242c, type: 2}
+  - {fileID: 11400000, guid: 9df17d0f617abde429a60cf9d02c90dc, type: 2}
+  - {fileID: 11400000, guid: 4d138fc6fe9074541b4ee233b2c644cd, type: 2}
+  - {fileID: 11400000, guid: c4f4cf49299d15047860e8f6112a6375, type: 2}
+  - {fileID: 11400000, guid: 1474d849900c89e419f78e84ddf0e9fd, type: 2}
+  gemPercent: 50
+  gemMin: 8
+  gemMax: 25
+  goldMin: 80
+  goldMax: 200
   minScore: 1
   bonusScoreStep: 10
   bonusRate: 5

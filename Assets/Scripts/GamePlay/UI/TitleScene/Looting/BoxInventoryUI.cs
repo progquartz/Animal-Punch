@@ -69,8 +69,6 @@ public class BoxInventoryUI : BaseUI
 
         slotUI.Init(index, boxData);
         slotUI.SlotIndex = index;
-
-
     }
 
 
@@ -85,11 +83,13 @@ public class BoxInventoryUI : BaseUI
             if (selectedBoxIndex != -1)
             {
                 GetSlotInIndex(selectedBoxIndex).SlotSelected(false);
+
             }
             // 선택한 button active.
             selectedBoxIndex = slotUI.SlotIndex;
             if(GetSlotInIndex(selectedBoxIndex).boxData != null)
             {
+                SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
                 slotUI.SlotSelected(true);
             }
             
@@ -103,6 +103,7 @@ public class BoxInventoryUI : BaseUI
         {
             if (InventoryManager.Instance.AssignBox(selectedBoxIndex, BoxSlotManager.Instance.slotButtonRequestIndex))
             {
+                SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
                 EraseSlot(selectedBoxIndex);
                 selectedBoxIndex = -1;
                 OnClickCloseButton();
@@ -140,10 +141,11 @@ public class BoxInventoryUI : BaseUI
     {
         // request 취소.
         BoxSlotManager.Instance.slotButtonRequestIndex = -1;
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         if(title != null)
         {
-            title.IsAdditionalUIOpened = false;
+            title.OnAdditionalUIToggled(false);
         }
         Close();
     }
