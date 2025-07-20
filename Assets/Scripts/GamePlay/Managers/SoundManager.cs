@@ -204,9 +204,6 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         sfxPool.Enqueue(source);
     }
 
-
-
-
     public void StopBGM() => bgmSource?.Stop();
 
     // 씬이 로드될 때 모든 SFX를 멈추기
@@ -230,6 +227,8 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         }
         inUse.Clear();
     }
+
+
 
     // 게임 일시 정지 상태 변경
     public void SetPauseState(bool paused)
