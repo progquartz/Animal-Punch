@@ -92,6 +92,18 @@ public class LootingBoxSlotUI : MonoBehaviour
         isActive = true;
     }
 
+    // 비어있다면, 채워넣는거 고르는 선택지 열리게.
+    public void OnClickSlotButton()
+    {
+        if (slot == null || slot.IsOccupied) return;
+
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
+        BoxSlotManager.Instance.slotButtonRequestIndex = slotIndex;
+        // slot inventory 열리고, chest 선택할 수 있게.
+        UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
+        TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
+        titleUI.OnAdditionalUIToggled(true);
+    }
     public void OnClickOpenButton()
     {
         if (!isActive || slot == null) return;
@@ -107,6 +119,7 @@ public class LootingBoxSlotUI : MonoBehaviour
             // 잼이 있으면 잼으로 열건지 알려주는 UI 뜨고...
             TimeSpan ts = TimeSpan.FromSeconds(slot.RemainingSeconds());
             int gemCount = GetGemNeedCount(ts);
+            SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
             chestGemOpenUI.OpenUI(this, gemCount);
             TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
             titleUI.OnAdditionalUIToggled(true);
@@ -121,17 +134,7 @@ public class LootingBoxSlotUI : MonoBehaviour
     }
 
 
-    // 비어있다면, 채워넣는거 고르는 선택지 열리게.
-    public void OnClickSlotButton()
-    {
-        if (slot == null || slot.IsOccupied) return;
 
-        BoxSlotManager.Instance.slotButtonRequestIndex = slotIndex;
-        // slot inventory 열리고, chest 선택할 수 있게.
-        UIManager.Instance.OpenUI<BoxInventoryUI>(new BaseUIData());
-        TitleUI titleUI = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
-        titleUI.OnAdditionalUIToggled(true);
-    }
 
     public bool IsSlotOccupied()
     {

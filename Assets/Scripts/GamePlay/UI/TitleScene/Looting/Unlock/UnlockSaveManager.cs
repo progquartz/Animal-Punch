@@ -21,14 +21,19 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
     }
     public bool IsUnlocked(string id) => unlockedIds.Contains(id);
 
-    public UnlockableDataSO GetUnlockdata(string id)
+    public UnlockableDataSO GetUnlockedData(string id)
     {
         if(!IsUnlocked(id))
         {
-            Debug.Log($"{allUnlocks.Count}개 중 찾는 {id}를 가진 unlockdataso가 없습니다.");
+            Debug.Log($"{unlockedIds.Count}개 중 찾는 {id}를 가진 unlockdataso가 없습니다.");
             return null;
         }
             
+        return allUnlocks.Find((data) => (data.id == id));
+    }
+
+    public UnlockableDataSO GetUnlockData(string id)
+    {
         return allUnlocks.Find((data) => (data.id == id));
     }
 
@@ -65,12 +70,12 @@ public class UnlockSaveManager : SingletonBehaviour<UnlockSaveManager>
 
     public UnlockableDataSO GetSelectedUnlockData()
     {
-        return GetUnlockdata(selectedIds);
+        return GetUnlockedData(selectedIds);
     }
 
     public bool HandleBuyItem(string unlockableId)
     {
-        UnlockableDataSO data = GetUnlockdata(unlockableId);
+        UnlockableDataSO data = GetUnlockData(unlockableId);
         if(data == null) return false;
 
         int cost = data.costType.cost;

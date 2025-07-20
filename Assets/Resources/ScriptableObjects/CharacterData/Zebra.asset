@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Zebra
   costType:
     costType: 1
-    cost: 50
+    cost: 500
   displayName: Zebra
   icon: {fileID: 21300000, guid: 8ed0e138ab205774bbc7afbf7b128d0a, type: 3}
   modelLow: {fileID: 5229583123807777262, guid: f469906a0d44978488f1c1c268e72e43, type: 3}

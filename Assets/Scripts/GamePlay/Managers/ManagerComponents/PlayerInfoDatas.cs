@@ -83,9 +83,9 @@ public class PlayerInfoDatas : MonoBehaviour
 
     private bool TryUseGem(int amount)
     {
-        if (gold >= amount)
+        if (gem >= amount)
         {
-            gold -= amount;
+            gem -= amount;
             SaveGoodsData();
             return true;
         }

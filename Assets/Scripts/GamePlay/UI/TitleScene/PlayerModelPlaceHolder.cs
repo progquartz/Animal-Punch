@@ -76,7 +76,7 @@ public class PlayerModelPlaceHolder : MonoBehaviour
 
     private void ChangeModel(string modelKey)
     {
-        UnlockableDataSO data = UnlockSaveManager.Instance.GetUnlockdata(modelKey);
+        UnlockableDataSO data = UnlockSaveManager.Instance.GetUnlockedData(modelKey);
         if (data == null) return;
 
         for(int i = 0; i < modelParent.childCount; i++)

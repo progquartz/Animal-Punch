@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Racoon
   costType:
-    costType: 1
-    cost: 50
+    costType: 0
+    cost: 1000
   displayName: Racoon
   icon: {fileID: 21300000, guid: 6d310b89528108841b1f9ee7571f365d, type: 3}
   modelLow: {fileID: 9005781136330607667, guid: 8d596ab481ce5f94f8503f581e22182a, type: 3}

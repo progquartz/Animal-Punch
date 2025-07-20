@@ -123,3 +123,8 @@ MonoBehaviour:
     pitch: 1
     clip:
     - {fileID: 8300000, guid: 9a8e02a3fd4a60c46a9efed6f4ed480d, type: 3}
+  - key: Purchase
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 6eb8ce0920b90494c8bdb56d6ab9e06f, type: 3}

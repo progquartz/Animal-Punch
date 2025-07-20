@@ -56,6 +56,7 @@ public class UnLockUI : BaseUI
                 // 슬롯이 언락 상태면면...
                 if(UnlockSaveManager.Instance.IsUnlocked(slot.unlockableId))
                 {
+                    SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
                     UnlockSaveManager.Instance.ChangeSelected(slot.unlockableId);
                 }
                 // 언락 안되었으면...
@@ -63,11 +64,13 @@ public class UnLockUI : BaseUI
                 {
                     if(UnlockSaveManager.Instance.HandleBuyItem(slot.unlockableId))
                     {
-                        // 구매 실패 (관련 메세지 넣기?)
+                        // 구매 성공
+                        slot.OnBuySuceed();
                     }
                     else
                     {
                         // 구매 실패
+                        slot.OnBuyFailed();
                     }
                 }
             });
@@ -76,6 +79,7 @@ public class UnLockUI : BaseUI
 
     public void OnClickCloseButton()
     {
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         Close();
     }
 
