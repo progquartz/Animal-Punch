@@ -42,7 +42,7 @@ public class TitleUI : BaseUI
         {
             modelPlaceHolder = GetComponentInChildren<PlayerModelPlaceHolder>();
         }
-        Debug.Log($"Toggle Model {!isAdditionalUIOpened}");
+        //Debug.Log($"Toggle Model {!isAdditionalUIOpened}");
         modelPlaceHolder.ToggleModel(!isAdditionalUIOpened);
     }
 
@@ -50,4 +50,5 @@ public class TitleUI : BaseUI
     {
         modelPlaceHolder.ChangeModelKey(id);
     }
+
 }

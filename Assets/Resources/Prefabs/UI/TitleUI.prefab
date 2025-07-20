@@ -4222,7 +4222,7 @@ MonoBehaviour:
   LevelText: {fileID: 4605695818490218501}
   ExpText: {fileID: 1159067799381776991}
   ExpBar: {fileID: 7216273529764885259}
-  originalScale: {x: 0, y: 0, z: 0}
+  barFillDuration: 5
 --- !u!1 &6188323203286741010
 GameObject:
   m_ObjectHideFlags: 0

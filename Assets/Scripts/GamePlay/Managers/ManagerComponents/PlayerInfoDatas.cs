@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using Mono.Cecil;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,9 +11,11 @@ public class PlayerInfoDatas : MonoBehaviour
     public int currentLevel; // 현재 레벨
     public int currentExp; // 현재 경험치
     public int nextExp; // 레벨업 필요 경험치
+    public int queuedExp;
 
     public int gold; // 골드
     public int gem; // 잼
+    
 
     public void Init()
     {
@@ -110,6 +114,34 @@ public class PlayerInfoDatas : MonoBehaviour
         SaveExpData();
     }
 
+    public void QueueGainExp(int amount)
+    {
+        queuedExp += amount;
+        Debug.Log($"ExpGained {queuedExp}");
+        PlayerPrefs.SetInt("QueuedExp", queuedExp);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadQueuedExp()
+    {
+        queuedExp = PlayerPrefs.GetInt("QueuedExp", 0);
+    }
+
+    public void ClearQueuedExp()
+    {
+        queuedExp = 0;
+        PlayerPrefs.SetInt("QueuedExp", 0);
+    }
+
+    public void ClearExp()
+    {
+        currentExp = 0;
+        currentLevel = 0;
+        PlayerPrefs.SetInt("PlayerLevel", currentLevel);
+        PlayerPrefs.SetInt("PlayerCurrentExp", currentExp);
+        PlayerPrefs.Save();
+    }
+
     private void OnLevelUp()
     {
         int expLeft = currentExp - nextExp;
@@ -118,10 +150,11 @@ public class PlayerInfoDatas : MonoBehaviour
     }
 
 
-    private void SaveExpData()
+    public void SaveExpData()
     {
         PlayerPrefs.SetInt("PlayerLevel", currentLevel);
         PlayerPrefs.SetInt("PlayerCurrentExp", currentExp);
+        PlayerPrefs.Save();
     }
 
     private void LoadExpData()

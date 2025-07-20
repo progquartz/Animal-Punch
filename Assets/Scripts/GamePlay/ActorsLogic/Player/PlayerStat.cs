@@ -113,9 +113,9 @@ public class PlayerStat
         float baseDamage = BaseDamage + AdditionalDamage;
 
         // 충격량 데미지
-        Debug.Log($"ImpulseMagniture = {impulseMagnitude}");
+        //Debug.Log($"ImpulseMagniture = {impulseMagnitude}");
         float impulseDamage = ImpulseDamage * (impulseMagnitude / ImpulseStandard) * (1 + 0.01f * ImpulseDamageBonusRatio);
-        Debug.Log($"impulseMag = {impulseMagnitude} / impulsestandard = {ImpulseStandard} / impulsebonusratio = {ImpulseDamageBonusRatio} /  ImpulseDamage = {impulseDamage}");
+        //Debug.Log($"impulseMag = {impulseMagnitude} / impulsestandard = {ImpulseStandard} / impulsebonusratio = {ImpulseDamageBonusRatio} /  ImpulseDamage = {impulseDamage}");
         // 콤보 곱하기
         float comboRatio = Player.Instance.comboHandler.comboDamageRatio;
 

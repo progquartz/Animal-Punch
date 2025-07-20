@@ -38,6 +38,7 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         gameOverSpawner.TestAnimalDeathStack();
         CalculateFinalScores();
         CheckHighScore();
+        CheckExp();
         float droppingTime = gameOverSpawner.GetAllSpawnTime();
         lootingData = InventoryManager.Instance.CalculateGameEndingLoots(finalTotalScore);
         InventoryManager.Instance.GetLoot(lootingData);
@@ -75,6 +76,15 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         finalTimeScore = Mathf.RoundToInt(GameManager.Instance.GameTime);
         finalTotalScore = finalEnemyScore + finalTimeScore;
         Debug.Log($"finalEnemyScore = {finalEnemyScore} / finalTimeScore = {finalTimeScore} / finalTotalScore = {finalTotalScore}");
+    }
+
+    private void CheckExp()
+    {
+        // 최종 스코어만큼 경험치를 얻는거로...
+        if(finalTotalScore > 0)
+        {
+            GameManager.Instance.GetPlayerInfoData().QueueGainExp(finalTotalScore);
+        }
     }
 
     private void CheckHighScore()

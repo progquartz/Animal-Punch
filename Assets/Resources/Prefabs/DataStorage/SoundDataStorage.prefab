@@ -128,3 +128,18 @@ MonoBehaviour:
     pitch: 1
     clip:
     - {fileID: 8300000, guid: 6eb8ce0920b90494c8bdb56d6ab9e06f, type: 3}
+  - key: ExpRise
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 508fe1f250e97c646a2d35fad984ff1d, type: 3}
+  - key: LevelUp
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 35a59a77f0ef5f047a45517e146809a9, type: 3}
+  - key: GameOver
+    volume: 0.4
+    pitch: 1
+    clip:
+    - {fileID: 8300000, guid: 35a59a77f0ef5f047a45517e146809a9, type: 3}
