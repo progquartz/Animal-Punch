@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1UnCommonBox
   m_EditorClassIdentifier: 
   rank: 1
-  displayName: Uncommon Treasure Box
+  displayName: Uncommon Box
   icon: {fileID: 21300000, guid: 7fa0bcb592413a441b619cc839bd3502, type: 3}
   unlockDurationSeconds: 300
   unlockItemPercent: 10

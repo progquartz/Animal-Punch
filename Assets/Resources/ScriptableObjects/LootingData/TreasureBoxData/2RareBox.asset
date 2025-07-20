@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2RareBox
   m_EditorClassIdentifier: 
   rank: 2
-  displayName: Rare Treasure Box
+  displayName: Rare Box
   icon: {fileID: 21300000, guid: 49ccc48012798ed42b0fbe2df6dab484, type: 3}
   unlockDurationSeconds: 1000
   unlockItemPercent: 15
