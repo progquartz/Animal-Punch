@@ -66,6 +66,7 @@ public class GameOverScreenUI : MonoBehaviour
         droppingTime = dropTime;
         
         currentTime = 0f;
+        SoundManager.Instance.PlaySFX("GameOver", AudioType.SFX);
         targetTimeScore = EndingManager.Instance.finalTimeScore;
     }
 

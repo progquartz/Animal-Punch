@@ -67,6 +67,7 @@ public class LevelExpBar : MonoBehaviour
     // 최대 1개의 레벨업에 관장하는 코루틴
     private IEnumerator AnimateOneCycle(PlayerInfoDatas infoData, int expToAdd)
     {
+        SoundManager.Instance.PlaySFX("ExpRise", AudioType.UI);
         int initialExp = infoData.currentExp;
         float duration = barFillDuration * ((float)expToAdd / infoData.nextExp);
         float timer = 0f;
@@ -98,6 +99,7 @@ public class LevelExpBar : MonoBehaviour
 
     private void OpenLevelUpPrize(PlayerInfoDatas infoData)
     {
+        SoundManager.Instance.PlaySFX("LevelUp", AudioType.UI);
         UIManager.Instance.OpenUI<LevelUpLootUI>(new BaseUIData());
         LevelUpLootUI levelUpUI = UIManager.Instance.GetActiveUI<LevelUpLootUI>() as LevelUpLootUI;
         levelUpUI.OpenLoot(infoData.currentLevel);
