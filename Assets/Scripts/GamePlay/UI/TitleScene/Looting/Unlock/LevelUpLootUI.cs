@@ -58,6 +58,7 @@ public class LevelUpLootUI : BaseUI
     public void CloseLoot()
     {
         targetLevel = -1;
+        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         if (title != null)
         {

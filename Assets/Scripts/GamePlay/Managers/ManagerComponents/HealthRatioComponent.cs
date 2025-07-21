@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 public class HealthRatioComponent
 {
     [Header("Multiplier Settings")]
-    private float maxRatio = 50f;
+    private float maxRatio = 80f;
     private float maxTime = 1800f;
     [Range(1f, 5f)] private float easePower = 1f; // 높을수록 천천히 시작해서 점점 가속
 

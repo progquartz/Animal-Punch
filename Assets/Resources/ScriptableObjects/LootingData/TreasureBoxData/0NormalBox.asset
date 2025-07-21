@@ -27,7 +27,7 @@ MonoBehaviour:
   goldMin: 20
   goldMax: 50
   minScore: 1
-  bonusScoreStep: 10
-  bonusRate: 5
-  baseRate: 100
-  dropScore: 1
+  bonusScoreStep: 30
+  bonusRate: 15
+  baseRate: 20
+  dropScore: 5

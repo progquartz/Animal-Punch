@@ -35,7 +35,7 @@ public class EndingManager : SingletonBehaviour<EndingManager>
         CameraManager.Instance.SwitchToCamera(CameraType.GameEndCamera);
 
         // 데이터 부분 작업
-        gameOverSpawner.TestAnimalDeathStack();
+        //gameOverSpawner.TestAnimalDeathStack();
         CalculateFinalScores();
         CheckHighScore();
         CheckExp();

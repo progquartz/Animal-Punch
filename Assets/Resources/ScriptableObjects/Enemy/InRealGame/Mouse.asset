@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 0
     ExpAmount: 1
-    TimeAmount: 1
+    TimeAmount: 0.3
     IsGainingItem: 0
   DeadClip:
     clip: []
