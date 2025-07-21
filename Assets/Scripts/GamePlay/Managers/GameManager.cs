@@ -105,13 +105,19 @@ public class GameManager : SingletonBehaviour<GameManager>
         MaxGameTime = InitialGameTimeLeft;
         OnQuitGameScene?.Invoke();
 
-        if(!isFinishedOnForce)
+        if (!isFinishedOnForce)
         {
             EndingManager.Instance.OnGameOver();
         }
+
         MapManager.Instance.EnemySpawner.DeSpawnAllEnemies();
-        Player.Instance.gameObject.SetActive(false); // 이렇게 해도 되는지 확인해야 함.
+        Player.Instance.gameObject.SetActive(false);
+
+        // 풀 빼기
+        MapObjectPool.Instance.ClearAllPools();
+        MapManager.Instance.EnemySpawner.Pool.ClearAllPools();
     }
+
 
 
     private void CheckGameEnd()

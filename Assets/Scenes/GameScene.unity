@@ -6537,7 +6537,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1247221309}
   m_HandleRect: {fileID: 1247221308}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -22589,12 +22589,48 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.DashForce
+      value: 3500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.MoveForce
+      value: 9000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.BaseDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.CurrentMass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.ImpulseDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.CriticalChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: Stat.ImpulseStandard
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: InitialStat.DashForce
-      value: 2000
+      value: 3500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.MoveForce
+      value: 9000
       objectReference: {fileID: 0}
     - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: InitialStat.BaseDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
+      propertyPath: InitialStat.CurrentMass
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: InitialStat.ImpulseDamage
@@ -22606,7 +22642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: InitialStat.ImpulseStandard
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7319532398676461027, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}

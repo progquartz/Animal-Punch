@@ -16,8 +16,8 @@ MonoBehaviour:
   ActorKey: Cow
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 10
-  SpawnInterval: 3
+  MaxSpawnCount: 20
+  SpawnInterval: 4
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
@@ -30,20 +30,20 @@ MonoBehaviour:
   BehaviourType: 1
   ActorsStat:
     IsDead: 0
-    HP: 30
-    MaxHP: 30
-    OriginalMaxHP: 30
-    Speed: 5
-    Mass: 10
+    HP: 40
+    MaxHP: 40
+    OriginalMaxHP: 40
+    Speed: 3
+    Mass: 15
     MassOnDead: 0.3
     Drag: 5
     DragOnDead: 0
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
+    GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 5
+    TimeAmount: 2
     IsGainingItem: 0
   DeadClip:
     clip:

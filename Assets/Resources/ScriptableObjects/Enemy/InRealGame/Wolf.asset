@@ -27,13 +27,13 @@ MonoBehaviour:
   modelHigh: {fileID: 1792138978842671361, guid: 26c9f4e969bad8f498b2659edbfe1692, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.55, y: 1.0728713, z: 1.16}
-  BehaviourType: 2
+  BehaviourType: 1
   ActorsStat:
     IsDead: 0
-    HP: 25
-    MaxHP: 25
-    OriginalMaxHP: 25
-    Speed: 3
+    HP: 40
+    MaxHP: 40
+    OriginalMaxHP: 40
+    Speed: 4.5
     Mass: 10
     MassOnDead: 0.3
     Drag: 5
@@ -41,9 +41,9 @@ MonoBehaviour:
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
+    GoldAmount: 2
     ExpAmount: 1
-    TimeAmount: 5
+    TimeAmount: 1.3
     IsGainingItem: 0
   DeadClip:
     clip:

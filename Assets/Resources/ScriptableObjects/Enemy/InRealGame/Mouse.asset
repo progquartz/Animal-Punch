@@ -21,7 +21,7 @@ MonoBehaviour:
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
-  MaxSpawnTime: -1
+  MaxSpawnTime: 100
   modelLow: {fileID: 6518617049059736926, guid: 121ba6ac6a548004d878893d49ad63cd, type: 3}
   modelMedium: {fileID: 1517996077708882859, guid: 9ca9aa68f7daa124eaf54254dba588f6, type: 3}
   modelHigh: {fileID: 7540303069196074977, guid: 2811f665906a50c42be1cfbd0388c5bf, type: 3}
@@ -34,16 +34,16 @@ MonoBehaviour:
     MaxHP: 20
     OriginalMaxHP: 20
     Speed: 5
-    Mass: 10
+    Mass: 4
     MassOnDead: 0.3
     Drag: 5
     DragOnDead: 0
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
+    GoldAmount: 0
     ExpAmount: 1
-    TimeAmount: 5
+    TimeAmount: 0.3
     IsGainingItem: 0
   DeadClip:
     clip: []

@@ -77,6 +77,22 @@ public class EnemyPool : MonoBehaviour
         enemyPool[key].Enqueue(obj);
     }
 
+    public void ClearAllPools()
+    {
+        foreach (var queue in enemyPool.Values)
+        {
+            while (queue.Count > 0)
+            {
+                GameObject obj = queue.Dequeue();
+                if (obj != null)
+                    Destroy(obj);
+            }
+        }
+        enemyPool.Clear();
+        usingEnemyCount.Clear();
+    }
+
+
     public int GetEnemyCount(string key) => usingEnemyCount.ContainsKey(key) ? usingEnemyCount[key] : 0;
 
     public int GetAllEnemyCount() => usingEnemyCount.Values.Sum();

@@ -5,6 +5,6 @@ public class DropItemData
 {
     public int GoldAmount;
     public int ExpAmount;
-    public int TimeAmount;
+    public float TimeAmount;
     public bool IsGainingItem;
 }

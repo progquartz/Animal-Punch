@@ -17,7 +17,7 @@ MonoBehaviour:
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 15
-  SpawnInterval: 3
+  SpawnInterval: 4
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
@@ -30,10 +30,10 @@ MonoBehaviour:
   BehaviourType: 2
   ActorsStat:
     IsDead: 0
-    HP: 25
-    MaxHP: 25
-    OriginalMaxHP: 25
-    Speed: 3
+    HP: 40
+    MaxHP: 40
+    OriginalMaxHP: 40
+    Speed: 4
     Mass: 10
     MassOnDead: 0.3
     Drag: 5
@@ -41,9 +41,9 @@ MonoBehaviour:
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
+    GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 5
+    TimeAmount: 1.3
     IsGainingItem: 0
   DeadClip:
     clip:

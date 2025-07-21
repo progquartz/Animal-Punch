@@ -30,8 +30,8 @@ MonoBehaviour:
   gemMax: 15
   goldMin: 40
   goldMax: 100
-  minScore: 1
-  bonusScoreStep: 10
+  minScore: 100
+  bonusScoreStep: 100
   bonusRate: 5
-  baseRate: 100
-  dropScore: 5
+  baseRate: 5
+  dropScore: 9

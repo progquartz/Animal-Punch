@@ -16,8 +16,14 @@ MonoBehaviour:
   displayName: Gem
   icon: {fileID: 21300000, guid: 9ae64a4c6142a4c509cb6014976b7436, type: 3}
   unlockDurationSeconds: 100000
+  unlockItemPercent: 0
   unlockableItems: []
-  minScore: 1
+  gemPercent: 0
+  gemMin: 0
+  gemMax: 0
+  goldMin: 0
+  goldMax: 0
+  minScore: 10
   bonusScoreStep: 5
   bonusRate: 5
   baseRate: 5
