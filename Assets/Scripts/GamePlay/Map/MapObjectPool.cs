@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class MapObjectPool : SingletonBehaviour<MapObjectPool>
@@ -11,6 +12,7 @@ public class MapObjectPool : SingletonBehaviour<MapObjectPool>
         IsDestroyOnLoad = true;
         base.Init();
     }
+
 
     public void InitializePool(string key, GameObject prefab, int initialSize)
     {
@@ -26,6 +28,28 @@ public class MapObjectPool : SingletonBehaviour<MapObjectPool>
             poolDictionary.Add(key, newPool);
         }
     }
+
+    public async Task PreloadAllMapObjects(int defaultPoolSize = 10)
+    {
+        var mapDataStorage = DataManager.Instance.MapDataStorage;
+
+        // ±×·ì ÇÁ¸®ÆÕ Ç®¸µ
+        foreach (var groupPrefab in mapDataStorage.groupPrefabs)
+        {
+            InitializePool(groupPrefab.key, groupPrefab.gameObject, defaultPoolSize);
+            await Task.Yield();
+        }
+
+        // ÇÁ¸®ÆÕ ¸ðµ¨¸µ Ç®¸µ
+        foreach (var modelPrefab in mapDataStorage.ModelPrefabs)
+        {
+            InitializePool(modelPrefab.name, modelPrefab, defaultPoolSize);
+            await Task.Yield();
+        }
+
+        Debug.Log("MapObjectPool: Preload completed.");
+    }
+
 
     public GameObject GetFromPool(string key, GameObject prefab, Transform parent)
     {
@@ -67,4 +91,19 @@ public class MapObjectPool : SingletonBehaviour<MapObjectPool>
 
         poolDictionary[key].Enqueue(obj);
     }
+
+    public void ClearAllPools()
+    {
+        foreach (var queue in poolDictionary.Values)
+        {
+            while (queue.Count > 0)
+            {
+                GameObject obj = queue.Dequeue();
+                if (obj != null)
+                    Destroy(obj);
+            }
+        }
+        poolDictionary.Clear();
+    }
+
 }

@@ -18,7 +18,7 @@ public class HealthRatioComponent
 
         float normalizedTime = currentTime / maxTime;
         Ratio = Mathf.Lerp(1f, maxRatio, normalizedTime); // 비율 보간
-        Debug.Log($"GameTime = {currentTime} | Ratio = {Ratio}");
+        //Debug.Log($"GameTime = {currentTime} | Ratio = {Ratio}");
     }
 }
 

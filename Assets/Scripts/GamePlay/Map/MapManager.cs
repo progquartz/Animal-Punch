@@ -36,16 +36,19 @@ public class MapManager : SingletonBehaviour<MapManager>
 
         await Task.Yield();
 
-        Debug.Log("MapManager: Start preload enemies");
+        Debug.Log("[MapManager] 적 풀링 준비 시작");
         await EnemySpawner.PreloadAllEnemyObjects(10);
-        Debug.Log("MapManager: Preload finished");
+        Debug.Log("[MapManager] 적 풀링 준비 끝");
+
+        Debug.Log("[MapManager] 맵오브젝트 풀링 준비 시작");
+        await MapObjectPool.Instance.PreloadAllMapObjects(10);
+        Debug.Log("[MapManager] 맵오브젝트 풀링 준비 끝");
 
         InitializeNearbyBlock();
-        Debug.Log("MapManager Init Complete");
+        Debug.Log("[MapManager] init 완료");
 
-        OnMapManagerInitialized?.Invoke(); 
+        OnMapManagerInitialized?.Invoke();
     }
-
 
 
 
