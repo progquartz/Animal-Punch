@@ -22614,7 +22614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: Stat.ImpulseStandard
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8801910128091274658, guid: 366a097d1a4a6eb45a2ded9be4a78fd4, type: 3}
       propertyPath: InitialStat.DashForce

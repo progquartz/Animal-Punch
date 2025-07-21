@@ -16,8 +16,8 @@ MonoBehaviour:
   ActorKey: Chicken
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 2
+  MaxSpawnCount: 30
+  SpawnInterval: 4
   SpawnCount: 2
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
@@ -30,20 +30,20 @@ MonoBehaviour:
   BehaviourType: 0
   ActorsStat:
     IsDead: 0
-    HP: 15
-    MaxHP: 15
-    OriginalMaxHP: 15
+    HP: 20
+    MaxHP: 20
+    OriginalMaxHP: 20
     Speed: 2
-    Mass: 10
+    Mass: 4
     MassOnDead: 0.3
     Drag: 5
     DragOnDead: 0
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
+    GoldAmount: 0
     ExpAmount: 1
-    TimeAmount: 5
+    TimeAmount: 1
     IsGainingItem: 0
   DeadClip:
     clip:

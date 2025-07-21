@@ -138,6 +138,10 @@ public class EnemySpawner : MonoBehaviour
         bool minTimeValid = enemyData.MinSpawnTime == -1f || gameTime >= enemyData.MinSpawnTime;
         bool maxTimeValid = enemyData.MaxSpawnTime == -1f || gameTime <= enemyData.MaxSpawnTime;
 
+        if((minTimeValid && maxTimeValid) == false)
+        {
+            Debug.Log($"enemyName = {enemyData.name} | currentTime = {gameTime} | minTimeValid = {enemyData.MinSpawnTime} | maxTimeValid = {enemyData.MaxSpawnTime}");
+        }
         return minTimeValid && maxTimeValid;
     }
 

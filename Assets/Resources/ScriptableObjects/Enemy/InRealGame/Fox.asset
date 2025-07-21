@@ -20,14 +20,14 @@ MonoBehaviour:
   SpawnInterval: 5
   SpawnCount: 1
   NeedSpawnRightNow: 0
-  MinSpawnTime: -1
+  MinSpawnTime: 30
   MaxSpawnTime: -1
   modelLow: {fileID: 6923407861767336570, guid: 409271dbc57f96946ad0b2413d1b86dd, type: 3}
   modelMedium: {fileID: 4706835175469359600, guid: b6621b236ea027b4b9e556167e5223e5, type: 3}
   modelHigh: {fileID: 6190988053471521801, guid: 99b99fc33017ca0449f2451ed4f34838, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.08}
-  BehaviourType: 2
+  BehaviourType: 3
   ActorsStat:
     IsDead: 0
     HP: 25
@@ -41,9 +41,9 @@ MonoBehaviour:
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
+    GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 5
+    TimeAmount: 2
     IsGainingItem: 0
   DeadClip:
     clip:

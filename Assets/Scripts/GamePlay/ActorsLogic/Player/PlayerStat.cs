@@ -95,6 +95,7 @@ public class PlayerStat
         int expLeft = CurrentExp - LevelUpExpNeed;
         Level++;
         CurrentExp = expLeft;
+        LevelUpExpNeed = DataManager.Instance.LootingStorage.levelExpList[Level];
     }
 
     public bool IsCritical()

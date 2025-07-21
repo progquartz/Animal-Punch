@@ -17,7 +17,7 @@ MonoBehaviour:
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 15
-  SpawnInterval: 2
+  SpawnInterval: 3
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
@@ -27,23 +27,23 @@ MonoBehaviour:
   modelHigh: {fileID: 7024788277730270974, guid: 30e72f3b0a581eb40a54f9c564f168d5, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.08}
-  BehaviourType: 0
+  BehaviourType: 3
   ActorsStat:
     IsDead: 0
-    HP: 40
-    MaxHP: 40
-    OriginalMaxHP: 40
+    HP: 45
+    MaxHP: 45
+    OriginalMaxHP: 45
     Speed: 5
-    Mass: 10
+    Mass: 13
     MassOnDead: 0.3
     Drag: 5
     DragOnDead: 0
     AngularDrag: 1
     AngularDragOnDead: 0.05
   DropItemData:
-    GoldAmount: 10
-    ExpAmount: 1
-    TimeAmount: 5
+    GoldAmount: 1
+    ExpAmount: 2
+    TimeAmount: 1
     IsGainingItem: 0
   DeadClip:
     clip:
