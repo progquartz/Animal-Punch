@@ -39,6 +39,7 @@ public class PlayerInfoDatas : MonoBehaviour
 
         if(score >= playerHighScore)
         {
+            playerHighScore = score;
             SaveHighScore(score);
         }
     }

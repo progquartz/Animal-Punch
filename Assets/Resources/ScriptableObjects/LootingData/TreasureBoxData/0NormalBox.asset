@@ -29,5 +29,5 @@ MonoBehaviour:
   minScore: 1
   bonusScoreStep: 30
   bonusRate: 15
-  baseRate: 20
+  baseRate: 40
   dropScore: 5

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Donkey
   costType:
-    costType: 1
-    cost: 200
+    costType: 0
+    cost: 500
   displayName: Donkey
   icon: {fileID: 21300000, guid: 75fbac5e3bf5fac4ea0c4403e3f9e2c2, type: 3}
   modelLow: {fileID: 1220056181567420732, guid: 865a788f8b6cc56418cd8dc6723bdbe8, type: 3}

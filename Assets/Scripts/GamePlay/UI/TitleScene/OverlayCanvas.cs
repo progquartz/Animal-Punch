@@ -25,7 +25,8 @@ public class OverlayCanvas : MonoBehaviour
 
     public void TestButton()
     {
-        GameManager.Instance.GetPlayerInfoData().ClearExp();
+        
+     //   GameManager.Instance.GetPlayerInfoData().ClearExp();
     }
     
 }
