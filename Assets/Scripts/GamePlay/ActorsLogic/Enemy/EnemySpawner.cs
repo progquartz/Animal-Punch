@@ -63,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-    public async Task PreloadAllEnemyObjects(int defaultPoolSize = 10)
+    public async Task PreloadAllEnemyObjects()
     {
         try
         {
@@ -75,7 +75,8 @@ public class EnemySpawner : MonoBehaviour
                 string enemyKey = enemyDataPair.Key;
                 EnemyDataSO enemyData = enemyDataPair.Value;
 
-                Pool.InitializePool(enemyKey, defaultPoolSize);
+                int spawnCount = enemyDataPair.Value.MaxSpawnCount >= 10 ? 10 : enemyDataPair.Value.MaxSpawnCount;
+                Pool.InitializePool(enemyKey, spawnCount);
                 await Task.Yield();
             }
 

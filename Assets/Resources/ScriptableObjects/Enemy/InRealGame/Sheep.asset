@@ -16,12 +16,12 @@ MonoBehaviour:
   ActorKey: Sheep
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 4
-  SpawnCount: 1
+  MaxSpawnCount: 7
+  SpawnInterval: 10
+  SpawnCount: 2
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
-  MaxSpawnTime: -1
+  MaxSpawnTime: 230
   modelLow: {fileID: 6765925755435063275, guid: eb629314dfc69c24281c1b9caab68560, type: 3}
   modelMedium: {fileID: 3021761388059118485, guid: 2b8d2d425242afa4286bfcf64e618f46, type: 3}
   modelHigh: {fileID: 402354495977583293, guid: cbfe76665d23bd84fa78f8dabc5bb2e6, type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 1.3
+    TimeAmount: 1
     IsGainingItem: 0
   DeadClip:
     clip:

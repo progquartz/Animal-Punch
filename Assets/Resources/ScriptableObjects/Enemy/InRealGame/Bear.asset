@@ -16,11 +16,11 @@ MonoBehaviour:
   ActorKey: Bear
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 7
+  MaxSpawnCount: 3
+  SpawnInterval: 12
   SpawnCount: 1
   NeedSpawnRightNow: 0
-  MinSpawnTime: 60
+  MinSpawnTime: -1
   MaxSpawnTime: -1
   modelLow: {fileID: 5568499993248039948, guid: 2e23b199bbbf7744cb45d0f380db91e9, type: 3}
   modelMedium: {fileID: 2429518216706898460, guid: 9193e084079e7a84f991a8ca21b78566, type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 2
     ExpAmount: 5
-    TimeAmount: 3
+    TimeAmount: 4
     IsGainingItem: 0
   DeadClip:
     clip:
