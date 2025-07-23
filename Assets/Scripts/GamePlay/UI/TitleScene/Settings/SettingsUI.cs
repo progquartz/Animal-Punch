@@ -18,7 +18,10 @@ public class SettingsUI : BaseUI
         rectTransform.localRotation = Quaternion.identity;
         RearrangePosition();
 
-        StartCoroutine(EnableInteraction());
+        if(!initialized)
+        {
+            StartCoroutine(EnableInteraction());
+        }
     }
 
     IEnumerator EnableInteraction()
