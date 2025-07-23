@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class VolumeSettingUI : MonoBehaviour
@@ -66,6 +66,6 @@ public class VolumeSettingUI : MonoBehaviour
     void ApplyVolume()
     {
         float volumeToApply = currentVolume.muted ? 0f : currentVolume.volume;
-        Debug.Log($"{volumeKey} º¼·ı Àû¿ëµÊ: {volumeToApply}");
+        Debug.Log($"{volumeKey} ë³¼ë¥¨ ì ìš©ë¨: {volumeToApply}");
     }
 }

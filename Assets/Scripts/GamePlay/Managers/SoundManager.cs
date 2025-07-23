@@ -35,7 +35,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     private readonly string sfxEntityVolumeKey = "SFXEntityVolume";
     private readonly string sfxSFXVolumeKey = "SFXSFXVolume";
     private readonly string sfxUIVolumeKey = "SFXUIVolume";
-    
+
 
     protected override void Init()
     {
@@ -44,11 +44,15 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         InitSounds();
         InitSFXPool();
         SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(ApplyVolumeWithDelay()); 
+
+        
+        StartCoroutine(ApplyVolumeWithDelay());
+
         PlayBGM("MainBGM");
 
         Debug.Log("SoundManager Init");
     }
+
 
     private void InitSounds()
     {
@@ -104,6 +108,10 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     /// <param name="pos"></param>
     public void PlaySFX(string key, AudioType audioType, Vector3? pos = null, bool isLoop = false)
     {
+        if(key == "ButtonClick")
+        {
+            Debug.Log("어디서부터?");
+        }
         if (!soundClips.TryGetValue(key, out var data))
         {
             Debug.LogWarning($"{key}값을 가지는 SFX가 발견되지 않았습니다.");

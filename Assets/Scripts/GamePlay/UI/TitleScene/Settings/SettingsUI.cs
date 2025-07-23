@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,16 +6,25 @@ using UnityEngine.UI;
 public class SettingsUI : BaseUI
 {
     public ScrollRect scrollRect;
+    private bool initialized = false;
+
 
     public override void Init(Transform canvas)
     {
         transform.SetParent(canvas);
-
         var rectTransform = transform as RectTransform;
         rectTransform.localPosition = Vector3.zero;
         rectTransform.localScale = Vector3.one;
         rectTransform.localRotation = Quaternion.identity;
         RearrangePosition();
+
+        StartCoroutine(EnableInteraction());
+    }
+
+    IEnumerator EnableInteraction()
+    {
+        yield return null; 
+        initialized = true;
     }
 
     private void RearrangePosition()
@@ -35,6 +45,7 @@ public class SettingsUI : BaseUI
 
     public void OnValueChangeSFX()
     {
+        if (!initialized) return;
         SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
     }
 
