@@ -71,7 +71,8 @@ public class LootingBoxSlotUI : MonoBehaviour
 
     public int GetGemNeedCount(TimeSpan ts)
     {
-        return ((int)(ts.TotalSeconds / minutePerGem));
+        int count = ((int)(ts.TotalSeconds / minutePerGem)) > 0 ? ((int)(ts.TotalSeconds / minutePerGem)) : 1;
+        return count;
     }
     
 

@@ -25,7 +25,6 @@ public class TitleUI : BaseUI
 
     public void OpenSettingUI()
     {
-        SoundManager.Instance.PlaySFX("ButtonClick", AudioType.UI);
         UIManager.Instance.OpenUI<SettingsUI>(new BaseUIData());
         OnAdditionalUIToggled(true);
     }
