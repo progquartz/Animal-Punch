@@ -16,18 +16,18 @@ MonoBehaviour:
   ActorKey: Fox
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 5
+  MaxSpawnCount: 5
+  SpawnInterval: 7
   SpawnCount: 1
   NeedSpawnRightNow: 0
-  MinSpawnTime: 30
-  MaxSpawnTime: -1
+  MinSpawnTime: -1
+  MaxSpawnTime: 270
   modelLow: {fileID: 6923407861767336570, guid: 409271dbc57f96946ad0b2413d1b86dd, type: 3}
   modelMedium: {fileID: 4706835175469359600, guid: b6621b236ea027b4b9e556167e5223e5, type: 3}
   modelHigh: {fileID: 6190988053471521801, guid: 99b99fc33017ca0449f2451ed4f34838, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.08}
-  BehaviourType: 3
+  BehaviourType: 2
   ActorsStat:
     IsDead: 0
     HP: 25
@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 1.3
+    TimeAmount: 1.5
     IsGainingItem: 0
   DeadClip:
     clip:

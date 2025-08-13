@@ -16,8 +16,8 @@ MonoBehaviour:
   ActorKey: Cow
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 20
-  SpawnInterval: 4
+  MaxSpawnCount: 5
+  SpawnInterval: 7
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
@@ -27,7 +27,7 @@ MonoBehaviour:
   modelHigh: {fileID: 1468259290639298338, guid: 15788521233ec264890a1e2e7099f6d8, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.64645195, y: 1.0728713, z: 1.4763174}
-  BehaviourType: 1
+  BehaviourType: 2
   ActorsStat:
     IsDead: 0
     HP: 40
@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 2
+    TimeAmount: 2.5
     IsGainingItem: 0
   DeadClip:
     clip:

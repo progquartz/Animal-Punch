@@ -16,8 +16,8 @@ MonoBehaviour:
   ActorKey: Hog
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 3
+  MaxSpawnCount: 5
+  SpawnInterval: 10
   SpawnCount: 1
   NeedSpawnRightNow: 0
   MinSpawnTime: 60
@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 1
     ExpAmount: 1
-    TimeAmount: 0.6
+    TimeAmount: 1.2
     IsGainingItem: 0
   DeadClip:
     clip:

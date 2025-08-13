@@ -17,11 +17,11 @@ MonoBehaviour:
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
   MaxSpawnCount: 30
-  SpawnInterval: 4
+  SpawnInterval: 10
   SpawnCount: 2
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
-  MaxSpawnTime: -1
+  MaxSpawnTime: 100
   modelLow: {fileID: 4394542292062625954, guid: a01ae06ad88633349b22aa0db7de3b25, type: 3}
   modelMedium: {fileID: 824486016014604209, guid: 23c35b48066155b42bd24958d99caaec, type: 3}
   modelHigh: {fileID: 371046753288687368, guid: d1bc75c211c34f942b13335c9a13374c, type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 0
     ExpAmount: 1
-    TimeAmount: 0.3
+    TimeAmount: 1.2
     IsGainingItem: 0
   DeadClip:
     clip:

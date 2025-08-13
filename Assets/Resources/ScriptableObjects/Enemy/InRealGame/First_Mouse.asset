@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe5353c7a01d9144aeb7765c225d60e, type: 3}
+  m_Name: First_Mouse
+  m_EditorClassIdentifier: 
+  ActorName: FirstMouse
+  ActorKey: FirstMouse
+  IsEnemyHasHealth: 1
+  IsEnemyHasCondition: 1
+  MaxSpawnCount: 30
+  SpawnInterval: 2
+  SpawnCount: 3
+  NeedSpawnRightNow: 0
+  MinSpawnTime: -1
+  MaxSpawnTime: 8
+  modelLow: {fileID: 6518617049059736926, guid: 121ba6ac6a548004d878893d49ad63cd, type: 3}
+  modelMedium: {fileID: 1517996077708882859, guid: 9ca9aa68f7daa124eaf54254dba588f6, type: 3}
+  modelHigh: {fileID: 7540303069196074977, guid: 2811f665906a50c42be1cfbd0388c5bf, type: 3}
+  ModelType: 1
+  ModelColliderScale: {x: 0.49, y: 1.0728713, z: 0.75}
+  BehaviourType: 2
+  ActorsStat:
+    IsDead: 0
+    HP: 20
+    MaxHP: 20
+    OriginalMaxHP: 20
+    Speed: 5
+    Mass: 4
+    MassOnDead: 0.3
+    Drag: 5
+    DragOnDead: 0
+    AngularDrag: 1
+    AngularDragOnDead: 0.05
+  DropItemData:
+    GoldAmount: 0
+    ExpAmount: 1
+    TimeAmount: 1.5
+    IsGainingItem: 0
+  DeadClip:
+    clip: []
+    volume: 0
+    pitch: 0

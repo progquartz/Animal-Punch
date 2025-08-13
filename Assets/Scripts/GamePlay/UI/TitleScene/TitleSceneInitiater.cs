@@ -4,7 +4,6 @@ public class TitleSceneInitiater : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log($"TitleSceneInitialize");
         UIManager.Instance.OpenUI<TitleUI>(new BaseUIData());
         TitleUI title = UIManager.Instance.GetActiveUI<TitleUI>() as TitleUI;
         title.modelPlaceHolder = GetComponentInChildren<PlayerModelPlaceHolder>();

@@ -16,18 +16,18 @@ MonoBehaviour:
   ActorKey: Wolf
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 3
-  SpawnCount: 1
+  MaxSpawnCount: 8
+  SpawnInterval: 15
+  SpawnCount: 3
   NeedSpawnRightNow: 0
   MinSpawnTime: -1
-  MaxSpawnTime: -1
+  MaxSpawnTime: 300
   modelLow: {fileID: 4868308290107757534, guid: 64bdb6749394ec74c83a6a80dd9b5e9e, type: 3}
   modelMedium: {fileID: 9054609134743408960, guid: bf8f0dc18db64174297a7cf3a0f1d64d, type: 3}
   modelHigh: {fileID: 1792138978842671361, guid: 26c9f4e969bad8f498b2659edbfe1692, type: 3}
   ModelType: 1
   ModelColliderScale: {x: 0.55, y: 1.0728713, z: 1.16}
-  BehaviourType: 1
+  BehaviourType: 2
   ActorsStat:
     IsDead: 0
     HP: 40
@@ -43,12 +43,11 @@ MonoBehaviour:
   DropItemData:
     GoldAmount: 2
     ExpAmount: 1
-    TimeAmount: 1.3
+    TimeAmount: 1.2
     IsGainingItem: 0
   DeadClip:
     clip:
-    - {fileID: 8300000, guid: b50b3cba49c471b4193ac0b7869ebbca, type: 3}
-    - {fileID: 8300000, guid: 2685bc952f5ed834d9a5679d6b44eb98, type: 3}
-    - {fileID: 8300000, guid: 9037b461d2e59824c88b4702117008a8, type: 3}
+    - {fileID: 8300000, guid: 14123213560a8724bbfe350dc2aa1c42, type: 3}
+    - {fileID: 8300000, guid: c4dab0b78d72ef6428841dd4a47b46e0, type: 3}
     volume: 0.2
     pitch: 1

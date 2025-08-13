@@ -23,6 +23,9 @@ public class PlayerPhysics : MonoBehaviour
     private Vector3 storedLinearVelocity;
     private Vector3 storedAngularVelocity;
 
+    // 다운포스 부분
+    private float downforceAmount = 10f; 
+
     private PlayerStabilityChecker stabilityChecker;
 
 
@@ -65,7 +68,7 @@ public class PlayerPhysics : MonoBehaviour
 
         CalculateAdditionalForce(stabilityChecker.CheckBoostEnabled(playerTransform));
         HandleMovement();
-
+        HandleDownForce();
         HandleRotation();
         CalculateSpeed();
         owner.animationController.ChangeAnimationDependOnSpeed();
@@ -150,6 +153,11 @@ public class PlayerPhysics : MonoBehaviour
         {
             HandleFeverMovement();
         }
+    }
+
+    private void HandleDownForce()
+    {
+        playerRB.AddForce(Vector3.down.normalized * downforceAmount * Time.deltaTime);
     }
 
     private void HandleNormalMovement()

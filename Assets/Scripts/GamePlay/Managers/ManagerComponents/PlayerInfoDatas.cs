@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using Mono.Cecil;
 using UnityEngine;
 
 [System.Serializable]
@@ -40,6 +39,7 @@ public class PlayerInfoDatas : MonoBehaviour
 
         if(score >= playerHighScore)
         {
+            playerHighScore = score;
             SaveHighScore(score);
         }
     }

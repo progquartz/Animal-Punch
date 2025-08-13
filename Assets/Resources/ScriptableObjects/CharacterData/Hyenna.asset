@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Hyenna
   costType:
-    costType: 1
-    cost: 500
+    costType: 0
+    cost: 800
   displayName: Hyenna
   icon: {fileID: 21300000, guid: 10f6de6e5b1c82540a498a8f476e8f02, type: 3}
   modelLow: {fileID: 6985794779703248577, guid: 8969012dcde1d0b4089ebced620dbe31, type: 3}

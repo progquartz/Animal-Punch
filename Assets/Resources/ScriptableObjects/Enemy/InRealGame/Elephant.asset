@@ -16,11 +16,11 @@ MonoBehaviour:
   ActorKey: Elephant
   IsEnemyHasHealth: 1
   IsEnemyHasCondition: 1
-  MaxSpawnCount: 15
-  SpawnInterval: 10
+  MaxSpawnCount: 2
+  SpawnInterval: 25
   SpawnCount: 1
   NeedSpawnRightNow: 0
-  MinSpawnTime: 200
+  MinSpawnTime: 60
   MaxSpawnTime: -1
   modelLow: {fileID: 3258219717705546517, guid: e3784f953a95c0a459db8cb9f69b5796, type: 3}
   modelMedium: {fileID: 2176415832269686351, guid: 8d806b08276be7a49a8b14b2ce9244ef, type: 3}
@@ -30,9 +30,9 @@ MonoBehaviour:
   BehaviourType: 3
   ActorsStat:
     IsDead: 0
-    HP: 100
-    MaxHP: 100
-    OriginalMaxHP: 100
+    HP: 150
+    MaxHP: 150
+    OriginalMaxHP: 150
     Speed: 2.5
     Mass: 50
     MassOnDead: 0.3
@@ -44,7 +44,7 @@ MonoBehaviour:
     GoldAmount: 3
     ExpAmount: 1
     TimeAmount: 5
-    IsGainingItem: 0
+    IsGainingItem: 1
   DeadClip:
     clip:
     - {fileID: 8300000, guid: e4ded99b21be0dd43bb6f6594e6984a0, type: 3}
