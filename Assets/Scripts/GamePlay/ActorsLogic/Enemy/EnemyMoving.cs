@@ -9,6 +9,11 @@ public class EnemyMoving : Enemy
     public EnemyParticleController particleController;
     private Vector3 PausedVelocity = Vector3.zero;
 
+
+    private float renderDistance = 50f; // 플레이어 기준 거리
+    private float renderBuffer = 5f;    // 깜빡임 방지용 버퍼
+    private bool isCurrentlyVisible = true;
+
     public override void Init(EnemyDataSO enemyData)
     {
         base.Init(enemyData);
@@ -25,25 +30,6 @@ public class EnemyMoving : Enemy
         animationController.SetAnimator(InitializeModel());
         animationController.Init();
         particleController.Init(this);
-    }
-
-    public override void HandleDeath()
-    {
-        base.HandleDeath();
-        particleController.OnDead();
-        animationController.OnDead();
-
-        DropManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
-        GameManager.Instance.EnemyDeathCountHandler.RegisterDeath(targetEnemyDataSO.ActorKey);
-        PlayDeadSound();
-    }
-
-    
-
-    private void PlayDeadSound()
-    {
-        SoundManager.Instance.PlaySFX("EnemyShooting", AudioType.Entity);
-        SoundManager.Instance.PlaySFX(targetEnemyDataSO.ActorKey + "Dead", AudioType.Entity);
     }
 
     private void RegisterEvents()
@@ -68,6 +54,37 @@ public class EnemyMoving : Enemy
         {
             actorBehaviour.CheckCondition();
             actorBehaviour.BehaveOnUpdate();
+        }
+    }
+
+    void LateUpdate()
+    {
+        HandleDistanceBasedRendering();
+    }
+
+    private void HandleDistanceBasedRendering()
+    {
+        if (ModelGameObject == null) return;
+
+        Vector3 playerPos = Player.Instance.PlayerTransform.position;
+        float distanceToPlayer = Vector3.Distance(playerPos, EnemyTransform.position);
+
+        bool shouldBeVisible = distanceToPlayer <= renderDistance;
+
+        // 버퍼 거리 도입하여 깜빡임 방지 (히스테리시스 방식)
+        if (!isCurrentlyVisible && distanceToPlayer < renderDistance - renderBuffer)
+        {
+            shouldBeVisible = true;
+        }
+        else if (isCurrentlyVisible && distanceToPlayer > renderDistance + renderBuffer)
+        {
+            shouldBeVisible = false;
+        }
+
+        if (shouldBeVisible != isCurrentlyVisible)
+        {
+            ModelGameObject.SetActive(shouldBeVisible);
+            isCurrentlyVisible = shouldBeVisible;
         }
     }
 
@@ -107,6 +124,17 @@ public class EnemyMoving : Enemy
         }
     }
 
+    public override void HandleDeath()
+    {
+        base.HandleDeath();
+        particleController.OnDead();
+        animationController.OnDead();
+
+        DropManager.Instance.DropLoot(targetEnemyDataSO.DropItemData, EnemyTransform.position);
+        GameManager.Instance.EnemyDeathCountHandler.RegisterDeath(targetEnemyDataSO.ActorKey);
+        PlayDeadSound();
+    }
+
     public override bool HandleDamage(Collision collision, float impulseDamage, bool isCritical)
     {
         bool isDead = base.HandleDamage(collision, impulseDamage, isCritical);
@@ -141,4 +169,11 @@ public class EnemyMoving : Enemy
     {
         SoundManager.Instance.PlaySFX("EnemyHit", AudioType.SFX, EnemyTransform.position);
     }
+
+    private void PlayDeadSound()
+    {
+        SoundManager.Instance.PlaySFX("EnemyShooting", AudioType.Entity);
+        SoundManager.Instance.PlaySFX(targetEnemyDataSO.ActorKey + "Dead", AudioType.Entity);
+    }
+
 }
